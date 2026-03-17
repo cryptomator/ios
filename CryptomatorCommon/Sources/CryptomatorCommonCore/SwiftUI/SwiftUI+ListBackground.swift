@@ -1,4 +1,3 @@
-import Introspect
 import SwiftUI
 
 public extension View {
@@ -11,15 +10,8 @@ struct ListBackgroundModifier: ViewModifier {
 	let color: Color
 
 	func body(content: Content) -> some View {
-		if #available(iOS 16, *) {
-			content
-				.scrollContentBackground(.hidden)
-				.background(color)
-		} else {
-			content
-				.introspectTableView {
-					$0.backgroundColor = UIColor(color)
-				}
-		}
+		content
+			.scrollContentBackground(.hidden)
+			.background(color)
 	}
 }

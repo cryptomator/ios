@@ -12,7 +12,6 @@ import StoreKit
 import XCTest
 @testable import Cryptomator
 
-@available(iOS 14.0, *)
 class UpgradeViewModelTests: IAPViewModelTestCase {
 	var viewModel: UpgradeViewModel!
 

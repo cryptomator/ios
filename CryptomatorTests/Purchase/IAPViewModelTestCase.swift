@@ -11,7 +11,6 @@ import XCTest
 @testable import Cryptomator
 @testable import Promises
 
-@available(iOS 14.0, *)
 class IAPViewModelTestCase: XCTestCase {
 	typealias Item = BaseIAPViewModel.Item
 	var iapManagerMock: IAPManagerMock!

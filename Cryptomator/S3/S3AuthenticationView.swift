@@ -12,37 +12,37 @@ import CryptomatorCommonCore
 import SwiftUI
 
 struct S3AuthenticationView: View {
-	@FocusStateLegacy private var focusedField: S3LoginField? = .displayName
+	@FocusState private var focusedField: S3LoginField?
 	@ObservedObject var viewModel: S3AuthenticationViewModel
 	var body: some View {
 		Form {
 			TextField(LocalizedString.getValue("s3Authentication.displayName"),
 			          text: $viewModel.displayName)
-				.focusedLegacy($focusedField, equals: .displayName)
+				.focused($focusedField, equals: .displayName)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
 			TextField(LocalizedString.getValue("s3Authentication.accessKey"),
 			          text: $viewModel.accessKey)
-				.focusedLegacy($focusedField, equals: .accessKey)
+				.focused($focusedField, equals: .accessKey)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
 			SecureField(LocalizedString.getValue("s3Authentication.secretKey"),
 			            text: $viewModel.secretKey)
-				.focusedLegacy($focusedField, equals: .secretKey)
+				.focused($focusedField, equals: .secretKey)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
 			TextField(LocalizedString.getValue("s3Authentication.existingBucket"),
 			          text: $viewModel.existingBucket)
-				.focusedLegacy($focusedField, equals: .existingBucket)
+				.focused($focusedField, equals: .existingBucket)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
 			TextField(LocalizedString.getValue("s3Authentication.endpoint"),
 			          text: $viewModel.endpoint)
-				.focusedLegacy($focusedField, equals: .endpoint)
+				.focused($focusedField, equals: .endpoint)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 				.keyboardType(.URL)
@@ -52,11 +52,13 @@ struct S3AuthenticationView: View {
 			          onCommit: {
 			          	viewModel.saveS3Credential()
 			          })
-			          .focusedLegacy($focusedField, equals: .region)
+			          .focused($focusedField, equals: .region)
 			          .disableAutocorrection(true)
 			          .autocapitalization(.none)
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
+		.onAppear { focusedField = .displayName }
+		.onSubmit { focusedField = focusedField?.next() }
 	}
 }
 

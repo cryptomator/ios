@@ -60,7 +60,6 @@ class AccountCell: UITableViewCell, ConfigurableTableViewCell {
 		detailTextLabel?.textColor = .secondaryLabel
 	}
 
-	@available(iOS 14, *)
 	override func updateConfiguration(using state: UICellConfigurationState) {
 		guard let account = account else {
 			return

@@ -17,7 +17,7 @@ struct WebDAVAuthentication: View {
 	}
 
 	@ObservedObject var viewModel: WebDAVAuthenticationViewModel
-	@FocusStateLegacy private var focusedField: Fields? = .url
+	@FocusState private var focusedField: Fields?
 
 	var body: some View {
 		Form {
@@ -25,21 +25,23 @@ struct WebDAVAuthentication: View {
 				.keyboardType(.URL)
 				.disableAutocorrection(true)
 				.textContentType(.URL)
-				.focusedLegacy($focusedField, equals: .url)
+				.focused($focusedField, equals: .url)
 
 			TextField(LocalizedString.getValue("common.cells.username"), text: $viewModel.username)
 				.keyboardType(.asciiCapable)
 				.autocapitalization(.none)
 				.disableAutocorrection(true)
 				.textContentType(.username)
-				.focusedLegacy($focusedField, equals: .username)
+				.focused($focusedField, equals: .username)
 
 			SecureField(LocalizedString.getValue("common.cells.password"), text: $viewModel.password) {
 				viewModel.saveAccount()
 			}
-			.focusedLegacy($focusedField, equals: .password)
+			.focused($focusedField, equals: .password)
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
+		.onAppear { focusedField = .url }
+		.onSubmit { focusedField = focusedField?.next() }
 	}
 }
 

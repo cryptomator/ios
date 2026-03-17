@@ -5,7 +5,7 @@ struct HubDeviceRegistrationView: View {
 	@Binding var accountKey: String
 	var onRegisterTap: () -> Void
 
-	@FocusStateLegacy private var field: Field? = .deviceName
+	@FocusState private var field: Field?
 
 	private enum Field: CaseIterable {
 		case deviceName
@@ -20,8 +20,8 @@ struct HubDeviceRegistrationView: View {
 					text: $deviceName,
 					onCommit: { field = .accountKey }
 				)
-				.focusedLegacy($field, equals: .deviceName)
-				.backportedSubmitlabel(.next)
+				.focused($field, equals: .deviceName)
+				.submitLabel(.next)
 			} footer: {
 				Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.deviceName.footer.title"))
 			}
@@ -32,13 +32,15 @@ struct HubDeviceRegistrationView: View {
 					text: $accountKey,
 					onCommit: onRegisterTap
 				)
-				.focusedLegacy($field, equals: .accountKey)
-				.backportedSubmitlabel(.done)
+				.focused($field, equals: .accountKey)
+				.submitLabel(.done)
 			} footer: {
 				Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.accountKey.footer.title"))
 			}
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
+		.onAppear { field = .deviceName }
+		.onSubmit { field = field?.next() }
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(LocalizedString.getValue("common.button.register")) {

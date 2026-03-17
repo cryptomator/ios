@@ -29,7 +29,6 @@ class CloudCell: UITableViewCell {
 		detailTextLabel?.text = cloudProviderType.localizedSecondaryString()
 	}
 
-	@available(iOS 14, *)
 	override func updateConfiguration(using state: UICellConfigurationState) {
 		guard let cloudProviderType = cloudProviderType else {
 			return
