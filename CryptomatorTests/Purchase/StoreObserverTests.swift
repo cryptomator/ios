@@ -12,7 +12,6 @@ import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
-@available(iOS 14.0, *)
 class StoreObserverTests: XCTestCase {
 	var session: SKTestSession!
 	var storeManager: StoreManager!
@@ -199,7 +198,6 @@ private class StoreObserverDelegateMock: StoreObserverDelegate {
 	}
 }
 
-@available(iOS 14.0, *)
 extension SKPaymentQueue {
 	func removeAllObservers() {
 		for transactionObserver in transactionObservers {

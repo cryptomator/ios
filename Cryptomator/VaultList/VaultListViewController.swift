@@ -38,12 +38,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Cryptomator"
-		let settingsSymbol: UIImage?
-		if #available(iOS 14, *) {
-			settingsSymbol = UIImage(systemName: "gearshape")
-		} else {
-			settingsSymbol = UIImage(systemName: "gear")
-		}
+		let settingsSymbol = UIImage(systemName: "gearshape")
 		let settingsButton = UIBarButtonItem(image: settingsSymbol, style: .plain, target: self, action: #selector(showSettings))
 		navigationItem.leftBarButtonItem = settingsButton
 		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewVault))

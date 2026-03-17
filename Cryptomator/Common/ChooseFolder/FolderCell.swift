@@ -29,7 +29,6 @@ class FolderCell: UITableViewCell, CloudItemCell {
 		imageView?.tintColor = .cryptomatorPrimary
 	}
 
-	@available(iOS 14, *)
 	override func updateConfiguration(using state: UICellConfigurationState) {
 		guard let item = item else {
 			return

@@ -44,12 +44,8 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 	override func configureDataSource() {
 		dataSource = EditableDataSource(tableView: tableView, cellProvider: { tableView, _, accountCellContent in
 			let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell") as? AccountCell
-			if #available(iOS 14, *) {
-				cell?.account = accountCellContent
-				cell?.setNeedsUpdateConfiguration()
-			} else {
-				cell?.configure(with: accountCellContent)
-			}
+			cell?.account = accountCellContent
+			cell?.setNeedsUpdateConfiguration()
 			cell?.accessoryButton.primaryAction = self.showLogoutActionSheet
 			return cell
 		})

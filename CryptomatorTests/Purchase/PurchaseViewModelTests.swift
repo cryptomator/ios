@@ -12,7 +12,6 @@ import XCTest
 @testable import CryptomatorCommonCore
 @testable import Promises
 
-@available(iOS 14.0, *)
 class PurchaseViewModelTests: IAPViewModelTestCase {
 	var viewModel: PurchaseViewModel!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!

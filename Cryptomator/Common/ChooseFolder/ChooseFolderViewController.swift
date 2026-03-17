@@ -113,12 +113,8 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as! FileCell
 		}
 
-		if #available(iOS 14, *) {
-			cell.item = item
-			cell.setNeedsUpdateConfiguration()
-		} else {
-			cell.configure(with: item)
-		}
+		cell.item = item
+		cell.setNeedsUpdateConfiguration()
 		return cell
 	}
 
