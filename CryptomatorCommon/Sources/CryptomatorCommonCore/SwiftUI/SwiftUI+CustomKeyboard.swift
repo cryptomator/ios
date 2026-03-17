@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIIntrospect
 
 public extension View {
 	func backportedSubmitlabel(_ submitLabel: BackportedSubmitLabel) -> some View {
@@ -42,7 +41,6 @@ public enum BackportedSubmitLabel {
 	/// Defines a submit label with text of "Continue".
 	case `continue`
 
-	@available(iOS 15, *)
 	var submitLabel: SubmitLabel {
 		switch self {
 		case .done:
@@ -65,43 +63,13 @@ public enum BackportedSubmitLabel {
 			return .continue
 		}
 	}
-
-	var returnKeyType: UIReturnKeyType {
-		switch self {
-		case .done:
-			return .done
-		case .go:
-			return .go
-		case .send:
-			return .send
-		case .join:
-			return .join
-		case .route:
-			return .route
-		case .search:
-			return .search
-		case .return:
-			return .default
-		case .next:
-			return .next
-		case .continue:
-			return .continue
-		}
-	}
 }
 
 struct BackportedSubmitLabelModifier: ViewModifier {
 	let label: BackportedSubmitLabel
 
 	func body(content: Content) -> some View {
-		if #available(iOS 15, *) {
-			content
-				.submitLabel(label.submitLabel)
-		} else {
-			content
-				.introspect(.textField, on: .iOS(.v13, .v14), scope: .ancestor) { textField in
-					textField.returnKeyType = label.returnKeyType
-				}
-		}
+		content
+			.submitLabel(label.submitLabel)
 	}
 }

@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Introspect
 import SwiftUI
+import SwiftUIIntrospect
 
 // inspired by https://github.com/art-technologies/swift-focuser
 
@@ -70,7 +70,7 @@ struct FocusModifier<T: CaseIterable & Hashable>: ViewModifier {
 
 	func body(content: Content) -> some View {
 		content
-			.introspectTextField { textField in
+			.introspect(.textField, on: .iOS(.v16, .v17, .v18)) { textField in
 				if !(textField.delegate is TextFieldDelegate) {
 					delegate.forwardToDelegate = textField.delegate
 					textField.delegate = delegate

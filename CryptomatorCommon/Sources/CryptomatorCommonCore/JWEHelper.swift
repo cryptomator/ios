@@ -93,7 +93,7 @@ public enum JWEHelper {
 public extension P384.KeyAgreement.PrivateKey {
 	init(pkcs8DerRepresentation: Data) throws {
 		let privateKey = try ECPrivateKey(der: Array(pkcs8DerRepresentation), pkcs8: true)
-		try self.init(pemRepresentation: privateKey.pem)
+		try self.init(derRepresentation: privateKey.der)
 	}
 
 	func derPkcs8() throws -> Data {
