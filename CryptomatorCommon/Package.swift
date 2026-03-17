@@ -29,7 +29,6 @@ let package = Package(
 		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "3.0.0")),
 		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.9.0")),
 		.package(url: "https://github.com/PhilLibs/simple-swift-dependencies", .upToNextMajor(from: "0.1.0")),
-		.package(url: "https://github.com/siteline/SwiftUI-Introspect.git", .upToNextMinor(from: "1.3.0")),
 		.package(url: "https://github.com/leif-ibsen/SwiftECC", .upToNextMinor(from: "5.5.0"))
 	],
 	targets: [
@@ -46,7 +45,6 @@ let package = Package(
 				.product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
 				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift"),
 				.product(name: "Dependencies", package: "simple-swift-dependencies"),
-				.product(name: "SwiftUIIntrospect", package: "SwiftUI-Introspect"),
 				.product(name: "SwiftECC", package: "SwiftECC")
 			]
 		),

@@ -95,7 +95,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func showManageSubscriptions() {
-		if #available(iOS 15.0, *), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+		if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
 			Task {
 				do {
 					try await AppStore.showManageSubscriptions(in: scene)

@@ -30,7 +30,6 @@ class FileCell: UITableViewCell, CloudItemCell {
 		imageView?.highlightedImage = UIImage(systemName: "doc.fill")
 	}
 
-	@available(iOS 14, *)
 	override func updateConfiguration(using state: UICellConfigurationState) {
 		guard let item = item else {
 			return

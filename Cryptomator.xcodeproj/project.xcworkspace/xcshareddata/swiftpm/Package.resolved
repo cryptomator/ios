@@ -226,15 +226,6 @@
       }
     },
     {
-      "identity" : "swiftui-introspect",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
-      "state" : {
-        "revision" : "807f73ce09a9b9723f12385e592b4e0aaebd3336",
-        "version" : "1.3.0"
-      }
-    },
-    {
       "identity" : "tpinappreceipt",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tikhop/TPInAppReceipt.git",

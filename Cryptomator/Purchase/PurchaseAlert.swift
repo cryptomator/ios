@@ -62,7 +62,7 @@ enum PurchaseAlert {
 		}
 		alertController.addAction(laterAction)
 		let manageAction = UIAlertAction(title: LocalizedString.getValue("purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions"), style: .default) { _ in
-			if #available(iOS 15.0, *), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+			if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
 				Task {
 					do {
 						try await AppStore.showManageSubscriptions(in: scene)

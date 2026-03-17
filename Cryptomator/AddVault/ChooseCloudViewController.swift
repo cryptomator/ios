@@ -35,12 +35,8 @@ class ChooseCloudViewController: BaseUITableViewController {
 		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseCloudCell", for: indexPath) as! CloudCell
 		let cloudProviderType = viewModel.clouds[indexPath.row]
-		if #available(iOS 14, *) {
-			cell.cloudProviderType = cloudProviderType
-			cell.setNeedsUpdateConfiguration()
-		} else {
-			cell.configure(with: cloudProviderType)
-		}
+		cell.cloudProviderType = cloudProviderType
+		cell.setNeedsUpdateConfiguration()
 		return cell
 	}
 
