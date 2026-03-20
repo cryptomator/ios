@@ -1,3 +1,49 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Klaida";
+"common.alert.attention.title" = "Dėmesio";
+"common.button.cancel" = "Atsisakyti";
+"common.button.change" = "Keisti";
+"common.button.close" = "Užverti";
 "common.button.create" = "Sukurti";
+"common.button.createFolder" = "Sukurti aplanką";
+"common.button.done" = "Atlikta";
+"common.button.download" = "Atsisiųsti";
+"common.button.edit" = "Taisyti";
+"common.button.enable" = "Įjungti";
+"common.button.next" = "Kitas";
+"common.button.ok" = "Gerai";
 "common.button.remove" = "Šalinti";
+"common.button.signOut" = "Atsijungti";
+"common.cells.password" = "Slaptažodis";
+"common.cells.url" = "URL";
+"common.cells.username" = "Naudotojo vardas";
+"common.footer.learnMore" = "Sužinokite daugiau.";
+"chooseFolder.createNewFolder.progress" = "Kuriamas aplankas…";
+"cloudProvider.error.unauthorized.reauth.button" = "Prisijungti";
+"fileProvider.onboarding.button.openCryptomator" = "Atverti Cryptomator";
+"fileProvider.error.unlockButton" = "Atrakinti";
+"fileProvider.uploadProgress.connecting" = "Jungiamasi…";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Įrenginio pavadinimas";
+"intents.saveFile.missingTemporaryFolder" = "Nepavyko sukurti laikinojo aplanko.";
+"purchase.readOnlyMode.alert.title" = "Tik skaitymo veiksena";
+"settings.aboutCryptomator" = "Apie Cryptomator";
+"settings.aboutCryptomator.title" = "Versija %@ (%@)";
+"settings.cacheSize" = "Podėlio dydis";
+"settings.clearCache" = "Išvalyti podėlį";
+"settings.debugMode" = "Derinimo veiksena";
+"settings.sendLogFile" = "Siųsti žurnalo failą";
+
+"unlockVault.button.unlock" = "Atrakinti";
+
+"vaultDetail.button.changeVaultPassword" = "Keisti slaptažodį";
 "vaultDetail.button.moveVault" = "Perkelti";
+"vaultDetail.button.renameVault" = "Pervadinti";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Naudoti HTTPS?";
+"Clear from Cache" = "Išvalyti iš podėlio";
