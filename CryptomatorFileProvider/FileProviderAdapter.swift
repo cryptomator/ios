@@ -178,14 +178,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private func enumerateWorkingSet() -> Promise<FileProviderItemList> {
 		let items: [FileProviderItem]
 		do {
-			var metadataList: [ItemMetadata]
-			let uploadTasks: [UploadTaskRecord?]
-			metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
-			uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
-			let cachedFileInfos = try cachedFileManager.getLocalCachedFileInfo(for: metadataList)
-			items = metadataList.enumerated().map { index, metadata -> FileProviderItem in
-				FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, localCachedFileInfo: cachedFileInfos[index], error: uploadTasks[index]?.failedWithError)
-			}
+			let metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
+			items = try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 		} catch {
 			return Promise(error)
 		}
