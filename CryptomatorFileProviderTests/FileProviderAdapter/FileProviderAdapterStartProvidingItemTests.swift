@@ -177,6 +177,30 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		cloudProviderMock.files[cloudPath.path] = Data("Updated File 1 content".utf8)
 	}
 
+	// MARK: - localFileIsCurrent Offline Fallback
+
+	func testLocalFileIsCurrentReturnsTrueWhenOffline() {
+		cloudProviderMock.everyOperationShouldFailWithError = CloudProviderError.noInternetConnection
+		let identifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		let expectation = XCTestExpectation()
+		adapter.localFileIsCurrent(with: identifier).then { isCurrent in
+			XCTAssertTrue(isCurrent)
+		}.catch { error in
+			XCTFail("Promise rejected with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testLocalFileIsCurrentPropagatesNonConnectivityError() {
+		cloudProviderMock.everyOperationShouldFailWithError = CloudProviderError.unauthorized
+		let identifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		XCTAssertRejects(adapter.localFileIsCurrent(with: identifier), with: NSFileProviderError(.notAuthenticated))
+	}
+
+	// MARK: - Helpers
+
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {
 		init() {
 			super.init(maxParallelUploads: 1, maxParallelDownloads: 1)

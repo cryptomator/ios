@@ -57,6 +57,22 @@ extension Error {
 		return false
 	}
 
+	var isTransientConnectivityError: Bool {
+		if isNoInternetConnectionError {
+			return true
+		}
+		let nsError = self as NSError
+		guard nsError.domain == NSURLErrorDomain else {
+			return false
+		}
+		return [NSURLErrorTimedOut,
+		        NSURLErrorCannotFindHost,
+		        NSURLErrorCannotConnectToHost,
+		        NSURLErrorNetworkConnectionLost,
+		        NSURLErrorDNSLookupFailed,
+		        NSURLErrorNotConnectedToInternet].contains(nsError.code)
+	}
+
 	func toPresentableError() -> Error {
 		guard let cloudProviderError = self as? CloudProviderError else {
 			return self

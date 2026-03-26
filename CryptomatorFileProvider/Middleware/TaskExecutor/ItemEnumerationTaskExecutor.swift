@@ -105,9 +105,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			assert(metadataList.count == uploadTasks.count)
 			let items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
 			}
 			if let nextPageToken = itemList.nextPageToken {
 				let nextPageTokenData = Data(nextPageToken.utf8)
@@ -136,9 +134,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			assert(cachedMetadata.count == uploadTasks.count)
 			let items = try cachedMetadata.enumerated().map { index, metadata -> FileProviderItem in
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
 			}
 			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
 			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
@@ -172,11 +168,8 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
 			assert(fileProviderItemMetadata.id == fileMetadata.id)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
-			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: fileProviderItemMetadata.lastModifiedDate) ?? false
-			let localURL = localCachedFileInfo?.localURL
 			let uploadTask = try self.uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata)
-
-			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
 			return FileProviderItemList(items: [item], nextPageToken: nil)
 		}
 	}

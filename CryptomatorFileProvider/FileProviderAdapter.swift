@@ -130,9 +130,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let itemMetadata = try getCachedMetadata(for: identifier)
 		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-		let localURL = localCachedFileInfo?.localURL
-		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
 	}
 
 	// MARK: Enumerate Item
@@ -186,9 +184,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
 			items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+				return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
 			}
 		} catch {
 			return Promise(error)
@@ -333,8 +329,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogError("retryUpload - failed for identifier: \(itemIdentifier) with error: \(error)")
 			return
 		}
-		let newestVersionLocallyCached = localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate)
-		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localCachedFileInfo.localURL, error: nil)
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		notificator?.signalUpdate(for: item)
 		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
 			self.notificator?.signalUpdate(for: item)
@@ -590,8 +585,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		try itemMetadataManager.updateMetadata(itemMetadata)
 
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached)
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
 	}
 

@@ -80,9 +80,7 @@ class WorkingSetObserver: WorkingSetObserving {
 		let uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
 		return try metadataList.enumerated().map { index, metadata -> FileProviderItem in
 			let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata)
-			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-			let localURL = localCachedFileInfo?.localURL
-			return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+			return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
 		}
 	}
 }

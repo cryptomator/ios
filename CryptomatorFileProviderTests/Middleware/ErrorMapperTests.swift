@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
@@ -46,6 +47,52 @@ class ErrorMapperTests: XCTestCase {
 		errorMapper.setNext(workflowMock.eraseToAnyWorkflowMiddleware())
 		return errorMapper.execute(task: DummyTask())
 	}
+
+	// MARK: - isNoInternetConnectionError
+
+	func testIsNoInternetConnectionErrorForCloudProviderError() {
+		XCTAssertTrue(CloudProviderError.noInternetConnection.isNoInternetConnectionError)
+	}
+
+	func testIsNoInternetConnectionErrorForLocalizedCloudProviderError() {
+		let error = LocalizedCloudProviderError.noInternetConnection
+		XCTAssertTrue(error.isNoInternetConnectionError)
+	}
+
+	func testIsNoInternetConnectionErrorForNSFileProviderError() {
+		let error = NSFileProviderError(.serverUnreachable)
+		XCTAssertTrue(error.isNoInternetConnectionError)
+	}
+
+	func testIsNoInternetConnectionErrorReturnsFalseForUnrelatedError() {
+		XCTAssertFalse(CloudProviderError.unauthorized.isNoInternetConnectionError)
+	}
+
+	// MARK: - isTransientConnectivityError
+
+	func testIsTransientConnectivityErrorIncludesNoInternetConnectionErrors() {
+		XCTAssertTrue(CloudProviderError.noInternetConnection.isTransientConnectivityError)
+		XCTAssertTrue(NSFileProviderError(.serverUnreachable).isTransientConnectivityError)
+	}
+
+	func testIsTransientConnectivityErrorForNSURLErrors() {
+		let transientCodes = [NSURLErrorTimedOut, NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorDNSLookupFailed, NSURLErrorNotConnectedToInternet]
+		for code in transientCodes {
+			let error = NSError(domain: NSURLErrorDomain, code: code)
+			XCTAssertTrue(error.isTransientConnectivityError, "Expected NSURLError code \(code) to be transient")
+		}
+	}
+
+	func testIsTransientConnectivityErrorReturnsFalseForNonTransientNSURLError() {
+		let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL)
+		XCTAssertFalse(error.isTransientConnectivityError)
+	}
+
+	func testIsTransientConnectivityErrorReturnsFalseForUnrelatedError() {
+		XCTAssertFalse(CloudProviderError.unauthorized.isTransientConnectivityError)
+	}
+
+	// MARK: - Helpers
 
 	private struct DummyTask: CloudTask {
 		var itemMetadata: ItemMetadata {

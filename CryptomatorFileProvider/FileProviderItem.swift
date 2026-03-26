@@ -34,6 +34,11 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		self.localURL = localURL
 	}
 
+	convenience init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, localCachedFileInfo: LocalCachedFileInfo?, error: Error? = nil) {
+		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
+		self.init(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localCachedFileInfo?.localURL, error: error)
+	}
+
 	public var itemIdentifier: NSFileProviderItemIdentifier {
 		assert(metadata.id != nil)
 

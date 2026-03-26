@@ -98,4 +98,40 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
 	}
+
+	// MARK: - getRetryableUploadTaskRecords
+
+	func testGetRetryableUploadTaskRecordsReturnsServerUnreachable() throws {
+		try createTaskRecordWithError(domain: NSFileProviderErrorDomain, code: NSFileProviderError(.serverUnreachable).errorCode)
+		let retryable = try manager.getRetryableUploadTaskRecords()
+		XCTAssertEqual(1, retryable.count)
+	}
+
+	func testGetRetryableUploadTaskRecordsExcludesOtherErrorCodes() throws {
+		try createTaskRecordWithError(domain: NSFileProviderErrorDomain, code: NSFileProviderError(.noSuchItem).errorCode)
+		try createTaskRecordWithError(domain: "com.example.test", code: NSFileProviderError(.serverUnreachable).errorCode)
+		let retryable = try manager.getRetryableUploadTaskRecords()
+		XCTAssertEqual(0, retryable.count)
+	}
+
+	func testGetRetryableUploadTaskRecordsExcludesNilErrorTasks() throws {
+		let itemMetadata = ItemMetadata(name: "ActiveUpload", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/ActiveUpload"), isPlaceholderItem: false)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
+		_ = try manager.createNewTaskRecord(for: itemMetadata)
+		let retryable = try manager.getRetryableUploadTaskRecords()
+		XCTAssertEqual(0, retryable.count)
+	}
+
+	// MARK: - Helpers
+
+	@discardableResult
+	private func createTaskRecordWithError(domain: String, code: Int, name: String? = nil) throws -> UploadTaskRecord {
+		let fileName = name ?? "File-\(domain)-\(code)"
+		let itemMetadata = ItemMetadata(name: fileName, type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/\(fileName)"), isPlaceholderItem: false)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
+		_ = try manager.createNewTaskRecord(for: itemMetadata)
+		let id = try XCTUnwrap(itemMetadata.id)
+		try manager.updateTaskRecord(with: id, lastFailedUploadDate: Date(), uploadErrorCode: code, uploadErrorDomain: domain)
+		return try XCTUnwrap(manager.getTaskRecord(for: id))
+	}
 }
