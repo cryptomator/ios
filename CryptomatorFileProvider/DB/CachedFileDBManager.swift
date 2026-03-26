@@ -12,6 +12,7 @@ import GRDB
 
 protocol CachedFileManager {
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo?
+	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?]
 	func cacheLocalFileInfo(for id: Int64, localURL: URL, lastModifiedDate: Date?) throws
 	func removeCachedFile(for id: Int64) throws
 	func clearCache() throws
@@ -24,6 +25,16 @@ extension CachedFileManager {
 			throw DBManagerError.nonSavedItemMetadata
 		}
 		return try getLocalCachedFileInfo(for: id)
+	}
+
+	func getLocalCachedFileInfo(for itemMetadata: [ItemMetadata]) throws -> [LocalCachedFileInfo?] {
+		let ids: [Int64] = try itemMetadata.map {
+			guard let id = $0.id else {
+				throw DBManagerError.nonSavedItemMetadata
+			}
+			return id
+		}
+		return try getLocalCachedFileInfo(forIds: ids)
 	}
 
 	func removeCachedFile(for itemIdentifier: NSFileProviderItemIdentifier) throws {
@@ -79,6 +90,17 @@ class CachedFileDBManager: CachedFileManager {
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo? {
 		return try database.read { db in
 			return try LocalCachedFileInfo.fetchOne(db, key: id)
+		}
+	}
+
+	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {
+		return try database.read { db in
+			var results = [LocalCachedFileInfo?]()
+			for id in ids {
+				let info = try LocalCachedFileInfo.fetchOne(db, key: id)
+				results.append(info)
+			}
+			return results
 		}
 	}
 

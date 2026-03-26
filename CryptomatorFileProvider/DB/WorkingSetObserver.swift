@@ -78,9 +78,9 @@ class WorkingSetObserver: WorkingSetObserving {
 
 	func createFileProviderItems(from metadataList: [ItemMetadata]) throws -> [FileProviderItem] {
 		let uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
-		return try metadataList.enumerated().map { index, metadata -> FileProviderItem in
-			let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata)
-			return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
+		let cachedFileInfos = try cachedFileManager.getLocalCachedFileInfo(for: metadataList)
+		return metadataList.enumerated().map { index, metadata -> FileProviderItem in
+			FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, localCachedFileInfo: cachedFileInfos[index], error: uploadTasks[index]?.failedWithError)
 		}
 	}
 }

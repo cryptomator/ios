@@ -102,10 +102,10 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			let placeholderMetadata = try self.itemMetadataManager.getPlaceholderMetadata(withParentID: folderMetadata.id!)
 			metadataList.append(contentsOf: placeholderMetadata)
 			let uploadTasks = try self.uploadTaskManager.getTaskRecords(for: metadataList)
+			let cachedFileInfos = try self.cachedFileManager.getLocalCachedFileInfo(for: metadataList)
 			assert(metadataList.count == uploadTasks.count)
-			let items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
-				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
+			let items = metadataList.enumerated().map { index, metadata -> FileProviderItem in
+				FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: cachedFileInfos[index], error: uploadTasks[index]?.failedWithError)
 			}
 			if let nextPageToken = itemList.nextPageToken {
 				let nextPageTokenData = Data(nextPageToken.utf8)
@@ -131,10 +131,10 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				return Promise(originalError)
 			}
 			let uploadTasks = try uploadTaskManager.getTaskRecords(for: cachedMetadata)
+			let cachedFileInfos = try cachedFileManager.getLocalCachedFileInfo(for: cachedMetadata)
 			assert(cachedMetadata.count == uploadTasks.count)
-			let items = try cachedMetadata.enumerated().map { index, metadata -> FileProviderItem in
-				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTasks[index]?.failedWithError)
+			let items = cachedMetadata.enumerated().map { index, metadata -> FileProviderItem in
+				FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: cachedFileInfos[index], error: uploadTasks[index]?.failedWithError)
 			}
 			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
 			return Promise(FileProviderItemList(items: items, nextPageToken: nil))

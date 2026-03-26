@@ -175,6 +175,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			cachedLocalFileInfo[identifier]
 		}
 
+		func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {
+			ids.map { cachedLocalFileInfo[$0] }
+		}
+
 		func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws {
 			cachedLocalFileInfo[identifier] = LocalCachedFileInfo(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date(), localURL: localURL)
 		}
