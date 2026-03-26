@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 import GRDB
 
@@ -19,6 +20,7 @@ protocol UploadTaskManager {
 	func removeTaskRecord(for id: Int64) throws
 	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask
 	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord]
+	func getRetryableUploadTaskRecords() throws -> [UploadTaskRecord]
 }
 
 extension UploadTaskManager {
@@ -127,6 +129,15 @@ class UploadTaskDBManager: UploadTaskManager {
 		return try database.read { db in
 			return try UploadTaskRecord
 				.filter(UploadTaskRecord.Columns.uploadErrorCode == nil)
+				.fetchAll(db)
+		}
+	}
+
+	func getRetryableUploadTaskRecords() throws -> [UploadTaskRecord] {
+		return try database.read { db in
+			return try UploadTaskRecord
+				.filter(UploadTaskRecord.Columns.uploadErrorDomain == NSFileProviderErrorDomain &&
+					UploadTaskRecord.Columns.uploadErrorCode == NSFileProviderError.serverUnreachable.rawValue)
 				.fetchAll(db)
 		}
 	}
