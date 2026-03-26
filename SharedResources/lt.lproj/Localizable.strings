@@ -24,13 +24,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Naudotojo vardas";
 "common.footer.learnMore" = "Sužinokite daugiau.";
+"accountList.emptyList.message" = "Bakstelėkite čia norėdami pridėti paskyrą";
+
+"addVault.title" = "Pridėti slėptuvę";
+"addVault.createNewVault.title" = "Sukurti naują slėptuvę";
+"addVault.createNewVault.setVaultName.cells.name" = "Slėptuvės pavadinimas";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Slėptuvės pavadinimas negali būti tuščias.";
+"addVault.createNewVault.password.error.emptyPassword" = "Slaptažodis negali būti tuščias.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Slaptažodžiai nesutampa.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Slaptažodyje privalo būti bent 8 simboliai.";
+"addVault.createNewVault.progress" = "Kuriama slėptuvė…";
+"addVault.openExistingVault.detectedMasterkey.add" = "Pridėti šią slėptuvę";
+"addVault.openExistingVault.downloadVault.progress" = "Atsiunčiama slėptuvė…";
+"addVault.openExistingVault.progress" = "Pridedama paskyra…";
+"chooseFolder.createNewFolder.cells.name" = "Aplanko pavadinimas";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Aplanko pavadinimas negali būti tuščias.";
 "chooseFolder.createNewFolder.progress" = "Kuriamas aplankas…";
+"cloudProvider.error.itemAlreadyExists" = "„%@“ jau yra.";
 "cloudProvider.error.unauthorized.reauth.button" = "Prisijungti";
 "fileProvider.onboarding.button.openCryptomator" = "Atverti Cryptomator";
 "fileProvider.error.unlockButton" = "Atrakinti";
 "fileProvider.uploadProgress.connecting" = "Jungiamasi…";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Įrenginio pavadinimas";
 "intents.saveFile.missingTemporaryFolder" = "Nepavyko sukurti laikinojo aplanko.";
+"purchase.footer.privacyPolicy" = "Privatumo politika";
 "purchase.readOnlyMode.alert.title" = "Tik skaitymo veiksena";
 "settings.aboutCryptomator" = "Apie Cryptomator";
 "settings.aboutCryptomator.title" = "Versija %@ (%@)";
@@ -38,12 +55,20 @@
 "settings.clearCache" = "Išvalyti podėlį";
 "settings.debugMode" = "Derinimo veiksena";
 "settings.sendLogFile" = "Siųsti žurnalo failą";
+"snapshots.fileprovider.file2" = "/Galutinė pateiktis.key";
+"snapshots.fileprovider.file4" = "/Pasiūlymas.docx";
+"snapshots.fileprovider.file5" = "/Ataskaita.pdf";
 
 "unlockVault.button.unlock" = "Atrakinti";
 
 "vaultDetail.button.changeVaultPassword" = "Keisti slaptažodį";
+"vaultDetail.button.lock" = "Užrakinti dabar";
 "vaultDetail.button.moveVault" = "Perkelti";
+"vaultDetail.button.removeVault" = "Šalinti iš slėptuvių sąrašo";
 "vaultDetail.button.renameVault" = "Pervadinti";
+"vaultDetail.locked.footer" = "Jūsų slėptuvė šiuo metu yra užrakinta.";
+"vaultList.remove.alert.title" = "Šalinti slėptuvę?";
+"vaultList.remove.alert.message" = "Tai pašalins slėptuvę tik iš slėptuvių sąrašo. Jokie šifruoti duomenys nebus ištrinti. Vėliau galėsite pridėti slėptuvę iš naujo.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Naudoti HTTPS?";
 "Clear from Cache" = "Išvalyti iš podėlio";
