@@ -88,9 +88,13 @@
 "cloudProvider.error.pageTokenInvalid" = "ディレクトリの内容を取得できませんでした。";
 "cloudProvider.error.quotaInsufficient" = "ストレージの容量が不足しています。";
 "cloudProvider.error.unauthorized" = "権限のない操作を実行できません。";
+"cloudProvider.error.unauthorized.reauth.title" = "セッションが切れました";
+"cloudProvider.error.unauthorized.reauth.message" = "%@ にもう一度サインインしてください。";
+"cloudProvider.error.unauthorized.reauth.button" = "サインイン";
 "cloudProvider.error.noInternetConnection" = "この操作にはインターネット接続が必要です。";
 
 "cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
+"cloudProviderType.sharePoint.secondary" = "Microsoft Teams を含む";
 
 "fileProvider.onboarding.title" = "ようこそ";
 "fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
@@ -126,6 +130,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
+"hubAuthentication.trustHost.alert.title" = "このサーバーを信頼しますか?";
 "hubAuthentication.trustHost.alert.trustButton" = "信頼する";
 "hubAuthentication.vaultArchived" = "この金庫はアーカイブされています。金庫の所有者にアーカイブ解除を依頼してください。";
 
@@ -255,6 +260,8 @@
 
 "trialStatus.active" = "有効";
 "trialStatus.expired" = "期限切れ";
+
+"trustedHubHosts.clearAll" = "すべて消去";
 
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
