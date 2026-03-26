@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "조치가 필요함";
 "hubAuthentication.requireAccountInit.alert.message" = "진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "프로필로 가기";
+"hubAuthentication.trustHost.alert.title" = "이 서버를 신뢰하겠습니까?";
+"hubAuthentication.trustHost.alert.message" = "이 보관함에서 다음 서버로의 연결을 요청합니다:\n\n%@\n\n이 서버를 신뢰하시겠습니까?";
 "hubAuthentication.trustHost.alert.trustButton" = "신뢰하기";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "Vault 설정에 일치하지 않는 서버 URL이 포함되어 있습니다. Vault 소유자에게 문의하십시오.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "\"%@\"에 대한 보안되지 않은 연결(HTTP)은 허용되지 않습니다. HTTPS를 사용해 주십시오.";
+"hubAuthentication.untrustedHost.alert.title" = "호스트를 신뢰할 수 없음";
 "hubAuthentication.vaultArchived" = "이 Vault는 아카이브되었습니다. Vault 소유자에게 아카이브를 해제하도록 요청하십시오.";
 
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "귀하의 Vault에 대한 쓰기 권한을 얻으세요.";
 "settings.unlockFullVersion.trialExpirationDate" = "체험판 만료일: %@";
 "settings.upgradeToLifetime" = "평생 라이선스로 업그레이드";
+"settings.hub.trustedHosts" = "신뢰할 수 있는 허브 호스트";
 
 "sharePoint.enterURL.title" = "SharePoint URL 입력";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
@@ -280,6 +286,8 @@
 "trialStatus.expired" = "만료됨";
 
 "trustedHubHosts.clearAll" = "전체 삭제";
+"trustedHubHosts.clearAll.alert.message" = "이전에 신뢰했던 모든 Hub 호스트가 제거됩니다. Hub Vault에 연결할 때 다시 신뢰를 확인해야 합니다.";
+"trustedHubHosts.emptyList.message" = "아직 신뢰하는 Hub 호스트가 없습니다. 호스트는 Hub Vault에 처음 연결할 때 추가됩니다.";
 
 "unlockVault.button.unlock" = "잠금 해제";
 "unlockVault.button.unlockVia" = "%@(으)로 잠금 해제";
