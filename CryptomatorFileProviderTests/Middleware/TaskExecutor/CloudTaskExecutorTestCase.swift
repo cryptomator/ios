@@ -56,6 +56,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				metadata.statusCode = cachedItemMetadata.statusCode
 				metadata.tagData = cachedItemMetadata.tagData
 				metadata.favoriteRank = cachedItemMetadata.favoriteRank
+				metadata.lastEnumeratedAt = cachedItemMetadata.lastEnumeratedAt
 				cachedMetadata[cachedItemMetadata.id!] = metadata
 				return
 			}
@@ -162,6 +163,12 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			metadata?.favoriteRank = favoriteRank
 			cachedMetadata[id] = metadata
 			setFavoriteRank[id] = favoriteRank
+		}
+
+		func setLastEnumeratedAt(_ date: Date, forItemWithID id: Int64) throws {
+			let metadata = cachedMetadata[id]
+			metadata?.lastEnumeratedAt = date
+			cachedMetadata[id] = metadata
 		}
 	}
 

@@ -193,6 +193,11 @@ public struct DatabaseHelper: DatabaseHelping {
 				table.add(column: "uploadStartedAt", .date)
 			}
 		}
+		migrator.registerMigration("v4") { db in
+			try db.alter(table: "itemMetadata") { table in
+				table.add(column: "lastEnumeratedAt", .date)
+			}
+		}
 		try migrator.migrate(dbWriter)
 	}
 

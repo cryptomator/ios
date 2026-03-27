@@ -95,12 +95,9 @@ class CachedFileDBManager: CachedFileManager {
 
 	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {
 		return try database.read { db in
-			var results = [LocalCachedFileInfo?]()
-			for id in ids {
-				let info = try LocalCachedFileInfo.fetchOne(db, key: id)
-				results.append(info)
-			}
-			return results
+			let rows = try LocalCachedFileInfo.filter(keys: ids).fetchAll(db)
+			let dict = Dictionary(uniqueKeysWithValues: rows.map { ($0.correspondingItem, $0) })
+			return ids.map { dict[$0] }
 		}
 	}
 

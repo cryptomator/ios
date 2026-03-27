@@ -107,6 +107,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
+			try self.itemMetadataManager.setLastEnumeratedAt(Date(), forItemWithID: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
 		}.recover { error -> Promise<FileProviderItemList> in
 			guard error.isNoInternetConnectionError else {
@@ -121,10 +122,10 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 	private func buildOfflineItemList(folderMetadata: ItemMetadata, originalError: Error) -> Promise<FileProviderItemList> {
 		do {
-			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
-			guard !cachedMetadata.isEmpty else {
+			guard folderMetadata.lastEnumeratedAt != nil else {
 				return Promise(originalError)
 			}
+			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
 			let items = try FileProviderItem.items(from: cachedMetadata, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
 			return Promise(FileProviderItemList(items: items, nextPageToken: nil))

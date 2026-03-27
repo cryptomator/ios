@@ -29,7 +29,7 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 
 	func testEnumerateItemsOfflineFallbackToCache() throws {
 		let expectation = XCTestExpectation()
-		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data())
+		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data(), lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(metadata)
 
 		let child = ItemMetadata(id: 3, name: "CachedFile", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection/CachedFile"), isPlaceholderItem: false)

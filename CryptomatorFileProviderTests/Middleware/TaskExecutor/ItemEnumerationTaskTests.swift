@@ -541,7 +541,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 	func testFolderEnumerationOfflineFallbackWithCachedItems() throws {
 		let expectation = XCTestExpectation()
-		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false)
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
 		let child1 = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/File 1"), isPlaceholderItem: false)
@@ -598,6 +598,32 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 5.0)
 	}
 
+	func testFolderEnumerationOfflineFallbackWithEmptyEnumeratedFolder() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "EmptyFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/EmptyFolder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(0, itemList.items.count)
+			XCTAssertNil(itemList.nextPageToken)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
 	func testFolderEnumerationOfflineFallbackWithPageToken() throws {
 		let expectation = XCTestExpectation()
 		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false)
@@ -631,7 +657,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 	func testFolderEnumerationOfflineFallbackPreservesCachedFileInfo() throws {
 		let expectation = XCTestExpectation()
-		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false)
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
 		let lastModifiedDate = Date(timeIntervalSince1970: 0)
