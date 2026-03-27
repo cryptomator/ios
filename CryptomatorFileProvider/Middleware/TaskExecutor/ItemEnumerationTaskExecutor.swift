@@ -130,6 +130,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
 			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
 		} catch {
+			DDLogError("Offline fallback failed for folder \(folderMetadata.cloudPath.path): \(error)")
 			return Promise(error)
 		}
 	}
