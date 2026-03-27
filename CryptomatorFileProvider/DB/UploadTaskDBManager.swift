@@ -101,12 +101,9 @@ class UploadTaskDBManager: UploadTaskManager {
 
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?] {
 		return try database.read { db in
-			var tasks = [UploadTaskRecord?]()
-			for id in ids {
-				let task = try UploadTaskRecord.fetchOne(db, key: id)
-				tasks.append(task)
-			}
-			return tasks
+			let rows = try UploadTaskRecord.filter(keys: ids).fetchAll(db)
+			let dict = Dictionary(uniqueKeysWithValues: rows.map { ($0.correspondingItem, $0) })
+			return ids.map { dict[$0] }
 		}
 	}
 
