@@ -31,6 +31,7 @@ public class ItemMetadata: Record, Codable {
 	var isMaybeOutdated: Bool
 	var favoriteRank: Int64?
 	var tagData: Data?
+	var lastEnumeratedAt: Date?
 
 	required init(row: Row) throws {
 		self.id = row[Columns.id]
@@ -45,6 +46,7 @@ public class ItemMetadata: Record, Codable {
 		self.isMaybeOutdated = row[Columns.isMaybeOutdated]
 		self.favoriteRank = row[Columns.favoriteRank]
 		self.tagData = row[Columns.tagData]
+		self.lastEnumeratedAt = row[Columns.lastEnumeratedAt]
 		try super.init(row: row)
 	}
 
@@ -52,7 +54,7 @@ public class ItemMetadata: Record, Codable {
 		self.init(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false, favoriteRank: Int64? = nil, tagData: Data? = nil) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false, favoriteRank: Int64? = nil, tagData: Data? = nil, lastEnumeratedAt: Date? = nil) {
 		self.id = id
 		self.name = name
 		self.type = type
@@ -65,6 +67,7 @@ public class ItemMetadata: Record, Codable {
 		self.isMaybeOutdated = isCandidateForCacheCleanup
 		self.favoriteRank = favoriteRank
 		self.tagData = tagData
+		self.lastEnumeratedAt = lastEnumeratedAt
 		super.init()
 	}
 
@@ -85,10 +88,11 @@ public class ItemMetadata: Record, Codable {
 		container[Columns.isMaybeOutdated] = isMaybeOutdated
 		container[Columns.favoriteRank] = favoriteRank
 		container[Columns.tagData] = tagData
+		container[Columns.lastEnumeratedAt] = lastEnumeratedAt
 	}
 
 	enum Columns: String, ColumnExpression {
-		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData
+		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData, lastEnumeratedAt
 	}
 
 	static func filterWorkingSet() -> QueryInterfaceRequest<ItemMetadata> {
@@ -99,6 +103,6 @@ public class ItemMetadata: Record, Codable {
 extension ItemStatus: DatabaseValueConvertible {}
 extension ItemMetadata: Equatable {
 	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
-		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData
+		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData && lhs.lastEnumeratedAt == rhs.lastEnumeratedAt
 	}
 }

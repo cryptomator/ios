@@ -27,6 +27,30 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		XCTAssertRejects(adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil), with: NSFileProviderError(.serverUnreachable))
 	}
 
+	func testEnumerateItemsOfflineFallbackToCache() throws {
+		let expectation = XCTestExpectation()
+		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data(), lastEnumeratedAt: Date())
+		try metadataManagerMock.cacheMetadata(metadata)
+
+		let child = ItemMetadata(id: 3, name: "CachedFile", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection/CachedFile"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(child)
+
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
+		adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil).then { itemList in
+			XCTAssertEqual(1, itemList.items.count)
+			XCTAssertEqual("CachedFile", itemList.items[0].metadata.name)
+			XCTAssertNil(itemList.nextPageToken)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
 	// MARK: Enumerate Working Set
 
 	func testWorkingSet() {

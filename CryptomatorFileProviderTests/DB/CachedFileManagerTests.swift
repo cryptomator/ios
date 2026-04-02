@@ -215,6 +215,30 @@ class CachedFileManagerTests: CacheTestCase {
 		XCTAssertFalse(removedFiles.contains(urls[1]))
 	}
 
+	func testGetLocalCachedFileInfoBatch() throws {
+		let urls = [tmpDirURL.appendingPathComponent("foo"),
+		            tmpDirURL.appendingPathComponent("bar")]
+		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0 + 2), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
+		let data = getRandomData(sizeInBytes: 256)
+
+		for (index, url) in urls.enumerated() {
+			try createTestData(localURL: url, data: data, metadata: metadata[index])
+		}
+
+		let ids = try [XCTUnwrap(metadata[0].id), 999, XCTUnwrap(metadata[1].id)]
+		let results = try manager.getLocalCachedFileInfo(forIds: ids)
+
+		XCTAssertEqual(results.count, 3)
+		XCTAssertEqual(results[0]?.correspondingItem, metadata[0].id)
+		XCTAssertNil(results[1])
+		XCTAssertEqual(results[2]?.correspondingItem, metadata[1].id)
+	}
+
+	func testGetLocalCachedFileInfoBatchEmpty() throws {
+		let results = try manager.getLocalCachedFileInfo(forIds: [])
+		XCTAssertTrue(results.isEmpty)
+	}
+
 	private func createTestData(localURL: URL, data: Data, metadata: ItemMetadata) throws {
 		try createTestData(localURL: localURL, data: data, metadata: metadata, cacheManager: manager)
 	}
