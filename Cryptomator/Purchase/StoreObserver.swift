@@ -13,6 +13,16 @@ import Foundation
 import Promises
 import StoreKit
 
+protocol PaymentQueuing {
+	func add(_ observer: SKPaymentTransactionObserver)
+	func remove(_ observer: SKPaymentTransactionObserver)
+	func add(_ payment: SKPayment)
+	func restoreCompletedTransactions()
+	func finishTransaction(_ transaction: SKPaymentTransaction)
+}
+
+extension SKPaymentQueue: PaymentQueuing {}
+
 protocol IAPManager {
 	var isAuthorizedForPayments: Bool { get }
 	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction>
@@ -56,8 +66,10 @@ class StoreObserver: NSObject, IAPManager {
 	private var runningRestore: Promise<RestoreTransactionsResult>?
 	private var cryptomatorSettings: CryptomatorSettings
 	private let premiumManager: PremiumManagerType
+	private let queue: PaymentQueuing
 
-	init(cryptomatorSettings: CryptomatorSettings, premiumManager: PremiumManagerType) {
+	init(queue: PaymentQueuing = SKPaymentQueue.default(), cryptomatorSettings: CryptomatorSettings, premiumManager: PremiumManagerType) {
+		self.queue = queue
 		self.cryptomatorSettings = cryptomatorSettings
 		self.premiumManager = premiumManager
 	}
@@ -67,7 +79,7 @@ class StoreObserver: NSObject, IAPManager {
 		let payment = SKMutablePayment(product: product)
 		let pendingPromise = Promise<PurchaseTransaction>.pending()
 		runningPayments[payment.productIdentifier] = pendingPromise
-		SKPaymentQueue.default().add(payment)
+		queue.add(payment)
 		return pendingPromise
 	}
 
@@ -75,7 +87,7 @@ class StoreObserver: NSObject, IAPManager {
 		let pendingPromise = Promise<RestoreTransactionsResult>.pending()
 		runningRestore = pendingPromise
 		hasRestorablePurchases = false
-		SKPaymentQueue.default().restoreCompletedTransactions()
+		queue.restoreCompletedTransactions()
 		return pendingPromise
 	}
 
@@ -99,7 +111,7 @@ class StoreObserver: NSObject, IAPManager {
 		case .none:
 			transactionType = .unknown
 		}
-		SKPaymentQueue.default().finishTransaction(transaction)
+		queue.finishTransaction(transaction)
 		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
 			fallbackDelegate?.purchaseDidSucceed(transaction: transactionType)
 			return
@@ -113,7 +125,7 @@ class StoreObserver: NSObject, IAPManager {
 		} else {
 			DDLogError("Purchase of \(transaction.payment.productIdentifier) failed")
 		}
-		SKPaymentQueue.default().finishTransaction(transaction)
+		queue.finishTransaction(transaction)
 		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
 			return
 		}
@@ -123,7 +135,7 @@ class StoreObserver: NSObject, IAPManager {
 	fileprivate func handleRestored(_ transactions: [SKPaymentTransaction]) {
 		DDLogInfo("Restored \(transactions.map { $0.payment.productIdentifier }.joined(separator: ", "))")
 		for transaction in transactions {
-			SKPaymentQueue.default().finishTransaction(transaction)
+			queue.finishTransaction(transaction)
 		}
 	}
 
