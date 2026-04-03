@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Acessar o perfil";
+"hubAuthentication.trustHost.alert.title" = "Confiar nesse servidor?";
+"hubAuthentication.trustHost.alert.message" = "Este cofre deseja se conectar ao(s) seguinte(s) servidor(es):\n\n%@\n\nVocê confia nesse(s) servidor(es)?";
 "hubAuthentication.trustHost.alert.trustButton" = "Confio";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "A configuração do cofre contém URLs de servidor inconsistentes. Entre em contato com o proprietário do cofre.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Conexão insegura (HTTP) para \"%@\" não permitida. Use HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Host não confiável";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Obtenha acesso de escrita aos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
 "settings.upgradeToLifetime" = "Atualize para a vitalícia";
+"settings.hub.trustedHosts" = "Hosts do Hub confiáveis";
 
 "sharePoint.enterURL.title" = "Digite a URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";
@@ -278,6 +284,10 @@
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirado";
+
+"trustedHubHosts.clearAll" = "Limpar tudo";
+"trustedHubHosts.clearAll.alert.message" = "Todos os hosts do Hub confiáveis anteriores serão removidos. Você precisará confirmar a confiança novamente quando se conectar aos cofres do Hub.";
+"trustedHubHosts.emptyList.message" = "Ainda não há hosts do Hub confiáveis. Eles são adicionados quando você se conecta a um cofre do Hub pela primeira vez.";
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear por %@";

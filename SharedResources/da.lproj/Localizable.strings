@@ -127,7 +127,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Handling Påkrævet";
 "hubAuthentication.requireAccountInit.alert.message" = "For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til Profil";
-"hubAuthentication.trustHost.alert.trustButton" = "Acceptér";
+"hubAuthentication.trustHost.alert.title" = "Stol på denne server?";
+"hubAuthentication.trustHost.alert.message" = "Denne boks ønsker at oprette forbindelse til følgende server(e):\n\n%@\n\nHar du tillid til denne server?";
+"hubAuthentication.trustHost.alert.trustButton" = "Hav tillid";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "Konfigurationen af boksen indeholder inkonsistente server-URL' er. Kontakt venligst ejeren af boksen.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Usikker forbindelse (HTTP) til \"%@\" er ikke tilladt. Brug venligst HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Vært Ikke pålidelig";
 "hubAuthentication.vaultArchived" = "Denne boks er blevet arkiveret. Bed venligst ejeren af boksen om at fjerne arkiveringen.";
 
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
@@ -221,6 +226,7 @@
 "settings.unlockFullVersion" = "Lås op for fuld version";
 "settings.unlockFullVersion.detail" = "Få skriveadgang til dine bokse.";
 "settings.unlockFullVersion.trialExpirationDate" = "Prøveversions udløbsdato: %@";
+"settings.hub.trustedHosts" = "Pålidelige Hub-værter";
 
 "sharePoint.enterURL.title" = "Indtast SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Websted URL";
@@ -269,6 +275,10 @@
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Udløbet";
 
+"trustedHubHosts.clearAll" = "Ryd alle";
+"trustedHubHosts.clearAll.alert.message" = "Alle tidligere pålidelige Hub-værter vil blive fjernet. Du bliver nødt til at bekræfte tilliden igen, når du opretter forbindelse til Hub-bokse.";
+"trustedHubHosts.emptyList.message" = "Ingen pålidelige Hub-værter endnu. Værter tilføjes, når du opretter forbindelse til en Hub-boks for første gang.";
+
 "unlockVault.button.unlock" = "Lås op";
 "unlockVault.button.unlockVia" = "Lås op via %@";
 "unlockVault.password.footer" = "Indtast adgangskode for \"%@\".";
@@ -279,7 +289,6 @@
 
 "untrustedTLSCertificate.title" = "Ugyldigt TLS certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet for \"%@\" er ugyldigt. Vil du stole på det alligevel?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Acceptér";
 "untrustedTLSCertificate.dismiss" = "Afvis";
 
 "upgrade.title" = "Tilbud på opgradering";
