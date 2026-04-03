@@ -128,6 +128,51 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 	}
 
+	func testMoveFolderLocallyUpdatesDescendantCloudPaths() throws {
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		let sourceParentID: Int64 = 2
+		let movedFolderID: Int64 = 3
+		let childFileID: Int64 = 4
+		let targetParentID: Int64 = 5
+
+		// Initial tree:
+		// /
+		// |- A/
+		// |  |- B/
+		// |     |- C.txt
+		// |- Target/
+		let sourceParent = ItemMetadata(id: sourceParentID, name: "A", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/"), isPlaceholderItem: false)
+		let movedFolder = ItemMetadata(id: movedFolderID, name: "B", type: .folder, size: nil, parentID: sourceParentID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/B/"), isPlaceholderItem: false)
+		let childFile = ItemMetadata(id: childFileID, name: "C.txt", type: .file, size: 100, parentID: movedFolderID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/B/C.txt"), isPlaceholderItem: false)
+		let targetParent = ItemMetadata(id: targetParentID, name: "Target", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Target/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata([sourceParent, movedFolder, childFile, targetParent])
+
+		let movedFolderIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: movedFolderID)
+		let targetParentIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: targetParentID)
+
+		// Move B from /A/B/ to /Target/B/.
+		// The important part is that descendants must follow that move as well in the database.
+		_ = try adapter.moveItemLocally(withIdentifier: movedFolderIdentifier, toParentItemWithIdentifier: targetParentIdentifier, newName: nil)
+
+		// Sanity check for the folder row itself.
+		XCTAssertEqual(CloudPath("/Target/B/"), movedFolder.cloudPath)
+		XCTAssertEqual(targetParentID, movedFolder.parentID)
+
+		// Regression check:
+		// If cloudPath is effectively hardcoded per row and only the moved folder row is updated,
+		// the child would incorrectly stay at /A/B/C.txt even though its parent is now /Target/B/.
+		// We expect the descendant path prefix to be rewritten to keep parentID and cloudPath in sync.
+		// Otherwise path-based metadata lookups, subtree queries, enumeration, deletion bookkeeping,
+		// and follow-up remote operations can use the stale location.
+		// This does not directly corrupt the local cached-file table because that is keyed by item id/local URL.
+		let updatedChild = try XCTUnwrap(metadataManagerMock.getCachedMetadata(for: childFileID))
+		XCTAssertEqual(CloudPath("/Target/B/C.txt"), updatedChild.cloudPath)
+		XCTAssertEqual(movedFolderID, updatedChild.parentID)
+		XCTAssertNil(try metadataManagerMock.getCachedMetadata(for: CloudPath("/A/B/C.txt")))
+	}
+
 	func testRenameItem() throws {
 		let expectation = XCTestExpectation()
 
