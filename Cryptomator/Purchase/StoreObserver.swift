@@ -60,8 +60,6 @@ class StoreObserver: NSObject, IAPManager {
 
 	weak var fallbackDelegate: StoreObserverDelegate?
 
-	fileprivate var hasRestorablePurchases = false
-
 	private var runningPayments = [String: Promise<PurchaseTransaction>]()
 	private var runningRestore: Promise<RestoreTransactionsResult>?
 	private var cryptomatorSettings: CryptomatorSettings
@@ -86,7 +84,6 @@ class StoreObserver: NSObject, IAPManager {
 	func restore() -> Promise<RestoreTransactionsResult> {
 		let pendingPromise = Promise<RestoreTransactionsResult>.pending()
 		runningRestore = pendingPromise
-		hasRestorablePurchases = false
 		queue.restoreCompletedTransactions()
 		return pendingPromise
 	}
@@ -150,13 +147,6 @@ class StoreObserver: NSObject, IAPManager {
 	}
 
 	// MARK: - Store Logic
-
-	private func trialExpirationDate(_ transactions: [SKPaymentTransaction]) -> Date? {
-		guard let transaction = transactions.first(where: { $0.payment.productIdentifier == ProductIdentifier.thirtyDayTrial.rawValue }) else {
-			return nil
-		}
-		return trialExpirationDate(transaction)
-	}
 
 	private func trialExpirationDate(_ transaction: SKPaymentTransaction) -> Date? {
 		guard let transactionDate = getOriginalTrialTransactionDate(transaction) else {

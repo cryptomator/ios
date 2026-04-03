@@ -270,10 +270,64 @@ class StoreObserverTests: XCTestCase {
 		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
 	}
 
+	func testRestoredTransactionsViaUpdatedTransactions() {
+		let product1 = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let product2 = makeSKProduct(identifier: .yearlySubscription, price: 11.99)
+		let txn1 = PaymentTransactionMock(state: .restored, payment: SKPayment(product: product1))
+		let txn2 = PaymentTransactionMock(state: .restored, payment: SKPayment(product: product2))
+
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn1, txn2])
+
+		XCTAssertEqual(2, queue.finishTransactionCallsCount)
+		XCTAssertTrue(queue.finishTransactionReceivedInvocations.contains(where: { $0 === txn1 }))
+		XCTAssertTrue(queue.finishTransactionReceivedInvocations.contains(where: { $0 === txn2 }))
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testRestoreFailedWithNilRunningRestore() {
+		let error = NSError(domain: SKErrorDomain, code: SKError.unknown.rawValue)
+		storeObserver.paymentQueue(dummyQueue, restoreCompletedTransactionsFailedWithError: error)
+		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
+	}
+
 	// MARK: Entitlement Revocation
 
 	func testDidRevokeEntitlements() {
 		storeObserver.paymentQueue(dummyQueue, didRevokeEntitlementsForProductIdentifiers: [ProductIdentifier.fullVersion.rawValue])
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: Unsolicited Transaction Callbacks
+
+	func testFailedTransactionWithoutRunningPayment() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .failed, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testDeferredTransactionWithoutRunningPayment() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .deferred, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testRemovedTransactions() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .purchased, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, removedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testPurchasingTransactionIsNoOp() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .purchasing, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
 		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
 	}
 
