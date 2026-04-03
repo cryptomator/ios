@@ -39,6 +39,7 @@ protocol ItemMetadataManager {
 	func getAllCachedMetadataInsideWorkingSet() throws -> [ItemMetadata]
 	func setFavoriteRank(to favoriteRank: Int64?, forItemWithID id: Int64) throws
 	func setTagData(to tagData: Data?, forItemWithID id: Int64) throws
+	func setLastEnumeratedAt(_ date: Date, forItemWithID id: Int64) throws
 }
 
 class ItemMetadataDBManager: ItemMetadataManager {
@@ -166,6 +167,14 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		}
 	}
 
+	func setLastEnumeratedAt(_ date: Date, forItemWithID id: Int64) throws {
+		try database.write { db in
+			let cachedMetadata = try getCachedMetadata(for: id, database: db)
+			cachedMetadata?.lastEnumeratedAt = date
+			try cachedMetadata?.update(db)
+		}
+	}
+
 	private func getCachedMetadata(for id: Int64, database: Database) throws -> ItemMetadata? {
 		return try ItemMetadata.fetchOne(database, key: id)
 	}
@@ -176,6 +185,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 			metadata.statusCode = cachedMetadata.statusCode
 			metadata.tagData = cachedMetadata.tagData
 			metadata.favoriteRank = cachedMetadata.favoriteRank
+			metadata.lastEnumeratedAt = cachedMetadata.lastEnumeratedAt
 			try metadata.update(database)
 		} else {
 			try metadata.insert(database)

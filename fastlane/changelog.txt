@@ -1,2 +1,3 @@
-- Fixed possible man-in-the-middle attack with tampered Cryptomator Hub vault config (CVE-2026-32318, #444).
-- Fixed a missing server header blocking Cryptomator Hub vault unlock.
+- Added offline browsing for previously visited vault folders in Files.app (#144, #446).
+- Added automatic retry of connectivity-failed uploads on vault unlock (#446).
+- Raised minimum iOS version to 16 (#448).

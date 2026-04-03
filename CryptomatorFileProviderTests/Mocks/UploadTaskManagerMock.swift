@@ -165,6 +165,25 @@ final class UploadTaskManagerMock: UploadTaskManager {
 		return try getActiveUploadTaskRecordsClosure.map({ try $0() }) ?? getActiveUploadTaskRecordsReturnValue
 	}
 
+	// MARK: - getRetryableUploadTaskRecords
+
+	var getRetryableUploadTaskRecordsThrowableError: Error?
+	var getRetryableUploadTaskRecordsCallsCount = 0
+	var getRetryableUploadTaskRecordsCalled: Bool {
+		getRetryableUploadTaskRecordsCallsCount > 0
+	}
+
+	var getRetryableUploadTaskRecordsReturnValue: [UploadTaskRecord] = []
+	var getRetryableUploadTaskRecordsClosure: (() throws -> [UploadTaskRecord])?
+
+	func getRetryableUploadTaskRecords() throws -> [UploadTaskRecord] {
+		if let error = getRetryableUploadTaskRecordsThrowableError {
+			throw error
+		}
+		getRetryableUploadTaskRecordsCallsCount += 1
+		return try getRetryableUploadTaskRecordsClosure.map({ try $0() }) ?? getRetryableUploadTaskRecordsReturnValue
+	}
+
 	// MARK: - getTask
 
 	var getTaskForOnURLSessionTaskCreationThrowableError: Error?

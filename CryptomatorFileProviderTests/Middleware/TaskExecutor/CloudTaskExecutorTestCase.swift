@@ -56,6 +56,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				metadata.statusCode = cachedItemMetadata.statusCode
 				metadata.tagData = cachedItemMetadata.tagData
 				metadata.favoriteRank = cachedItemMetadata.favoriteRank
+				metadata.lastEnumeratedAt = cachedItemMetadata.lastEnumeratedAt
 				cachedMetadata[cachedItemMetadata.id!] = metadata
 				return
 			}
@@ -163,6 +164,12 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			cachedMetadata[id] = metadata
 			setFavoriteRank[id] = favoriteRank
 		}
+
+		func setLastEnumeratedAt(_ date: Date, forItemWithID id: Int64) throws {
+			let metadata = cachedMetadata[id]
+			metadata?.lastEnumeratedAt = date
+			cachedMetadata[id] = metadata
+		}
 	}
 
 	class CachedFileManagerMock: CachedFileManager {
@@ -173,6 +180,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func getLocalCachedFileInfo(for identifier: Int64) throws -> LocalCachedFileInfo? {
 			cachedLocalFileInfo[identifier]
+		}
+
+		func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {
+			ids.map { cachedLocalFileInfo[$0] }
 		}
 
 		func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws {

@@ -34,6 +34,31 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		self.localURL = localURL
 	}
 
+	convenience init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, localCachedFileInfo: LocalCachedFileInfo?, error: Error? = nil) {
+		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
+		self.init(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localCachedFileInfo?.localURL, error: error)
+	}
+
+	static func items(
+		from metadataList: [ItemMetadata],
+		domainIdentifier: NSFileProviderDomainIdentifier,
+		uploadTaskManager: UploadTaskManager,
+		cachedFileManager: CachedFileManager
+	) throws -> [FileProviderItem] {
+		let uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
+		let cachedFileInfos = try cachedFileManager.getLocalCachedFileInfo(for: metadataList)
+		assert(metadataList.count == uploadTasks.count)
+		assert(metadataList.count == cachedFileInfos.count)
+		return metadataList.enumerated().map { index, metadata in
+			FileProviderItem(
+				metadata: metadata,
+				domainIdentifier: domainIdentifier,
+				localCachedFileInfo: cachedFileInfos[index],
+				error: uploadTasks[index]?.failedWithError
+			)
+		}
+	}
+
 	public var itemIdentifier: NSFileProviderItemIdentifier {
 		assert(metadata.id != nil)
 

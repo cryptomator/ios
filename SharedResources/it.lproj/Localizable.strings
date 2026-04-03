@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Azione richiesta";
 "hubAuthentication.requireAccountInit.alert.message" = "Per procedere, completa i passaggi richiesti nel tuo profilo dell'Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vai al profilo";
+"hubAuthentication.trustHost.alert.title" = "Ti fidi di Questo Server?";
+"hubAuthentication.trustHost.alert.message" = "Questa cassaforte vuole collegarsi ai seguenti server:\n\n%@\n\nTi fidi di questo server?";
 "hubAuthentication.trustHost.alert.trustButton" = "Fidati";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "La configurazione della cassaforte contiene URL non validi di server. Si prega di contattare il proprietario della cassaforte.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "La connessione non sicura (HTTP) a \"%@\" non è consentita. Si prega di utilizzare HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Host Non Affidabile";
 "hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Ottieni l'accesso in scrittura alle tue casseforti.";
 "settings.unlockFullVersion.trialExpirationDate" = "Fine del periodo di prova: %@";
 "settings.upgradeToLifetime" = "Aggiorna a Licenza a Vita";
+"settings.hub.trustedHosts" = "Host Hub Affidabile";
 
 "sharePoint.enterURL.title" = "Inserisci l'URL di SharePoint";
 "sharePoint.enterURL.placeholder" = "URL sito di SharePoint";
@@ -278,6 +284,10 @@
 
 "trialStatus.active" = "Attivo";
 "trialStatus.expired" = "Scaduta";
+
+"trustedHubHosts.clearAll" = "Cancella tutto";
+"trustedHubHosts.clearAll.alert.message" = "Tutti gli host Hub precedentemente attendibili verranno rimossi. Dovrai confermare nuovamente la fiducia quando ti connetterai all'Hub delle casseforti.";
+"trustedHubHosts.emptyList.message" = "Non ci sono ancora host Hub attendibili. Gli host vengono aggiunti quando ti connetti all'Hub di una cassaforte per la prima volta.";
 
 "unlockVault.button.unlock" = "Sblocca";
 "unlockVault.button.unlockVia" = "Sblocca tramite %@";

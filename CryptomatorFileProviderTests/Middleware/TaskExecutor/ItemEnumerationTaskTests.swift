@@ -537,6 +537,171 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 5.0)
 	}
 
+	// MARK: Offline Fallback
+
+	func testFolderEnumerationOfflineFallbackWithCachedItems() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let child1 = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/File 1"), isPlaceholderItem: false)
+		let child2 = ItemMetadata(id: 4, name: "Directory 1", type: .folder, size: 0, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/Directory 1/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(child1)
+		try metadataManagerMock.cacheMetadata(child2)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(2, itemList.items.count)
+			XCTAssertNil(itemList.nextPageToken)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testFolderEnumerationOfflineFallbackWithNoCachedItems() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "EmptyFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/EmptyFolder"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { _ in
+			XCTFail("Promise should not fulfill when no cached items exist")
+		}.catch { error in
+			guard let cloudProviderError = error as? CloudProviderError, cloudProviderError == .noInternetConnection else {
+				XCTFail("Expected noInternetConnection error but got: \(error)")
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testFolderEnumerationOfflineFallbackWithEmptyEnumeratedFolder() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "EmptyFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/EmptyFolder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(0, itemList.items.count)
+			XCTAssertNil(itemList.nextPageToken)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testFolderEnumerationOfflineFallbackWithPageToken() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let child1 = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/File 1"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(child1)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: "somePageToken")
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { _ in
+			XCTFail("Promise should not fulfill with a page token during offline fallback")
+		}.catch { error in
+			guard let cloudProviderError = error as? CloudProviderError, cloudProviderError == .noInternetConnection else {
+				XCTFail("Expected noInternetConnection error but got: \(error)")
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testFolderEnumerationOfflineFallbackPreservesCachedFileInfo() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder"), isPlaceholderItem: false, lastEnumeratedAt: Date())
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let lastModifiedDate = Date(timeIntervalSince1970: 0)
+		let child1 = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: 2, lastModifiedDate: lastModifiedDate, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/File 1"), isPlaceholderItem: false)
+		let child2 = ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Folder/File 2"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(child1)
+		try metadataManagerMock.cacheMetadata(child2)
+
+		let localURL = URL(fileURLWithPath: "/LocalFile 1")
+		try cachedFileManagerMock.cacheLocalFileInfo(for: 3, localURL: localURL, lastModifiedDate: lastModifiedDate)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata)
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			Promise(CloudProviderError.noInternetConnection)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(2, itemList.items.count)
+			XCTAssertNil(itemList.nextPageToken)
+
+			let cachedItem = itemList.items.first(where: { $0.metadata.id == 3 })
+			XCTAssertNotNil(cachedItem)
+			XCTAssert(cachedItem!.newestVersionLocallyCached)
+			XCTAssertEqual(localURL, cachedItem!.localURL)
+
+			let nonCachedItem = itemList.items.first(where: { $0.metadata.id == 4 })
+			XCTAssertNotNil(nonCachedItem)
+			XCTAssertFalse(nonCachedItem!.newestVersionLocallyCached)
+			XCTAssertNil(nonCachedItem!.localURL)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	// MARK: Error Passthrough
+
 	func testFolderEnumerationFailWithSameErrorAsProvider() throws {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/Test")

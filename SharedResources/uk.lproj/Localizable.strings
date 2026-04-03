@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
 "hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
+"hubAuthentication.trustHost.alert.title" = "Довіряти цьому серверу?";
+"hubAuthentication.trustHost.alert.message" = "Це сховище намагається під’єднатися до таких серверів:\n\n%@\n\nВи довіряєте цьому серверу?";
 "hubAuthentication.trustHost.alert.trustButton" = "Довіряти";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "Конфігурація сховища містить несумісні URL-адреси серверів. Будь ласка, зверніться до власника сховища.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Незахищене з’єднання (HTTP) з «%@» заборонено. Будь ласка, використовуйте HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Хост не є надійним";
 "hubAuthentication.vaultArchived" = "Це сховище було заархівовано. Будь ласка, попросіть власника сховища розархівувати його.";
 
 "intents.saveFile.missingFile" = "Наданий файл недійсний.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Отримати доступ для запису до своїх сховищ.";
 "settings.unlockFullVersion.trialExpirationDate" = "Дата завершення пробного періоду: %@";
 "settings.upgradeToLifetime" = "Перейти на безстрокову ліцензію";
+"settings.hub.trustedHosts" = "Довірені хости Hub";
 
 "sharePoint.enterURL.title" = "Введіть URL-адресу SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адреса SharePoint";
@@ -278,6 +284,10 @@
 
 "trialStatus.active" = "Активно";
 "trialStatus.expired" = "Термін дії минув";
+
+"trustedHubHosts.clearAll" = "Очистити все";
+"trustedHubHosts.clearAll.alert.message" = "Усі раніше додані довірені хости Hub будуть видалені. Вам потрібно буде знову підтвердити довіру при підключенні до сховищ Hub.";
+"trustedHubHosts.emptyList.message" = "Довірених хостів Hub поки немає. Хости додаються автоматично під час першого підключення до сховища Hub.";
 
 "unlockVault.button.unlock" = "Розблокувати";
 "unlockVault.button.unlockVia" = "Розблокувати через %@";

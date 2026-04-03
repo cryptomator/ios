@@ -7,11 +7,8 @@
 //
 
 import CryptomatorCommonCore
-import MobileCoreServices
 import UIKit
-#if canImport(UniformTypeIdentifiers)
 import UniformTypeIdentifiers
-#endif
 
 class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableViewController, UIDocumentPickerDelegate {
 	weak var coordinator: (LocalFileSystemAuthenticating & LocalVaultAdding & Coordinator)?
@@ -24,11 +21,7 @@ class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableVie
 
 	func openDocumentPicker() {
 		let documentPicker: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
-		} else {
-			documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
-		}
+		documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
 		documentPicker.allowsMultipleSelection = false
 		documentPicker.delegate = self
 		present(documentPicker, animated: true)

@@ -125,13 +125,14 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	}
 
 	func handleUploadError(_ error: Error, taskItemMetadata: ItemMetadata) throws -> FileProviderItem {
-		let convertedError = error.toPresentableError()
+		var convertedError = error.toPresentableError()
+		if convertedError.isTransientConnectivityError {
+			convertedError = NSFileProviderError(.serverUnreachable)
+		}
 		try uploadTaskManager.updateTaskRecord(for: taskItemMetadata, with: convertedError as NSError)
 		taskItemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(taskItemMetadata)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: taskItemMetadata.lastModifiedDate) ?? false
-		let localURL = localCachedFileInfo?.localURL
-		return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: convertedError)
+		return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: convertedError)
 	}
 }

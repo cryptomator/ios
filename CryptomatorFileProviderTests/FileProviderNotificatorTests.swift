@@ -11,7 +11,6 @@ import XCTest
 @testable import CryptomatorFileProvider
 @testable import Dependencies
 
-@available(iOS 14.0, *)
 class FileProviderNotificatorTests: XCTestCase {
 	var notificator: FileProviderNotificator!
 	var enumerationSignalingMock: EnumerationSignalingMock!

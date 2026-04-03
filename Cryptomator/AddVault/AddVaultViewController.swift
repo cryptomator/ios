@@ -47,13 +47,9 @@ class AddVaultViewController: BaseUITableViewController {
 		default:
 			return cell
 		}
-		if #available(iOS 14, *) {
-			var content = cell.defaultContentConfiguration()
-			content.text = text
-			cell.contentConfiguration = content
-		} else {
-			cell.textLabel?.text = text
-		}
+		var content = cell.defaultContentConfiguration()
+		content.text = text
+		cell.contentConfiguration = content
 		return cell
 	}
 

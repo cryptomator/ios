@@ -132,7 +132,7 @@
 "hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
 "hubAuthentication.trustHost.alert.trustButton" = "Vertrauen";
-"hubAuthentication.vaultArchived" = "Dieser Tresor wurde archiviert. Bitte frage den Tresor-Eigentümer, um ihn zu dearchivieren.";
+"hubAuthentication.vaultArchived" = "Dieser Tresor wurde archiviert. Bitte frage den Tresor-Eigentümer, um ihn zu reaktivieren.";
 
 "intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";

@@ -101,20 +101,37 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			metadataList.append(contentsOf: reparentMetadata)
 			let placeholderMetadata = try self.itemMetadataManager.getPlaceholderMetadata(withParentID: folderMetadata.id!)
 			metadataList.append(contentsOf: placeholderMetadata)
-			let uploadTasks = try self.uploadTaskManager.getTaskRecords(for: metadataList)
-			assert(metadataList.count == uploadTasks.count)
-			let items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
-				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
-			}
+			let items = try FileProviderItem.items(from: metadataList, domainIdentifier: self.domainIdentifier, uploadTaskManager: self.uploadTaskManager, cachedFileManager: self.cachedFileManager)
 			if let nextPageToken = itemList.nextPageToken {
 				let nextPageTokenData = Data(nextPageToken.utf8)
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
+			try self.itemMetadataManager.setLastEnumeratedAt(Date(), forItemWithID: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
+		}.recover { error -> Promise<FileProviderItemList> in
+			guard error.isNoInternetConnectionError else {
+				return Promise(error)
+			}
+			guard pageToken == nil else {
+				return Promise(error)
+			}
+			return self.buildOfflineItemList(folderMetadata: folderMetadata, originalError: error)
+		}
+	}
+
+	private func buildOfflineItemList(folderMetadata: ItemMetadata, originalError: Error) -> Promise<FileProviderItemList> {
+		do {
+			guard folderMetadata.lastEnumeratedAt != nil else {
+				return Promise(originalError)
+			}
+			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
+			let items = try FileProviderItem.items(from: cachedMetadata, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
+			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
+		} catch {
+			DDLogError("Offline fallback failed for folder \(folderMetadata.cloudPath.path): \(error)")
+			return Promise(error)
 		}
 	}
 
@@ -143,11 +160,8 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
 			assert(fileProviderItemMetadata.id == fileMetadata.id)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
-			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: fileProviderItemMetadata.lastModifiedDate) ?? false
-			let localURL = localCachedFileInfo?.localURL
 			let uploadTask = try self.uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata)
-
-			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
 			return FileProviderItemList(items: [item], nextPageToken: nil)
 		}
 	}

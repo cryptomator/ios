@@ -12,9 +12,6 @@ import XCTest
 
 class VaultPasswordKeychainManagerTests: XCTestCase {
 	func testSetAndRetrievePassword() throws {
-		if #available(iOS 15.0, *) {
-			throw XCTSkip("User presence keychain doesn't work in iOS 15 simulator (Radar 82890873)")
-		}
 		let passwordManager = VaultPasswordKeychainManager()
 		let password = "pw"
 		let vaultUID = UUID().uuidString
@@ -25,9 +22,6 @@ class VaultPasswordKeychainManagerTests: XCTestCase {
 	}
 
 	func testSetPasswordOverwritesExisting() throws {
-		if #available(iOS 15.0, *) {
-			throw XCTSkip("User presence keychain doesn't work in iOS 15 simulator (Radar 82890873)")
-		}
 		let passwordManager = VaultPasswordKeychainManager()
 		let oldPassword = "pw"
 		let vaultUID = UUID().uuidString
@@ -40,9 +34,6 @@ class VaultPasswordKeychainManagerTests: XCTestCase {
 	}
 
 	func testRemovePassword() throws {
-		if #available(iOS 15.0, *) {
-			throw XCTSkip("User presence keychain doesn't work in iOS 15 simulator (Radar 82890873)")
-		}
 		let passwordManager = VaultPasswordKeychainManager()
 		let password = "pw"
 		let vaultUID = UUID().uuidString

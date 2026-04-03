@@ -31,7 +31,7 @@ public struct CachedVault: Codable, Equatable {
 
 extension CachedVault: FetchableRecord, TableRecord, PersistableRecord {
 	public static let databaseTableName = "cachedVaults"
-	enum Columns: String, ColumnExpression {
+	public enum Columns: String, ColumnExpression {
 		case vaultUID, masterkeyFileData, vaultConfigToken, lastUpToDateCheck, masterkeyFileLastModifiedDate, vaultConfigLastModifiedDate
 	}
 

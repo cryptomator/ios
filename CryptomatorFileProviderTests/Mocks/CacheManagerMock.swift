@@ -34,6 +34,29 @@ final class CachedFileManagerMock: CachedFileManager {
 		return try getLocalCachedFileInfoForClosure.map({ try $0(id) }) ?? getLocalCachedFileInfoForReturnValue
 	}
 
+	// MARK: - getLocalCachedFileInfo (batch)
+
+	var getLocalCachedFileInfoForIdsThrowableError: Error?
+	var getLocalCachedFileInfoForIdsCallsCount = 0
+	var getLocalCachedFileInfoForIdsCalled: Bool {
+		getLocalCachedFileInfoForIdsCallsCount > 0
+	}
+
+	var getLocalCachedFileInfoForIdsReceivedIds: [Int64]?
+	var getLocalCachedFileInfoForIdsReceivedInvocations: [[Int64]] = []
+	var getLocalCachedFileInfoForIdsReturnValue: [LocalCachedFileInfo?]!
+	var getLocalCachedFileInfoForIdsClosure: (([Int64]) throws -> [LocalCachedFileInfo?])?
+
+	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {
+		if let error = getLocalCachedFileInfoForIdsThrowableError {
+			throw error
+		}
+		getLocalCachedFileInfoForIdsCallsCount += 1
+		getLocalCachedFileInfoForIdsReceivedIds = ids
+		getLocalCachedFileInfoForIdsReceivedInvocations.append(ids)
+		return try getLocalCachedFileInfoForIdsClosure.map({ try $0(ids) }) ?? getLocalCachedFileInfoForIdsReturnValue
+	}
+
 	// MARK: - cacheLocalFileInfo
 
 	var cacheLocalFileInfoForLocalURLLastModifiedDateThrowableError: Error?

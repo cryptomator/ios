@@ -193,6 +193,22 @@ public struct DatabaseHelper: DatabaseHelping {
 				table.add(column: "uploadStartedAt", .date)
 			}
 		}
+		migrator.registerMigration("v4") { db in
+			try db.alter(table: "itemMetadata") { table in
+				table.add(column: "lastEnumeratedAt", .date)
+			}
+			try db.execute(sql: """
+			UPDATE itemMetadata
+			SET lastEnumeratedAt = CURRENT_TIMESTAMP
+			WHERE type = 'folder'
+			  AND EXISTS (
+			    SELECT 1
+			    FROM itemMetadata AS child
+			    WHERE child.parentID = itemMetadata.id
+			      AND child.id != itemMetadata.id
+			  )
+			""")
+		}
 		try migrator.migrate(dbWriter)
 	}
 

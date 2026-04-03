@@ -130,9 +130,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let itemMetadata = try getCachedMetadata(for: identifier)
 		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-		let localURL = localCachedFileInfo?.localURL
-		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
 	}
 
 	// MARK: Enumerate Item
@@ -180,16 +178,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private func enumerateWorkingSet() -> Promise<FileProviderItemList> {
 		let items: [FileProviderItem]
 		do {
-			var metadataList: [ItemMetadata]
-			let uploadTasks: [UploadTaskRecord?]
-			metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
-			uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
-			items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
-				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
-				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
-			}
+			let metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
+			items = try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 		} catch {
 			return Promise(error)
 		}
@@ -333,8 +323,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogError("retryUpload - failed for identifier: \(itemIdentifier) with error: \(error)")
 			return
 		}
-		let newestVersionLocallyCached = localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate)
-		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localCachedFileInfo.localURL, error: nil)
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		notificator?.signalUpdate(for: item)
 		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
 			self.notificator?.signalUpdate(for: item)
@@ -342,49 +331,75 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	public func recoverStuckUploads() {
+		recoverActiveUploads()
+		retryConnectivityFailedUploads()
+	}
+
+	private func recoverActiveUploads() {
 		let activeTaskRecords: [UploadTaskRecord]
 		do {
 			activeTaskRecords = try uploadTaskManager.getActiveUploadTaskRecords()
 		} catch {
-			DDLogError("recoverStuckUploads - failed to get active upload task records: \(error)")
+			DDLogError("recoverActiveUploads - failed to get active upload task records: \(error)")
 			return
 		}
 		guard !activeTaskRecords.isEmpty else {
 			return
 		}
-		DDLogInfo("recoverStuckUploads - found \(activeTaskRecords.count) stuck upload(s), attempting recovery")
+		DDLogInfo("recoverActiveUploads - found \(activeTaskRecords.count) stuck upload(s), attempting recovery")
 		for taskRecord in activeTaskRecords {
-			let itemID = taskRecord.correspondingItem
-			do {
-				guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: itemID) else {
-					DDLogInfo("recoverStuckUploads - no metadata for item \(itemID), removing orphaned task record")
-					try uploadTaskManager.removeTaskRecord(for: itemID)
-					continue
-				}
-				guard let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemID) else {
-					DDLogInfo("recoverStuckUploads - no local cached file for item \(itemID), marking as error")
-					try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
-					continue
-				}
-				guard FileManager.default.fileExists(atPath: localCachedFileInfo.localURL.path) else {
-					DDLogInfo("recoverStuckUploads - local file missing at \(localCachedFileInfo.localURL) for item \(itemID), marking as error")
-					try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
-					continue
-				}
-				DDLogInfo("recoverStuckUploads - re-scheduling upload for item \(itemID)")
-				let newTaskRecord = try registerFileInUploadQueue(with: localCachedFileInfo.localURL, itemMetadata: itemMetadata)
-				let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
-				uploadFile(taskRecord: newTaskRecord, itemIdentifier: itemIdentifier).then { item in
-					self.notificator?.signalUpdate(for: item)
-				}
-			} catch {
-				DDLogError("recoverStuckUploads - recovery failed for item \(itemID): \(error)")
+			rescheduleUpload(for: taskRecord)
+		}
+	}
+
+	private func retryConnectivityFailedUploads() {
+		let retryableTaskRecords: [UploadTaskRecord]
+		do {
+			retryableTaskRecords = try uploadTaskManager.getRetryableUploadTaskRecords()
+		} catch {
+			DDLogError("retryConnectivityFailedUploads - failed to get retryable upload task records: \(error)")
+			return
+		}
+		guard !retryableTaskRecords.isEmpty else {
+			return
+		}
+		DDLogInfo("retryConnectivityFailedUploads - found \(retryableTaskRecords.count) connectivity-failed upload(s), retrying")
+		for taskRecord in retryableTaskRecords {
+			rescheduleUpload(for: taskRecord)
+		}
+	}
+
+	private func rescheduleUpload(for taskRecord: UploadTaskRecord) {
+		let itemID = taskRecord.correspondingItem
+		do {
+			guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: itemID) else {
+				DDLogInfo("rescheduleUpload - no metadata for item \(itemID), removing orphaned task record")
+				try uploadTaskManager.removeTaskRecord(for: itemID)
+				return
 			}
+			guard let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemID) else {
+				DDLogInfo("rescheduleUpload - no local cached file for item \(itemID), marking as error")
+				try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
+				return
+			}
+			guard FileManager.default.fileExists(atPath: localCachedFileInfo.localURL.path) else {
+				DDLogInfo("rescheduleUpload - local file missing at \(localCachedFileInfo.localURL) for item \(itemID), marking as error")
+				try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
+				return
+			}
+			DDLogInfo("rescheduleUpload - re-scheduling upload for item \(itemID)")
+			let newTaskRecord = try registerFileInUploadQueue(with: localCachedFileInfo.localURL, itemMetadata: itemMetadata)
+			let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
+			uploadFile(taskRecord: newTaskRecord, itemIdentifier: itemIdentifier).then { item in
+				self.notificator?.signalUpdate(for: item)
+			}
+		} catch {
+			DDLogError("rescheduleUpload - failed for item \(itemID): \(error)")
 		}
 	}
 
 	private func markUploadAsError(itemID: Int64, itemMetadata: ItemMetadata) throws {
-		let error = NSFileProviderError(.serverUnreachable) as NSError
+		let error = NSFileProviderError(.noSuchItem) as NSError
 		try uploadTaskManager.updateTaskRecord(with: itemID, lastFailedUploadDate: Date(), uploadErrorCode: error.code, uploadErrorDomain: error.domain)
 		itemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(itemMetadata)
@@ -564,8 +579,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		try itemMetadataManager.updateMetadata(itemMetadata)
 
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached)
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
 	}
 
@@ -755,6 +769,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			}
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			return localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: lastModifiedDateInCloud) ?? false
+		}.recover { error -> Bool in
+			guard error.isNoInternetConnectionError else {
+				throw error
+			}
+			return true
 		}
 	}
 

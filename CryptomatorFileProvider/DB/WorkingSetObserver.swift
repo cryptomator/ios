@@ -77,12 +77,6 @@ class WorkingSetObserver: WorkingSetObserving {
 	}
 
 	func createFileProviderItems(from metadataList: [ItemMetadata]) throws -> [FileProviderItem] {
-		let uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
-		return try metadataList.enumerated().map { index, metadata -> FileProviderItem in
-			let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata)
-			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-			let localURL = localCachedFileInfo?.localURL
-			return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
-		}
+		return try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 	}
 }
