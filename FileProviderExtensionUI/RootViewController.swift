@@ -65,7 +65,8 @@ class RootViewController: FPUIActionExtensionViewController {
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: nil)
 		do {
-			let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: CloudAccessSecrets.microsoftGraphRedirectURI, authority: nil)
+			let microsoftGraphRedirectURI = "msauth.\(Bundle.main.bundleIdentifier!)://auth"
+			let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: microsoftGraphRedirectURI, authority: nil)
 			microsoftGraphConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 			let microsoftGraphClientApplication = try MSALPublicClientApplication(configuration: microsoftGraphConfiguration)
 			MicrosoftGraphSetup.constants = MicrosoftGraphSetup(clientApplication: microsoftGraphClientApplication, sharedContainerIdentifier: nil)
