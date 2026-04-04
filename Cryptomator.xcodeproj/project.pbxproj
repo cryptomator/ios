@@ -296,6 +296,8 @@
 		4AD3D7D6282EBDE7008188CD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3D7D5282EBDE7008188CD /* Intents.framework */; };
 		4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */; };
 		4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4AD3D7D4282EBDE7008188CD /* CryptomatorIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AD3F1A12CF3000000C1D2E3 /* PaymentQueuingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3F1A02CF3000000C1D2E3 /* PaymentQueuingMock.swift */; };
+		4AD3F1A32CF3000000C1D2E4 /* PaymentTransactionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3F1A22CF3000000C1D2E4 /* PaymentTransactionMock.swift */; };
 		4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */; };
 		4AD9481C2909BD9C00072110 /* XCTest+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9481B2909BD9C00072110 /* XCTest+Async.swift */; };
 		4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */; };
@@ -859,6 +861,8 @@
 		4AD3D7D5282EBDE7008188CD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		4AD3D7DA282EBDE7008188CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD3F1A02CF3000000C1D2E3 /* PaymentQueuingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentQueuingMock.swift; sourceTree = "<group>"; };
+		4AD3F1A22CF3000000C1D2E4 /* PaymentTransactionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTransactionMock.swift; sourceTree = "<group>"; };
 		4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceModeHelperServiceSource.swift; sourceTree = "<group>"; };
 		4AD9481B2909BD9C00072110 /* XCTest+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Async.swift"; sourceTree = "<group>"; };
 		4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewController.swift; sourceTree = "<group>"; };
@@ -1821,6 +1825,8 @@
 			children = (
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
+				4AD3F1A02CF3000000C1D2E3 /* PaymentQueuingMock.swift */,
+				4AD3F1A22CF3000000C1D2E4 /* PaymentTransactionMock.swift */,
 				4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */,
 				4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */,
 				4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */,
@@ -3013,6 +3019,8 @@
 				4A587FCA28BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift in Sources */,
 				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
 				4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */,
+				4AD3F1A12CF3000000C1D2E3 /* PaymentQueuingMock.swift in Sources */,
+				4AD3F1A32CF3000000C1D2E4 /* PaymentTransactionMock.swift in Sources */,
 				4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */,
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
@@ -3438,7 +3446,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3500,7 +3508,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";

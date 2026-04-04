@@ -7,47 +7,47 @@
 //
 
 import Promises
-import StoreKitTest
+import StoreKit
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
 class StoreObserverTests: XCTestCase {
-	var session: SKTestSession!
-	var storeManager: StoreManager!
+	var queue: PaymentQueuingMock!
 	var storeObserver: StoreObserver!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!
+	var premiumManagerMock: PremiumManagerTypeMock!
+	let dummyQueue = SKPaymentQueue()
 
 	override func setUpWithError() throws {
-		session = try SKTestSession(configurationFileNamed: "Configuration")
-		session.resetToDefaultState()
-		session.disableDialogs = true
-		session.clearTransactions()
-
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
-		storeManager = StoreManager.shared
-		storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettingsMock, premiumManager: PremiumManager(cryptomatorSettings: cryptomatorSettingsMock))
-
-		SKPaymentQueue.default().removeAllObservers()
-		SKPaymentQueue.default().add(storeObserver)
-		XCTAssertEqual(1, SKPaymentQueue.default().transactionObservers.count)
-		XCTAssert(SKPaymentQueue.default().transactionObservers.contains(where: { $0 === storeObserver }))
-	}
-
-	override func tearDownWithError() throws {
-		session.resetToDefaultState()
-		session.clearTransactions()
+		premiumManagerMock = PremiumManagerTypeMock()
+		queue = PaymentQueuingMock()
+		storeObserver = StoreObserver(queue: queue, cryptomatorSettings: cryptomatorSettingsMock, premiumManager: premiumManagerMock)
 	}
 
 	// MARK: Buy Product
 
 	func testBuyFreeTrial() async throws {
-		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
-		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
-		let product = try XCTUnwrap(response.products.first)
+		let product = makeSKProduct(identifier: .thirtyDayTrial, price: 0)
+		let expectedDate = Date(timeIntervalSinceNow: 30 * 24 * 60 * 60)
+		premiumManagerMock.trialExpirationDateForReturnValue = expectedDate
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment, transactionDate: Date())
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
 
 		let purchaseTransaction = try await storeObserver.buy(product).getValue()
-		try assertTrialStarted(purchaseTransaction: purchaseTransaction)
+
+		guard case let PurchaseTransaction.freeTrial(expiresOn) = purchaseTransaction else {
+			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
+			return
+		}
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
+		XCTAssertEqual(1, queue.addPaymentCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
 	}
 
 	func testBuyFullVersion() async throws {
@@ -61,28 +61,164 @@ class StoreObserverTests: XCTestCase {
 	/// Only test the approved case as there is no transaction state changes if the transaction gets declined
 	/// see https://developer.apple.com/forums/thread/685183
 	func testAskToBuy() async throws {
-		session.askToBuyEnabled = true
-		XCTAssert(session.allTransactions().isEmpty)
+		let product = makeSKProduct(identifier: .thirtyDayTrial, price: 0)
+		let expectedDate = Date(timeIntervalSinceNow: 30 * 24 * 60 * 60)
+		premiumManagerMock.trialExpirationDateForReturnValue = expectedDate
 
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .deferred, payment: payment)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		do {
+			_ = try await storeObserver.buy(product).getValue()
+			XCTFail("Buy did not fail")
+		} catch {
+			XCTAssertEqual(.deferredTransaction, error as? StoreObserverError)
+		}
+
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+
+		// Simulate the later approval via fallback delegate
 		let fallbackCalledExpectation = XCTestExpectation()
 		let fallbackDelegateMock = StoreObserverDelegateMock()
 		fallbackDelegateMock.purchaseDidSucceedTransactionClosure = { transaction in
-			do {
-				try self.assertTrialStarted(purchaseTransaction: transaction)
-			} catch {
-				XCTFail("assertTrialStarted failed with error: \(error)")
+			guard case let PurchaseTransaction.freeTrial(expiresOn) = transaction else {
+				XCTFail("Wrong purchaseTransaction: \(transaction)")
+				return
 			}
-
+			XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
 			fallbackCalledExpectation.fulfill()
 		}
 		storeObserver.fallbackDelegate = fallbackDelegateMock
 
-		try await assertBuyFailsWithDeferredTransactionError()
-		try approveAskToBuyTransaction()
+		let payment = SKPayment(product: product)
+		let approvedTxn = PaymentTransactionMock(state: .purchased, payment: payment, transactionDate: Date())
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [approvedTxn])
 
 		await fulfillment(of: [fallbackCalledExpectation])
 		XCTAssertEqual(1, fallbackDelegateMock.purchaseDidSucceedTransactionCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
 	}
+
+	// MARK: Failed Transactions
+
+	func testBuyFailedWithError() async throws {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let expectedError = NSError(domain: SKErrorDomain, code: SKError.paymentCancelled.rawValue)
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .failed, payment: payment, error: expectedError)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		do {
+			_ = try await storeObserver.buy(product).getValue()
+			XCTFail("Buy did not fail")
+		} catch {
+			XCTAssertEqual(expectedError, error as NSError)
+		}
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testBuyFailedWithoutError() async throws {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .failed, payment: payment)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		do {
+			_ = try await storeObserver.buy(product).getValue()
+			XCTFail("Buy did not fail")
+		} catch {
+			XCTAssertEqual(.missingTransactionError, error as? StoreObserverError)
+		}
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: Buy Product Variants
+
+	func testBuyYearlySubscription() async throws {
+		let product = makeSKProduct(identifier: .yearlySubscription, price: 11.99)
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
+
+		XCTAssertEqual(.yearlySubscription, purchaseTransaction)
+		XCTAssertEqual(1, queue.addPaymentCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testBuyUnknownProduct() async throws {
+		let product = SKProduct()
+		product.setValue("com.unknown.product", forKey: "productIdentifier")
+		product.setValue(NSDecimalNumber(value: 9.99), forKey: "price")
+		product.setValue(Locale(identifier: "en_US"), forKey: "priceLocale")
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
+
+		XCTAssertEqual(.unknown, purchaseTransaction)
+		XCTAssertEqual(1, queue.addPaymentCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testBuyFreeTrialWithNilTransactionDate() async throws {
+		let product = makeSKProduct(identifier: .thirtyDayTrial, price: 0)
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
+
+		XCTAssertEqual(.unknown, purchaseTransaction)
+		XCTAssertEqual(1, queue.addPaymentCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testBuyFreeTrialWithOriginalTransaction() async throws {
+		let product = makeSKProduct(identifier: .thirtyDayTrial, price: 0)
+		let originalDate = Date(timeIntervalSinceNow: -7 * 24 * 60 * 60)
+		let expectedDate = Date(timeIntervalSinceNow: 23 * 24 * 60 * 60)
+		premiumManagerMock.trialExpirationDateForReturnValue = expectedDate
+
+		queue.addPaymentClosure = { [unowned self] payment in
+			let originalTxn = PaymentTransactionMock(state: .purchased, payment: payment, transactionDate: originalDate)
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment, transactionDate: Date(), original: originalTxn)
+			storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		}
+
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
+
+		guard case let PurchaseTransaction.freeTrial(expiresOn) = purchaseTransaction else {
+			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
+			return
+		}
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
+		XCTAssertEqual(originalDate.timeIntervalSinceReferenceDate, try XCTUnwrap(premiumManagerMock.trialExpirationDateForReceivedPurchaseDate?.timeIntervalSinceReferenceDate), accuracy: 1.0)
+		XCTAssertEqual(1, queue.addPaymentCallsCount)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: Restore Transactions
 
 	func testRestoreRunningSubscription() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
@@ -115,66 +251,127 @@ class StoreObserverTests: XCTestCase {
 		try await assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	// MARK: - Internal
+	func testRestoreFailedWithError() async throws {
+		let expectedError = NSError(domain: SKErrorDomain, code: SKError.unknown.rawValue)
+		let premiumManagerMock = PremiumManagerTypeMock()
+		let queue = PaymentQueuingMock()
+		let storeObserver = StoreObserver(queue: queue, cryptomatorSettings: cryptomatorSettingsMock, premiumManager: premiumManagerMock)
 
-	private func approveAskToBuyTransaction() throws {
-		let transactions = session.allTransactions()
-		XCTAssertEqual(1, transactions.count)
-		guard let deferredTransaction = transactions.first else {
-			XCTFail("StoreKit session transactions are empty")
-			return
+		queue.restoreCompletedTransactionsClosure = {
+			storeObserver.paymentQueue(self.dummyQueue, restoreCompletedTransactionsFailedWithError: expectedError)
 		}
-		try session.approveAskToBuyTransaction(identifier: deferredTransaction.identifier)
-	}
-
-	private func assertFullVersionUnlockedWhenBuying(product: ProductIdentifier, file: StaticString = #filePath, line: UInt = #line) async throws {
-		let response = try await storeManager.fetchProducts(with: [product]).getValue()
-		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
-		let skProduct = try XCTUnwrap(response.products.first)
-
-		let purchaseTransaction = try await storeObserver.buy(skProduct).getValue()
-
-		XCTAssertEqual(.fullVersion, purchaseTransaction)
-		XCTAssert(cryptomatorSettingsMock.fullVersionUnlocked)
-	}
-
-	private func assertTrialStarted(purchaseTransaction: PurchaseTransaction) throws {
-		let expectedDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 30, to: Date()))
-		guard case let PurchaseTransaction.freeTrial(expiresOn) = purchaseTransaction else {
-			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
-			return
-		}
-
-		// decrease the accuracy to 2 minutes to increase stability of the unit tests in the CI.
-		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
-
-		let actualDate = try XCTUnwrap(cryptomatorSettingsMock.trialExpirationDate, "trialExpirationDate was not set")
-		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 120.0)
-	}
-
-	private func assertBuyFailsWithDeferredTransactionError(file: StaticString = #filePath, line: UInt = #line) async throws {
-		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
-		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
-		let product = try XCTUnwrap(response.products.first)
 
 		do {
-			_ = try await storeObserver.buy(product).getValue()
-			XCTFail("Buy did not fail", file: file, line: line)
+			_ = try await storeObserver.restore().getValue()
+			XCTFail("Restore did not fail")
 		} catch {
-			XCTAssertEqual(.deferredTransaction, error as? StoreObserverError)
+			XCTAssertEqual(expectedError, error as NSError)
 		}
+		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testRestoredTransactionsViaUpdatedTransactions() {
+		let product1 = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let product2 = makeSKProduct(identifier: .yearlySubscription, price: 11.99)
+		let txn1 = PaymentTransactionMock(state: .restored, payment: SKPayment(product: product1))
+		let txn2 = PaymentTransactionMock(state: .restored, payment: SKPayment(product: product2))
+
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn1, txn2])
+
+		XCTAssertEqual(2, queue.finishTransactionCallsCount)
+		XCTAssertTrue(queue.finishTransactionReceivedInvocations.contains(where: { $0 === txn1 }))
+		XCTAssertTrue(queue.finishTransactionReceivedInvocations.contains(where: { $0 === txn2 }))
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testRestoreFailedWithNilRunningRestore() {
+		let error = NSError(domain: SKErrorDomain, code: SKError.unknown.rawValue)
+		storeObserver.paymentQueue(dummyQueue, restoreCompletedTransactionsFailedWithError: error)
+		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: Entitlement Revocation
+
+	func testDidRevokeEntitlements() {
+		storeObserver.paymentQueue(dummyQueue, didRevokeEntitlementsForProductIdentifiers: [ProductIdentifier.fullVersion.rawValue])
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: Unsolicited Transaction Callbacks
+
+	func testFailedTransactionWithoutRunningPayment() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .failed, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(1, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testDeferredTransactionWithoutRunningPayment() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .deferred, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testRemovedTransactions() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .purchased, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, removedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+		XCTAssertEqual(0, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	func testPurchasingTransactionIsNoOp() {
+		let product = makeSKProduct(identifier: .fullVersion, price: 11.99)
+		let txn = PaymentTransactionMock(state: .purchasing, payment: SKPayment(product: product))
+		storeObserver.paymentQueue(dummyQueue, updatedTransactions: [txn])
+		XCTAssertEqual(0, queue.finishTransactionCallsCount)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount)
+	}
+
+	// MARK: - Internal
+
+	private func makeSKProduct(identifier: ProductIdentifier, price: NSDecimalNumber, locale: Locale = Locale(identifier: "en_US")) -> SKProduct {
+		let product = SKProduct()
+		product.setValue(identifier.rawValue, forKey: "productIdentifier")
+		product.setValue(price, forKey: "price")
+		product.setValue(locale, forKey: "priceLocale")
+		return product
+	}
+
+	private func assertFullVersionUnlockedWhenBuying(product identifier: ProductIdentifier, file: StaticString = #filePath, line: UInt = #line) async throws {
+		let product = makeSKProduct(identifier: identifier, price: 11.99)
+		let premiumManagerMock = PremiumManagerTypeMock()
+		let queue = PaymentQueuingMock()
+		let storeObserver = StoreObserver(queue: queue, cryptomatorSettings: cryptomatorSettingsMock, premiumManager: premiumManagerMock)
+
+		queue.addPaymentClosure = { payment in
+			let txn = PaymentTransactionMock(state: .purchased, payment: payment)
+			storeObserver.paymentQueue(self.dummyQueue, updatedTransactions: [txn])
+		}
+
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
+
+		XCTAssertEqual(.fullVersion, purchaseTransaction, file: file, line: line)
+		XCTAssertEqual(1, queue.addPaymentCallsCount, file: file, line: line)
+		XCTAssertEqual(1, queue.finishTransactionCallsCount, file: file, line: line)
+		XCTAssertEqual(1, premiumManagerMock.refreshStatusCallsCount, file: file, line: line)
 	}
 
 	private func assertRestored(with expectedResult: RestoreTransactionsResult, cryptomatorSettings: CryptomatorSettings, file: StaticString = #filePath, line: UInt = #line) async throws {
 		let premiumManagerMock = PremiumManagerTypeMock()
-		let storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettings, premiumManager: premiumManagerMock)
+		let queue = PaymentQueuingMock()
+		let storeObserver = StoreObserver(queue: queue, cryptomatorSettings: cryptomatorSettings, premiumManager: premiumManagerMock)
 
-		SKPaymentQueue.default().add(storeObserver)
-		SKPaymentQueue.default().remove(self.storeObserver)
+		queue.restoreCompletedTransactionsClosure = {
+			storeObserver.paymentQueueRestoreCompletedTransactionsFinished(self.dummyQueue)
+		}
 
 		let result = try await storeObserver.restore().getValue()
-		XCTAssertEqual(expectedResult, result)
-		XCTAssert(premiumManagerMock.refreshStatusCalled)
+		XCTAssertEqual(expectedResult, result, file: file, line: line)
+		XCTAssert(premiumManagerMock.refreshStatusCalled, file: file, line: line)
 	}
 }
 
@@ -195,13 +392,5 @@ private class StoreObserverDelegateMock: StoreObserverDelegate {
 		purchaseDidSucceedTransactionReceivedTransaction = transaction
 		purchaseDidSucceedTransactionReceivedInvocations.append(transaction)
 		purchaseDidSucceedTransactionClosure?(transaction)
-	}
-}
-
-extension SKPaymentQueue {
-	func removeAllObservers() {
-		for transactionObserver in transactionObservers {
-			remove(transactionObserver)
-		}
 	}
 }
