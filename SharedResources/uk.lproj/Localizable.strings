@@ -30,7 +30,7 @@
 "common.cells.openInFilesApp" = "Відкрити в програмі «Файли»";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL-адреса";
-"common.cells.username" = "Ім'я користувача";
+"common.cells.username" = "Ім’я користувача";
 "common.footer.learnMore" = "Дізнатися більше.";
 "common.hud.authenticating" = "Авторизація…";
 
@@ -149,7 +149,7 @@
 "keepUnlocked.alert.message" = "Щоб ця зміна набула чинності, ваше сховище має бути заблоковане.";
 "keepUnlocked.alert.confirm" = "Підтвердити та заблокувати зараз";
 "keepUnlocked.header" = "Вкажіть, як довго сховище має залишатися розблокованим після простою.";
-"keepUnlocked.footer.auto" = "Якщо дозволити iOS вирішувати, Cryptomator може бути завершено в будь-який момент для звільнення пам'яті, що автоматично призведе до блокування сховища.";
+"keepUnlocked.footer.auto" = "Якщо дозволити iOS вирішувати, Cryptomator може бути завершено в будь-який момент для звільнення пам’яті, що автоматично призведе до блокування сховища.";
 "keepUnlocked.footer.on" = "При використанні обраної опції, копія вашого ключа має зберігатися у зв'язці ключів iOS, доки сховище розблоковане.";
 "keepUnlockedDuration.auto" = "Дозволити iOS вирішувати автоматично";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
@@ -273,7 +273,7 @@
 "snapshots.main.vault3" = "/Документи";
 "snapshots.main.vault4" = "/Поїздка до Каліфорнії";
 
-"s3Authentication.displayName" = "Відображуване ім'я";
+"s3Authentication.displayName" = "Відображуване ім’я";
 "s3Authentication.accessKey" = "Ключ доступу";
 "s3Authentication.secretKey" = "Секретний ключ";
 "s3Authentication.existingBucket" = "Наявний кошик";
@@ -307,7 +307,7 @@
 "upgrade.notEligible.alert.message" = "Cryptomator не зміг виявити старішу версію, встановлену на вашому пристрої. Якщо ви її придбали, будь ласка, завантажте її з App Store знову та спробуйте ще раз.";
 "upgrade.info" = "Дякуємо, що довіряєте Cryptomator із першої версії. Як відданий користувач, ви маєте право на безплатне оновлення.";
 
-"urlSession.error.httpError.401" = "Неправильне ім'я користувача та/або пароль.";
+"urlSession.error.httpError.401" = "Неправильне ім’я користувача та/або пароль.";
 "urlSession.error.httpError.403" = "Недостатньо прав для доступу до запитаного ресурсу.";
 "urlSession.error.httpError.404" = "Запитаний ресурс не знайдено.";
 "urlSession.error.httpError.405" = "Метод запиту не підтримується цільовим ресурсом.";
