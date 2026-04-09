@@ -17,16 +17,14 @@ class SettingsViewModelTests: XCTestCase {
 	private var cryptomatorSettingsMock: CryptomatorSettingsMock!
 	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	var settingsViewModel: SettingsViewModel!
-	var cacheManagerMock: CacheManagingMock!
+	private var cacheControllerMock: CacheControllerMock!
 
 	override func setUpWithError() throws {
-		cacheManagerMock = CacheManagingMock()
-		cacheManagerMock.clearCacheReplyClosure = { reply in
-			reply(nil)
-		}
+		cacheControllerMock = CacheControllerMock()
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
+		DependencyValues.mockDependency(\.cacheController, with: cacheControllerMock)
 		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
@@ -116,7 +114,7 @@ class SettingsViewModelTests: XCTestCase {
 	func testRefreshCacheSize() {
 		let expectation = XCTestExpectation()
 		let cacheSizeInBytes = 1024 * 1024
-		setCacheManagingResponse(to: cacheSizeInBytes)
+		setCacheControllerResponse(to: cacheSizeInBytes)
 		settingsViewModel.refreshCacheSize().always {
 			expectation.fulfill()
 		}
@@ -143,7 +141,7 @@ class SettingsViewModelTests: XCTestCase {
 
 	func testRefreshCacheSizeForEmptyCache() {
 		let expectation = XCTestExpectation()
-		setCacheManagingResponse(to: 0)
+		setCacheControllerResponse(to: 0)
 		settingsViewModel.refreshCacheSize().always {
 			expectation.fulfill()
 		}
@@ -155,13 +153,13 @@ class SettingsViewModelTests: XCTestCase {
 	func testClearCache() {
 		let expectation = XCTestExpectation()
 		let cacheSizeInBytes = 0
-		setCacheManagingResponse(to: cacheSizeInBytes)
+		setCacheControllerResponse(to: cacheSizeInBytes)
 		settingsViewModel.clearCache().always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 5.0)
 
-		XCTAssertEqual(1, cacheManagerMock.clearCacheReplyCallsCount)
+		XCTAssertEqual(1, cacheControllerMock.clearCacheCallsCount)
 		checkEmptyCacheBehaviour()
 	}
 
@@ -319,11 +317,25 @@ class SettingsViewModelTests: XCTestCase {
 		return settingsViewModel.sections.filter({ $0.id == identifier }).first
 	}
 
-	private func setCacheManagingResponse(to totalCacheSizeInBytes: Int) {
-		cacheManagerMock.getLocalCacheSizeInBytesReplyClosure = { reply in
-			reply(totalCacheSizeInBytes as NSNumber, nil)
-		}
-		fileProviderConnectorMock.proxy = cacheManagerMock
+	private func setCacheControllerResponse(to totalCacheSizeInBytes: Int) {
+		cacheControllerMock.getLocalCacheSizeInBytesReturnValue = Promise(totalCacheSizeInBytes)
+	}
+}
+
+private final class CacheControllerMock: CacheControlling {
+	var getLocalCacheSizeInBytesCallsCount = 0
+	var getLocalCacheSizeInBytesReturnValue = Promise(0)
+	var clearCacheCallsCount = 0
+	var clearCacheReturnValue = Promise(())
+
+	func getLocalCacheSizeInBytes() -> Promise<Int> {
+		getLocalCacheSizeInBytesCallsCount += 1
+		return getLocalCacheSizeInBytesReturnValue
+	}
+
+	func clearCache() -> Promise<Void> {
+		clearCacheCallsCount += 1
+		return clearCacheReturnValue
 	}
 }
 

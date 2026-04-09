@@ -389,6 +389,8 @@
 		7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */; };
 		740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D367D266A18DF0058744D /* SettingsViewController.swift */; };
 		740D3682266A19150058744D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3681266A19150058744D /* SettingsViewModel.swift */; };
+		74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A22E02600000C0D001 /* XPCCacheController.swift */; };
+		74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */; };
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
 		742679FC26A56CF9004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		742679FD26A56CFA004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
@@ -977,6 +979,8 @@
 		7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		74E1A1A22E02600000C0D001 /* XPCCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheController.swift; sourceTree = "<group>"; };
+		74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheAppIntent.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		741CD1C82939080D00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		741CD1CF2939083C00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -2065,6 +2069,8 @@
 			isa = PBXGroup;
 			children = (
 				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
+				74E1A1A22E02600000C0D001 /* XPCCacheController.swift */,
+				74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */,
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
 				7408E6CB26779BC200D7FAEA /* About */,
@@ -2823,6 +2829,8 @@
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
 				4AED9A6C286B305200352951 /* S3AuthenticationView.swift in Sources */,
 				4A644B4D267B55E4008CBB9A /* CreateNewVaultCoordinator.swift in Sources */,
+				74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */,
+				74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */,
 				740D3682266A19150058744D /* SettingsViewModel.swift in Sources */,
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
