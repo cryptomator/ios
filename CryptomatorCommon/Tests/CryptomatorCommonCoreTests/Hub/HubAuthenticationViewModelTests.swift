@@ -38,9 +38,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKey() async {
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToShowLoadingIndicatorCalled)
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToHideLoadingIndicatorCalled)
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
-		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 		hubKeyProviderMock.getPrivateKeyReturnValue = P384.KeyAgreement.PrivateKey(compactRepresentable: false)
 
 		let calledReceiveKey = XCTestExpectation()
@@ -61,7 +59,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the loading indicator should be displayed while receiving the key
@@ -71,7 +74,6 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKeyHidesIfFailed() async {
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToShowLoadingIndicatorCalled)
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToHideLoadingIndicatorCalled)
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let calledReceiveKey = XCTestExpectation()
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigClosure = { _, _ in
 			calledReceiveKey.fulfill()
@@ -90,7 +92,11 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the loading indicator should be displayed while receiving the key and gets hidden even if the operation fails
@@ -98,9 +104,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_success_hubSubscriptionStateIsActive() async throws {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
-		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 
 		// GIVEN
 		// the hub key service returns success with an active Cryptomator Hub subscription state
@@ -113,7 +117,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the unlock handler gets informed about the successful remote unlock with an active Cryptomator Hub subscription state
@@ -123,9 +132,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_success_hubSubscriptionStateIsInactive() async throws {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
-		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 
 		// GIVEN
 		// the hub key service returns success with an active Cryptomator Hub subscription state
@@ -138,7 +145,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the unlock handler gets informed about the successful remote unlock with an inactive Cryptomator Hub subscription state
@@ -148,9 +160,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_success_hubSubscriptionStateIsUnknown() async throws {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
-		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 
 		// GIVEN
 		// the hub key service returns success with an unknown Cryptomator Hub subscription state
@@ -163,7 +173,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the unlock handler gets informed about the successful remote unlock with an inactive Cryptomator Hub subscription state (unknown defaults to inactive)
@@ -173,9 +188,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_success_hubSubscriptionStateMissing() async throws {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
-		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 
 		// GIVEN
 		// the hub key service returns success without a Hub-Subscription-State header
@@ -188,7 +201,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the unlock handler gets informed about the successful remote unlock with an inactive Cryptomator Hub subscription state (missing defaults to inactive)
@@ -198,15 +216,17 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_accessNotGranted() async {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
-
 		// GIVEN
 		// the hub key service returns access not granted
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = .accessNotGranted
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the authentication flow state is set to accessNotGranted
@@ -214,15 +234,17 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_needsDeviceRegistration() async {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
-
 		// GIVEN
 		// the hub key service returns needs device registration
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = .needsDeviceRegistration
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the authentication flow state is set to needsDeviceRegistration where the user needs to set the device name
@@ -230,15 +252,17 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testContinueToAccessCheck_licenseExceeded() async {
-		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
-
 		// GIVEN
 		// the hub key service returns that the Cryptomator Hub License is exceeded
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = .licenseExceeded
 
 		// WHEN
 		// continue the access check
-		await viewModel.continueToAccessCheck()
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
 
 		// THEN
 		// the authentication flow state is set to licenseExceeded
@@ -249,7 +273,6 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 	func testRegister_registersDevice_withName() async {
 		let deviceRegisteringMock = HubDeviceRegisteringMock()
-		DependencyValues.mockDependency(\.hubDeviceRegisteringService, with: deviceRegisteringMock)
 
 		// GIVEN
 		// a name has been set by the user
@@ -257,7 +280,11 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// WHEN
 		// the user taps on register
-		await viewModel.register()
+		await withDependencies({
+			$0.hubDeviceRegisteringService = deviceRegisteringMock
+		}, operation: {
+			await self.viewModel.register()
+		})
 
 		// THEN
 		// the registerDevice got called on the device registering servie

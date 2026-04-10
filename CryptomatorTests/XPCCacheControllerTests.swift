@@ -19,15 +19,18 @@ class XPCCacheControllerTests: XCTestCase {
 		xpcCacheManagingMock.clearCacheReplyClosure = { reply in
 			reply(nil)
 		}
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 	}
 
 	func testClearCacheUsesXPCServiceAndInvalidatesConnection() {
 		let expectation = XCTestExpectation()
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		XPCCacheController().clearCache().always {
-			expectation.fulfill()
+		withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			XPCCacheController().clearCache().always {
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 
@@ -44,9 +47,13 @@ class XPCCacheControllerTests: XCTestCase {
 		}
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		XPCCacheController().getLocalCacheSizeInBytes().then { value in
-			XCTAssertEqual(512, value)
-			expectation.fulfill()
+		withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			XPCCacheController().getLocalCacheSizeInBytes().then { value in
+				XCTAssertEqual(512, value)
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 

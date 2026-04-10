@@ -23,9 +23,7 @@ class SettingsViewModelTests: XCTestCase {
 		cacheControllerMock = CacheControllerMock()
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
-		DependencyValues.mockDependency(\.cacheController, with: cacheControllerMock)
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		settingsViewModel = createSettingsViewModel()
 	}
 
 	// - MARK: Unlock Full Version / Upgrade to Lifetime
@@ -33,7 +31,7 @@ class SettingsViewModelTests: XCTestCase {
 	func testNonPayingUserSeesUnlockFullVersion() {
 		cryptomatorSettingsMock.hasRunningSubscription = false
 		cryptomatorSettingsMock.fullVersionUnlocked = false
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		settingsViewModel = createSettingsViewModel()
 		guard let section = getSection(for: .unlockFullVersionSection) else {
 			XCTFail("Missing unlockFullVersionSection")
 			return
@@ -48,7 +46,7 @@ class SettingsViewModelTests: XCTestCase {
 	func testSubscriberSeesUpgradeToLifetimeInAboutSection() {
 		cryptomatorSettingsMock.hasRunningSubscription = true
 		cryptomatorSettingsMock.fullVersionUnlocked = false
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		settingsViewModel = createSettingsViewModel()
 		let unlockSection = getSection(for: .unlockFullVersionSection)
 		XCTAssertNil(unlockSection, "Subscriber should not see unlockFullVersionSection")
 		guard let aboutSection = getSection(for: .aboutSection) else {
@@ -62,7 +60,7 @@ class SettingsViewModelTests: XCTestCase {
 	func testLifetimeOwnerSeesNoUpgradeToLifetime() {
 		cryptomatorSettingsMock.hasRunningSubscription = false
 		cryptomatorSettingsMock.fullVersionUnlocked = true
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		settingsViewModel = createSettingsViewModel()
 		let unlockSection = getSection(for: .unlockFullVersionSection)
 		XCTAssertNil(unlockSection)
 		guard let aboutSection = getSection(for: .aboutSection) else {
@@ -76,7 +74,7 @@ class SettingsViewModelTests: XCTestCase {
 	func testSubscriberWithLifetimeSeesNoUpgradeToLifetime() {
 		cryptomatorSettingsMock.hasRunningSubscription = true
 		cryptomatorSettingsMock.fullVersionUnlocked = true
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		settingsViewModel = createSettingsViewModel()
 		guard let aboutSection = getSection(for: .aboutSection) else {
 			XCTFail("Missing aboutSection")
 			return
@@ -220,6 +218,7 @@ class SettingsViewModelTests: XCTestCase {
 			invalidationExpectation.fulfill()
 		}
 		cryptomatorSettingsMock.debugModeEnabled = true
+		settingsViewModel = createSettingsViewModel()
 		guard let debugSection = getSection(for: .debugSection) else {
 			XCTFail("Missing debugSection")
 			return
@@ -319,6 +318,15 @@ class SettingsViewModelTests: XCTestCase {
 
 	private func setCacheControllerResponse(to totalCacheSizeInBytes: Int) {
 		cacheControllerMock.getLocalCacheSizeInBytesReturnValue = Promise(totalCacheSizeInBytes)
+	}
+
+	private func createSettingsViewModel() -> SettingsViewModel {
+		withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+			$0.cacheController = cacheControllerMock
+		} operation: {
+			SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		}
 	}
 }
 

@@ -16,15 +16,23 @@ import XCTest
 class DatabaseManagerTests: XCTestCase {
 	var tmpDir: URL!
 	var dbManager: DatabaseManager!
+	private var dbURL: URL!
+	private var database: DatabaseWriter!
 
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		let dbURL = tmpDir.appendingPathComponent("db.sqlite")
-
-		DependencyValues.mockDependency(\.databaseLocation, with: dbURL)
-		DependencyValues.mockDependency(\.database, with: CryptomatorDatabase.live)
-		dbManager = DatabaseManager()
+		dbURL = tmpDir.appendingPathComponent("db.sqlite")
+		database = withDependencies {
+			$0.databaseLocation = dbURL
+		} operation: {
+			CryptomatorDatabase.live
+		}
+		dbManager = withDependencies {
+			$0.database = database
+		} operation: {
+			DatabaseManager()
+		}
 	}
 
 	override func tearDownWithError() throws {
@@ -34,9 +42,8 @@ class DatabaseManagerTests: XCTestCase {
 	// MARK: VaultListPosition
 
 	func testCreatePositionTrigger() throws {
-		@Dependency(\.database) var database
-		let cloudAccountManager = CloudProviderAccountDBManager()
-		let vaultAccountManager = VaultAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
+		let vaultAccountManager = makeVaultAccountManager()
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -61,10 +68,8 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testDeleteVaultAccountUpdatesPositions() throws {
-		@Dependency(\.database) var database
-
-		let cloudAccountManager = CloudProviderAccountDBManager()
-		let vaultAccountManager = VaultAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
+		let vaultAccountManager = makeVaultAccountManager()
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -99,8 +104,8 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testUpdateVaultListPositions() throws {
-		let cloudAccountManager = CloudProviderAccountDBManager()
-		let vaultAccountManager = VaultAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
+		let vaultAccountManager = makeVaultAccountManager()
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -112,7 +117,6 @@ class DatabaseManagerTests: XCTestCase {
 		try vaultAccountManager.saveNewAccount(thirdVaultAccount)
 
 		let vaults = try dbManager.getAllVaults()
-
 		let vaultListPositions = vaults.map { $0.vaultListPosition }
 		let updatedVaultListPositions: [VaultListPosition] = vaultListPositions.map {
 			var vaultListPosition = $0
@@ -132,8 +136,7 @@ class DatabaseManagerTests: XCTestCase {
 	// MARK: AccountListPosition
 
 	func testCreateAccountListPositionTrigger() throws {
-		@Dependency(\.database) var database
-		let cloudAccountManager = CloudProviderAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -167,8 +170,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testDeleteCloudProviderAccountUpdatesPositions() throws {
-		@Dependency(\.database) var database
-		let cloudAccountManager = CloudProviderAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -212,7 +214,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testUpdateAccountListPositions() throws {
-		let cloudAccountManager = CloudProviderAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -244,7 +246,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testGetAllAccountsIsFiltered() throws {
-		let cloudAccountManager = CloudProviderAccountDBManager()
+		let cloudAccountManager = makeCloudAccountManager()
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -276,6 +278,22 @@ class DatabaseManagerTests: XCTestCase {
 
 		let googleDriveAccounts = try dbManager.getAllAccounts(for: .googleDrive)
 		XCTAssertEqual(0, googleDriveAccounts.count)
+	}
+
+	private func makeCloudAccountManager() -> CloudProviderAccountDBManager {
+		withDependencies {
+			$0.database = database
+		} operation: {
+			CloudProviderAccountDBManager()
+		}
+	}
+
+	private func makeVaultAccountManager() -> VaultAccountDBManager {
+		withDependencies {
+			$0.database = database
+		} operation: {
+			VaultAccountDBManager()
+		}
 	}
 }
 

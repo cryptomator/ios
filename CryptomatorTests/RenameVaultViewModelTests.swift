@@ -33,8 +33,6 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		maintenanceHelperMock = MaintenanceModeHelperMock()
 		vaultLockingMock = VaultLockingMock()
 
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
-
 		fileProviderConnectorMock.getXPCServiceNameDomainClosure = { serviceName, _ in
 			switch serviceName {
 			case .maintenanceModeHelper:
@@ -202,7 +200,11 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
 		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
-		return RenameVaultViewModel(provider: CloudProviderMock(), vaultInfo: vaultInfo, domain: domain, vaultManager: vaultManagerMock)
+		return withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			RenameVaultViewModel(provider: CloudProviderMock(), vaultInfo: vaultInfo, domain: domain, vaultManager: vaultManagerMock)
+		}
 	}
 
 	private func checkMaintenanceModeEnabledThenDisabled() {

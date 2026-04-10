@@ -21,9 +21,12 @@ final class PermissionProviderImplTests: XCTestCase {
 	override func setUpWithError() throws {
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		hubRepositoryMock = HubRepositoryMock()
-		DependencyValues.mockDependency(\.hubRepository, with: hubRepositoryMock)
-		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
-		permissionProvider = PermissionProviderImpl()
+		permissionProvider = withDependencies {
+			$0.hubRepository = hubRepositoryMock
+			$0.fullVersionChecker = fullVersionCheckerMock
+		} operation: {
+			PermissionProviderImpl()
+		}
 	}
 
 	// MARK: Full Version

@@ -33,9 +33,12 @@ class WorkingSetObserverTests: XCTestCase {
 		XCTAssertEqual(1, notificatorMock.updateWorkingSetItemsCallsCount)
 		let actualUpdatedItems = notificatorMock.updateWorkingSetItemsReceivedItems as? [FileProviderItem]
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-		XCTAssertEqual(updatedItems.sorted(), actualUpdatedItems?.sorted())
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			XCTAssertEqual(updatedItems.sorted(), actualUpdatedItems?.sorted())
+		}
 		XCTAssertEqual(1, notificatorMock.refreshWorkingSetCallsCount)
 	}
 

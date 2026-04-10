@@ -59,28 +59,32 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		let cacheManagerMock = CachedFileManagerMock()
 		cacheManagerFactoryMock.createCachedFileManagerForReturnValue = cacheManagerMock
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let domainIdentifier = NSFileProviderDomainIdentifier("Test-Domain")
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
-		let testItem = FileProviderItem(metadata: ItemMetadata(id: itemID, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false), domainIdentifier: .test)
-		serviceSource.getItem = { receivedItemIdentifier in
-			guard itemIdentifier == receivedItemIdentifier else {
-				return nil
+		var testItem: FileProviderItem?
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			testItem = FileProviderItem(metadata: ItemMetadata(id: itemID, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false), domainIdentifier: .test)
+			serviceSource.getItem = { receivedItemIdentifier in
+				guard itemIdentifier == receivedItemIdentifier else {
+					return nil
+				}
+				return testItem
 			}
-			return testItem
-		}
-		serviceSource.evictFileFromCache(with: itemIdentifier) { error in
-			XCTAssertNil(error)
-			expectation.fulfill()
+			serviceSource.evictFileFromCache(with: itemIdentifier) { error in
+				XCTAssertNil(error)
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual([itemID], cacheManagerMock.removeCachedFileForReceivedInvocations)
 		XCTAssertEqual([domainIdentifier], cacheManagerFactoryMock.createCachedFileManagerForReceivedInvocations.map { $0.identifier })
 		// Assert signaled an update for the evicted item
-		XCTAssertEqual([testItem], notificatorMock.signalUpdateForReceivedInvocations as? [FileProviderItem])
+		XCTAssertEqual([testItem].compactMap { $0 }, notificatorMock.signalUpdateForReceivedInvocations as? [FileProviderItem])
 	}
 
 	func testGetLocalCacheSizeInBytes() {

@@ -11,56 +11,85 @@ import XCTest
 
 class FullVersionCheckerTests: XCTestCase {
 	var settingsMock: CryptomatorSettingsMock!
-	var fullVersionChecker: FullVersionChecker!
 
 	override func setUpWithError() throws {
 		settingsMock = CryptomatorSettingsMock()
-		DependencyValues.mockDependency(\.cryptomatorSettings, with: settingsMock)
 		settingsMock.fullVersionUnlocked = false
 		settingsMock.hasRunningSubscription = false
 		settingsMock.trialExpirationDate = nil
-		fullVersionChecker = UserDefaultsFullVersionChecker()
 	}
 
 	// MARK: Is Full Version
 
 	func testIsFullVersionWithLifetime() {
 		settingsMock.fullVersionUnlocked = true
-		XCTAssert(fullVersionChecker.isFullVersion)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssert(UserDefaultsFullVersionChecker().isFullVersion)
+		}
 	}
 
 	func testIsFullVersionWithRunningSubscription() {
 		settingsMock.fullVersionUnlocked = true
-		XCTAssert(fullVersionChecker.isFullVersion)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssert(UserDefaultsFullVersionChecker().isFullVersion)
+		}
 	}
 
 	func testIsFullVersionWithTrialExpirationDateInTheFuture() {
 		settingsMock.trialExpirationDate = .distantFuture
-		XCTAssert(fullVersionChecker.isFullVersion)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssert(UserDefaultsFullVersionChecker().isFullVersion)
+		}
 	}
 
 	func testIsNotFullVersionWithTrialExpirationDateInThePast() {
 		settingsMock.trialExpirationDate = .distantPast
-		XCTAssertFalse(fullVersionChecker.isFullVersion)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssertFalse(UserDefaultsFullVersionChecker().isFullVersion)
+		}
 	}
 
 	func testIsNotFullVersionWithNothingSet() {
-		XCTAssertFalse(fullVersionChecker.isFullVersion)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssertFalse(UserDefaultsFullVersionChecker().isFullVersion)
+		}
 	}
 
 	// MARK: Has Expired Trial
 
 	func testHasExpiredTrialWithTrialExpirationDateNotSet() {
-		XCTAssertFalse(fullVersionChecker.hasExpiredTrial)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssertFalse(UserDefaultsFullVersionChecker().hasExpiredTrial)
+		}
 	}
 
 	func testHasExpiredTrialWithExpirationDateInTheFuture() {
 		settingsMock.trialExpirationDate = .distantFuture
-		XCTAssertFalse(fullVersionChecker.hasExpiredTrial)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssertFalse(UserDefaultsFullVersionChecker().hasExpiredTrial)
+		}
 	}
 
 	func testHasExpiredTrialWithExpirationDateInThePast() {
 		settingsMock.trialExpirationDate = .distantPast
-		XCTAssert(fullVersionChecker.hasExpiredTrial)
+		withDependencies {
+			$0.cryptomatorSettings = settingsMock
+		} operation: {
+			XCTAssert(UserDefaultsFullVersionChecker().hasExpiredTrial)
+		}
 	}
 }

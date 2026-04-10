@@ -28,37 +28,34 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 
 	func testLocalItemImport() throws {
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
-		let fileContent = "TestContent"
-		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+		try withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
+			let fileContent = "TestContent"
+			try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
+			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+			try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
-		let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
+			let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
 
-		// Check that file was copied to the url provided by the localURLProvider
-		XCTAssert(FileManager.default.fileExists(atPath: expectedFileURL.path))
-		let contentOfCopiedFile = try String(data: Data(contentsOf: expectedFileURL), encoding: .utf8)
-		XCTAssertEqual(fileContent, contentOfCopiedFile)
-		// Check that the original file was not altered
-		XCTAssert(FileManager.default.contentsEqual(atPath: fileURL.path, andPath: expectedFileURL.path))
+			XCTAssert(FileManager.default.fileExists(atPath: expectedFileURL.path))
+			let contentOfCopiedFile = try String(data: Data(contentsOf: expectedFileURL), encoding: .utf8)
+			XCTAssertEqual(fileContent, contentOfCopiedFile)
+			XCTAssert(FileManager.default.contentsEqual(atPath: fileURL.path, andPath: expectedFileURL.path))
+			XCTAssertEqual([itemID], uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id! })
+			XCTAssertEqual(1, cachedFileManagerMock.cachedLocalFileInfo.count)
+			guard let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[itemID] else {
+				XCTFail("LocalCachedFileInfo is nil")
+				return
+			}
+			XCTAssertEqual(itemID, localCachedFileInfo.correspondingItem)
+			XCTAssertEqual(expectedFileURL, localCachedFileInfo.localURL)
 
-		// Check that the correct uploadTask was created
-		XCTAssertEqual([itemID], uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id! })
-
-		// Check that the file was cached
-		XCTAssertEqual(1, cachedFileManagerMock.cachedLocalFileInfo.count)
-		guard let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[itemID] else {
-			XCTFail("LocalCachedFileInfo is nil")
-			return
+			try assertAllExpectedPropertiesSet(for: result.item)
+			assertLocalURLProviderCalledWithItemID()
 		}
-		XCTAssertEqual(itemID, localCachedFileInfo.correspondingItem)
-		XCTAssertEqual(expectedFileURL, localCachedFileInfo.localURL)
-
-		try assertAllExpectedPropertiesSet(for: result.item)
-		assertLocalURLProviderCalledWithItemID()
 	}
 
 	func testLocalItemImportFailsWhenNoLocalURLIsProvided() throws {
@@ -272,30 +269,30 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 
 	func testLocalItemImportNormalizesNFDFilenameToNFC() throws {
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		try withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 
-		// Create a file with an NFD filename (decomposed Unicode: o + combining diaeresis)
-		let nfdName = "Erh\u{006F}\u{0308}hung.pdf"
-		let nfcName = "Erhöhung.pdf"
-		// Sanity check: NFD and NFC are different byte sequences but equal in Swift
-		XCTAssertEqual(nfdName, nfcName)
-		XCTAssertNotEqual(Array(nfdName.utf8), Array(nfcName.utf8))
+			let nfdName = "Erh\u{006F}\u{0308}hung.pdf"
+			let nfcName = "Erhöhung.pdf"
+			XCTAssertEqual(nfdName, nfcName)
+			XCTAssertNotEqual(Array(nfdName.utf8), Array(nfcName.utf8))
 
-		let fileURL = tmpDirectory.appendingPathComponent(nfdName, isDirectory: false)
-		try "test".write(to: fileURL, atomically: true, encoding: .utf8)
+			let fileURL = tmpDirectory.appendingPathComponent(nfdName, isDirectory: false)
+			try "test".write(to: fileURL, atomically: true, encoding: .utf8)
 
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+			try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
-		let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
+			let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
 
-		// The stored name and cloudPath must use NFC (precomposed), not NFD
-		let storedName = result.item.filename
-		XCTAssertEqual(Array(storedName.utf8), Array(nfcName.utf8), "Filename should be stored in NFC form")
+			let storedName = result.item.filename
+			XCTAssertEqual(Array(storedName.utf8), Array(nfcName.utf8), "Filename should be stored in NFC form")
 
-		let storedCloudPath = result.item.metadata.cloudPath.path
-		XCTAssertEqual(Array(storedCloudPath.utf8), Array("/\(nfcName)".utf8), "CloudPath should be stored in NFC form")
+			let storedCloudPath = result.item.metadata.cloudPath.path
+			XCTAssertEqual(Array(storedCloudPath.utf8), Array("/\(nfcName)".utf8), "CloudPath should be stored in NFC form")
+		}
 	}
 
 	private func assertLocalURLProviderCalledWithItemID() {

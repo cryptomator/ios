@@ -28,8 +28,11 @@ class ChangePasswordViewModelTests: XCTestCase {
 		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 		let domain = NSFileProviderDomain(vaultUID: vaultAccount.vaultUID, displayName: vaultAccount.vaultName)
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
-		viewModel = ChangePasswordViewModel(vaultAccount: vaultAccount, domain: domain, vaultManager: vaultManagerMock)
+		viewModel = withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			ChangePasswordViewModel(vaultAccount: vaultAccount, domain: domain, vaultManager: vaultManagerMock)
+		}
 	}
 
 	private func setupMocks() {

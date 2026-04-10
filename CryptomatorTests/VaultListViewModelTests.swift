@@ -29,7 +29,6 @@ class VaultListViewModelTests: XCTestCase {
 		vaultCacheMock = VaultCacheMock()
 		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock, masterkeyCacheManager: MasterkeyCacheManagerMock(), masterkeyCacheHelper: MasterkeyCacheHelperMock())
 		fileProviderConnectorMock = FileProviderConnectorMock()
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 	}
 
 	func testRefreshVaultsIsSorted() throws {
@@ -98,18 +97,22 @@ class VaultListViewModelTests: XCTestCase {
 		                          vaultListPosition: VaultListPosition(position: 1, vaultUID: "vault1"))
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
-		vaultListViewModel.lockVault(vaultInfo).then {
-			XCTAssertEqual(NSFileProviderDomainIdentifier("vault1"), self.fileProviderConnectorMock.passedDomainIdentifier)
-			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
+		withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			vaultListViewModel.lockVault(vaultInfo).then {
+				XCTAssertEqual(NSFileProviderDomainIdentifier("vault1"), self.fileProviderConnectorMock.passedDomainIdentifier)
+				XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
 
-			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
-			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier("vault1")))
+				XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+				XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier("vault1")))
 
-			XCTAssertEqual(0, vaultLockingMock.unlockedVaults.count)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
+				XCTAssertEqual(0, vaultLockingMock.unlockedVaults.count)
+			}.catch { error in
+				XCTFail("Promise failed with error: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
@@ -129,17 +132,21 @@ class VaultListViewModelTests: XCTestCase {
 		// Simulate an unlocked vault
 		vaultLockingMock.unlockedVaults.append(NSFileProviderDomainIdentifier("vault1"))
 
-		vaultListViewModel.refreshVaultLockStates().then {
-			XCTAssertEqual(self.fileProviderConnectorMock.passedDomainIdentifier?.rawValue, "vault1")
-			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
+		withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			vaultListViewModel.refreshVaultLockStates().then {
+				XCTAssertEqual(self.fileProviderConnectorMock.passedDomainIdentifier?.rawValue, "vault1")
+				XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
 
-			let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked.value })
-			XCTAssertEqual(1, unlockedVaults.count)
-			XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
+				let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked.value })
+				XCTAssertEqual(1, unlockedVaults.count)
+				XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
+			}.catch { error in
+				XCTFail("Promise failed with error: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(2, fileProviderConnectorMock.xpcInvalidationCallCount)

@@ -389,8 +389,6 @@
 		7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */; };
 		740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D367D266A18DF0058744D /* SettingsViewController.swift */; };
 		740D3682266A19150058744D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3681266A19150058744D /* SettingsViewModel.swift */; };
-		74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A22E02600000C0D001 /* XPCCacheController.swift */; };
-		74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */; };
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
 		742679FC26A56CF9004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		742679FD26A56CFA004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
@@ -440,6 +438,9 @@
 		74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */; };
 		74C2FCED27E2197D00BB527A /* PCloudKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */; };
 		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
+		74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */; };
+		74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A22E02600000C0D001 /* XPCCacheController.swift */; };
+		74E1A1A52E02700000C0D001 /* XPCCacheControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */; };
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
@@ -979,8 +980,6 @@
 		7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		74E1A1A22E02600000C0D001 /* XPCCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheController.swift; sourceTree = "<group>"; };
-		74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheAppIntent.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		741CD1C82939080D00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		741CD1CF2939083C00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
@@ -1072,6 +1071,9 @@
 		74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCloudKeychainTests.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheAppIntent.swift; sourceTree = "<group>"; };
+		74E1A1A22E02600000C0D001 /* XPCCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheController.swift; sourceTree = "<group>"; };
+		74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheControllerTests.swift; sourceTree = "<group>"; };
 		74E93B742810109E0047A116 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74E93B75281010E50047A116 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -1891,6 +1893,7 @@
 				4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */,
 				4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */,
 				4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */,
+				74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */,
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
@@ -3042,6 +3045,7 @@
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
 				4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */,
 				4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */,
+				74E1A1A52E02700000C0D001 /* XPCCacheControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

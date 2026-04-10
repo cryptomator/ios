@@ -27,7 +27,6 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		vaultLockingMock = VaultLockingMock()
-		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 	}
 
 	func testDefaultConfiguration() throws {
@@ -202,10 +201,14 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 	}
 
 	private func createViewModel(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>) -> VaultKeepUnlockedViewModel {
-		return VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration,
-		                                  vaultInfo: vaultInfo,
-		                                  vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock,
-		                                  masterkeyCacheManager: masterkeyCacheManagerMock)
+		return withDependencies {
+			$0.fileProviderConnector = fileProviderConnectorMock
+		} operation: {
+			VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration,
+			                           vaultInfo: vaultInfo,
+			                           vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock,
+			                           masterkeyCacheManager: masterkeyCacheManagerMock)
+		}
 	}
 
 	private func assertSectionsAreCorrect(selectedKeepUnlockedDuration: KeepUnlockedDuration, viewModel: VaultKeepUnlockedViewModel) {
