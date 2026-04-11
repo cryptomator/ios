@@ -44,7 +44,7 @@ struct XPCCacheController: CacheControlling {
 }
 
 private enum CacheControllerKey: DependencyKey {
-    static let testValue: any CacheControlling = XPCCacheController()
+	static let testValue: any CacheControlling = XPCCacheController()
 	static let liveValue: any CacheControlling = XPCCacheController()
 }
 
