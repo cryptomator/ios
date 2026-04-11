@@ -1,4 +1,14 @@
 "common.failureReason" = "Nesėkmės priežastis";
 "common.folder" = "Aplankas";
 "common.vault" = "Slėptuvė";
+
+"lockVaultIntent.description" = "Užrakina nurodytą slėptuvę.";
+"lockVaultIntent.text" = "Užrakinti ${vault}";
+"lockVaultIntent.title" = "Užrakinti slėptuvę";
+"openVaultIntent.title" = "Atverti slėptuvę";
+
+"saveFileIntent.description" = "Įrašo failą į slėptuvę.";
 "saveFileIntent.file" = "Failas";
+
+"vaultFolder.displayName" = "Slėptuvės aplankas";
+"vaultFolder.vaultIdentifier" = "Slėptuvės identifikatorius";
