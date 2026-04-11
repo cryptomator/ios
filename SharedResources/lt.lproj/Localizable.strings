@@ -28,15 +28,24 @@
 
 "addVault.title" = "Pridėti slėptuvę";
 "addVault.createNewVault.title" = "Sukurti naują slėptuvę";
+"addVault.createNewVault.setVaultName.header.title" = "Suteikite slėptuvei pavadinimą.";
 "addVault.createNewVault.setVaultName.cells.name" = "Slėptuvės pavadinimas";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Slėptuvės pavadinimas negali būti tuščias.";
+"addVault.createNewVault.password.enterPassword.header" = "Įveskite naują slaptažodį.";
+"addVault.createNewVault.password.confirmPassword.header" = "Pakartokite naują slaptažodį.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Patvirtinti slaptažodį?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "SVARBU: Jei pamiršite slaptažodį, daugiau niekaip nebegalėsite atkurti savo duomenų.";
 "addVault.createNewVault.password.error.emptyPassword" = "Slaptažodis negali būti tuščias.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Slaptažodžiai nesutampa.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Slaptažodyje privalo būti bent 8 simboliai.";
 "addVault.createNewVault.progress" = "Kuriama slėptuvė…";
+"addVault.openExistingVault.chooseCloud.header" = "Kurioje vietoje yra slėptuvė?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator aptiko slėptuvę „%@“.\nAr norėtumėte pridėti šią slėptuvę?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Pridėti šią slėptuvę";
 "addVault.openExistingVault.downloadVault.progress" = "Atsiunčiama slėptuvė…";
 "addVault.openExistingVault.progress" = "Pridedama paskyra…";
+"changePassword.header.newPassword.title" = "Įveskite naują slaptažodį.";
+"changePassword.header.newPasswordConfirmation.title" = "Pakartokite naują slaptažodį.";
 "chooseFolder.createNewFolder.cells.name" = "Aplanko pavadinimas";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Aplanko pavadinimas negali būti tuščias.";
 "chooseFolder.createNewFolder.progress" = "Kuriamas aplankas…";
@@ -58,17 +67,30 @@
 "snapshots.fileprovider.file2" = "/Galutinė pateiktis.key";
 "snapshots.fileprovider.file4" = "/Pasiūlymas.docx";
 "snapshots.fileprovider.file5" = "/Ataskaita.pdf";
+"snapshots.main.vault1" = "/Darbas";
+"snapshots.main.vault2" = "/Šeima";
+"snapshots.main.vault3" = "/Dokumentai";
+"snapshots.main.vault4" = "/Kelionė į Kauną";
 
 "unlockVault.button.unlock" = "Atrakinti";
+"unlockVault.progress" = "Atrakinama…";
 
 "vaultDetail.button.changeVaultPassword" = "Keisti slaptažodį";
 "vaultDetail.button.lock" = "Užrakinti dabar";
 "vaultDetail.button.moveVault" = "Perkelti";
 "vaultDetail.button.removeVault" = "Šalinti iš slėptuvių sąrašo";
 "vaultDetail.button.renameVault" = "Pervadinti";
+"vaultDetail.button.shareVault" = "Bendrinti slėptuvę";
 "vaultDetail.locked.footer" = "Jūsų slėptuvė šiuo metu yra užrakinta.";
+"vaultDetail.renameVault.progress" = "Pervadinama…";
+
+"vaultList.header.title" = "Slėptuvės";
+"vaultList.emptyList.message" = "Bakstelėkite čia norėdami pridėti slėptuvę";
 "vaultList.remove.alert.title" = "Šalinti slėptuvę?";
 "vaultList.remove.alert.message" = "Tai pašalins slėptuvę tik iš slėptuvių sąrašo. Jokie šifruoti duomenys nebus ištrinti. Vėliau galėsite pridėti slėptuvę iš naujo.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Slėptuvės konfigūracija yra nepalaikoma. Įsitikinkite, kad naudojate naujausią Cryptomator versiją.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Slėptuvės versija %ld yra nepalaikoma. Ši slėptuvė sukurta naudojant senesnę arba naujesnę Cryptomator versiją.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Naudoti HTTPS?";
 "Clear from Cache" = "Išvalyti iš podėlio";
