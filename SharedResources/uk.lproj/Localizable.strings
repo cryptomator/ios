@@ -36,7 +36,7 @@
 
 "accountList.header.title" = "Авторизація";
 "accountList.emptyList.message" = "Натисніть тут, щоб додати обліковий запис";
-"accountList.signOut.alert.title" = "Вилучити пов'язані сховища?";
+"accountList.signOut.alert.title" = "Вилучити пов’язані сховища?";
 "accountList.signOut.alert.message" = "Після виходу з облікового запису всі пов’язані сховища буде вилучено зі списку сховищ. Зашифровані дані не будуть видалені. Ви зможете знову увійти та повторно додати сховища пізніше.";
 
 "addVault.title" = "Додати сховище";
@@ -83,7 +83,7 @@
 
 "cloudProvider.error.itemNotFound" = "«%@» не знайдено.";
 "cloudProvider.error.itemAlreadyExists" = "«%@» вже існує.";
-"cloudProvider.error.itemTypeMismatch" = "«%@» має неочікуваний тип об'єкта.";
+"cloudProvider.error.itemTypeMismatch" = "«%@» має неочікуваний тип об’єкта.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Батьківська папка «%@» не існує.";
 "cloudProvider.error.pageTokenInvalid" = "Не вдалося продовжити завантаження вмісту каталогу.";
 "cloudProvider.error.quotaInsufficient" = "Недостатньо місця у вашому сховищі даних.";
@@ -150,7 +150,7 @@
 "keepUnlocked.alert.confirm" = "Підтвердити та заблокувати зараз";
 "keepUnlocked.header" = "Вкажіть, як довго сховище має залишатися розблокованим після простою.";
 "keepUnlocked.footer.auto" = "Якщо дозволити iOS вирішувати, Cryptomator може бути завершено в будь-який момент для звільнення пам’яті, що автоматично призведе до блокування сховища.";
-"keepUnlocked.footer.on" = "При використанні обраної опції, копія вашого ключа має зберігатися у зв'язці ключів iOS, доки сховище розблоковане.";
+"keepUnlocked.footer.on" = "При використанні обраної опції, копія вашого ключа має зберігатися у зв’язці ключів iOS, доки сховище розблоковане.";
 "keepUnlockedDuration.auto" = "Дозволити iOS вирішувати автоматично";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "keepUnlockedDuration.indefinite" = "Необмежено";
@@ -258,7 +258,7 @@
 "shareVault.hub.step2" = "Надайте доступ учаснику команди в Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Відкрити Cryptomator Hub";
 "shareVault.error.hubURLExtraction.title" = "Не вдалося завантажити інформацію Hub";
-"shareVault.error.hubURLExtraction.message" = "Не вдалося завантажити конфігурацію Hub для сховища. Будь ласка, перевірте налаштування сховища або зв'яжіться з адміністратором Hub.";
+"shareVault.error.hubURLExtraction.message" = "Не вдалося завантажити конфігурацію Hub для сховища. Будь ласка, перевірте налаштування сховища або зв’яжіться з адміністратором Hub.";
 
 "snapshots.fileprovider.file1" = "/Розрахунки.numbers";
 "snapshots.fileprovider.file2" = "/Остаточна презентація.key";
@@ -313,7 +313,7 @@
 "urlSession.error.httpError.405" = "Метод запиту не підтримується цільовим ресурсом.";
 "urlSession.error.httpError.409" = "Запит суперечить поточному стану цільового ресурсу.";
 "urlSession.error.httpError.412" = "Доступ до цільового ресурсу заборонений.";
-"urlSession.error.httpError.default" = "Збій мережевого з'єднання зі статусом %ld.";
+"urlSession.error.httpError.default" = "Збій мережевого з’єднання зі статусом %ld.";
 "urlSession.error.unexpectedResponse" = "Сталася неочікувана відповідь мережі.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Ви вже додали це сховище.";
@@ -326,7 +326,7 @@
 "vaultDetail.button.shareVault" = "Поділитися сховищем";
 "vaultDetail.shareVault.footer" = "Співпрацюйте безпечно зі своєю командою, використовуючи Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Виберіть надійний пароль для свого сховища, який знатимете лише ви, і зберігайте його в безпечному місці.";
-"vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви ввімкнете «%@», пароль вашого сховища буде збережено у зв'язці ключів iOS.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви ввімкнете «%@», пароль вашого сховища буде збережено у зв’язці ключів iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ваш пароль до сховища буде потрібен лише у випадку невдалої автентифікації за допомогою «%@».";
 "vaultDetail.info.footer.accessVault" = "Отримайте доступ до сховища через програму «Файли».";
 "vaultDetail.info.footer.accountInfo" = "Ви увійшли як «%@» через «%@».";
@@ -340,7 +340,7 @@
 "vaultDetail.removeVault.footer" = "Це лише вилучить сховище зі списку, але не видалить зашифровані файли.";
 "vaultDetail.renameVault.progress" = "Перейменування…";
 "vaultDetail.unlocked.footer" = "Ваше сховище наразі розблоковано в програмі «Файли».";
-"vaultDetail.unlockVault.footer" = "Введіть пароль для «%1$@», щоб зберегти його у зв'язці ключів iOS та увімкнути %2$@.";
+"vaultDetail.unlockVault.footer" = "Введіть пароль для «%1$@», щоб зберегти його у зв’язці ключів iOS та увімкнути %2$@.";
 
 "vaultList.header.title" = "Сховища";
 "vaultList.emptyList.message" = "Натисніть тут, щоб додати сховище";
