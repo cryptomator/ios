@@ -7,12 +7,12 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 	let itemID: Int64 = 2

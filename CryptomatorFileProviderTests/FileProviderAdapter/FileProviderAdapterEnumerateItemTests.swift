@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 	override func setUpWithError() throws {

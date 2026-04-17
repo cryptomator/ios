@@ -7,11 +7,11 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import MobileCoreServices
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {

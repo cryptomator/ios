@@ -7,11 +7,11 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class CacheManagingServiceSourceTests: XCTestCase {
 	var serviceSource: CacheManagingServiceSource!
@@ -54,7 +54,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		XCTAssertEqual(1, cacheManagerMocks[1].clearCacheCallsCount)
 	}
 
-	func testEvictFileFromCache() {
+	func testEvictFileFromCache() throws {
 		let expectation = XCTestExpectation()
 		let cacheManagerMock = CachedFileManagerMock()
 		cacheManagerFactoryMock.createCachedFileManagerForReturnValue = cacheManagerMock
@@ -84,7 +84,8 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		XCTAssertEqual([itemID], cacheManagerMock.removeCachedFileForReceivedInvocations)
 		XCTAssertEqual([domainIdentifier], cacheManagerFactoryMock.createCachedFileManagerForReceivedInvocations.map { $0.identifier })
 		// Assert signaled an update for the evicted item
-		XCTAssertEqual([testItem].compactMap { $0 }, notificatorMock.signalUpdateForReceivedInvocations as? [FileProviderItem])
+		let unwrappedTestItem = try XCTUnwrap(testItem)
+		XCTAssertEqual([unwrappedTestItem], notificatorMock.signalUpdateForReceivedInvocations as? [FileProviderItem])
 	}
 
 	func testGetLocalCacheSizeInBytes() {

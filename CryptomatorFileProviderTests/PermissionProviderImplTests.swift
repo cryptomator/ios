@@ -7,10 +7,10 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 final class PermissionProviderImplTests: XCTestCase {
 	private static let defaultFolderCapabilities: NSFileProviderItemCapabilities = [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]

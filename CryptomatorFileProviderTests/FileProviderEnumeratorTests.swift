@@ -8,12 +8,12 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import Dependencies
 import FileProvider
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderEnumeratorTestCase: XCTestCase {
 	var enumerationObserverMock: NSFileProviderEnumerationObserverMock!

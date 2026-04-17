@@ -7,11 +7,11 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import GRDB
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class DatabaseManagerTests: XCTestCase {
 	var tmpDir: URL!

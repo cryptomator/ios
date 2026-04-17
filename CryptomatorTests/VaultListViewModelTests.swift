@@ -7,13 +7,13 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import GRDB
 import LocalAuthentication
 import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class VaultListViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultDBManagerMock!

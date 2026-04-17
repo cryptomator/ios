@@ -8,12 +8,12 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
+import Dependencies
 import GRDB
 import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	private var vaultManagerMock: VaultManagerMock!

@@ -8,12 +8,12 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
+import Dependencies
 import GRDB
 import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class MoveVaultViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!

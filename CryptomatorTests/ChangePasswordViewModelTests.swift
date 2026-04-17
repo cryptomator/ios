@@ -10,11 +10,11 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import CryptomatorFileProvider
+import Dependencies
 import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class ChangePasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!

@@ -7,10 +7,10 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class WorkingSetObserverTests: XCTestCase {
 	var observer: WorkingSetObserver!

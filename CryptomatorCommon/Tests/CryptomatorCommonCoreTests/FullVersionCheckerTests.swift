@@ -5,9 +5,9 @@
 //  Created by Philipp Schmid on 21.02.22.
 //
 
+import Dependencies
 import XCTest
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class FullVersionCheckerTests: XCTestCase {
 	var settingsMock: CryptomatorSettingsMock!

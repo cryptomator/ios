@@ -7,10 +7,10 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 	override func setUpWithError() throws {

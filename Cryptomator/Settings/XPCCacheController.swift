@@ -44,8 +44,13 @@ struct XPCCacheController: CacheControlling {
 }
 
 private enum CacheControllerKey: DependencyKey {
-	static let testValue: any CacheControlling = XPCCacheController()
-	static let liveValue: any CacheControlling = XPCCacheController()
+	static var liveValue: any CacheControlling {
+		XPCCacheController()
+	}
+
+	#if DEBUG
+	static var testValue: any CacheControlling = UnimplementedCacheController()
+	#endif
 }
 
 extension DependencyValues {
@@ -54,3 +59,17 @@ extension DependencyValues {
 		set { self[CacheControllerKey.self] = newValue }
 	}
 }
+
+#if DEBUG
+private struct UnimplementedCacheController: CacheControlling {
+	func getLocalCacheSizeInBytes() -> Promise<Int> {
+		unimplemented("\(Self.self).getLocalCacheSizeInBytes() not implemented", placeholder: Promise(UnimplementedError()))
+	}
+
+	func clearCache() -> Promise<Void> {
+		unimplemented("\(Self.self).clearCache() not implemented", placeholder: Promise(UnimplementedError()))
+	}
+
+	private struct UnimplementedError: Error {}
+}
+#endif

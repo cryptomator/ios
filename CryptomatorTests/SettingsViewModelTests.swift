@@ -6,12 +6,12 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class SettingsViewModelTests: XCTestCase {
 	private var cryptomatorSettingsMock: CryptomatorSettingsMock!

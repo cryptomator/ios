@@ -7,12 +7,12 @@
 
 import AppAuthCore
 import CryptoKit
+import Dependencies
 import JOSESwift
 import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
-@testable import Dependencies
 
 final class HubAuthenticationViewModelTests: XCTestCase {
 	private var unlockHandlerMock: HubVaultUnlockHandlerMock!

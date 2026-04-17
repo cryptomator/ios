@@ -7,10 +7,10 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 @testable import Promises
 
 class FileImportingServiceSourceTests: XCTestCase {

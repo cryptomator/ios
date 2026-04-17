@@ -6,12 +6,12 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	let fileCoordinator = NSFileCoordinator()
