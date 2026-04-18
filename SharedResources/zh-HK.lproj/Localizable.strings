@@ -219,6 +219,10 @@
 
 "shareVault.title" = "共享加密庫";
 "shareVault.normal.header.title" = "安全的團隊合作方式";
+"shareVault.normal.button.visitHub" = "前往 Cryptomator Hub";
+"shareVault.hub.header.title" = "如何共享 Hub 加密庫";
+"shareVault.hub.header.subtitle" = "您需要執行以下兩步，才可與團隊共用加密庫内容：";
+"shareVault.hub.button.openHub" = "開啟 Cryptomator Hub";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
