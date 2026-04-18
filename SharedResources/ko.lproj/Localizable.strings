@@ -122,7 +122,7 @@
 
 "hubAuthentication.title" = "Hub Vault";
 "hubAuthentication.accessNotGranted" = "이 Vault에 접근할 권한이 없습니다. Vault 소유자에게 허가를 요청하십시오.";
-"hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이선스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이선스를 업그레이드하거나 갱신하려면 Hub 관리자에게 알리십시오.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "이 기기로부터 첫번째 Hub 접근입니다. 접근 허가를 위해 인식할 수 있도록 이름을 붙이십시오.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "새로운 앱이나 브라우저에서 로그인하기 위해 Account Key가 필요합니다. 프로필에서 찾을 수 있습니다.";
@@ -236,7 +236,7 @@
 "settings.unlockFullVersion.detail" = "귀하의 Vault에 대한 쓰기 권한을 얻으세요.";
 "settings.unlockFullVersion.trialExpirationDate" = "체험판 만료일: %@";
 "settings.upgradeToLifetime" = "평생 라이선스로 업그레이드";
-"settings.hub.trustedHosts" = "신뢰할 수 있는 허브 호스트";
+"settings.hub.trustedHosts" = "신뢰할 수 있는 Hub 호스트";
 
 "sharePoint.enterURL.title" = "SharePoint URL 입력";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
