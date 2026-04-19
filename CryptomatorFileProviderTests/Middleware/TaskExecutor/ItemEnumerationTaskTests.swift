@@ -202,10 +202,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 	// MARK: Folder
 
-	// swiftlint:disable:next function_body_length
-	func testFolderEnumeration() throws {
-		let expectation = XCTestExpectation(description: "Folder Enumeration")
-
+	func testFolderEnumeration() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -218,110 +215,92 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		                                            ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false),
 		                                            ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)]
 
-		let expectedRootFolderFileProviderItems = expectedItemMetadataInsideRootFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 		let expectedItemMetadataInsideSubFolder = [ItemMetadata(id: 7, name: "Directory 2", type: .folder, size: 0, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/Directory 2"), isPlaceholderItem: false),
 		                                           ItemMetadata(id: 8, name: "File 5", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/File 5"), isPlaceholderItem: false)]
-		let expectedSubFolderFileProviderItems = expectedItemMetadataInsideSubFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 		let permissionProviderMock = PermissionProviderMock()
-		withDependencies {
+		try await withDependencies({
 			$0.permissionProvider = permissionProviderMock
-		} operation: {
+		}, operation: {
 			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			let expectedRootFolderFileProviderItems = expectedItemMetadataInsideRootFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
+			let expectedSubFolderFileProviderItems = expectedItemMetadataInsideSubFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 
-			taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> FileProviderItem in
-				XCTAssertEqual(5, fileProviderItemList.items.count)
-				XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.filename), fileProviderItemList.items.map(\.filename))
-				XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.parentItemIdentifier), fileProviderItemList.items.map(\.parentItemIdentifier))
-				XCTAssertEqual(6, self.metadataManagerMock.cachedMetadata.count)
+			let rootFolderItemList = try await taskExecutor.execute(task: enumerationTask).getValue()
+			XCTAssertEqual(5, rootFolderItemList.items.count)
+			XCTAssertEqual(expectedRootFolderFileProviderItems, rootFolderItemList.items)
+			XCTAssertEqual(6, self.metadataManagerMock.cachedMetadata.count)
 
-				let expectedItemMetadata = [rootItemMetadata] + expectedItemMetadataInsideRootFolder
-				XCTAssert(expectedItemMetadata.allSatisfy { expectedMetadata in
-					self.metadataManagerMock.cachedMetadata.contains(where: { key, value in
-						key == expectedMetadata.id && value.name == expectedMetadata.name && value.type == expectedMetadata.type && value.size == expectedMetadata.size && value.parentID == expectedMetadata.parentID && value.statusCode == expectedMetadata.statusCode && value.cloudPath == expectedMetadata.cloudPath && value.isPlaceholderItem == expectedMetadata.isPlaceholderItem
-					})
+			// Check cached metadata equals expected metadata, except the last modified date
+			let expectedItemMetadata = [rootItemMetadata] + expectedItemMetadataInsideRootFolder
+			XCTAssert(expectedItemMetadata.allSatisfy { expectedMetadata in
+				self.metadataManagerMock.cachedMetadata.contains(where: { key, value in
+					key == expectedMetadata.id && value.name == expectedMetadata.name && value.type == expectedMetadata.type && value.size == expectedMetadata.size && value.parentID == expectedMetadata.parentID && value.statusCode == expectedMetadata.statusCode && value.cloudPath == expectedMetadata.cloudPath && value.isPlaceholderItem == expectedMetadata.isPlaceholderItem
 				})
-				XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-				XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-				return fileProviderItemList.items[0]
-			}.then { folderFileProviderItem -> Promise<FileProviderItemList> in
-				let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
-				let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderFileProviderItem.metadata)
-				return taskExecutor.execute(task: enumerationTask)
-			}.then { fileProviderItemList in
-				XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			})
+			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 
-				XCTAssertEqual(2, fileProviderItemList.items.count)
-				XCTAssertEqual(expectedSubFolderFileProviderItems.map(\.filename), fileProviderItemList.items.map(\.filename))
-				XCTAssertEqual(expectedSubFolderFileProviderItems.map(\.parentItemIdentifier), fileProviderItemList.items.map(\.parentItemIdentifier))
-				XCTAssertEqual(8, self.metadataManagerMock.cachedMetadata.count)
+			let subfolderEnumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
+			let subfolderEnumerationTask = ItemEnumerationTask(taskRecord: subfolderEnumerationTaskRecord, itemMetadata: rootFolderItemList.items[0].metadata)
+			let subfolderItemList = try await taskExecutor.execute(task: subfolderEnumerationTask).getValue()
 
-				XCTAssert(expectedItemMetadataInsideSubFolder.allSatisfy { expectedMetadata in
-					self.metadataManagerMock.cachedMetadata.contains(where: { key, value in
-						key == expectedMetadata.id && value.name == expectedMetadata.name && value.type == expectedMetadata.type && value.size == expectedMetadata.size && value.parentID == expectedMetadata.parentID && value.statusCode == expectedMetadata.statusCode && value.cloudPath == expectedMetadata.cloudPath && value.isPlaceholderItem == expectedMetadata.isPlaceholderItem
-					})
+			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssertEqual(2, subfolderItemList.items.count)
+			XCTAssertEqual(expectedSubFolderFileProviderItems, subfolderItemList.items)
+			XCTAssertEqual(8, self.metadataManagerMock.cachedMetadata.count)
+
+			// Check cached metadata equals expected metadata, except the last modified date
+			XCTAssert(expectedItemMetadataInsideSubFolder.allSatisfy { expectedMetadata in
+				self.metadataManagerMock.cachedMetadata.contains(where: { key, value in
+					key == expectedMetadata.id && value.name == expectedMetadata.name && value.type == expectedMetadata.type && value.size == expectedMetadata.size && value.parentID == expectedMetadata.parentID && value.statusCode == expectedMetadata.statusCode && value.cloudPath == expectedMetadata.cloudPath && value.isPlaceholderItem == expectedMetadata.isPlaceholderItem
 				})
-			}.catch { error in
-				XCTFail("Error in promise: \(error)")
-			}.always {
-				expectation.fulfill()
-			}
-		}
-		wait(for: [expectation], timeout: 5.0)
+			})
+		})
 	}
 
-	func testFolderEnumerationSameFolderTwice() throws {
-		let expectation = XCTestExpectation(description: "Folder Enumeration")
-
+	func testFolderEnumerationSameFolderTwice() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test)]
-		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false), domainIdentifier: .test)]
-
 		let permissionProviderMock = PermissionProviderMock()
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		withDependencies {
+		try await withDependencies({
 			$0.permissionProvider = permissionProviderMock
-		} operation: {
+		}, operation: {
 			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test)]
+			let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test),
+			                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false), domainIdentifier: .test)]
 
-			taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
-				XCTAssertEqual(5, fileProviderItemList.items.count)
-				XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.filename), fileProviderItemList.items.map(\.filename))
-				XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.parentItemIdentifier), fileProviderItemList.items.map(\.parentItemIdentifier))
-				XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-				XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-				self.cloudProviderMock.files["/File 1"] = nil
-				self.cloudProviderMock.files["/NewFileFromCloud"] = Data("NewFileFromCloud content".utf8)
-				let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
-				let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
-				return taskExecutor.execute(task: secondEnumerationTask)
-			}.then { fileProviderItemList in
-				XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-				XCTAssertEqual(5, fileProviderItemList.items.count)
-				XCTAssertEqual(expectedChangedRootFolderFileProviderItems.map(\.filename), fileProviderItemList.items.map(\.filename))
-				XCTAssertEqual(expectedChangedRootFolderFileProviderItems.map(\.parentItemIdentifier), fileProviderItemList.items.map(\.parentItemIdentifier))
-			}.catch { error in
-				XCTFail("Error in promise: \(error)")
-			}.always {
-				expectation.fulfill()
-			}
-		}
-		wait(for: [expectation], timeout: 5.0)
+			let firstEnumerationItemList = try await taskExecutor.execute(task: enumerationTask).getValue()
+			XCTAssertEqual(5, firstEnumerationItemList.items.count)
+			XCTAssertEqual(expectedRootFolderFileProviderItems, firstEnumerationItemList.items)
+			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
+
+			self.cloudProviderMock.files["/File 1"] = nil
+			self.cloudProviderMock.files["/NewFileFromCloud"] = Data("NewFileFromCloud content".utf8)
+			let secondEnumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
+			let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata)
+			let secondEnumerationItemList = try await taskExecutor.execute(task: secondEnumerationTask).getValue()
+
+			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssertEqual(5, secondEnumerationItemList.items.count)
+			XCTAssertEqual(expectedChangedRootFolderFileProviderItems, secondEnumerationItemList.items)
+		})
 	}
 
 	func testFolderEnumerationPreservesUploadError() throws {
