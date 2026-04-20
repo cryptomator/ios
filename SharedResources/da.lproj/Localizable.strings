@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Kunne ikke hente mappens indhold.";
 "cloudProvider.error.quotaInsufficient" = "Dit lager har ikke tilstrækkelig plads.";
 "cloudProvider.error.unauthorized" = "Kan ikke udføre uautoriseret operation.";
+"cloudProvider.error.unauthorized.reauth.title" = "Session udløbet";
+"cloudProvider.error.unauthorized.reauth.message" = "Log venligst ind på %@ igen.";
+"cloudProvider.error.unauthorized.reauth.button" = "Log ind";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Du har logget ind med en anden konto. Prøv igen og log ind med den oprindelige %@ konto.";
 "cloudProvider.error.noInternetConnection" = "Internetforbindelse er påkrævet for denne operation.";
 
 "cloudProviderType.localFileSystem" = "Andre fil-kilder";
@@ -134,6 +138,9 @@
 "hubAuthentication.trustHost.error.httpNotAllowed" = "Usikker forbindelse (HTTP) til \"%@\" er ikke tilladt. Brug venligst HTTPS.";
 "hubAuthentication.untrustedHost.alert.title" = "Vært Ikke pålidelig";
 "hubAuthentication.vaultArchived" = "Denne boks er blevet arkiveret. Bed venligst ejeren af boksen om at fjerne arkiveringen.";
+
+"intents.clearCache.description" = "Rydder kryptomators lokale filcache.";
+"intents.clearCache.cacheCleared" = "Cache ryddet.";
 
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
 "intents.saveFile.invalidFolder" = "Den angivne mappe er ikke gyldig.";
@@ -207,6 +214,11 @@
 "purchase.unlockedFullVersion.title" = "Tak";
 "purchase.error.paymentNotAllowed" = "In-app køb er ikke tilladt på denne enhed. Tjek venligst dine skærmtid-indstillinger under Indhold og Privatlivs-begrænsninger for at aktivere køb.";
 "purchase.error.unknown" = "Dette køb er ikke tilgængeligt i App Store af en ukendt årsag. Prøv igen senere.\n\nHvis denne fejl fortsætter, så prøv at genstarte din enhed eller logge ud og ind igen med dit Apple-id i iOS-indstillingerne.";
+"purchase.lifetime.hasSubscription.alert.title" = "Du har et aktivt abonnement";
+"purchase.lifetime.hasSubscription.alert.message" = "Når du har købt livstidslicensen, skal du annullere dit årlige abonnement for at undgå at blive opkrævet for begge dele.";
+"purchase.lifetime.hasSubscription.hint" = "Annullér dit abonnement efter køb for at undgå dobbeltgebyrer.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Livstidslicens aktiveret";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "For at stoppe fremtidige abonnementsafgifter, skal du annullere dit årlige abonnement.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Administrér abonnement";
 
 "settings.title" = "Indstillinger";
@@ -226,6 +238,7 @@
 "settings.unlockFullVersion" = "Lås op for fuld version";
 "settings.unlockFullVersion.detail" = "Få skriveadgang til dine bokse.";
 "settings.unlockFullVersion.trialExpirationDate" = "Prøveversions udløbsdato: %@";
+"settings.upgradeToLifetime" = "Opgradér til livstid";
 "settings.hub.trustedHosts" = "Pålidelige Hub-værter";
 
 "sharePoint.enterURL.title" = "Indtast SharePoint URL";
@@ -289,6 +302,7 @@
 
 "untrustedTLSCertificate.title" = "Ugyldigt TLS certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet for \"%@\" er ugyldigt. Vil du stole på det alligevel?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Hav tillid";
 "untrustedTLSCertificate.dismiss" = "Afvis";
 
 "upgrade.title" = "Tilbud på opgradering";
