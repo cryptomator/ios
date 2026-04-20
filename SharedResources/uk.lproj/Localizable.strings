@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Хост не є надійним";
 "hubAuthentication.vaultArchived" = "Це сховище було заархівовано. Будь ласка, попросіть власника сховища розархівувати його.";
 
+"intents.clearCache.description" = "Очищує локальний файловий кеш Cryptomator.";
+"intents.clearCache.cacheCleared" = "Кеш очищено.";
+
 "intents.saveFile.missingFile" = "Наданий файл недійсний.";
 "intents.saveFile.invalidFolder" = "Надана папка недійсна.";
 "intents.saveFile.missingTemporaryFolder" = "Не вдалося створити тимчасову папку.";
