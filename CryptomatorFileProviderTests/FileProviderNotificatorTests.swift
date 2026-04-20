@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderNotificatorTests: XCTestCase {
 	var notificator: FileProviderNotificator!
@@ -99,10 +99,12 @@ class FileProviderNotificatorTests: XCTestCase {
 		let actualItems = notificator.popUpdateContainerItems() as? [FileProviderItem]
 
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-
-		XCTAssertEqual([updatedItem], actualItems?.sorted())
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			XCTAssertEqual([updatedItem], actualItems?.sorted())
+		}
 		XCTAssert(notificator.popUpdateWorkingSetItems().isEmpty)
 		XCTAssert(notificator.getItemIdentifiersToDeleteFromWorkingSet().isEmpty)
 
@@ -115,10 +117,13 @@ class FileProviderNotificatorTests: XCTestCase {
 
 	private func assertUpdateWorkingSetHasUpdatedItems() {
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let actualItems = notificator.popUpdateWorkingSetItems() as? [FileProviderItem]
-		XCTAssertEqual(updatedItems.sorted(), actualItems?.sorted())
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			XCTAssertEqual(updatedItems.sorted(), actualItems?.sorted())
+		}
 	}
 
 	private func getCurrentSyncAnchorDate() throws -> Date {

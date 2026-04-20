@@ -8,12 +8,12 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import Dependencies
 import FileProvider
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderEnumeratorTestCase: XCTestCase {
 	var enumerationObserverMock: NSFileProviderEnumerationObserverMock!
@@ -52,13 +52,16 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 
 	func assertChangeObserverUpdated(deletedItems: [NSFileProviderItemIdentifier], updatedItems: [FileProviderItem], currentSyncAnchor: NSFileProviderSyncAnchor) {
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 
-		XCTAssertEqual([deletedItems], changeObserverMock.didDeleteItemsWithIdentifiersReceivedInvocations)
-		let receivedUpdatedItems = changeObserverMock.didUpdateReceivedInvocations as? [[FileProviderItem]]
-		XCTAssertEqual([updatedItems], receivedUpdatedItems)
-		XCTAssertFalse(changeObserverMock.finishEnumeratingWithErrorCalled)
+			XCTAssertEqual([deletedItems], changeObserverMock.didDeleteItemsWithIdentifiersReceivedInvocations)
+			let receivedUpdatedItems = changeObserverMock.didUpdateReceivedInvocations as? [[FileProviderItem]]
+			XCTAssertEqual([updatedItems], receivedUpdatedItems)
+			XCTAssertFalse(changeObserverMock.finishEnumeratingWithErrorCalled)
+		}
 	}
 }
 
@@ -185,13 +188,16 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 
 	private func assertEnumerateItemObserverSucceeded(itemList: FileProviderItemList) {
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 
-		XCTAssertEqual([itemList.nextPageToken], enumerationObserverMock.finishEnumeratingUpToReceivedInvocations)
-		let receivedInvocations = enumerationObserverMock.didEnumerateReceivedInvocations as? [[FileProviderItem]]
-		XCTAssertEqual([items], receivedInvocations)
-		XCTAssertFalse(enumerationObserverMock.finishEnumeratingWithErrorCalled)
+			XCTAssertEqual([itemList.nextPageToken], enumerationObserverMock.finishEnumeratingUpToReceivedInvocations)
+			let receivedInvocations = enumerationObserverMock.didEnumerateReceivedInvocations as? [[FileProviderItem]]
+			XCTAssertEqual([items], receivedInvocations)
+			XCTAssertFalse(enumerationObserverMock.finishEnumeratingWithErrorCalled)
+		}
 	}
 
 	private func assertEnumerateItemsObserverFailed(with error: CloudProviderError) {

@@ -128,6 +128,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}()
 
 	@Dependency(\.fileProviderConnector) private var fileProviderConnector
+	@Dependency(\.cacheController) private var cacheController
 
 	private var subscribers = Set<AnyCancellable>()
 	private lazy var showDebugModeWarningPublisher = PassthroughSubject<Void, Never>()
@@ -144,11 +145,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				self.clearCacheButtonCellViewModel.isEnabled.value = false
 			}
 		}
-		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domain: nil)
-		return getXPCPromise.then { xpc in
-			xpc.proxy.getLocalCacheSizeInBytes()
-		}.then { receivedCacheSizeInBytes -> Void in
-			let totalCacheSizeInBytes = receivedCacheSizeInBytes?.intValue ?? 0
+		return cacheController.getLocalCacheSizeInBytes().then { totalCacheSizeInBytes -> Void in
 			loading = false
 			self.cacheSizeCellViewModel.isLoading.value = false
 			self.clearCacheButtonCellViewModel.isEnabled.value = totalCacheSizeInBytes > 0
@@ -158,10 +155,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	func clearCache() -> Promise<Void> {
-		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domain: nil)
-		return getXPCPromise.then { xpc in
-			xpc.proxy.clearCache()
-		}.then {
+		return cacheController.clearCache().then {
 			self.refreshCacheSize()
 		}
 	}

@@ -7,10 +7,10 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 @testable import Promises
 
 class FileImportingServiceSourceTests: XCTestCase {
@@ -30,14 +30,17 @@ class FileImportingServiceSourceTests: XCTestCase {
 		adapterProvidingMock = FileProviderAdapterProvidingMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
-		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 		taskRegistratorMock = SessionTaskRegistratorMock()
-		serviceSource = FileImportingServiceSource(domain: domain,
-		                                           notificator: notificatorMock,
-		                                           dbPath: dbPath,
-		                                           delegate: urlProviderMock,
-		                                           adapterManager: adapterProvidingMock,
-		                                           taskRegistrator: taskRegistratorMock)
+		serviceSource = withDependencies {
+			$0.fullVersionChecker = fullVersionCheckerMock
+		} operation: {
+			FileImportingServiceSource(domain: domain,
+			                           notificator: notificatorMock,
+			                           dbPath: dbPath,
+			                           delegate: urlProviderMock,
+			                           adapterManager: adapterProvidingMock,
+			                           taskRegistrator: taskRegistratorMock)
+		}
 	}
 
 	func testGetItemIdentifier() throws {

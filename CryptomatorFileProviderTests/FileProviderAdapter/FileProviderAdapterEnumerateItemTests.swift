@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 	override func setUpWithError() throws {
@@ -36,17 +36,20 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		try metadataManagerMock.cacheMetadata(child)
 
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 
-		adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil).then { itemList in
-			XCTAssertEqual(1, itemList.items.count)
-			XCTAssertEqual("CachedFile", itemList.items[0].metadata.name)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+			adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil).then { itemList in
+				XCTAssertEqual(1, itemList.items.count)
+				XCTAssertEqual("CachedFile", itemList.items[0].metadata.name)
+				XCTAssertNil(itemList.nextPageToken)
+			}.catch { error in
+				XCTFail("Error in promise: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 	}
@@ -60,16 +63,19 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		]
 		metadataManagerMock.workingSetMetadata = mockMetadata
 		let permissionProviderMock = PermissionProviderMock()
-		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
-		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let expectation = XCTestExpectation()
-		adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
-			XCTAssertEqual(mockMetadata.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }, itemList.items)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		withDependencies {
+			$0.permissionProvider = permissionProviderMock
+		} operation: {
+			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+			adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
+				XCTAssertEqual(mockMetadata, itemList.items.map(\.metadata))
+				XCTAssertNil(itemList.nextPageToken)
+			}.catch { error in
+				XCTFail("Error in promise: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		}
 		wait(for: [expectation], timeout: 5.0)
 	}

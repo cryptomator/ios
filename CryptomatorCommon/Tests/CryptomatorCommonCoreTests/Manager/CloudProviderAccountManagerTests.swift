@@ -6,11 +6,11 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Foundation
 import GRDB
 import XCTest
 @testable import CryptomatorCommonCore
-@testable import Dependencies
 
 class CloudProviderAccountManagerTests: XCTestCase {
 	var accountManager: CloudProviderAccountDBManager!
