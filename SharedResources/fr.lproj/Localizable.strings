@@ -134,6 +134,9 @@
 "hubAuthentication.trustHost.alert.trustButton" = "Approuver";
 "hubAuthentication.vaultArchived" = "Ce coffre a été archivé. Veuillez demander au propriétaire du coffre de le désarchiver.";
 
+"intents.clearCache.description" = "Efface le cache local de fichiers de Cryptomator.";
+"intents.clearCache.cacheCleared" = "Le cache a été vidé.";
+
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
 "intents.saveFile.invalidFolder" = "Le dossier fourni n'est pas valide.";
 "intents.saveFile.missingTemporaryFolder" = "Impossible de créer un dossier temporaire.";
