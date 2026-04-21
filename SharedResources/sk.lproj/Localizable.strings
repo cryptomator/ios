@@ -134,6 +134,9 @@
 "hubAuthentication.trustHost.alert.trustButton" = "Veriť";
 "hubAuthentication.vaultArchived" = "Tento trezor bol archivovaný. Prosím požiadajte vlastníka o odarchivovanie.";
 
+"intents.clearCache.description" = "Vymaže súbor lokálnej vyrovnávacej pamäte Cryptomatora.";
+"intents.clearCache.cacheCleared" = "Vyrovnávacia pamäť vymazaná.";
+
 "intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";
 "intents.saveFile.invalidFolder" = "Poskytnutý adresár nie je platný.";
 "intents.saveFile.missingTemporaryFolder" = "Nepodarilo sa vytvoriť dočasný adresár.";
