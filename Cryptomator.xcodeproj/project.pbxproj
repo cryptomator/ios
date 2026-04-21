@@ -456,6 +456,9 @@
 		B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */; };
 		B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
+		B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */; };
+		B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10002 /* VaultUnlockingMock.swift */; };
+		B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1095,6 +1098,8 @@
 		B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewController.swift; sourceTree = "<group>"; };
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
+		B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewModelTests.swift; sourceTree = "<group>"; };
+		B40000000000000000E10002 /* VaultUnlockingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingMock.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1896,7 +1901,9 @@
 				74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */,
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
+				B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				B40000000000000000E10002 /* VaultUnlockingMock.swift */,
 				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
 				4AD9481B2909BD9C00072110 /* XCTest+Async.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
@@ -3046,6 +3053,9 @@
 				4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */,
 				4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */,
 				74E1A1A52E02700000C0D001 /* XPCCacheControllerTests.swift in Sources */,
+				B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */,
+				B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */,
+				B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
