@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "호스트를 신뢰할 수 없음";
 "hubAuthentication.vaultArchived" = "이 Vault는 아카이브되었습니다. Vault 소유자에게 아카이브를 해제하도록 요청하십시오.";
 
+"intents.clearCache.description" = "Cryptomator의 로컬 파일 캐시를 모두 지웁니다.";
+"intents.clearCache.cacheCleared" = "캐시가 삭제되었습니다.";
+
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
 "intents.saveFile.missingTemporaryFolder" = "임시 폴더를 만들 수 없습니다.";
