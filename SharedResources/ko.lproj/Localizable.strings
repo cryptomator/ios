@@ -224,7 +224,7 @@
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
-"settings.aboutCryptomator.hasFullVersion.footer" = "이제 정식 버전을 사용하실 수 있으며 Vault에 대한 쓰기 권한을 얻었습니다.";
+"settings.aboutCryptomator.hasFullVersion.footer" = "정식 버전이 활성화되었으며 Vault에 대한 쓰기 권한을 얻었습니다.";
 "settings.cacheSize" = "캐시 크기";
 "settings.clearCache" = "캐시 지우기";
 "settings.cloudServices" = "클라우드 서비스";
@@ -278,7 +278,7 @@
 
 "s3Authentication.displayName" = "표시 이름";
 "s3Authentication.accessKey" = "액세스 키";
-"s3Authentication.secretKey" = "비밀키";
+"s3Authentication.secretKey" = "비밀 키";
 "s3Authentication.existingBucket" = "이미 존재하는 버킷";
 "s3Authentication.endpoint" = "엔드포인트";
 "s3Authentication.region" = "지역";
