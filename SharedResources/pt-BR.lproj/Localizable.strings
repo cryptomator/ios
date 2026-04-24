@@ -183,7 +183,7 @@
 "purchase.footer.termsOfUse" = "Termos de Uso";
 "purchase.header.feature.familySharing" = "Compartilhamento familiar";
 "purchase.header.feature.openSource" = "Desenvolvimento em código aberto";
-"purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
+"purchase.header.feature.writeAccess" = "Acesso de gravação aos seus cofres";
 "purchase.product.donateAndUpgrade" = "Doar e atualizar";
 "purchase.product.freeUpgrade" = "Atualização gratuita";
 "purchase.product.lifetimeLicense" = "Licença vitalícia";
@@ -233,7 +233,7 @@
 "settings.sendLogFile" = "Enviar arquivo de registros";
 "settings.shortcutsGuide" = "Guia de atalhos";
 "settings.unlockFullVersion" = "Adquirir a versão completa";
-"settings.unlockFullVersion.detail" = "Obtenha acesso de escrita aos seus cofres.";
+"settings.unlockFullVersion.detail" = "Obtenha acesso de gravação aos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
 "settings.upgradeToLifetime" = "Atualize para a vitalícia";
 "settings.hub.trustedHosts" = "Hosts do Hub confiáveis";
