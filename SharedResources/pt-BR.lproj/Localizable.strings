@@ -138,6 +138,8 @@
 "hubAuthentication.trustHost.error.httpNotAllowed" = "Conexão insegura (HTTP) para \"%@\" não permitida. Use HTTPS.";
 "hubAuthentication.untrustedHost.alert.title" = "Host não confiável";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
+
+"intents.clearCache.description" = "Limpa o cache local dos arquivos do Cryptomator.";
 "intents.clearCache.cacheCleared" = "Cache limpo.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
