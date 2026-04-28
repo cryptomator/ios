@@ -181,7 +181,7 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
-"purchase.expiredTrial" = "Seu período de teste expirou.";
+"purchase.expiredTrial" = "Seu período experimental expirou.";
 "purchase.footer.privacyPolicy" = "Política de Privacidade";
 "purchase.footer.termsOfUse" = "Termos de Uso";
 "purchase.header.feature.familySharing" = "Compartilhamento familiar";
@@ -192,7 +192,7 @@
 "purchase.product.lifetimeLicense" = "Licença vitalícia";
 "purchase.product.lifetimeLicense.duration" = "uma vez";
 "purchase.product.pricing.free" = "Gratuito";
-"purchase.product.trial" = "Teste gratuito por 30 dias";
+"purchase.product.trial" = "Experimente por 30 dias";
 "purchase.product.trial.expirationDate" = "Expira em: %@";
 "purchase.product.trial.duration" = "por 30 dias";
 "purchase.product.yearlySubscription" = "Assinatura anual";
@@ -277,7 +277,7 @@
 "snapshots.main.vault4" = "/Viagem à Califórnia";
 
 "s3Authentication.displayName" = "Nome de exibição";
-"s3Authentication.accessKey" = "Chave de acesso";
+"s3Authentication.accessKey" = "Chave de Acesso";
 "s3Authentication.secretKey" = "Chave secreta";
 "s3Authentication.existingBucket" = "Bucket existente";
 "s3Authentication.endpoint" = "Endpoint";
