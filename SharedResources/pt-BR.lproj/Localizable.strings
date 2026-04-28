@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Host não confiável";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
 
+"intents.clearCache.description" = "Limpa o cache local dos arquivos do Cryptomator.";
+"intents.clearCache.cacheCleared" = "Cache limpo.";
+
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
 "intents.saveFile.invalidFolder" = "A pasta fornecida é inválida.";
 "intents.saveFile.missingTemporaryFolder" = "Falha ao criar uma pasta temporária.";
@@ -178,18 +181,18 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
-"purchase.expiredTrial" = "Seu período de teste expirou.";
+"purchase.expiredTrial" = "Seu período experimental expirou.";
 "purchase.footer.privacyPolicy" = "Política de Privacidade";
 "purchase.footer.termsOfUse" = "Termos de Uso";
 "purchase.header.feature.familySharing" = "Compartilhamento familiar";
 "purchase.header.feature.openSource" = "Desenvolvimento em código aberto";
-"purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
+"purchase.header.feature.writeAccess" = "Acesso de gravação aos seus cofres";
 "purchase.product.donateAndUpgrade" = "Doar e atualizar";
 "purchase.product.freeUpgrade" = "Atualização gratuita";
 "purchase.product.lifetimeLicense" = "Licença vitalícia";
 "purchase.product.lifetimeLicense.duration" = "uma vez";
 "purchase.product.pricing.free" = "Gratuito";
-"purchase.product.trial" = "Teste gratuito por 30 dias";
+"purchase.product.trial" = "Experimente por 30 dias";
 "purchase.product.trial.expirationDate" = "Expira em: %@";
 "purchase.product.trial.duration" = "por 30 dias";
 "purchase.product.yearlySubscription" = "Assinatura anual";
@@ -233,7 +236,7 @@
 "settings.sendLogFile" = "Enviar arquivo de registros";
 "settings.shortcutsGuide" = "Guia de atalhos";
 "settings.unlockFullVersion" = "Adquirir a versão completa";
-"settings.unlockFullVersion.detail" = "Obtenha acesso de escrita aos seus cofres.";
+"settings.unlockFullVersion.detail" = "Obtenha acesso de gravação aos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
 "settings.upgradeToLifetime" = "Atualize para a vitalícia";
 "settings.hub.trustedHosts" = "Hosts do Hub confiáveis";
@@ -274,7 +277,7 @@
 "snapshots.main.vault4" = "/Viagem à Califórnia";
 
 "s3Authentication.displayName" = "Nome de exibição";
-"s3Authentication.accessKey" = "Chave de acesso";
+"s3Authentication.accessKey" = "Chave de Acesso";
 "s3Authentication.secretKey" = "Chave secreta";
 "s3Authentication.existingBucket" = "Bucket existente";
 "s3Authentication.endpoint" = "Endpoint";

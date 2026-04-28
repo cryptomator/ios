@@ -4,7 +4,7 @@
 "common.true" = "так";
 "common.vault" = "Сховище";
 
-"getFolderIntent.description" = "Повертає об'єкт папки для заданого шляху в обраному сховищі.";
+"getFolderIntent.description" = "Повертає об’єкт папки для заданого шляху в обраному сховищі.";
 "getFolderIntent.path" = "Шлях";
 "getFolderIntent.text" = "Отримати папку за шляхом ${path} у сховищі ${vault}";
 "getFolderIntent.title" = "Отримати папку";

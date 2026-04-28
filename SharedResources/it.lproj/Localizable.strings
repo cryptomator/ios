@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Host Non Affidabile";
 "hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
+"intents.clearCache.description" = "Ripulisci la cache locale di Cryptomator.";
+"intents.clearCache.cacheCleared" = "Cache ripulita.";
+
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
 "intents.saveFile.invalidFolder" = "La cartella fornita non è valida.";
 "intents.saveFile.missingTemporaryFolder" = "Non è stato possibile creare la cartella temporanea.";

@@ -22,6 +22,7 @@
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.refresh" = "重新整理";
+"common.button.register" = "註冊";
 "common.button.remove" = "移除";
 "common.button.retry" = "重試";
 "common.button.signOut" = "登出";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "這加密檔案庫在甚麼地方？";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 在此檢測到加密庫「%@」。\n你想把這加密庫加到列表嗎？";
 "addVault.openExistingVault.detectedMasterkey.add" = "加入這加密庫";
+"addVault.openExistingVault.downloadVault.progress" = "正在下載保險庫…";
 "addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 "addVault.openExistingVault.progress" = "正在加入加密庫…";
 "addVault.success.info" = "已成功加入加密庫「%@」。\n現在可以通過「檔案」程式瀏覽加密庫。";
@@ -86,9 +88,14 @@
 "cloudProvider.error.pageTokenInvalid" = "無法繼續取得資料夾的內容。";
 "cloudProvider.error.quotaInsufficient" = "儲存空間不足。";
 "cloudProvider.error.unauthorized" = "無法執行未授權的操作。";
+"cloudProvider.error.unauthorized.reauth.title" = "登入階段逾時無效";
+"cloudProvider.error.unauthorized.reauth.message" = "請再次登入 %@ 。";
+"cloudProvider.error.unauthorized.reauth.button" = "登入";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "您登入了另一帳號。請用原本的 %@ 帳號再試。";
 "cloudProvider.error.noInternetConnection" = "此操作需要連線至互聯網。";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+"cloudProviderType.sharePoint.secondary" = "包括 Microsoft Teams";
 
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.info" = "感謝您選擇 Cryptomator 來保護你的文件。若要開始，請先前往主程式並加入加密庫。";
@@ -99,6 +106,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "保存在 %@ 的密碼錯誤，請重試並輸入你的密碼來重新啟用 %@ 。";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
 "fileProvider.error.defaultLock.message" = "要存取加密庫和顯示其內容，需要先解鎖。";
+"fileprovider.error.unauthorized.text" = "檔案庫 %@ 存取被拒。請開啟主程式並檢查網路，重新授權。";
 "fileProvider.error.unlockButton" = "解鎖";
 "fileProvider.clearFileFromCache.title" = "清除快取檔䅁";
 "fileProvider.clearFileFromCache.message" = "這只會從本機上刪除文件，而不會刪除雲端的文件。";
@@ -111,8 +119,20 @@
 
 "getFolderIntent.error.missingPath" = "沒有提供路徑。請提供應返回資料夾的有效路徑。";
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密庫。";
+
+"hubAuthentication.title" = "Hub 加密庫";
+"hubAuthentication.accessNotGranted" = "您無權存取此加密庫。需加密庫所有者授權。";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "若此設備首次存取 Hub，需命名此設備，以便識別，授予權限。";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "需要 Account Key 登入新應用或瀏覽器。 Account Key 在你的個人資料中可見。";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "請向加密檔案庫所有者獲取權限，存取此加密庫。";
+"hubAuthentication.requireAccountInit.alert.title" = "待操作";
+"hubAuthentication.requireAccountInit.alert.message" = "要繼續，請完成 Hub 使用者中心所需步驟。";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "前往個人檔案";
+"hubAuthentication.trustHost.alert.title" = "是否信任此伺服器？";
+"hubAuthentication.trustHost.alert.message" = "此加密庫需連接伺服器：\n\n%@\n\n是否信任伺服器？";
 "hubAuthentication.trustHost.alert.trustButton" = "信任";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
@@ -197,6 +217,13 @@
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
 
+"shareVault.title" = "共享加密庫";
+"shareVault.normal.header.title" = "安全的團隊合作方式";
+"shareVault.normal.button.visitHub" = "前往 Cryptomator Hub";
+"shareVault.hub.header.title" = "如何共享 Hub 加密庫";
+"shareVault.hub.header.subtitle" = "您需要執行以下兩步，才可與團隊共用加密庫内容：";
+"shareVault.hub.button.openHub" = "開啟 Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
 "snapshots.fileprovider.file3" = "/產品預告.mov";
@@ -256,6 +283,7 @@
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.button.shareVault" = "共享加密庫";
 "vaultDetail.changePassword.footer" = "為加密庫選擇一個只有您知道的強密碼，並將其保管在安全的地方。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果啟用了 %@，你的加密庫密碼便會儲存在 iOS 鑰匙圈中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "僅當 %@ 身份驗證失敗時才需要你的加密庫密碼。";
