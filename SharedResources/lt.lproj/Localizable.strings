@@ -24,6 +24,9 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Naudotojo vardas";
 "common.footer.learnMore" = "Sužinokite daugiau.";
+"common.hud.authenticating" = "Atliekamas tapatybės nustatymas…";
+
+"accountList.header.title" = "Tapatybės nustatymai";
 "accountList.emptyList.message" = "Bakstelėkite čia norėdami pridėti paskyrą";
 
 "addVault.title" = "Pridėti slėptuvę";
@@ -46,18 +49,27 @@
 "addVault.openExistingVault.progress" = "Pridedama paskyra…";
 "changePassword.header.newPassword.title" = "Įveskite naują slaptažodį.";
 "changePassword.header.newPasswordConfirmation.title" = "Pakartokite naują slaptažodį.";
+"changePassword.progress" = "Keičiamas slaptažodis…";
+
+"chooseFolder.emptyFolder.footer" = "Aplankas tuščias";
+"chooseFolder.createNewFolder.header.title" = "Suteikite aplankui pavadinimą.";
 "chooseFolder.createNewFolder.cells.name" = "Aplanko pavadinimas";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Aplanko pavadinimas negali būti tuščias.";
 "chooseFolder.createNewFolder.progress" = "Kuriamas aplankas…";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ jau yra.";
 "cloudProvider.error.unauthorized.reauth.button" = "Prisijungti";
 "fileProvider.onboarding.button.openCryptomator" = "Atverti Cryptomator";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Neteisingas slaptažodis";
 "fileProvider.error.unlockButton" = "Atrakinti";
 "fileProvider.uploadProgress.connecting" = "Jungiamasi…";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Įrenginio pavadinimas";
 "intents.saveFile.missingTemporaryFolder" = "Nepavyko sukurti laikinojo aplanko.";
+
+"keepUnlocked.alert.title" = "Užrakinti slėptuvę?";
+"keepUnlocked.alert.confirm" = "Patvirtinti ir užrakinti dabar";
 "purchase.footer.privacyPolicy" = "Privatumo politika";
 "purchase.readOnlyMode.alert.title" = "Tik skaitymo veiksena";
+"purchase.unlockedFullVersion.title" = "Ačiū";
 "settings.aboutCryptomator" = "Apie Cryptomator";
 "settings.aboutCryptomator.title" = "Versija %@ (%@)";
 "settings.cacheSize" = "Podėlio dydis";
