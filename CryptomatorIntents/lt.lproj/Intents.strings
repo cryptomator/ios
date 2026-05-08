@@ -9,6 +9,8 @@
 
 "saveFileIntent.description" = "Įrašo failą į slėptuvę.";
 "saveFileIntent.file" = "Failas";
+"saveFileIntent.text" = "Įrašyti ${file} į ${folder}";
+"saveFileIntent.title" = "Įrašyti failą";
 
 "vaultFolder.displayName" = "Slėptuvės aplankas";
 "vaultFolder.vaultIdentifier" = "Slėptuvės identifikatorius";
