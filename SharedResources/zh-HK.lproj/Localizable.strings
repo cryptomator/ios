@@ -216,6 +216,7 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+"settings.hub.trustedHosts" = "可信的 Hub 主機";
 
 "shareVault.title" = "共享加密庫";
 "shareVault.normal.header.title" = "安全的團隊合作方式";
