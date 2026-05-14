@@ -577,10 +577,30 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		itemMetadata.parentID = parentID
 		itemMetadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(itemMetadata)
+		if itemMetadata.type == .folder, let id = itemMetadata.id {
+			try rewriteDescendantCloudPaths(ofFolderID: id, newParentCloudPath: cloudPath)
+		}
 
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
+	}
+
+	private func rewriteDescendantCloudPaths(ofFolderID folderID: Int64, newParentCloudPath: CloudPath) throws {
+		var visited: Set<Int64> = [folderID]
+		try rewriteDescendantCloudPaths(ofFolderID: folderID, newParentCloudPath: newParentCloudPath, visited: &visited)
+	}
+
+	private func rewriteDescendantCloudPaths(ofFolderID folderID: Int64, newParentCloudPath: CloudPath, visited: inout Set<Int64>) throws {
+		for child in try itemMetadataManager.getCachedMetadata(withParentID: folderID) {
+			guard let childID = child.id, visited.insert(childID).inserted else { continue }
+			let childCloudPath = newParentCloudPath.appendingPathComponent(child.name)
+			child.cloudPath = childCloudPath
+			try itemMetadataManager.updateMetadata(child)
+			if child.type == .folder {
+				try rewriteDescendantCloudPaths(ofFolderID: childID, newParentCloudPath: childCloudPath, visited: &visited)
+			}
+		}
 	}
 
 	func validateItemName(_ name: String) throws {

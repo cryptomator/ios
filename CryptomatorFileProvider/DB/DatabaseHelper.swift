@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
@@ -209,7 +210,60 @@ public struct DatabaseHelper: DatabaseHelping {
 			  )
 			""")
 		}
+		migrator.registerMigration("v5", foreignKeyChecks: .immediate) { db in
+			try DatabaseHelper.repairCloudPathsMigration(db)
+		}
 		try migrator.migrate(dbWriter)
+	}
+
+	/**
+	 Repairs `cloudPath` values that became stale because earlier versions of `moveItemLocally` updated only the moved folder's row.
+
+	 Walks the tree breadth-first from the root via `parentID` and rewrites any `cloudPath` whose canonical value (derived from the parent's path plus the row's `name`) differs from the stored value. Rows that are not reachable from the root (orphans, disconnected cycles) are intentionally left untouched.
+
+	 If a row's canonical path is already occupied by another row (e.g. a duplicate created after the stale-descendant bug), the conflicting row is left at its stale path and the conflict is logged. When that happens, the BFS does not descend into the conflicted folder's children — descending would rewrite descendants to a `/canonical/…` prefix whose `/canonical` parent stayed stale, splitting the subtree.
+
+	 Also creates an index on `itemMetadata.parentID` so future `parentID`-based lookups — including the runtime descendant rewrite — do not require a table scan.
+	 */
+	static func repairCloudPathsMigration(_ db: Database) throws {
+		try db.execute(sql: "CREATE INDEX IF NOT EXISTS itemMetadata_parentID ON itemMetadata(parentID)")
+
+		var queue: [(parentID: Int64, parentPath: CloudPath)] = [(NSFileProviderItemIdentifier.rootContainerDatabaseValue, CloudPath("/"))]
+		var head = 0
+		var visitedCount = 1
+		while head < queue.count {
+			let (parentID, parentPath) = queue[head]
+			head += 1
+			let rows = try Row.fetchAll(db, sql: """
+			SELECT id, name, type, cloudPath
+			FROM itemMetadata
+			WHERE parentID = ? AND id != ?
+			""", arguments: [parentID, NSFileProviderItemIdentifier.rootContainerDatabaseValue])
+			rows: for row in rows {
+				let id: Int64 = row["id"]
+				let name: String = row["name"]
+				let itemType: CloudItemType = row["type"]
+				let storedCloudPath: CloudPath = row["cloudPath"]
+				visitedCount += 1
+				let canonical = parentPath.appendingPathComponent(name)
+				if storedCloudPath != canonical {
+					do {
+						try db.execute(sql: "UPDATE itemMetadata SET cloudPath = ? WHERE id = ?", arguments: [canonical, id])
+					} catch let error as DatabaseError where error.extendedResultCode == .SQLITE_CONSTRAINT_UNIQUE {
+						DDLogError("Repair migration: cloudPath \(canonical) already occupied; leaving id=\(id) at \(storedCloudPath)")
+						continue rows
+					}
+				}
+				if itemType == .folder {
+					queue.append((id, canonical))
+				}
+			}
+		}
+
+		let totalCount = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM itemMetadata") ?? 0
+		if visitedCount < totalCount {
+			DDLogInfo("Repair migration: \(totalCount - visitedCount) row(s) not reachable from root, left untouched")
+		}
 	}
 
 	private static func openSharedDatabase(at databaseURL: URL, fileCoordinator: NSFileCoordinator) throws -> DatabasePool {

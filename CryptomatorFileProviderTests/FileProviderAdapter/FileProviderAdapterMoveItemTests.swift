@@ -173,6 +173,43 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		XCTAssertNil(try metadataManagerMock.getCachedMetadata(for: CloudPath("/A/B/C.txt")))
 	}
 
+	func testMoveFolderLocallyUpdatesDeepDescendantCloudPaths() throws {
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		let sourceParentID: Int64 = 2
+		let movedFolderID: Int64 = 3
+		let middleFolderID: Int64 = 4
+		let deepFileID: Int64 = 5
+		let targetParentID: Int64 = 6
+
+		// Initial tree:
+		// /
+		// |- A/
+		// |  |- B/
+		// |     |- C/
+		// |        |- D.txt
+		// |- Target/
+		let sourceParent = ItemMetadata(id: sourceParentID, name: "A", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/"), isPlaceholderItem: false)
+		let movedFolder = ItemMetadata(id: movedFolderID, name: "B", type: .folder, size: nil, parentID: sourceParentID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/B/"), isPlaceholderItem: false)
+		let middleFolder = ItemMetadata(id: middleFolderID, name: "C", type: .folder, size: nil, parentID: movedFolderID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/B/C/"), isPlaceholderItem: false)
+		let deepFile = ItemMetadata(id: deepFileID, name: "D.txt", type: .file, size: 100, parentID: middleFolderID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/A/B/C/D.txt"), isPlaceholderItem: false)
+		let targetParent = ItemMetadata(id: targetParentID, name: "Target", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Target/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata([sourceParent, movedFolder, middleFolder, deepFile, targetParent])
+
+		let movedFolderIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: movedFolderID)
+		let targetParentIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: targetParentID)
+		_ = try adapter.moveItemLocally(withIdentifier: movedFolderIdentifier, toParentItemWithIdentifier: targetParentIdentifier, newName: nil)
+
+		XCTAssertEqual(CloudPath("/Target/B/"), movedFolder.cloudPath)
+		let updatedMiddle = try XCTUnwrap(metadataManagerMock.getCachedMetadata(for: middleFolderID))
+		XCTAssertEqual(CloudPath("/Target/B/C/"), updatedMiddle.cloudPath)
+		XCTAssertEqual(movedFolderID, updatedMiddle.parentID)
+		let updatedDeepFile = try XCTUnwrap(metadataManagerMock.getCachedMetadata(for: deepFileID))
+		XCTAssertEqual(CloudPath("/Target/B/C/D.txt"), updatedDeepFile.cloudPath)
+		XCTAssertEqual(middleFolderID, updatedDeepFile.parentID)
+	}
+
 	func testRenameItem() throws {
 		let expectation = XCTestExpectation()
 

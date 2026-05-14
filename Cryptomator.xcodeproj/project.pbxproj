@@ -453,6 +453,7 @@
 		B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */; };
 		B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
+		CAB100002600000000000003 /* DatabaseHelperMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB100002600000000000004 /* DatabaseHelperMigrationTests.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1089,6 +1090,7 @@
 		B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewController.swift; sourceTree = "<group>"; };
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
+		CAB100002600000000000004 /* DatabaseHelperMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelperMigrationTests.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1938,6 +1940,7 @@
 			isa = PBXGroup;
 			children = (
 				4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */,
+				CAB100002600000000000004 /* DatabaseHelperMigrationTests.swift */,
 				4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */,
 				4A231B83271EFC6100987492 /* DownloadTaskManagerTests.swift */,
 				4A49FABD271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift */,
@@ -2732,6 +2735,7 @@
 				4A9C8E0127A0104E000063E4 /* EnumerationSignalingMock.swift in Sources */,
 				4AEECD2F279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift in Sources */,
 				4AEECD3D279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift in Sources */,
+				CAB100002600000000000003 /* DatabaseHelperMigrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
