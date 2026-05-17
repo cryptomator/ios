@@ -22,17 +22,17 @@ class DeletionTaskExecutor: WorkflowMiddleware {
 
 	func execute(task: CloudTask) -> Promise<Void> {
 		let itemMetadata = task.itemMetadata
-		return deleteItemInCloud(itemMetadata).then {
+		return deleteItemInCloud(type: itemMetadata.type, at: task.cloudPath).then {
 			try self.itemMetadataManager.removeItemMetadata(with: itemMetadata.id!)
 		}
 	}
 
-	private func deleteItemInCloud(_ itemMetadata: ItemMetadata) -> Promise<Void> {
-		switch itemMetadata.type {
+	private func deleteItemInCloud(type: CloudItemType, at cloudPath: CloudPath) -> Promise<Void> {
+		switch type {
 		case .file:
-			return provider.deleteFile(at: itemMetadata.cloudPath)
+			return provider.deleteFile(at: cloudPath)
 		case .folder:
-			return provider.deleteFolder(at: itemMetadata.cloudPath)
+			return provider.deleteFolder(at: cloudPath)
 		default:
 			return Promise(FileProviderAdapterError.unsupportedItemType)
 		}

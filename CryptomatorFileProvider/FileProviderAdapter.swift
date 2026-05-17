@@ -478,7 +478,14 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return completionHandler(nil, error)
 		}
 
-		let task = FolderCreationTask(itemMetadata: placeholderItem.metadata)
+		let task: FolderCreationTask
+		do {
+			let cloudPath = try itemMetadataManager.getCloudPath(for: placeholderItem.metadata.id!)
+			task = FolderCreationTask(itemMetadata: placeholderItem.metadata, cloudPath: cloudPath)
+		} catch {
+			DDLogError("Create directory: getCloudPath failed with error: \(error)")
+			return completionHandler(nil, error)
+		}
 		workflowFactory.createWorkflow(for: task).then { workflow -> Workflow<FileProviderItem> in
 			completionHandler(placeholderItem, nil)
 			return workflow
@@ -568,12 +575,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			name = itemMetadata.name
 		}
 
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: itemMetadata.type)
-		try checkLocalItemCollision(for: cloudPath)
-		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: cloudPath, newParentID: parentID)
+		let sourceCloudPath = try itemMetadataManager.getCloudPath(for: itemMetadata.id!)
+		let targetCloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: itemMetadata.type)
+		try checkLocalItemCollision(for: targetCloudPath)
+		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, newParentID: parentID)
 
 		itemMetadata.name = name
-		itemMetadata.cloudPath = cloudPath
 		itemMetadata.parentID = parentID
 		itemMetadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(itemMetadata)
@@ -636,9 +643,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 */
 	func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> DeletionTaskRecord {
 		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
+		// Resolve the cloud path BEFORE removeItemFromCache deletes the row — afterwards the resolver would fail.
+		let cloudPath = try itemMetadataManager.getCloudPath(for: itemMetadata.id!)
 		let deletionHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		try deletionHelper.removeItemFromCache(itemMetadata)
-		return try deletionTaskManager.createTaskRecord(for: itemMetadata)
+		return try deletionTaskManager.createTaskRecord(for: itemMetadata, cloudPath: cloudPath)
 	}
 
 	// MARK: Start Providing Item
@@ -849,7 +858,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let name = localURL.lastPathComponent.precomposedStringWithCanonicalMapping
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .file)
 		try checkLocalItemCollision(for: cloudPath)
-		let placeholderMetadata = ItemMetadata(name: name, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let placeholderMetadata = ItemMetadata(name: name, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return placeholderMetadata
 	}
@@ -868,7 +877,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let normalizedName = name.precomposedStringWithCanonicalMapping
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: normalizedName, in: parentID, type: .folder)
 		try checkLocalItemCollision(for: cloudPath)
-		let placeholderMetadata = ItemMetadata(name: normalizedName, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let placeholderMetadata = ItemMetadata(name: normalizedName, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true)
 	}
@@ -882,7 +891,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentID), parentItemMetadata.type == .folder else {
 			throw FileProviderAdapterError.parentFolderNotFound
 		}
-		let parentCloudPath = parentItemMetadata.cloudPath
+		let parentCloudPath = try itemMetadataManager.getCloudPath(for: parentID)
 		return parentCloudPath.appendingPathComponent(name)
 	}
 
@@ -954,17 +963,16 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 		return parentItemIdentifier.then {
 			self.enumerateItemsExtensively(for: $0)
-		}.then { itemList -> NSFileProviderItemIdentifier in
-			let items = itemList.items
-			guard let item = items.first(where: { $0.metadata.cloudPath == cloudPath }) else {
+		}.then { _ -> NSFileProviderItemIdentifier in
+			guard let metadata = try self.itemMetadataManager.getCachedMetadata(for: cloudPath) else {
 				throw NSFileProviderError(.noSuchItem)
 			}
-			return item.itemIdentifier
+			return NSFileProviderItemIdentifier(domainIdentifier: self.domainIdentifier, itemID: metadata.id!)
 		}
 	}
 
 	func enumerateItemsExtensively(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String? = nil) -> Promise<FileProviderItemList> {
-		return enumerateItems(for: identifier, withPageToken: pageToken).then { itemList -> Promise<FileProviderItemList>in
+		return enumerateItems(for: identifier, withPageToken: pageToken).then { itemList -> Promise<FileProviderItemList> in
 			if let pageToken = pageToken {
 				return self.enumerateItemsExtensively(for: identifier, withPageToken: pageToken)
 			}

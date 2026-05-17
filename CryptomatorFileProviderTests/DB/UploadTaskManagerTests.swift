@@ -20,12 +20,12 @@ class UploadTaskManagerTests: XCTestCase {
 	override func setUpWithError() throws {
 		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
-		manager = UploadTaskDBManager(database: inMemoryDB)
+		manager = UploadTaskDBManager(database: inMemoryDB, itemMetadataManager: ItemMetadataDBManager(database: inMemoryDB))
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
 	func testCachedAndFetchEntry() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		guard let fetchedUploadTask = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id)) else {
@@ -39,7 +39,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testUpdateTaskRecord() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
@@ -65,7 +65,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testDeleteCascadeWorks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let taskBeforeRemoval = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id))
@@ -77,7 +77,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testGetCorrespondingTaskRecords() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let savedTask = try manager.createNewTaskRecord(for: itemMetadata)
 		let ids = try [XCTUnwrap(itemMetadata.id) + 1, XCTUnwrap(itemMetadata.id), XCTUnwrap(itemMetadata.id) - 1]
@@ -91,7 +91,7 @@ class UploadTaskManagerTests: XCTestCase {
 	func testGetTask() throws {
 		let cloudPath = CloudPath("/Test")
 		let itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: taskRecord, onURLSessionTaskCreation: nil)
@@ -115,7 +115,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testGetRetryableUploadTaskRecordsExcludesNilErrorTasks() throws {
-		let itemMetadata = ItemMetadata(name: "ActiveUpload", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/ActiveUpload"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "ActiveUpload", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let retryable = try manager.getRetryableUploadTaskRecords()
@@ -127,7 +127,7 @@ class UploadTaskManagerTests: XCTestCase {
 	@discardableResult
 	private func createTaskRecordWithError(domain: String, code: Int, name: String? = nil) throws -> UploadTaskRecord {
 		let fileName = name ?? "File-\(domain)-\(code)"
-		let itemMetadata = ItemMetadata(name: fileName, type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/\(fileName)"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: fileName, type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let id = try XCTUnwrap(itemMetadata.id)

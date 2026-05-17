@@ -22,18 +22,20 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 	// MARK: Error Handling
 
 	func testEnumerateItemsFailedWithNoInternetConnection() throws {
-		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data())
+		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data())
 		try metadataManagerMock.cacheMetadata(metadata)
+		itemEnumerationTaskManagerMock.stubCloudPath = CloudPath("/noInternetConnection")
 		XCTAssertRejects(adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil), with: NSFileProviderError(.serverUnreachable))
 	}
 
 	func testEnumerateItemsOfflineFallbackToCache() throws {
 		let expectation = XCTestExpectation()
-		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data(), lastEnumeratedAt: Date())
+		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data(), lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(metadata)
 
-		let child = ItemMetadata(id: 3, name: "CachedFile", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection/CachedFile"), isPlaceholderItem: false)
+		let child = ItemMetadata(id: 3, name: "CachedFile", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(child)
+		itemEnumerationTaskManagerMock.stubCloudPath = CloudPath("/noInternetConnection")
 
 		let permissionProviderMock = PermissionProviderMock()
 		withDependencies {
@@ -58,8 +60,8 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 
 	func testWorkingSet() {
 		let mockMetadata = [
-			ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data()),
-			ItemMetadata(id: 3, name: "TestFolder", type: .file, size: nil, parentID: 4, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Foo/TestFolder"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: 1, tagData: nil)
+			ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data()),
+			ItemMetadata(id: 3, name: "TestFolder", type: .file, size: nil, parentID: 4, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: 1, tagData: nil)
 		]
 		metadataManagerMock.workingSetMetadata = mockMetadata
 		let permissionProviderMock = PermissionProviderMock()

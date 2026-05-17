@@ -17,7 +17,7 @@ class WorkingSetObserverTests: XCTestCase {
 	var notificatorMock: FileProviderNotificatorTypeMock!
 	let updatedMetadataIDs: [Int64] = [1, 2, 3]
 	lazy var updatedItems: [FileProviderItem] = updatedMetadataIDs.map {
-		FileProviderItem(metadata: ItemMetadata(id: $0, name: "\($0)", type: .file, size: nil, parentID: 0, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: CloudPath("/\($0)"), isPlaceholderItem: false), domainIdentifier: .test)
+		FileProviderItem(metadata: ItemMetadata(id: $0, name: "\($0)", type: .file, size: nil, parentID: 0, lastModifiedDate: nil, statusCode: .isDownloading, isPlaceholderItem: false), domainIdentifier: .test)
 	}
 
 	override func setUpWithError() throws {

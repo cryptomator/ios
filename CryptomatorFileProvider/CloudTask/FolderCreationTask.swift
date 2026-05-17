@@ -6,8 +6,13 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
+import CryptomatorCloudAccessCore
 
 struct FolderCreationTask: CloudTask {
 	let itemMetadata: ItemMetadata
+	let cloudPath: CloudPath
+
+	func with(cloudPath: CloudPath) -> FolderCreationTask {
+		return FolderCreationTask(itemMetadata: itemMetadata, cloudPath: cloudPath)
+	}
 }

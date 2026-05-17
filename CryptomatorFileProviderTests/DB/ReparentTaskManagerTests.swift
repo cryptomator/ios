@@ -27,10 +27,10 @@ class ReparentTaskManagerTests: XCTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let newParentID: Int64 = 3
-		let createdTask = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: newParentID)
+		let createdTask = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: newParentID)
 		let fetchedTask = try getTaskRecord(for: itemID)
 		XCTAssertEqual(createdTask, fetchedTask)
 		XCTAssertEqual(itemID, fetchedTask.correspondingItem)
@@ -44,9 +44,9 @@ class ReparentTaskManagerTests: XCTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
-		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: 3)
+		_ = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: 3)
 		let task = try getTaskRecord(for: itemID)
 		try manager.removeTaskRecord(task)
 		XCTAssertThrowsError(try getTaskRecord(for: itemID)) { error in
@@ -62,14 +62,14 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		let folderItemID: Int64 = 3
-		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Foo", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Foo"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Foo", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(folderItemMetadata)
 
-		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: folderItemID)
+		_ = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: folderItemID)
 
 		let retrievedTasks = try manager.getTaskRecordsForItemsWhichWere(in: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 		XCTAssertEqual(1, retrievedTasks.count)
@@ -85,10 +85,10 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
-		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
+		_ = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 		let retrievedTasks = try manager.getTaskRecordsForItemsWhichWere(in: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(itemID, retrievedTasks[0].correspondingItem)
@@ -104,10 +104,10 @@ class ReparentTaskManagerTests: XCTestCase {
 		let newParentID: Int64 = 3
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
-		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: newParentID)
+		_ = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: newParentID)
 
 		let retrievedTasks = try manager.getTaskRecordsForItemsWhichAreSoon(in: newParentID)
 		XCTAssertEqual(1, retrievedTasks.count)
@@ -123,10 +123,10 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
-		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
+		_ = try manager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: targetCloudPath, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 
 		let retrievedTasks = try manager.getTaskRecordsForItemsWhichAreSoon(in: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 		XCTAssertEqual(1, retrievedTasks.count)

@@ -58,9 +58,11 @@ extension UploadTaskManager {
 
 class UploadTaskDBManager: UploadTaskManager {
 	private let database: DatabaseWriter
+	private let itemMetadataManager: ItemMetadataManager
 
-	init(database: DatabaseWriter) {
+	init(database: DatabaseWriter, itemMetadataManager: ItemMetadataManager) {
 		self.database = database
+		self.itemMetadataManager = itemMetadataManager
 	}
 
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
@@ -114,12 +116,17 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
-		return try database.read { db in
-			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
+		let itemMetadata: ItemMetadata = try database.read { db in
+			guard let metadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata, onURLSessionTaskCreation: onURLSessionTaskCreation)
+			return metadata
 		}
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		let cloudPath = try itemMetadataManager.getCloudPath(for: id)
+		return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
 	}
 
 	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord] {

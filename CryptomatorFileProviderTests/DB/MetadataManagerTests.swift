@@ -23,7 +23,7 @@ class MetadataManagerTests: XCTestCase {
 	func testCacheMetadataForFile() throws {
 		let cloudPath = CloudPath("/TestFile")
 
-		let itemMetadata = ItemMetadata(name: "TestFile", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "TestFile", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		XCTAssertNil(itemMetadata.id)
 		try manager.cacheMetadata(itemMetadata)
 		XCTAssertNotNil(itemMetadata.id)
@@ -38,7 +38,7 @@ class MetadataManagerTests: XCTestCase {
 	func testCacheMetadataForFolder() throws {
 		let cloudPath = CloudPath("/Test Folder/")
 
-		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		XCTAssertNil(itemMetadata.id)
 		try manager.cacheMetadata(itemMetadata)
 		guard let fetchedMetadata = try manager.getCachedMetadata(for: cloudPath) else {
@@ -52,8 +52,8 @@ class MetadataManagerTests: XCTestCase {
 	func testCacheMultipleEntries() throws {
 		let fileCloudPath = CloudPath("/TestFile")
 		let folderCloudPath = CloudPath("/TestFolder/")
-		let itemMetadataForFile = ItemMetadata(name: "TestFile", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
-		let itemMetadataForFolder = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: true)
+		let itemMetadataForFile = ItemMetadata(name: "TestFile", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		XCTAssertNil(itemMetadataForFile.id)
 		XCTAssertNil(itemMetadataForFolder.id)
 		let itemMetadataList = [itemMetadataForFile, itemMetadataForFolder]
@@ -76,9 +76,9 @@ class MetadataManagerTests: XCTestCase {
 		let fileCloudPath = CloudPath("/Test File.txt")
 		let folderCloudPath = CloudPath("/Test Folder/")
 		let secondFolderCloudPath = CloudPath("/SecondFolder/")
-		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: true)
-		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: true)
-		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: secondFolderCloudPath, isPlaceholderItem: false)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
+		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		XCTAssertNil(placeholderItemMetadataForFile.id)
 		XCTAssertNil(placeholderItemMetadataForFolder.id)
 		XCTAssertNil(itemMetadataForFolder.id)
@@ -95,8 +95,8 @@ class MetadataManagerTests: XCTestCase {
 		let fileCloudPath = CloudPath("/Test File.txt")
 		let folderCloudPath = CloudPath("/Test Folder/")
 		let secondFolderCloudPath = CloudPath("/Test Folder/SecondFolder/")
-		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
-		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		XCTAssertNil(placeholderItemMetadataForFile.id)
 		XCTAssertNil(placeholderItemMetadataForFolder.id)
 		try manager.cacheMetadata([placeholderItemMetadataForFile, placeholderItemMetadataForFolder])
@@ -105,7 +105,7 @@ class MetadataManagerTests: XCTestCase {
 			XCTFail("Test Folder ID is nil")
 			return
 		}
-		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: testFolderId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: secondFolderCloudPath, isPlaceholderItem: true)
+		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: testFolderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		XCTAssertNil(itemMetadataForFolder.id)
 		try manager.cacheMetadata(itemMetadataForFolder)
 		XCTAssertNotNil(itemMetadataForFolder.id)
@@ -116,7 +116,7 @@ class MetadataManagerTests: XCTestCase {
 	func testOverwriteMetadata() throws {
 		let cloudPath = CloudPath("/TestFolder/")
 
-		let itemMetadata = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadata)
 		let id = try XCTUnwrap(itemMetadata.id)
 		XCTAssertEqual(2, id)
@@ -127,12 +127,12 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertEqual(itemMetadata, fetchedItemMetadata)
 
 		let fileCloudPath = CloudPath("/Existing File.txt")
-		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadataForFile)
 		let secondItemID = try XCTUnwrap(itemMetadataForFile.id)
 		XCTAssertEqual(3, secondItemID)
 
-		let changedItemMetadataAtSameRemoteURL = ItemMetadata(name: "TestFolder", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let changedItemMetadataAtSameRemoteURL = ItemMetadata(name: "TestFolder", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(changedItemMetadataAtSameRemoteURL)
 		let changedItemID = try XCTUnwrap(changedItemMetadataAtSameRemoteURL.id)
 		XCTAssertEqual(2, changedItemID)
@@ -148,8 +148,8 @@ class MetadataManagerTests: XCTestCase {
 	func testGetCachedMetadataInsideParentId() throws {
 		let fileCloudPath = CloudPath("/Existing File.txt")
 		let folderCloudPath = CloudPath("/Existing Folder/")
-		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
-		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		XCTAssertNil(itemMetadataForFile.id)
 		XCTAssertNil(itemMetadataForFolder.id)
 		try manager.cacheMetadata([itemMetadataForFile, itemMetadataForFolder])
@@ -165,12 +165,12 @@ class MetadataManagerTests: XCTestCase {
 	func testFlagAllNonPlaceholderItemsAsCacheCleanupCandidates() throws {
 		let placeholderFileCloudPath = CloudPath("/Placeholder File.txt")
 		let placeholderFolderCloudPath = CloudPath("/Placeholder Folder/")
-		let placeholderItemMetadataForFile = ItemMetadata(name: "Placeholder File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: placeholderFileCloudPath, isPlaceholderItem: true)
-		let placeholderItemMetadataForFolder = ItemMetadata(name: "Placeholder Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: placeholderFolderCloudPath, isPlaceholderItem: true)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Placeholder File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Placeholder Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		let fileCloudPath = CloudPath("/Existing File.txt")
 		let folderCloudPath = CloudPath("/Existing Folder/")
-		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
-		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata([placeholderItemMetadataForFile, placeholderItemMetadataForFolder, itemMetadataForFile, itemMetadataForFolder])
 		try manager.flagAllItemsAsMaybeOutdated(withParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 		let cachedMetadata = try manager.getCachedMetadata(withParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
@@ -188,21 +188,21 @@ class MetadataManagerTests: XCTestCase {
 		let secondFolderCloudPath = CloudPath("/Test Folder 1/")
 		let subFolderCloudPath = CloudPath("/Test Folder/SecondFolder/")
 
-		let itemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
-		let secondItemMetadataForFolder = ItemMetadata(name: "Test Folder 1", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: secondFolderCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let secondItemMetadataForFolder = ItemMetadata(name: "Test Folder 1", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata([itemMetadataForFolder, secondItemMetadataForFolder])
 		guard let folderId = itemMetadataForFolder.id else {
 			XCTFail("Folder has no ID")
 			return
 		}
-		let itemMetadataForFileInFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: folderId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileInFolderCloudPath, isPlaceholderItem: false)
-		let itemMetadataForSubFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: folderId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: subFolderCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFileInFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: folderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemMetadataForSubFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: folderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadataForSubFolder)
 		guard let subFolderId = itemMetadataForSubFolder.id else {
 			XCTFail("Folder has no ID")
 			return
 		}
-		let itemMetadataForFileInSubFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: subFolderId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileInSubFolderCloudPath, isPlaceholderItem: false)
+		let itemMetadataForFileInSubFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: subFolderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata([itemMetadataForFileInFolder, itemMetadataForFileInSubFolder])
 		let cachedMetadata = try manager.getAllCachedMetadata(inside: itemMetadataForFolder)
 
@@ -214,7 +214,7 @@ class MetadataManagerTests: XCTestCase {
 
 	func testGetMetadataWithCaseMismatchPath() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let itemMetadataForFile = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadataForFile = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadataForFile)
 
 		guard let fetchedMetadataForSensitivePath = try manager.getCachedMetadata(for: cloudPath) else {
@@ -227,14 +227,14 @@ class MetadataManagerTests: XCTestCase {
 			return
 		}
 		XCTAssertEqual(fetchedMetadataForSensitivePath, fetchedMetadataForInSensitivePath)
-		XCTAssertEqual(cloudPath, fetchedMetadataForInSensitivePath.cloudPath)
+		XCTAssertEqual("File.txt", fetchedMetadataForInSensitivePath.name)
 	}
 
 	// MARK: Set Tag Data
 
 	func testSetTagData() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadata)
 		let tagData = Data("Foo".utf8)
 		let id = try XCTUnwrap(itemMetadata.id)
@@ -247,7 +247,7 @@ class MetadataManagerTests: XCTestCase {
 	func testSetTagDataToNil() throws {
 		let cloudPath = CloudPath("/File.txt")
 		let tagData = Data("Foo".utf8)
-		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, tagData: tagData)
 		try manager.cacheMetadata(itemMetadata)
 
 		let id = try XCTUnwrap(itemMetadata.id)
@@ -260,7 +260,7 @@ class MetadataManagerTests: XCTestCase {
 	func testCacheMetadataDoesNotOverwriteExistingTagData() throws {
 		let cloudPath = CloudPath("/File.txt")
 		let tagData = Data("Foo".utf8)
-		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, tagData: tagData)
 		try manager.cacheMetadata(itemMetadata)
 
 		itemMetadata.tagData = nil
@@ -275,7 +275,7 @@ class MetadataManagerTests: XCTestCase {
 
 	func testSetFavoriteRank() throws {
 		let cloudPath = CloudPath("/Folder")
-		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadata)
 		let favoriteRank: Int64 = 100
 		let id = try XCTUnwrap(itemMetadata.id)
@@ -287,7 +287,7 @@ class MetadataManagerTests: XCTestCase {
 
 	func testSetFavoriteRankToNil() throws {
 		let cloudPath = CloudPath("/Folder")
-		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, favoriteRank: 100)
+		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, favoriteRank: 100)
 		try manager.cacheMetadata(itemMetadata)
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setFavoriteRank(to: nil, forItemWithID: id)
@@ -299,7 +299,7 @@ class MetadataManagerTests: XCTestCase {
 	func testCacheMetadataDoesNotOverwriteExistingFavoriteRank() throws {
 		let cloudPath = CloudPath("/Folder")
 		let favoriteRank: Int64 = 100
-		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, favoriteRank: favoriteRank)
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, favoriteRank: favoriteRank)
 		try manager.cacheMetadata(itemMetadata)
 
 		itemMetadata.favoriteRank = nil
@@ -314,9 +314,5 @@ class MetadataManagerTests: XCTestCase {
 extension ItemMetadata: Comparable {
 	public static func < (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
 		return lhs.name < rhs.name
-	}
-
-	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
-		return lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated
 	}
 }

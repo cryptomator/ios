@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
 import Promises
@@ -53,7 +54,8 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationClosure = {
 			let id = $0.correspondingItem
 			let metadata = try XCTUnwrap(self.metadataManagerMock.cachedMetadata[id])
-			return UploadTask(taskRecord: $0, itemMetadata: metadata, onURLSessionTaskCreation: $1)
+			let cloudPath = (try? self.metadataManagerMock.getCloudPath(for: id)) ?? CloudPath("/")
+			return UploadTask(taskRecord: $0, itemMetadata: metadata, cloudPath: cloudPath, onURLSessionTaskCreation: $1)
 		}
 	}
 
