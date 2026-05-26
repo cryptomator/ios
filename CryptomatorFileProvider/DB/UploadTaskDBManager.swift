@@ -66,8 +66,11 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
 		return try database.write { db in
-			let task = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
+			let task = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
 			try task.save(db)
 			return task
 		}

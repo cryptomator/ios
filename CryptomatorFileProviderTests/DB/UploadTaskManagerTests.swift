@@ -38,6 +38,16 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertNil(fetchedUploadTask.uploadErrorDomain)
 	}
 
+	func testCreateNewTaskRecordForUnsavedMetadataThrowsNonSavedItemMetadata() throws {
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
+		XCTAssertThrowsError(try manager.createNewTaskRecord(for: itemMetadata)) { error in
+			guard case DBManagerError.nonSavedItemMetadata = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
+	}
+
 	func testUpdateTaskRecord() throws {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)

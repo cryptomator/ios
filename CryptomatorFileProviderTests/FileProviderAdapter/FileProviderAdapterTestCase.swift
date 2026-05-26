@@ -54,7 +54,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationClosure = {
 			let id = $0.correspondingItem
 			let metadata = try XCTUnwrap(self.metadataManagerMock.cachedMetadata[id])
-			let cloudPath = (try? self.metadataManagerMock.getCloudPath(for: id)) ?? CloudPath("/")
+			let cloudPath = try self.metadataManagerMock.getCloudPath(for: id)
 			return UploadTask(taskRecord: $0, itemMetadata: metadata, cloudPath: cloudPath, onURLSessionTaskCreation: $1)
 		}
 	}

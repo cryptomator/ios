@@ -142,9 +142,12 @@ class ItemMetadataDBManager: ItemMetadataManager {
 
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
+		guard let parentID = parent.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
 		return try database.read { db in
 			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
-			if parent.id == rootID {
+			if parentID == rootID {
 				return try ItemMetadata.filter(ItemMetadata.Columns.id != rootID).fetchAll(db)
 			}
 			return try ItemMetadata.fetchAll(db, sql: """
@@ -157,7 +160,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 				WHERE d.depth < 1024
 			)
 			SELECT * FROM itemMetadata WHERE id IN (SELECT id FROM descendants)
-			""", arguments: [parent.id!])
+			""", arguments: [parentID])
 		}
 	}
 
@@ -198,8 +201,10 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	private func childOfFolder(parentID: Int64, name: String, database: Database) throws -> ItemMetadata? {
 		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
 		let lowercasedName = name.lowercased()
+		// Deterministic order so case-only duplicate siblings resolve to a stable row (SQLite leaves row order unspecified without ORDER BY).
 		let siblings = try ItemMetadata
 			.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.id != rootID)
+			.order(ItemMetadata.Columns.id)
 			.fetchAll(database)
 		return siblings.first { $0.name.lowercased() == lowercasedName }
 	}
@@ -234,10 +239,10 @@ class ItemMetadataDBManager: ItemMetadataManager {
 			SELECT m.id, m.parentID, m.name, a.depth + 1
 			FROM itemMetadata m
 			JOIN ancestors a ON m.id = a.parentID
-			WHERE a.id != 1 AND a.depth < 1024
+			WHERE a.id != ? AND a.depth < 1024
 		)
 		SELECT id, name, depth FROM ancestors ORDER BY depth DESC
-		""", arguments: [id])
+		""", arguments: [id, rootID])
 		guard !rows.isEmpty else {
 			throw FileProviderAdapterError.itemNotFound
 		}

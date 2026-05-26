@@ -212,6 +212,16 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == itemMetadataForFileInSubFolder.id! }))
 	}
 
+	func testGetAllCachedMetadataInsideUnsavedFolderThrowsNonSavedItemMetadata() throws {
+		let unsavedFolder = ItemMetadata(name: "Unsaved Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		XCTAssertThrowsError(try manager.getAllCachedMetadata(inside: unsavedFolder)) { error in
+			guard case DBManagerError.nonSavedItemMetadata = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
+	}
+
 	func testGetMetadataWithCaseMismatchPath() throws {
 		let cloudPath = CloudPath("/File.txt")
 		let itemMetadataForFile = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -228,6 +238,72 @@ class MetadataManagerTests: XCTestCase {
 		}
 		XCTAssertEqual(fetchedMetadataForSensitivePath, fetchedMetadataForInSensitivePath)
 		XCTAssertEqual("File.txt", fetchedMetadataForInSensitivePath.name)
+	}
+
+	func testGetCloudPathResolvesParentChain() throws {
+		let itemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForFolder)
+		let folderId = try XCTUnwrap(itemMetadataForFolder.id)
+		let itemMetadataForSubFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentID: folderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForSubFolder)
+		let subFolderId = try XCTUnwrap(itemMetadataForSubFolder.id)
+		let itemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentID: subFolderId, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForFile)
+		let fileId = try XCTUnwrap(itemMetadataForFile.id)
+
+		XCTAssertEqual(CloudPath("/Test Folder/SecondFolder/Test File.txt"), try manager.getCloudPath(for: fileId))
+		XCTAssertEqual(CloudPath("/"), try manager.getCloudPath(for: NSFileProviderItemIdentifier.rootContainerDatabaseValue))
+	}
+
+	func testGetCloudPathForMissingItemThrowsItemNotFound() throws {
+		XCTAssertThrowsError(try manager.getCloudPath(for: 999)) { error in
+			guard case FileProviderAdapterError.itemNotFound = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testGetCloudPathForUnresolvableParentChainThrows() throws {
+		let db = try DatabaseQueue()
+		try DatabaseHelper.migrate(db)
+		let orphan = ItemMetadata(name: "Orphan", type: .folder, size: nil, parentID: 999, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		// Foreign keys must be off to insert a row whose parent does not exist; PRAGMA can't change inside a transaction, hence writeWithoutTransaction.
+		try db.writeWithoutTransaction { db in
+			try db.execute(sql: "PRAGMA foreign_keys = OFF")
+			try orphan.insert(db)
+		}
+		let manager = ItemMetadataDBManager(database: db)
+		let orphanID = try XCTUnwrap(orphan.id)
+		XCTAssertThrowsError(try manager.getCloudPath(for: orphanID)) { error in
+			guard case FileProviderAdapterError.unresolvableParentChain = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testGetCachedMetadataForCaseOnlyDuplicateSiblingsResolvesDeterministically() throws {
+		let db = try DatabaseQueue()
+		try DatabaseHelper.migrate(db)
+		// Reverse the order of unordered SELECTs so this test fails unless childOfFolder explicitly orders by id.
+		try db.writeWithoutTransaction { db in
+			try db.execute(sql: "PRAGMA reverse_unordered_selects = ON")
+		}
+		// Bypass cacheMetadata's case-insensitive dedup to force two case-only siblings into the same parent.
+		let firstSibling = ItemMetadata(name: "Foo", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let secondSibling = ItemMetadata(name: "foo", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try db.write { db in
+			try firstSibling.insert(db)
+			try secondSibling.insert(db)
+		}
+		let lowerId = try XCTUnwrap(firstSibling.id)
+		XCTAssertLessThan(lowerId, try XCTUnwrap(secondSibling.id))
+
+		let manager = ItemMetadataDBManager(database: db)
+		let resolved = try XCTUnwrap(manager.getCachedMetadata(for: CloudPath("/foo")))
+		XCTAssertEqual(lowerId, resolved.id)
+		XCTAssertEqual("Foo", resolved.name)
 	}
 
 	// MARK: Set Tag Data
