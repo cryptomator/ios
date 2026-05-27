@@ -316,10 +316,13 @@ class UnlockVaultViewModel {
 		}
 		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
 			switch error {
-			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
+			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
 				break
 			default:
-				throw error
+				guard error.isTransientConnectivityError else {
+					throw error
+				}
+				DDLogInfo("UnlockVaultViewModel: refreshVaultCache unreachable, using cached masterkey (\(error))")
 			}
 		}
 	}

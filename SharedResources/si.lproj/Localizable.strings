@@ -1,8 +1,24 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "දෝෂය";
+"common.alert.attention.title" = "අවධානය";
 "common.button.cancel" = "අවලංගු";
 "common.button.change" = "වෙනස් කරන්න";
+"common.button.choose" = "තෝරන්න";
 "common.button.close" = "වසන්න";
+"common.button.confirm" = "තහවුරු කරන්න";
+"common.button.create" = "සාදන්න";
+"common.button.createFolder" = "ෆෝල්ඩරය නිර්මාණය";
 "common.button.done" = "සම්පූර්ණයි";
+"common.button.edit" = "සංස්කරණය";
 "common.button.next" = "ඊළඟ";
+"common.button.ok" = "හරි";
+"common.button.register" = "ලියාපදිංචි වන්න";
 "fileProvider.error.unlockButton" = "අගුළුහරින්න";
 
 "unlockVault.button.unlock" = "අගුළුහරින්න";

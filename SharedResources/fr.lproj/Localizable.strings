@@ -131,8 +131,16 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Action requise";
 "hubAuthentication.requireAccountInit.alert.message" = "Pour continuer, veuillez compléter les étapes requises dans votre profil d'utilisateur Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Aller au profil";
+"hubAuthentication.trustHost.alert.title" = "Faire confiance à ce serveur ?";
+"hubAuthentication.trustHost.alert.message" = "Ce coffre veut se connecter au(x) serveur(s) suivant(s) :\n\n%@\n\nAvez-vous confiance en ce serveur ?";
 "hubAuthentication.trustHost.alert.trustButton" = "Approuver";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "La configuration de ce coffre contient des URL de serveurs incohérentes. Veuillez contacter le propriétaire du coffre.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "La connexion non sécurisée (HTTP) à « %@ » n'est pas autorisée. Veuillez utiliser le HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Hôte non fiable";
 "hubAuthentication.vaultArchived" = "Ce coffre a été archivé. Veuillez demander au propriétaire du coffre de le désarchiver.";
+
+"intents.clearCache.description" = "Efface le cache local de fichiers de Cryptomator.";
+"intents.clearCache.cacheCleared" = "Le cache a été vidé.";
 
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
 "intents.saveFile.invalidFolder" = "Le dossier fourni n'est pas valide.";
@@ -208,6 +216,7 @@
 "purchase.error.unknown" = "Cet achat n'est pas disponible dans l'App Store pour une raison inconnue. Veuillez réessayer plus tard.\n\nSi cette erreur persiste, essayez de redémarrer votre appareil ou de vous déconnecter et de revenir à votre identifiant Apple dans les paramètres iOS.";
 "purchase.lifetime.hasSubscription.alert.title" = "Vous avez un abonnement actif";
 "purchase.lifetime.hasSubscription.alert.message" = "Après avoir acheté la licence à vie, vous devrez annuler votre abonnement annuel pour éviter d'être facturé pour les deux.";
+"purchase.lifetime.hasSubscription.hint" = "Annulez votre abonnement après l'achat pour éviter une double facturation.";
 "purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licence à vie activée";
 "purchase.lifetime.subscriptionCancelGuide.alert.message" = "Pour arrêter les frais d'abonnement futurs, veuillez annuler votre abonnement annuel.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gérer l'abonnement";
@@ -229,6 +238,7 @@
 "settings.unlockFullVersion" = "Débloquer la version complète";
 "settings.unlockFullVersion.detail" = "Accédez en écriture à vos coffres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Date d'expiration de l'essai : %@";
+"settings.upgradeToLifetime" = "Passer à la version à vie";
 
 "sharePoint.enterURL.title" = "Entrez l'URL SharePoint";
 "sharePoint.enterURL.placeholder" = "URL du site SharePoint";

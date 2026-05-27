@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Host Not Trusted";
 "hubAuthentication.vaultArchived" = "This vault has been archived. Please ask the vault owner to unarchive it.";
 
+"intents.clearCache.description" = "Clears Cryptomator's local file cache.";
+"intents.clearCache.cacheCleared" = "Cache cleared.";
+
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";
 "intents.saveFile.missingTemporaryFolder" = "Failed to create temporary folder.";

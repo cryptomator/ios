@@ -1,3 +1,3 @@
-- Offline-Zugriff auf zuvor besuchte Tresor-Ordner in der Dateien-App hinzugefügt (#144, #446).
-- Automatische Wiederholung von verbindungsbedingten Upload-Fehlern beim Entsperren des Tresors hinzugefügt (#446).
-- Mindest-iOS-Version auf 16 angehoben (#448).
+- Kurzbefehl zum Leeren des Caches über die Kurzbefehle-App hinzugefügt (#393, #454).
+- Hängende Down- und Uploads bei WebDAV-Servern wie Nextcloud und MagentaCloud behoben (#449).
+- Offline-Entsperren von Tresoren in der Dateien-App behoben (#456).

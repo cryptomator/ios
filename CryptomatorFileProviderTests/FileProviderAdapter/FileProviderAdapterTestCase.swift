@@ -6,12 +6,12 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
-@testable import Dependencies
 
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	let fileCoordinator = NSFileCoordinator()
@@ -28,22 +28,25 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		fileProviderItemUpdateDelegateMock = FileProviderItemUpdateDelegateMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
-		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 		taskRegistratorMock = SessionTaskRegistratorMock()
-		adapter = FileProviderAdapter(domainIdentifier: .test,
-		                              uploadTaskManager: uploadTaskManagerMock,
-		                              cachedFileManager: cachedFileManagerMock,
-		                              itemMetadataManager: metadataManagerMock,
-		                              reparentTaskManager: reparentTaskManagerMock,
-		                              deletionTaskManager: deletionTaskManagerMock,
-		                              itemEnumerationTaskManager: itemEnumerationTaskManagerMock,
-		                              downloadTaskManager: downloadTaskManagerMock,
-		                              scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1),
-		                              provider: cloudProviderMock,
-		                              coordinator: fileCoordinator,
-		                              notificator: fileProviderItemUpdateDelegateMock,
-		                              localURLProvider: localURLProviderMock,
-		                              taskRegistrator: taskRegistratorMock)
+		adapter = withDependencies {
+			$0.fullVersionChecker = fullVersionCheckerMock
+		} operation: {
+			FileProviderAdapter(domainIdentifier: .test,
+			                    uploadTaskManager: uploadTaskManagerMock,
+			                    cachedFileManager: cachedFileManagerMock,
+			                    itemMetadataManager: metadataManagerMock,
+			                    reparentTaskManager: reparentTaskManagerMock,
+			                    deletionTaskManager: deletionTaskManagerMock,
+			                    itemEnumerationTaskManager: itemEnumerationTaskManagerMock,
+			                    downloadTaskManager: downloadTaskManagerMock,
+			                    scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1),
+			                    provider: cloudProviderMock,
+			                    coordinator: fileCoordinator,
+			                    notificator: fileProviderItemUpdateDelegateMock,
+			                    localURLProvider: localURLProviderMock,
+			                    taskRegistrator: taskRegistratorMock)
+		}
 		uploadTaskManagerMock.createNewTaskRecordForClosure = {
 			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
 		}
@@ -65,7 +68,11 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	func createFullyMockedAdapter() -> FileProviderAdapter {
-		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
+		return withDependencies {
+			$0.fullVersionChecker = fullVersionCheckerMock
+		} operation: {
+			FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
+		}
 	}
 }
 

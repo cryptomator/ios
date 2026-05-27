@@ -178,12 +178,15 @@ class FileProviderCoordinator: Coordinator {
 		}
 		vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
 			switch error {
-			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
+			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
 				break
 			case LocalizedCloudProviderError.unauthorized:
 				throw FileProviderCoordinatorError.unauthorized(vaultName: domain.displayName)
 			default:
-				throw error
+				guard error.isTransientConnectivityError else {
+					throw error
+				}
+				DDLogInfo("FileProviderCoordinator: refreshVaultCache unreachable, using cached masterkey (\(error))")
 			}
 		}.then {
 			let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)

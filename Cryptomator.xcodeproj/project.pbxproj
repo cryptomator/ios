@@ -438,6 +438,9 @@
 		74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */; };
 		74C2FCED27E2197D00BB527A /* PCloudKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */; };
 		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
+		74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */; };
+		74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A22E02600000C0D001 /* XPCCacheController.swift */; };
+		74E1A1A52E02700000C0D001 /* XPCCacheControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */; };
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
@@ -453,6 +456,9 @@
 		B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */; };
 		B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
+		B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */; };
+		B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10002 /* VaultUnlockingMock.swift */; };
+		B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1068,6 +1074,9 @@
 		74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCloudKeychainTests.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCacheAppIntent.swift; sourceTree = "<group>"; };
+		74E1A1A22E02600000C0D001 /* XPCCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheController.swift; sourceTree = "<group>"; };
+		74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCCacheControllerTests.swift; sourceTree = "<group>"; };
 		74E93B742810109E0047A116 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74E93B75281010E50047A116 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -1089,6 +1098,8 @@
 		B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewController.swift; sourceTree = "<group>"; };
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
+		B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewModelTests.swift; sourceTree = "<group>"; };
+		B40000000000000000E10002 /* VaultUnlockingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingMock.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1887,9 +1898,12 @@
 				4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */,
 				4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */,
 				4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */,
+				74E1A1A42E02700000C0D001 /* XPCCacheControllerTests.swift */,
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
+				B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				B40000000000000000E10002 /* VaultUnlockingMock.swift */,
 				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
 				4AD9481B2909BD9C00072110 /* XCTest+Async.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
@@ -2065,6 +2079,8 @@
 			isa = PBXGroup;
 			children = (
 				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
+				74E1A1A22E02600000C0D001 /* XPCCacheController.swift */,
+				74E1A1A02E02500000C0D001 /* ClearCacheAppIntent.swift */,
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
 				7408E6CB26779BC200D7FAEA /* About */,
@@ -2823,6 +2839,8 @@
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
 				4AED9A6C286B305200352951 /* S3AuthenticationView.swift in Sources */,
 				4A644B4D267B55E4008CBB9A /* CreateNewVaultCoordinator.swift in Sources */,
+				74E1A1A32E02600000C0D001 /* XPCCacheController.swift in Sources */,
+				74E1A1A12E02500000C0D001 /* ClearCacheAppIntent.swift in Sources */,
 				740D3682266A19150058744D /* SettingsViewModel.swift in Sources */,
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
@@ -3034,6 +3052,10 @@
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
 				4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */,
 				4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */,
+				74E1A1A52E02700000C0D001 /* XPCCacheControllerTests.swift in Sources */,
+				B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */,
+				B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */,
+				B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3446,7 +3468,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3508,7 +3530,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
