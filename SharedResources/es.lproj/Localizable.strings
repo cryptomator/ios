@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Host no confiable";
 "hubAuthentication.vaultArchived" = "Esta bóveda ha sido archivada. Por favor, pida al propietario de la bóveda que la desarchive.";
 
+"intents.clearCache.description" = "Limpia la caché de archivos local de Cryptomator.";
+"intents.clearCache.cacheCleared" = "Cache limpiada.";
+
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada es inválida.";
 "intents.saveFile.missingTemporaryFolder" = "Error al crear la carpeta temporal.";

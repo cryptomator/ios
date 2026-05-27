@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Anfitrião não é fiável";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para o desarquivar.";
 
+"intents.clearCache.description" = "Limpa o cache de ficheiros locais do Cryptomator.";
+"intents.clearCache.cacheCleared" = "Cache limpo.";
+
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta especificada não é válida.";
 "intents.saveFile.missingTemporaryFolder" = "Não foi possível criar a pasta temporária.";

@@ -139,6 +139,9 @@
 "hubAuthentication.untrustedHost.alert.title" = "Хост не доверенный";
 "hubAuthentication.vaultArchived" = "Это хранилище помещено в архив. Попросите владельца хранилища разархивировать его.";
 
+"intents.clearCache.description" = "Очистить кэш файлов Cryptomator.";
+"intents.clearCache.cacheCleared" = "Кэш очищен.";
+
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
 "intents.saveFile.invalidFolder" = "Выбрана некорректная папка.";
 "intents.saveFile.missingTemporaryFolder" = "Не удалось создать папку для временных файлов.";
