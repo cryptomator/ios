@@ -51,10 +51,18 @@ class CustomCloudProviderMock: CloudProvider {
 
 	var everyOperationShouldFailWithError: Error?
 
-	var downloadFileCallsCount: Int = 0
+	private let stateQueue = DispatchQueue(label: "CustomCloudProviderMock.state")
+	private var _downloadFileCallsCount: Int = 0
+	var downloadFileCallsCount: Int {
+		stateQueue.sync { _downloadFileCallsCount }
+	}
 
+	private var _pendingDownloadPromise: Promise<Void>?
 	/// When non-nil, `downloadFile` writes the local file first, then returns this Promise instead of resolving immediately.
-	var pendingDownloadPromise: Promise<Void>?
+	var pendingDownloadPromise: Promise<Void>? {
+		get { stateQueue.sync { _pendingDownloadPromise } }
+		set { stateQueue.sync { _pendingDownloadPromise = newValue } }
+	}
 
 	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
 		if let error = everyOperationShouldFailWithError {
@@ -104,7 +112,10 @@ class CustomCloudProviderMock: CloudProvider {
 	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		downloadFileCallsCount += 1
+		let pendingDownloadPromise: Promise<Void>? = stateQueue.sync {
+			_downloadFileCallsCount += 1
+			return _pendingDownloadPromise
+		}
 		if let data = files[cloudPath.path] {
 			do {
 				try data!.write(to: localURL, options: .withoutOverwriting)
