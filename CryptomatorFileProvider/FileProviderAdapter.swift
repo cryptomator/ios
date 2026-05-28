@@ -75,6 +75,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
 	private let taskRegistrator: SessionTaskRegistrator
+	private let runningDownloadCache = RunningDownloadCache()
 	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
@@ -662,16 +663,18 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		guard let identifier = localURLProvider.persistentIdentifierForItem(at: url) else {
 			return Promise(NSFileProviderError(.noSuchItem))
 		}
-		if FileManager.default.fileExists(atPath: url.path) {
-			return localFileIsCurrent(with: identifier).then { isCurrent in
-				if isCurrent {
-					return Promise(())
-				} else {
-					return self.startProvidingItemWithOutdatedLocalFile(identifier: identifier, url: url)
+		return runningDownloadCache.getOrCreate(for: identifier) {
+			if FileManager.default.fileExists(atPath: url.path) {
+				return self.localFileIsCurrent(with: identifier).then { isCurrent in
+					if isCurrent {
+						return Promise(())
+					} else {
+						return self.startProvidingItemWithOutdatedLocalFile(identifier: identifier, url: url)
+					}
 				}
+			} else {
+				return self.downloadFile(with: identifier, to: url)
 			}
-		} else {
-			return downloadFile(with: identifier, to: url)
 		}
 	}
 

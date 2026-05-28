@@ -459,6 +459,8 @@
 		B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */; };
 		B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10002 /* VaultUnlockingMock.swift */; };
 		B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
+		B40000000000000000E00004 /* FileProviderAdapterStartProvidingCoalescingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10003 /* FileProviderAdapterStartProvidingCoalescingTests.swift */; };
+		B40000000000000000E00005 /* RunningDownloadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10004 /* RunningDownloadCache.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1100,6 +1102,8 @@
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
 		B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewModelTests.swift; sourceTree = "<group>"; };
 		B40000000000000000E10002 /* VaultUnlockingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingMock.swift; sourceTree = "<group>"; };
+		B40000000000000000E10003 /* FileProviderAdapterStartProvidingCoalescingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingCoalescingTests.swift; sourceTree = "<group>"; };
+		B40000000000000000E10004 /* RunningDownloadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningDownloadCache.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1630,6 +1634,7 @@
 				153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */,
 				4AEECD32279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift */,
 				4AEECD2E279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift */,
+				B40000000000000000E10003 /* FileProviderAdapterStartProvidingCoalescingTests.swift */,
 				4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */,
 				4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */,
 				4A8F14A1266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift */,
@@ -1996,6 +2001,7 @@
 				4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */,
 				4A0AA12A2AB8DB1800CF24FD /* PermissionProvider.swift */,
 				4AEE6EE92825716400E1B35E /* ProgressManager.swift */,
+				B40000000000000000E10004 /* RunningDownloadCache.swift */,
 				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
 				4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */,
 				4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */,
@@ -2705,6 +2711,7 @@
 				4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */,
 				4AEFF7F427145CB500D6CB99 /* LogLevelUpdatingServiceSourceTests.swift in Sources */,
 				4A248231266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift in Sources */,
+				B40000000000000000E00004 /* FileProviderAdapterStartProvidingCoalescingTests.swift in Sources */,
 				4A8F14A0266A2FD500ADBCE4 /* FileProviderAdapterGetItemTests.swift in Sources */,
 				4A24822F266FACF1002D9F59 /* FileProviderAdapterEnumerateItemTests.swift in Sources */,
 				4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */,
@@ -3134,6 +3141,7 @@
 				4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */,
 				4AA782D7282A7779001A71E3 /* CacheManagingServiceSource.swift in Sources */,
 				4AEE6EEA2825716400E1B35E /* ProgressManager.swift in Sources */,
+				B40000000000000000E00005 /* RunningDownloadCache.swift in Sources */,
 				747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */,
 				4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */,
 				747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */,

@@ -194,7 +194,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  deletionTaskManager: deletionTaskManager,
 		                                  itemEnumerationTaskManager: itemEnumerationTaskManager,
 		                                  downloadTaskManager: downloadTaskManager,
-		                                  scheduler: WorkflowScheduler(maxParallelUploads: 2, maxParallelDownloads: 2),
+		                                  scheduler: WorkflowScheduler(maxParallelUploads: 2, maxParallelDownloads: 4),
 		                                  provider: cloudProvider,
 		                                  coordinator: fileCoordinator,
 		                                  notificator: notificator,
