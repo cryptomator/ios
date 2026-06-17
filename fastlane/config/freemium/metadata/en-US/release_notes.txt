@@ -1,3 +1,1 @@
-- Added a shortcut to clear the cache via the Shortcuts app (#393, #454).
-- Fixed downloads and uploads getting stuck with WebDAV servers like Nextcloud and MagentaCloud (#449).
-- Fixed unlocking vaults offline in the Files app (#456).
+- Fixed WebDAV downloads hanging in the Files app (#449, #467).
