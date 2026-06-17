@@ -417,8 +417,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 					} else {
 						DDLogInfo("Successfully registered URLSessionUploadTask for identifier: \(itemIdentifier)")
 					}
+					urlSessionTask.resume()
 				})
-				urlSessionTask.resume()
 			})
 		} catch {
 			completionHandler?(error)
@@ -788,8 +788,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 					} else {
 						DDLogInfo("Successfully registered URLSessionTask for identifier: \(identifier)")
 					}
+					urlSessionTask.resume()
 				})
-				urlSessionTask.resume()
 			})
 		} catch {
 			return Promise(error)

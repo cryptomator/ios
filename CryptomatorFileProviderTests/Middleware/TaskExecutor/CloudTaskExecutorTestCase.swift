@@ -352,8 +352,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 	class DownloadTaskManagerMock: DownloadTaskManager {
 		var removedTasks = [DownloadTaskRecord]()
+		var lastOnURLSessionTaskCreation: URLSessionTaskCreationClosure?
 
 		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: CryptomatorFileProvider.URLSessionTaskCreationClosure?) throws -> DownloadTask {
+			lastOnURLSessionTaskCreation = onURLSessionTaskCreation
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
 			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, onURLSessionTaskCreation: onURLSessionTaskCreation)
 		}
