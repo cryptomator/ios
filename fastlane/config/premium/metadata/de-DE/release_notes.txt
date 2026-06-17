@@ -1,3 +1,1 @@
-- Kurzbefehl zum Leeren des Caches über die Kurzbefehle-App hinzugefügt (#393, #454).
-- Hängende Down- und Uploads bei WebDAV-Servern wie Nextcloud und MagentaCloud behoben (#449).
-- Offline-Entsperren von Tresoren in der Dateien-App behoben (#456).
+- Hängende WebDAV-Downloads in der Dateien-App behoben (#449, #467).
