@@ -88,6 +88,9 @@
 "cloudProvider.error.pageTokenInvalid" = "Mapes satura noalsi nevarēja turpināt.";
 "cloudProvider.error.quotaInsufficient" = "Krātuvē trūkst vietas.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sesija beidzās";
+"cloudProvider.error.unauthorized.reauth.message" = "Lūgums vēlreiz pieteikties %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Pieteikties";
 "cloudProvider.error.noInternetConnection" = "Šai darbībai ir nepieciešams savienojums ar internetu.";
 
 "cloudProviderType.localFileSystem" = "Cits datņu nodrošinātājs";
