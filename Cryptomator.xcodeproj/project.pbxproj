@@ -112,6 +112,7 @@
 		4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E3C25BF1AD400D9520D /* FolderCell.swift */; };
 		4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E4C25BF1E8B00D9520D /* FileCell.swift */; };
 		4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */; };
+		4A4490022BCD449000449002 /* FileProviderAdapterResumeOrderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4490012BCD449000449001 /* FileProviderAdapterResumeOrderingTests.swift */; };
 		4A49FABA271ECA530069A0CC /* ItemEnumerationTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49FAB9271ECA530069A0CC /* ItemEnumerationTaskRecord.swift */; };
 		4A49FABC271ECB680069A0CC /* ItemEnumerationTaskDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49FABB271ECB680069A0CC /* ItemEnumerationTaskDBManager.swift */; };
 		4A49FABE271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A49FABD271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift */; };
@@ -674,6 +675,7 @@
 		4A447E3C25BF1AD400D9520D /* FolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCell.swift; sourceTree = "<group>"; };
 		4A447E4C25BF1E8B00D9520D /* FileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudItemCell.swift; sourceTree = "<group>"; };
+		4A4490012BCD449000449001 /* FileProviderAdapterResumeOrderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterResumeOrderingTests.swift; sourceTree = "<group>"; };
 		4A49FAB9271ECA530069A0CC /* ItemEnumerationTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskRecord.swift; sourceTree = "<group>"; };
 		4A49FABB271ECB680069A0CC /* ItemEnumerationTaskDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskDBManager.swift; sourceTree = "<group>"; };
 		4A49FABD271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskManagerTests.swift; sourceTree = "<group>"; };
@@ -1634,6 +1636,7 @@
 				4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */,
 				4A8F14A1266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift */,
 				4A8CF8C027E906D7004CE880 /* FileProviderAdapterImportDirectoryTests.swift */,
+				4A4490012BCD449000449001 /* FileProviderAdapterResumeOrderingTests.swift */,
 			);
 			path = FileProviderAdapter;
 			sourceTree = "<group>";
@@ -2743,6 +2746,7 @@
 				4AEECD39279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift in Sources */,
 				4ADC66BF27A44558002E6CC7 /* XCTestCase+Promises.swift in Sources */,
 				4A8CF8C127E906D7004CE880 /* FileProviderAdapterImportDirectoryTests.swift in Sources */,
+				4A4490022BCD449000449002 /* FileProviderAdapterResumeOrderingTests.swift in Sources */,
 				4AB1D4F227D20510009060AB /* DocumentStorageURLProviderMock.swift in Sources */,
 				4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */,
 				4A9C8E0127A0104E000063E4 /* EnumerationSignalingMock.swift in Sources */,
@@ -3468,7 +3472,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3530,7 +3534,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
