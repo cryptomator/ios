@@ -36,18 +36,18 @@
 
 "accountList.header.title" = "Hitelesítések";
 "accountList.emptyList.message" = "Koppintson ide egy fiók hozzáadásához";
-"accountList.signOut.alert.title" = "Hozzátartozó széfek eltávolítása?";
-"accountList.signOut.alert.message" = "A kijelentkezéssel az összes hozzátartozó széf eltávolításra kerül a listából. Semmilyen titkosított adat nem törlődik. Később újra bejelentkezhet és újra felveheti a széfeket.";
+"accountList.signOut.alert.title" = "Hozzátartozó tárolók eltávolítása?";
+"accountList.signOut.alert.message" = "A kijelentkezéssel az összes hozzátartozó titkosított tároló eltávolításra kerül a listából. Semmilyen titkosított adat nem törlődik. Később újra bejelentkezhet és újra felveheti a tárolókat.";
 
-"addVault.title" = "Széf hozzáadása";
-"addVault.createNewVault.title" = "Új széf létrehozása";
-"addVault.createNewVault.purchase" = "Új széf létrehozásához meg kell vennie a Cryptomator teljes verzióját.";
-"addVault.createNewVault.setVaultName.header.title" = "Válasszon egy nevet az új széf számára.";
-"addVault.createNewVault.setVaultName.cells.name" = "A széf neve";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "A széf neve nem lehet üres.";
-"addVault.createNewVault.chooseCloud.header" = "Hova mentse a Cryptomator a széf titkosított fájljait?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" nevű széf már létezik ezen a helyen. Válasszon másik nevet vagy helyet a széfnek.";
-"addVault.createNewVault.detectedMasterkey.text" = "A Cryptomator talált egy már létező széfet ezen a helyen.\nÚj széf létrehozásához lépjen vissza és válasszon egy másik mappát.";
+"addVault.title" = "Titkosított tároló hozzáadása";
+"addVault.createNewVault.title" = "Új titkosított tároló létrehozása";
+"addVault.createNewVault.purchase" = "Új tároló létrehozásához meg kell vennie a Cryptomator teljes verzióját.";
+"addVault.createNewVault.setVaultName.header.title" = "Válasszon egy nevet az új titkosított tároló számára.";
+"addVault.createNewVault.setVaultName.cells.name" = "A titkosított tároló neve";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "A titkosított tároló neve nem lehet üres.";
+"addVault.createNewVault.chooseCloud.header" = "Hova mentse a Cryptomator a tároló titkosított fájljait?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" nevű titkosított tároló már létezik ezen a helyen. Válasszon másik nevet vagy helyet a tárolónak.";
+"addVault.createNewVault.detectedMasterkey.text" = "A Cryptomator talált egy már létező titkosított tárolót ezen a helyen.\nÚj titkosított tároló létrehozásához lépjen vissza és válasszon egy másik mappát.";
 "addVault.createNewVault.password.enterPassword.header" = "Adjon meg egy új jelszót.";
 "addVault.createNewVault.password.confirmPassword.header" = "Erősítse meg az új jelszót.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Jelszó megerősítése?";
@@ -55,15 +55,15 @@
 "addVault.createNewVault.password.error.emptyPassword" = "A jelszó nem lehet üres.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "A jelszavak nem egyeznek.";
 "addVault.createNewVault.password.error.tooShortPassword" = "A jelszónak legalább 8 karaktert kell tartalmaznia.";
-"addVault.createNewVault.progress" = "Széf létrehozása…";
-"addVault.openExistingVault.title" = "Meglévő széf megnyitása";
-"addVault.openExistingVault.chooseCloud.header" = "Hol található a széf?";
-"addVault.openExistingVault.detectedMasterkey.text" = "A Cryptomator felismerte a következő széfet: \"%@\".\nSzeretné ezt a széfet hozzáadni?";
-"addVault.openExistingVault.detectedMasterkey.add" = "Széf hozzáadása";
-"addVault.openExistingVault.downloadVault.progress" = "Széf letöltése…";
+"addVault.createNewVault.progress" = "Titkosított tároló létrehozása…";
+"addVault.openExistingVault.title" = "Meglévő titkosított tároló megnyitása";
+"addVault.openExistingVault.chooseCloud.header" = "Hol található a titkosított tároló?";
+"addVault.openExistingVault.detectedMasterkey.text" = "A Cryptomator felismerte a következő titkosított tárolót: \"%@\".\nSzeretné ezt a tárolót hozzáadni?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Titkosított tároló hozzáadása";
+"addVault.openExistingVault.downloadVault.progress" = "Titkosított tároló letöltése…";
 "addVault.openExistingVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
-"addVault.openExistingVault.progress" = "Széf hozzáadása…";
-"addVault.success.info" = "Sikeresen megtörtént a következő széf hozzáadása: \"%@\".\nElérheti ezt a széfet a Fájlok appban.";
+"addVault.openExistingVault.progress" = "Titkosított tároló hozzáadása…";
+"addVault.success.info" = "Sikeresen megtörtént a következő titkosított tároló hozzáadása: \"%@\".\nElérheti ezt a tárolót a Fájlok appban.";
 "addVault.success.footer" = "Ha még nem tette volna, engedélyezze a Cryptomatort a Fájlok appban.";
 
 "biometryType.faceID" = "Face ID";
@@ -88,50 +88,93 @@
 "cloudProvider.error.pageTokenInvalid" = "A könyvtár elemeinek lekérését nem tudtuk folytatni.";
 "cloudProvider.error.quotaInsufficient" = "Kevés a tárhely.";
 "cloudProvider.error.unauthorized" = "Nem lehet jogosulatlan műveletet végrehajtani.";
+"cloudProvider.error.unauthorized.reauth.title" = "A munkamenet lejárt";
+"cloudProvider.error.unauthorized.reauth.message" = "Kérjük, jelentkezzen be újra ide: %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Bejelentkezés";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Egy másik fiókkal jelentkezett be. Kérjük, próbálja meg újra, és jelentkezzen be az eredeti %@ fiókkal.";
 "cloudProvider.error.noInternetConnection" = "Internet hozzáférés szükséges ehhez a művelethez.";
 
 "cloudProviderType.localFileSystem" = "Más fájlszolgáltató";
+"cloudProviderType.sharePoint.secondary" = "beleértve a Microsoft Teams-t is";
 
 "fileProvider.onboarding.title" = "Üdvözöljük";
-"fileProvider.onboarding.info" = "Köszönjük, hogy a Cryptomatort válaszotta fájlainak megvédéséhez. Kezdéshez menjen a fő appba és adjon hozzá egy széfet.";
+"fileProvider.onboarding.info" = "Köszönjük, hogy a Cryptomatort válaszotta fájlainak megvédéséhez. Kezdéshez menjen a fő appba és adjon hozzá egy titkosított tárolót.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator megnyitása";
 "fileProvider.error.biometricalAuthCanceled.title" = "Feloldás megszakítva";
 "fileProvider.error.biometricalAuthCanceled.message" = "A(z) %@ általi feloldás nem volt sikeres. Kérem, próbálja újra.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Helytelen jelszó";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "A(z) %@ számára mentett jelszó hibás. Kérem, próbálja újra, és adja meg a jelszavát a %@ újbóli engedélyezéséhez.";
 "fileProvider.error.defaultLock.title" = "Feloldás szükséges";
-"fileProvider.error.defaultLock.message" = "A széf tartalmának eléréséhez és megjelenítéséhez a széfet fel kell oldani.";
-"fileprovider.error.unauthorized.text" = "A(z) „%@” széfhez való hozzáférés megtagadva. Nyissa meg a főalkalmazást a kapcsolat ellenőrzéséhez, és hitelesítse újra, ha szükséges.";
+"fileProvider.error.defaultLock.message" = "A titkosított tároló tartalmának eléréséhez és megjelenítéséhez a tárolót fel kell oldani.";
+"fileprovider.error.unauthorized.text" = "A következő titkosított tárolóhoz való hozzáférés megtagadva: \"%@\". Nyissa meg a főalkalmazást a kapcsolat ellenőrzéséhez, és hitelesítse újra, ha szükséges.";
 "fileProvider.error.unlockButton" = "Feloldás";
 "fileProvider.clearFileFromCache.title" = "Fájl törlése az átmeneti tárból";
 "fileProvider.clearFileFromCache.message" = "Ez csak a helyi fájlt távolítja el az eszközről, de nem törli a fájlt a felhőben.";
-"fileProvider.fileImporting.error.missingPremium" = "Oldja fel a teljes verziót a Cryptomator alkalmazásban, hogy írási hozzáférést kapjon a széfjeihez.";
+"fileProvider.fileImporting.error.missingPremium" = "Oldja fel a teljes verziót a Cryptomator alkalmazásban, hogy írási hozzáférést kapjon a tárolóihoz.";
 "fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
 "fileProvider.uploadProgress.message" = "Jelenlegi előrehaladás: %@\n\nHa azt észleli, hogy a feltöltési folyamat megakadt, megpróbálhatja újraindítani a feltöltést.";
 "fileProvider.uploadProgress.missing" = "Az előrehaladás nem állapítható meg. Lehetséges, hogy a háttérben még fut.";
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
-"getFolderIntent.error.noVaultSelected" = "Nincs széf kiválasztva.";
 
-"hubAuthentication.title" = "Hub széf";
+"getFolderIntent.error.missingPath" = "Nem adtak meg elérési utat. Kérjük, adjon meg egy érvényes elérési utat, amelyhez a mappát vissza kell adni.";
+"getFolderIntent.error.noVaultSelected" = "Nincs titkosított tároló kiválasztva.";
+
+"hubAuthentication.title" = "Hub tároló";
+"hubAuthentication.accessNotGranted" = "Nincs jogosultsága a tároló elérésére. Kérje meg a tároló tulajdonosát, hogy engedélyezze a hozzáférését.";
 "hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Úgy tűnik, ez az első alkalom, hogy ez az eszköz csatlakozik a Hubhoz. A hozzáférési jogosultság megadásához meg kell adnia egy nevet ennek az eszköznek.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Az új alkalmazásokból vagy böngészőkből történő bejelentkezéshez szükség van a fiók kulcsára. Ezt a profilodban találod meg.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Az eszköz regisztrációja sikeres";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Ahhoz, hogy hozzáférhess a tárolóhoz, a tároló tulajdonosának engedélyt kell adnia neked.";
+"hubAuthentication.requireAccountInit.alert.title" = "Művelet szükséges";
+"hubAuthentication.requireAccountInit.alert.message" = "A folytatáshoz kérjük, hajtsa végre a Hub-felhasználói profiljában megadott lépéseket.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Ugrás a profilra";
+"hubAuthentication.trustHost.alert.title" = "Megbízható ez a szerver?";
+"hubAuthentication.trustHost.alert.message" = "Ez a titkosított tároló a következő szerver(ekhez szeretne csatlakozni:\n\n%@\n\nMegbízik ebben a szerverben?";
 "hubAuthentication.trustHost.alert.trustButton" = "Megbízható";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "A tároló konfigurációja ellentmondásos szerver-URL-eket tartalmaz. Kérjük, vegye fel a kapcsolatot a tároló tulajdonosával.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "A \"%@\" webhelyhez való nem biztonságos (HTTP) kapcsolat nem megengedett. Kérjük, használjon HTTPS-t.";
+"hubAuthentication.untrustedHost.alert.title" = "A szerver nem megbízható";
+"hubAuthentication.vaultArchived" = "Ez a tároló archiválásra került. Kérje meg a tároló tulajdonosát, hogy szüntesse meg az archiválást.";
+
+"intents.clearCache.description" = "Törli a Cryptomator helyi gyorsítótárát.";
+"intents.clearCache.cacheCleared" = "Gyorsítótár törölve.";
 
 "intents.saveFile.missingFile" = "A megadott fájl érvénytelen.";
 "intents.saveFile.invalidFolder" = "A megadott mappa érvénytelen.";
 "intents.saveFile.missingTemporaryFolder" = "Nem sikerült létrehozni az ideiglenes mappát.";
+"intents.saveFile.lockedVault" = "Ahhoz, hogy ezt a gyorsbillentyűt használhassa, fel kell oldania a tárolóját.";
+"intents.saveFile.selectedVaultNotFound" = "A kiválasztott tároló nem található.";
 
-"keepUnlocked.alert.title" = "Széf zárolása?";
-"keepUnlocked.alert.message" = "Ezen módosítások végbemenéséhez szükséges a széfet zárolni.";
+"keepUnlocked.alert.title" = "Titkosított tároló zárolása?";
+"keepUnlocked.alert.message" = "Ezen módosítások végbemenéséhez szükséges a tárolót zárolni.";
 "keepUnlocked.alert.confirm" = "Megerősítés és zárolás most";
-"keepUnlocked.header" = "Adja meg, hogy mennyi ideig legyen a széf feloldva amikor tétlen.";
+"keepUnlocked.header" = "Adja meg, hogy mennyi ideig legyen a tároló feloldva amikor tétlen.";
+"keepUnlocked.footer.auto" = "Ha az iOS-re bízzuk a döntést, az azt jelenti, hogy a Cryptomator bármikor leállítható a memória felszabadítása érdekében, ami automatikusan lezárja a tárolót.";
+"keepUnlocked.footer.on" = "A kiválasztott beállítás használata esetén a kulcs másolatát az iOS kulcstartóban kell tárolni, mindaddig, amíg a tároló fel van oldva.";
 "keepUnlockedDuration.auto" = "Döntsön az iOS automatikusan";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatikus";
 "keepUnlockedDuration.indefinite" = "Korlátlan";
 
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "A következő képernyőn lépjen az iCloud Drive-ra, válassza ki a tárolási helyet, majd érintse meg a Megnyitás gombot.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "A következő képernyőn keresse meg a tárolási helyet, válassza ki, majd érintse meg a \"Megnyitás\" gombot.";
+"localFileSystemAuthentication.createNewVault.button" = "Tárolási hely kiválasztása";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ezen a helyen már létezik egy titkosított tároló. Kérjük, próbálja meg újra egy másik tárolási helyet megadva.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "A következő képernyőn lépjen az iCloud Drive-ra, válassza ki a tároló mappáját, majd érintse meg a \"Megnyitás\" gombot.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "A következő képernyőn keresse meg a tárolót mappáját, jelölje ki, majd érintse meg a \"Megnyitás\" gombot.";
+"localFileSystemAuthentication.openExistingVault.button" = "Válassza ki a titkosított tároló mappáját";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A kiválasztott mappa nem titkosított tároló. Kérjük, próbálja meg újra egy másik mappával.";
+"localFileSystemAuthentication.info.footer" = "A szürkén megjelenő fájlszolgáltatók nem támogatják a \"mappák kiválasztását\". Ez nem a Cryptomator korlátozása.";
+
+"maintenanceModeError.runningCloudTask" = "A művelet nem hajtható végre, mert először be kell fejeződniük az adott tárolóhoz tartozó egyéb háttérműveleteknek. Kérjük, próbálja meg később újra.";
+
 "microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Az erőforrásokhoz való hozzáféréshez szükséges engedélyeket nem sikerült megszerezni. Kérjük, próbálkozzon egy másik fiókkal.";
+
+"nameValidation.error.endsWithPeriod" = "Nem használhat olyan nevet, amely ponttal végződik. Kérjük, válasszon egy másik nevet.";
+"nameValidation.error.endsWithSpace" = "Nem használhat olyan nevet, amely szóközzel végződik. Kérjük, válasszon másik nevet.";
+"nameValidation.error.containsIllegalCharacter" = "Nem használhat olyan nevet, amely tartalmazza a következő karaktereket: \"%@\". Kérjük, válasszon másik nevet.";
 
 "onboarding.title" = "Üdvözöljük";
 "onboarding.info" = "Köszönjük, hogy a Cryptomatort választotta fájlai védelméhez.\n\nA Cryptomatorral az adatainak kulcsa az ön kezében van. A Cryptomator titkosítja az adatait gyorsan és könnyedén.\n\nEz az alkalmazás teljesen integrálva van a Fájlok appba. Engedélyezze a Cryptomatort a Fájlok appban később, hogy hozzáférhessen a széfjeihez.";
@@ -158,7 +201,7 @@
 "purchase.readOnlyMode.alert.message" = "Feloldhatja a Cryptomator teljes verzióját a beállításokban később és addig használhatja csak olvasható módban.";
 "purchase.restorePurchase.button" = "Vásárlás visszaállítása";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Próbaidő folytatódott";
-"purchase.restorePurchase.validTrialFound.alert.message" = "Mostmár használhatja a Cryptomator teljes verzióját korlátozott időre. A próbaidője lejár ekkor: %@. Azután a széfeit továbbra is elérheti csak olvasható módban.";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Mostmár használhatja a Cryptomator teljes verzióját korlátozott időre. A próbaidője lejár ekkor: %@. Azután a tárolóit továbbra is elérheti csak olvasható módban.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sikeres visszaállítás";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nincs teljes verzió";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nem találtunk egy előzőleg megvásárolt teljes verziót, melyet visszaállíthattunk volna. Kérjük, próbáljon meg egy másik opciót.";
@@ -169,12 +212,19 @@
 "purchase.title" = "Teljes verzió feloldása";
 "purchase.unlockedFullVersion.message" = "Mostmár használhatja a Cryptomator teljes verzióját. Örömteli titkosítást!";
 "purchase.unlockedFullVersion.title" = "Köszönjük";
+"purchase.error.paymentNotAllowed" = "Ezen az eszközön az alkalmazáson belüli vásárlások nem engedélyezettek. Kérjük, ellenőrizze a \"Képernyőidő\" beállításait a \"Tartalom- és adatvédelmi korlátozások\" menüpont alatt, hogy engedélyezze a vásárlásokat.";
 "purchase.error.unknown" = "A vásárlás ismeretlen ok miatt nem elérhető az App Storeban. Kérjük, próbálja újra később.\n\nHa ez a probléma fennállna, próbálja meg újraindítani a készülékét vagy ki- és bejelentkezni az Apple ID-ból az iOS beállításokban.";
+"purchase.lifetime.hasSubscription.alert.title" = "Aktív előfizetése van";
+"purchase.lifetime.hasSubscription.alert.message" = "Az élethosszig tartó licenc megvásárlása után le kell mondania az éves előfizetését, hogy ne számlázzák ki mindkettőt.";
+"purchase.lifetime.hasSubscription.hint" = "A dupla számlázás elkerülése érdekében a vásárlás után mondja le előfizetését.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Élethosszig tartó licenc aktiválva";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Ha nem szeretne a jövőben előfizetési díjakat fizetni, kérjük, mondja le éves előfizetését.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Előfizetés kezelése";
 
 "settings.title" = "Beállítások";
 "settings.aboutCryptomator" = "A Cryptomator névjegye";
 "settings.aboutCryptomator.title" = "Verzió %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Feloldotta a teljes verziót, és írási jogosultságot kapott a tárolóira.";
 "settings.cacheSize" = "Gyorsítótár mérete";
 "settings.clearCache" = "Gyorsítótár törlése";
 "settings.cloudServices" = "Felhőszolgáltatások";
@@ -186,6 +236,10 @@
 "settings.sendLogFile" = "Naplófájl küldése";
 "settings.shortcutsGuide" = "Parancsok útmutató";
 "settings.unlockFullVersion" = "Teljes verzió feloldása";
+"settings.unlockFullVersion.detail" = "Szerezzen írási hozzáférést a tárolóihoz.";
+"settings.unlockFullVersion.trialExpirationDate" = "A próbaidőszak lejárati dátuma: %@";
+"settings.upgradeToLifetime" = "Frissítés élethosszig tartó licencre";
+"settings.hub.trustedHosts" = "Megbízható Hub-szolgáltatók";
 
 "sharePoint.enterURL.title" = "SharePoint URL megadása";
 "sharePoint.enterURL.placeholder" = "SharePoint webhely URL címe";
@@ -196,12 +250,18 @@
 "sharePoint.selectDrive.header.title" = "Válassza ki a SharePoint dokumentumkönyvtárat, amellyel dolgozni szeretne.";
 "sharePoint.selectDrive.emptyList.footer" = "Nincsenek elérhető dokumentumkönyvtárak";
 
-"shareVault.title" = "Széf megosztása";
+"shareVault.title" = "Titkosított tároló megosztása";
 "shareVault.normal.header.title" = "A biztonságos mód csapatokban való munkavégzéshez";
+"shareVault.normal.header.features" = "Dolgozzon együtt biztonságosan a csapatával! Bármikor megadhatja vagy visszavonhatja a hozzáférést anélkül, hogy jelszavakat kellene megosztania.";
+"shareVault.normal.footer.text" = "További információkért tekintse meg a bevált gyakorlatokra vonatkozó javaslatokat a [dokumentációnkban](%@).";
 "shareVault.normal.button.visitHub" = "Látogassa meg a Cryptomator Hubot";
-"shareVault.hub.header.title" = "Hogyan osszon meg egy Hub széfet";
-"shareVault.hub.header.subtitle" = "Ahhoz, hogy megossza a széf tartalmát egy másik csapattaggal, két lépést kell végrehajtania:";
+"shareVault.hub.header.title" = "Hogyan osszon meg egy Hub tárolót";
+"shareVault.hub.header.subtitle" = "Ahhoz, hogy megossza a titkosított tároló tartalmát egy másik csapattaggal, két lépést kell végrehajtania:";
+"shareVault.hub.step1" = "Ossza meg a titkosított tároló mappáját felhőszolgáltatón keresztül.";
+"shareVault.hub.step2" = "Biztosítson hozzáférést egy csapattagnak a Cryptomator Hubban.";
 "shareVault.hub.button.openHub" = "Nyissa meg a Cryptomator Hubot";
+"shareVault.error.hubURLExtraction.title" = "A Hub adatok nem tölthetők be";
+"shareVault.error.hubURLExtraction.message" = "A tároló Hub-konfigurációja nem töltődött be. Kérjük, ellenőrizze a tároló beállításait, vagy vegye fel a kapcsolatot a Hub adminisztrátorával.";
 
 "snapshots.fileprovider.file1" = "/Könyevlés.numbers";
 "snapshots.fileprovider.file2" = "/Kész Előadás.key";
@@ -228,12 +288,16 @@
 "trialStatus.active" = "Aktív";
 "trialStatus.expired" = "Lejárt";
 
+"trustedHubHosts.clearAll" = "Minden törlése";
+"trustedHubHosts.clearAll.alert.message" = "Az összes korábban megbízhatónak minősített Hub-gazdagép eltávolításra kerül. A Hub-tárolókhoz való csatlakozáskor újra meg kell erősítenie a megbízhatóságot.";
+"trustedHubHosts.emptyList.message" = "Még nincsenek megbízható Hub-gazdagépek. A gazdagépek akkor kerülnek hozzáadásra, amikor először csatlakozol egy Hub-tárolóhoz.";
+
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
 "unlockVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ engedélyezése";
-"unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a széfet, a %@ segítségével is feloldhatja azt.";
-"unlockVault.evaluatePolicy.reason" = "Széf kinyitása";
+"unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a tárolót, a %@ segítségével is feloldhatja azt.";
+"unlockVault.evaluatePolicy.reason" = "Titkosított tároló kinyitása";
 "unlockVault.progress" = "Feloldás…";
 
 "untrustedTLSCertificate.title" = "Érvénytelen TLS-tanúsítvány";
@@ -243,24 +307,59 @@
 
 "upgrade.title" = "Frissítési ajánlat";
 "upgrade.notEligible.alert.title" = "A frissítés nem sikerült";
+"upgrade.notEligible.alert.message" = "A Cryptomator nem észlelte, hogy a készülékén egy régebbi verzió lenne telepítve. Ha megvásárolta az alkalmazást, kérjük, töltse le újra az App Store-ból, majd próbálja meg újra.";
+"upgrade.info" = "Köszönjük, hogy az első verzió óta bízik a Cryptomatorban. Hűséges felhasználóként jogosult egy ingyenes frissítésre.";
+
+"urlSession.error.httpError.401" = "Helytelen felhasználónév és/vagy jelszó.";
+"urlSession.error.httpError.403" = "A kért erőforráshoz nem rendelkezik megfelelő jogosultsággal.";
 "urlSession.error.httpError.404" = "A keresett oldal nem található.";
+"urlSession.error.httpError.405" = "Az erőforrás nem támogatja a kért metódust.";
+"urlSession.error.httpError.409" = "A kérés ütközik az erőforrás aktuális állapotával.";
+"urlSession.error.httpError.412" = "A erőforráshoz való hozzáférés megtagadva.";
+"urlSession.error.httpError.default" = "A hálózati kapcsolat megszakadt, az állapotkód: %ld.";
+"urlSession.error.unexpectedResponse" = "Váratlan hálózati válasz érkezett.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Már hozzáadta ezt a titkosított tárolót.";
 
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
 "vaultDetail.button.lock" = "Zárolás most";
 "vaultDetail.button.moveVault" = "Áthelyezés";
+"vaultDetail.button.removeVault" = "Eltávolítás a titkosított tárolók listájáról";
 "vaultDetail.button.renameVault" = "Átnevezés";
-"vaultDetail.button.shareVault" = "Széf megosztása";
-"vaultDetail.info.footer.accessVault" = "Elérheti a széfet a Fájlok appban.";
+"vaultDetail.button.shareVault" = "Titkosított tároló megosztása";
+"vaultDetail.shareVault.footer" = "Működjön együtt biztonságosan a csapatával a Cryptomator Hub segítségével.";
+"vaultDetail.changePassword.footer" = "Válasszon egy erős jelszót a tárolójához, amelyet csak Ön ismer, és őrizze meg biztonságos helyen.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ha engedélyezi a következőt: %@, a titkosított tároló jelszava az iOS kulcstartóban lesz tárolva.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "A tároló jelszavára csak akkor lesz szükség, ha a következő hitelesítés sikertelen: %@.";
+"vaultDetail.info.footer.accessVault" = "Elérheti a tárolót a Fájlok appban.";
 "vaultDetail.info.footer.accountInfo" = "Bejelentkezve, mint %@ itt: %@.";
 "vaultDetail.keepUnlocked.title" = "Feloldás hossza";
+"vaultDetail.keepUnlocked.footer.off" = "Feloldásra lesz szükség, ha a Cryptomatort a Fájlok alkalmazás zárja be.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "A tároló %@ ideig nem volt használatban, ezért feloldásra lesz szükség.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Nem szükséges feloldás, kivéve ha manuálisan zárolták.";
+"vaultDetail.locked.footer" = "A tároló jelenleg zárolva van.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "A Cryptomator egy már létező tárolót észlelt ezen a helyen.\nA tároló áthelyezéséhez kérjük, lépjen vissza, és válasszon egy másik mappát.";
 "vaultDetail.moveVault.progress" = "Áthelyezés…";
+"vaultDetail.removeVault.footer" = "Ezzel csupán a tároló kerül eltávolításra a titkosított tárolók listájáról, a titkosított fájlok azonban nem kerülnek törlésre.";
 "vaultDetail.renameVault.progress" = "Átnevezés…";
-"vaultDetail.unlocked.footer" = "A széfe jelenleg fel van oldva a Fájlok appban.";
+"vaultDetail.unlocked.footer" = "A titkosított tároló jelenleg fel van oldva a Fájlok appban.";
+"vaultDetail.unlockVault.footer" = "Adja meg a következő jelszavát: \"%1$@\", hogy azt az iOS kulcstartóba mentse, és engedélyezze a következőt: %2$@.";
 
-"vaultList.header.title" = "Széfek";
-"vaultList.emptyList.message" = "Koppintson ide egy széf hozzáadásához";
-"vaultList.remove.alert.title" = "Széf eltávolitása?";
+"vaultList.header.title" = "Titkosított tárolók";
+"vaultList.emptyList.message" = "Koppintson ide egy titkosított tároló hozzáadásához";
+"vaultList.remove.alert.title" = "Titkosított tároló eltávolitása?";
+"vaultList.remove.alert.message" = "Ezzel a tárolót csak a titkosított tárolók listájáról távolítja el. A titkosított adatok nem kerülnek törlésre. A tárolót később újra hozzáadhatja.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "A titkosított tároló konfigurációja nem támogatott. Kérjük, győződjön meg arról, hogy a Cryptomator legújabb verzióját futtatja.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A következő tároló verziót nem támogatott: %ld. Ezt a titkosított tárolót a Cryptomator egy régebbi vagy újabb verziójával hozták létre.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
 "webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
 "webDAVAuthentication.httpConnection.change" = "Váltson HTTPS-re";
+"webDAVAuthentication.httpConnection.continue" = "HTTP megtartása";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Úgy tűnik, a szerver nem támogatja a WebDAV-ot. Kérjük, ellenőrizze, hogy a megfelelő URL-címet adta-e meg.";
+"webDAVAuthenticator.error.untrustedCertificate" = "A szerver tanúsítványa nem megbízható. Lehet, hogy újra hozzá kell adnia ezt a WebDAV-kapcsolatot.";
+
+"Retry Upload" = "Feltöltés újrapróbálása";
+"Clear from Cache" = "Törlés a gyorsítótárból";
