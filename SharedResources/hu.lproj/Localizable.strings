@@ -143,6 +143,7 @@
 "purchase.footer.termsOfUse" = "Használati feltételek";
 "purchase.header.feature.familySharing" = "Családon belüli megosztás";
 "purchase.header.feature.openSource" = "Nyílt forráskódú fejlesztés";
+"purchase.header.feature.writeAccess" = "Írási hozzáférés a tárolóihoz";
 "purchase.product.donateAndUpgrade" = "Adományozás és frissítés";
 "purchase.product.freeUpgrade" = "Ingyenes frissítés";
 "purchase.product.lifetimeLicense" = "Örök licensz";
