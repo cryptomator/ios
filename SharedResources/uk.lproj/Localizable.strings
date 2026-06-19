@@ -72,7 +72,7 @@
 "changePassword.error.invalidOldPassword" = "Поточний пароль неправильний. Будь ласка, спробуйте ще раз.";
 "changePassword.header.currentPassword.title" = "Введіть поточний пароль.";
 "changePassword.header.newPassword.title" = "Введіть новий пароль.";
-"changePassword.header.newPasswordConfirmation.title" = "Підтвердіть новий пароль.";
+"changePassword.header.newPasswordConfirmation.title" = "Підтвердьте новий пароль.";
 "changePassword.progress" = "Зміна пароля…";
 
 "chooseFolder.emptyFolder.footer" = "Папка порожня";
@@ -230,7 +230,7 @@
 "settings.cloudServices" = "Хмарні сервіси";
 "settings.contact" = "Зв’язатися з нами";
 "settings.debugMode" = "Режим налагодження";
-"settings.debugMode.alert.message" = "У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.";
+"settings.debugMode.alert.message" = "У цьому режимі конфіденційні дані (наприклад, назви файлів та шляхи до них) можуть записуватися у файл журналу на вашому пристрої. Паролі, файли cookie тощо до журналу не записуються.\n\nНе забудьте вимкнути режим налагодження якомога швидше.";
 "settings.manageSubscriptions" = "Керувати підпискою";
 "settings.rateApp" = "Оцінити програму";
 "settings.sendLogFile" = "Надіслати файл журналу";
