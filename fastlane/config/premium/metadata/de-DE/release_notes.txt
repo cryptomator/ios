@@ -1,3 +1,1 @@
-- Offline-Zugriff auf zuvor besuchte Tresor-Ordner in der Dateien-App hinzugefügt (#144, #446).
-- Automatische Wiederholung von verbindungsbedingten Upload-Fehlern beim Entsperren des Tresors hinzugefügt (#446).
-- Mindest-iOS-Version auf 16 angehoben (#448).
+- Hängende WebDAV-Downloads in der Dateien-App behoben (#449, #467).

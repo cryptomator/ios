@@ -1,3 +1,1 @@
-- Added offline browsing for previously visited vault folders in Files.app (#144, #446).
-- Added automatic retry of connectivity-failed uploads on vault unlock (#446).
-- Raised minimum iOS version to 16 (#448).
+- Fixed WebDAV downloads hanging in the Files app (#449, #467).

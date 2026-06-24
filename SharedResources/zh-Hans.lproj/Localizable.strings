@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容。";
 "cloudProvider.error.quotaInsufficient" = "您的存储空间不足。";
 "cloudProvider.error.unauthorized" = "无法执行未经授权的操作。";
+"cloudProvider.error.unauthorized.reauth.title" = "会话已过期";
+"cloudProvider.error.unauthorized.reauth.message" = "请重新登录到 %@。";
+"cloudProvider.error.unauthorized.reauth.button" = "登录";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "您使用不同的帐户登录。请重试并使用原始的 %@ 帐户登录。";
 "cloudProvider.error.noInternetConnection" = "此操作需要网络连接。";
 
 "cloudProviderType.localFileSystem" = "其他文件存储提供商";
@@ -127,8 +131,14 @@
 "hubAuthentication.requireAccountInit.alert.title" = "需要操作";
 "hubAuthentication.requireAccountInit.alert.message" = "要继续，请完成 Hub 用户中心所需的步骤";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "前往个人中心";
+"hubAuthentication.trustHost.alert.title" = "是否信任这台服务器？";
 "hubAuthentication.trustHost.alert.trustButton" = "信任";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "不允许通过不安全的连接（HTTP）来访问 “%@”。请使用 HTTPS。";
+"hubAuthentication.untrustedHost.alert.title" = "主机不可信";
 "hubAuthentication.vaultArchived" = "此保险库已存档，请让其所有者取消存档";
+
+"intents.clearCache.description" = "清除 Cryptomator 的本地文件缓存。";
+"intents.clearCache.cacheCleared" = "缓存已清除。";
 
 "intents.saveFile.missingFile" = "提供的文件无效。";
 "intents.saveFile.invalidFolder" = "提供的文件夹无效。";
@@ -196,6 +206,7 @@
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
 "purchase.error.unknown" = "此次在 App Store 中的购买因原因而不可用。请稍后再试。\n\n如果错误继续存在，尝试重启设备或者在 iOS 设置中退出并重新登录您的 Apple ID。";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "已激活终身许可证";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "管理订阅";
 
 "settings.title" = "设置";
@@ -212,6 +223,8 @@
 "settings.sendLogFile" = "发送日志文件";
 "settings.shortcutsGuide" = "快捷方式指南";
 "settings.unlockFullVersion" = "解锁完整版";
+"settings.upgradeToLifetime" = "升级到终生版";
+"settings.hub.trustedHosts" = "可信的 Hub 主机";
 
 "sharePoint.enterURL.title" = "输入 SharePoint 链接";
 "sharePoint.enterURL.placeholder" = "SharePoint 网站链接";
@@ -224,6 +237,7 @@
 
 "shareVault.title" = "共享保险库";
 "shareVault.normal.header.title" = "安全的团队合作方式";
+"shareVault.normal.header.features" = "安全地与您的团队协作。在不分享密码的情况下，允许并随时撤销访问权限。";
 "shareVault.normal.button.visitHub" = "访问 Cryptomator Hub";
 "shareVault.hub.header.title" = "如何共享 Hub 保险库";
 "shareVault.hub.header.subtitle" = "为了与其他团队成员共享保险库内容，您必须执行以下两步：";
@@ -253,6 +267,8 @@
 
 "trialStatus.active" = "进行中";
 "trialStatus.expired" = "已到期";
+
+"trustedHubHosts.clearAll" = "清除全部";
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
@@ -289,6 +305,7 @@
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
 "vaultDetail.button.renameVault" = "重命名";
 "vaultDetail.button.shareVault" = "共享保险库";
+"vaultDetail.shareVault.footer" = "使用 Cryptomator Hub 安全地与您的团队合作。";
 "vaultDetail.changePassword.footer" = "为您的保险库选择一个强壮的密码，确保只有您知道并做妥善保管。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";

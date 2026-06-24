@@ -130,6 +130,9 @@
 "hubAuthentication.trustHost.alert.trustButton" = "Ange som betrott";
 "hubAuthentication.vaultArchived" = "Detta valv har arkiverats. Be valvägaren att avarkivera det.";
 
+"intents.clearCache.description" = "Rensar Cryptomators lokala buffertminne.";
+"intents.clearCache.cacheCleared" = "Bufferten har rensats.";
+
 "intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";
 "intents.saveFile.invalidFolder" = "Den angivna mappen är inte giltig.";
 "intents.saveFile.missingTemporaryFolder" = "Det gick inte att skapa en temporär mapp.";

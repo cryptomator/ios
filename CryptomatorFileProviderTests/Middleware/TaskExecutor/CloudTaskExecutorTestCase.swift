@@ -411,11 +411,13 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 	class DownloadTaskManagerMock: DownloadTaskManager {
 		var removedTasks = [DownloadTaskRecord]()
+		var lastOnURLSessionTaskCreation: URLSessionTaskCreationClosure?
 
 		var itemMetadataManager: ItemMetadataManager?
 		var stubCloudPath: CloudPath?
 
 		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: CryptomatorFileProvider.URLSessionTaskCreationClosure?) throws -> DownloadTask {
+			lastOnURLSessionTaskCreation = onURLSessionTaskCreation
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
 			let cloudPath = try stubCloudPath ?? itemMetadataManager?.getCloudPath(for: item.id!) ?? CloudPath("/")
 			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
