@@ -6,7 +6,6 @@
 //  Copyright © 2026 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import XCTest
@@ -23,8 +22,8 @@ final class FileProviderAdapterResumeOrderingTests: FileProviderAdapterTestCase 
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "download.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/download.txt"), isPlaceholderItem: false)
-		metadataManagerMock.cachedMetadata[3] = ItemMetadata(id: 3, name: "upload.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/upload.txt"), isPlaceholderItem: false)
+		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "download.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		metadataManagerMock.cachedMetadata[3] = ItemMetadata(id: 3, name: "upload.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 	}
 
 	// MARK: - Download
