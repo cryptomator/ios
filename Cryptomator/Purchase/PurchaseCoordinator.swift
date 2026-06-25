@@ -60,7 +60,7 @@ class PurchaseCoordinator: Coordinator {
 		}.then {
 			self.unlockedPro()
 		}
-		// Temporarily added for 10th Anniversary Sale
+		// Temporarily added for Summer 2026 Sale
 		NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 	}
 
