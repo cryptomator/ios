@@ -21,7 +21,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
 	#if !ALWAYS_PREMIUM
-	private var tenthAnniversaryBannerView: UIView?
+	private var summer2026BannerView: UIView?
 	private var fullVersionPurchasedObserver: NSObjectProtocol?
 	#endif
 
@@ -52,10 +52,10 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 
 		#if !ALWAYS_PREMIUM
 		fullVersionPurchasedObserver = NotificationCenter.default.addObserver(forName: .purchasedFullVersionNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.dismissTenthAnniversaryBanner()
+			self?.dismissSummer2026Banner()
 		}
-		if SalePromo.shared.shouldShowTenthAnniversaryBanner() {
-			showTenthAnniversaryBanner()
+		if SalePromo.shared.shouldShowSummer2026Banner() {
+			showSummer2026Banner()
 		}
 		#endif
 	}
@@ -121,7 +121,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	// MARK: - Sale Promo Banner
 
 	#if !ALWAYS_PREMIUM
-	private func showTenthAnniversaryBanner() {
+	private func showSummer2026Banner() {
 		let banner = UIView()
 		banner.backgroundColor = UIColor.cryptomatorPrimary
 		banner.translatesAutoresizingMaskIntoConstraints = false
@@ -129,13 +129,13 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		banner.layer.masksToBounds = true
 
 		let emojiLabel = UILabel()
-		emojiLabel.text = SalePromo.tenthAnniversaryEmoji
+		emojiLabel.text = SalePromo.summer2026Emoji
 		emojiLabel.translatesAutoresizingMaskIntoConstraints = false
 		emojiLabel.setContentHuggingPriority(.required, for: .horizontal)
 		emojiLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		let textLabel = UILabel()
-		textLabel.text = "Lifetime License is \(SalePromo.tenthAnniversaryDiscount)!"
+		textLabel.text = "Lifetime License is \(SalePromo.summer2026Discount)!"
 		textLabel.textColor = .white
 		textLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
 		textLabel.adjustsFontSizeToFitWidth = true
@@ -144,7 +144,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
 
 		let dismissButton = UIButton(type: .close)
-		dismissButton.addTarget(self, action: #selector(dismissTenthAnniversaryBanner), for: .touchUpInside)
+		dismissButton.addTarget(self, action: #selector(dismissSummer2026Banner), for: .touchUpInside)
 		dismissButton.translatesAutoresizingMaskIntoConstraints = false
 		dismissButton.setContentHuggingPriority(.required, for: .horizontal)
 		dismissButton.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -165,7 +165,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			dismissButton.centerYAnchor.constraint(equalTo: banner.centerYAnchor)
 		])
 
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tenthAnniversaryBannerTapped))
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(summer2026BannerTapped))
 		banner.addGestureRecognizer(tapGestureRecognizer)
 
 		view.addSubview(banner)
@@ -178,20 +178,20 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			banner.heightAnchor.constraint(equalToConstant: 50)
 		])
 
-		tenthAnniversaryBannerView = banner
+		summer2026BannerView = banner
 	}
 
-	@objc private func dismissTenthAnniversaryBanner() {
+	@objc private func dismissSummer2026Banner() {
 		UIView.animate(withDuration: 0.3, animations: {
-			self.tenthAnniversaryBannerView?.alpha = 0
+			self.summer2026BannerView?.alpha = 0
 		}, completion: { _ in
-			self.tenthAnniversaryBannerView?.removeFromSuperview()
-			self.tenthAnniversaryBannerView = nil
+			self.summer2026BannerView?.removeFromSuperview()
+			self.summer2026BannerView = nil
 		})
-		CryptomatorUserDefaults.shared.tenthAnniversaryBannerDismissed = true
+		CryptomatorUserDefaults.shared.summer2026BannerDismissed = true
 	}
 
-	@objc private func tenthAnniversaryBannerTapped() {
+	@objc private func summer2026BannerTapped() {
 		coordinator?.showPurchase()
 	}
 	#endif
