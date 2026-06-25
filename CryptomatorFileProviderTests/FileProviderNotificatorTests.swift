@@ -18,7 +18,7 @@ class FileProviderNotificatorTests: XCTestCase {
 	let updatedMetadataIDs: [Int64] = [2, 3, 4]
 	lazy var updatedItemIdentifiers = updatedMetadataIDs.map { NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: $0) }
 	lazy var updatedItems: [FileProviderItem] = updatedMetadataIDs.map {
-		FileProviderItem(metadata: ItemMetadata(id: $0, name: "\($0)", type: .file, size: nil, parentID: 0, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: CloudPath("/\($0)"), isPlaceholderItem: false), domainIdentifier: .test)
+		FileProviderItem(metadata: ItemMetadata(id: $0, name: "\($0)", type: .file, size: nil, parentID: 0, lastModifiedDate: nil, statusCode: .isDownloading, isPlaceholderItem: false), domainIdentifier: .test)
 	}
 
 	override func setUpWithError() throws {

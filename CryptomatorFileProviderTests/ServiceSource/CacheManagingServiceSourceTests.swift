@@ -67,7 +67,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 			$0.permissionProvider = permissionProviderMock
 		} operation: {
 			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-			testItem = FileProviderItem(metadata: ItemMetadata(id: itemID, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false), domainIdentifier: .test)
+			testItem = FileProviderItem(metadata: ItemMetadata(id: itemID, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false), domainIdentifier: .test)
 			serviceSource.getItem = { receivedItemIdentifier in
 				guard itemIdentifier == receivedItemIdentifier else {
 					return nil

@@ -35,7 +35,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 			let fileContent = "TestContent"
 			try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
-			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 			let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
@@ -65,7 +65,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
 
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		XCTAssertThrowsError(try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)) { error in
@@ -86,7 +86,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		try FileManager.default.createDirectory(at: expectedFileURL.deletingLastPathComponent(), withIntermediateDirectories: false)
 		let existingFileContent = "ExistingFileContent"
 		try existingFileContent.write(to: expectedFileURL, atomically: true, encoding: .utf8)
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		XCTAssertThrowsError(try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)) { error in
@@ -113,7 +113,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	func testImportDocument() throws {
 		let expectation = XCTestExpectation()
 
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
@@ -158,7 +158,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 
 	func testItemChanged() throws {
 		let cloudPath = CloudPath("/Item.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "Item.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Item.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
 		let adapter = createFullyMockedAdapter()
 
@@ -204,7 +204,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		cloudProviderMock.deleteFileAtReturnValue = deleteItemPromise
 		cloudProviderMock.uploadFileFromToReplaceExistingReturnValue = uploadItemPromise
 
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		let itemFolderURL = tmpDirectory.appendingPathComponent("\(itemID)", isDirectory: true)
@@ -212,7 +212,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		let expectedFileURL = itemFolderURL.appendingPathComponent("File 1", isDirectory: false)
 		let existingFileContent = "Existing Content"
 		try existingFileContent.write(to: expectedFileURL, atomically: true, encoding: .utf8)
-		let existingItemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let existingItemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try metadataManagerMock.cacheMetadata(existingItemMetadata)
 		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: expectedFileURL, lastModifiedDate: Date(timeIntervalSince1970: 0))
 
@@ -282,16 +282,13 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			let fileURL = tmpDirectory.appendingPathComponent(nfdName, isDirectory: false)
 			try "test".write(to: fileURL, atomically: true, encoding: .utf8)
 
-			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+			let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 			let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
 
 			let storedName = result.item.filename
 			XCTAssertEqual(Array(storedName.utf8), Array(nfcName.utf8), "Filename should be stored in NFC form")
-
-			let storedCloudPath = result.item.metadata.cloudPath.path
-			XCTAssertEqual(Array(storedCloudPath.utf8), Array("/\(nfcName)".utf8), "CloudPath should be stored in NFC form")
 		}
 	}
 

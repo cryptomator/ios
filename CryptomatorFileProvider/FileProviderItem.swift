@@ -88,7 +88,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		case .folder:
 			return kUTTypeFolder as String
 		default:
-			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, metadata.cloudPath.pathExtension as CFString, nil) {
+			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (metadata.name as NSString).pathExtension as CFString, nil) {
 				let uti = typeIdentifier.takeRetainedValue() as String
 				// Reject dynamic created UTI and use generic UTI (kUTTypeData) instead. See: https://github.com/cryptomator/ios/issues/67#issuecomment-898371262
 				if uti.hasPrefix("dyn.") {

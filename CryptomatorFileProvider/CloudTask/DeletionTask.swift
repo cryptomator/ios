@@ -6,14 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import GRDB
+import CryptomatorCloudAccessCore
 
-struct DeletionTask: CloudTask, FetchableRecord, Decodable {
+struct DeletionTask: CloudTask {
 	let taskRecord: DeletionTaskRecord
 	let itemMetadata: ItemMetadata
+	let cloudPath: CloudPath
 
-	enum CodingKeys: String, CodingKey {
-		case taskRecord = "deletionTask"
-		case itemMetadata
+	func with(cloudPath: CloudPath) -> DeletionTask {
+		return DeletionTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath)
 	}
 }

@@ -15,7 +15,7 @@ class FileProviderAdapterSetTagDataTests: FileProviderAdapterTestCase {
 	let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 	func testSetTagData() {
 		let expectation = XCTestExpectation()
-		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
+		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let tagData = Data("Foo".utf8)
 
 		adapter.setTagData(tagData, forItemIdentifier: itemIdentifier) { item, error in
@@ -29,7 +29,7 @@ class FileProviderAdapterSetTagDataTests: FileProviderAdapterTestCase {
 
 	func testSetEmptyTagData() {
 		let expectation = XCTestExpectation()
-		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
+		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let emptyTagData = Data()
 		adapter.setTagData(emptyTagData, forItemIdentifier: itemIdentifier) { item, error in
 			XCTAssertNil(error)

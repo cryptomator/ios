@@ -15,6 +15,8 @@ protocol ItemMetadataManager {
 	func cacheMetadata(_ metadata: ItemMetadata) throws
 	func updateMetadata(_ metadata: ItemMetadata) throws
 	func cacheMetadata(_ metadataList: [ItemMetadata]) throws
+	/// Resolves the cloud path by walking the `parentID` chain to root.
+	func getCloudPath(for id: Int64) throws -> CloudPath
 	/**
 	 Returns the item metadata that has the same path.
 
@@ -32,7 +34,7 @@ protocol ItemMetadataManager {
 	func removeItemMetadata(_ ids: [Int64]) throws
 	func getCachedMetadata(forIDs ids: [Int64]) throws -> [ItemMetadata]
 	/**
-	 Returns the items that have the item as parent because of its cloud path. This also includes all subfolders including their items.
+	 Returns every descendant of the given folder, walking the `parentID` chain downward (deep, not just direct children).
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata]
 	// Returns all items that have a `favoriteRank` or `tagData`.
@@ -69,9 +71,15 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		}
 	}
 
+	func getCloudPath(for id: Int64) throws -> CloudPath {
+		return try database.read { db in
+			try resolveCloudPath(for: id, database: db)
+		}
+	}
+
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		return try database.read { db in
-			return try ItemMetadata.filter(ItemMetadata.Columns.cloudPath.lowercased == cloudPath.path.lowercased()).fetchOne(db)
+			try resolveMetadata(for: cloudPath, database: db)
 		}
 	}
 
@@ -134,14 +142,25 @@ class ItemMetadataDBManager: ItemMetadataManager {
 
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
+		guard let parentID = parent.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
 		return try database.read { db in
-			let request: QueryInterfaceRequest<ItemMetadata>
-			if parent.id == NSFileProviderItemIdentifier.rootContainerDatabaseValue {
-				request = ItemMetadata.filter(ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
-			} else {
-				request = ItemMetadata.filter(ItemMetadata.Columns.cloudPath.like("\(parent.cloudPath.path + "/")_%"))
+			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+			if parentID == rootID {
+				return try ItemMetadata.filter(ItemMetadata.Columns.id != rootID).fetchAll(db)
 			}
-			return try request.fetchAll(db)
+			return try ItemMetadata.fetchAll(db, sql: """
+			WITH RECURSIVE descendants(id, depth) AS (
+				SELECT id, 0 FROM itemMetadata WHERE parentID = ? AND id != parentID
+				UNION ALL
+				SELECT m.id, d.depth + 1
+				FROM itemMetadata m
+				JOIN descendants d ON m.parentID = d.id
+				WHERE d.depth < 1024
+			)
+			SELECT * FROM itemMetadata WHERE id IN (SELECT id FROM descendants)
+			""", arguments: [parentID])
 		}
 	}
 
@@ -179,13 +198,72 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		return try ItemMetadata.fetchOne(database, key: id)
 	}
 
+	private func childOfFolder(parentID: Int64, name: String, database: Database) throws -> ItemMetadata? {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let lowercasedName = name.lowercased()
+		// Deterministic order so case-only duplicate siblings resolve to a stable row (SQLite leaves row order unspecified without ORDER BY).
+		let siblings = try ItemMetadata
+			.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.id != rootID)
+			.order(ItemMetadata.Columns.id)
+			.fetchAll(database)
+		return siblings.first { $0.name.lowercased() == lowercasedName }
+	}
+
+	private func resolveMetadata(for cloudPath: CloudPath, database db: Database) throws -> ItemMetadata? {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		if cloudPath == CloudPath("/") {
+			return try ItemMetadata.fetchOne(db, key: rootID)
+		}
+		let components = cloudPath.pathComponents.dropFirst()
+		var currentID = rootID
+		var current: ItemMetadata?
+		for component in components {
+			guard let child = try childOfFolder(parentID: currentID, name: String(component), database: db) else {
+				return nil
+			}
+			currentID = child.id!
+			current = child
+		}
+		return current
+	}
+
+	private func resolveCloudPath(for id: Int64, database db: Database) throws -> CloudPath {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		if id == rootID {
+			return CloudPath("/")
+		}
+		let rows = try Row.fetchAll(db, sql: """
+		WITH RECURSIVE ancestors(id, parentID, name, depth) AS (
+			SELECT id, parentID, name, 0 FROM itemMetadata WHERE id = ?
+			UNION ALL
+			SELECT m.id, m.parentID, m.name, a.depth + 1
+			FROM itemMetadata m
+			JOIN ancestors a ON m.id = a.parentID
+			WHERE a.id != ? AND a.depth < 1024
+		)
+		SELECT id, name, depth FROM ancestors ORDER BY depth DESC
+		""", arguments: [id, rootID])
+		guard !rows.isEmpty else {
+			throw FileProviderAdapterError.itemNotFound
+		}
+		// Chain must terminate at root; otherwise it's a cycle or orphan.
+		let topRow = rows.first!
+		let topID: Int64 = topRow["id"]
+		if topID != rootID {
+			throw FileProviderAdapterError.unresolvableParentChain
+		}
+		let names: [String] = rows.dropFirst().map { $0["name"] }
+		return names.reduce(CloudPath("/")) { $0.appendingPathComponent($1) }
+	}
+
 	private func cacheMetadata(_ metadata: ItemMetadata, database: Database) throws {
-		if let cachedMetadata = try ItemMetadata.fetchOne(database, key: ["cloudPath": metadata.cloudPath]) {
-			metadata.id = cachedMetadata.id
-			metadata.statusCode = cachedMetadata.statusCode
-			metadata.tagData = cachedMetadata.tagData
-			metadata.favoriteRank = cachedMetadata.favoriteRank
-			metadata.lastEnumeratedAt = cachedMetadata.lastEnumeratedAt
+		let cached = try childOfFolder(parentID: metadata.parentID, name: metadata.name, database: database)
+		if let cached = cached {
+			metadata.id = cached.id
+			metadata.statusCode = cached.statusCode
+			metadata.tagData = cached.tagData
+			metadata.favoriteRank = cached.favoriteRank
+			metadata.lastEnumeratedAt = cached.lastEnumeratedAt
 			try metadata.update(database)
 		} else {
 			try metadata.insert(database)

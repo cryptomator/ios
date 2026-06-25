@@ -6,11 +6,12 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
 protocol DeletionTaskManager {
-	func createTaskRecord(for item: ItemMetadata) throws -> DeletionTaskRecord
+	func createTaskRecord(for item: ItemMetadata, cloudPath: CloudPath) throws -> DeletionTaskRecord
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord
 	func removeTaskRecord(_ task: DeletionTaskRecord) throws
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [DeletionTaskRecord]
@@ -27,9 +28,12 @@ class DeletionTaskDBManager: DeletionTaskManager {
 		}
 	}
 
-	func createTaskRecord(for item: ItemMetadata) throws -> DeletionTaskRecord {
-		try database.write { db in
-			let task = DeletionTaskRecord(correspondingItem: item.id!, cloudPath: item.cloudPath, parentID: item.parentID, itemType: item.type)
+	func createTaskRecord(for item: ItemMetadata, cloudPath: CloudPath) throws -> DeletionTaskRecord {
+		guard let id = item.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		return try database.write { db in
+			let task = DeletionTaskRecord(correspondingItem: id, cloudPath: cloudPath, parentID: item.parentID, itemType: item.type)
 			try task.save(db)
 			return task
 		}
@@ -63,7 +67,7 @@ class DeletionTaskDBManager: DeletionTaskManager {
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return DeletionTask(taskRecord: taskRecord, itemMetadata: itemMetadata)
+			return DeletionTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: taskRecord.cloudPath)
 		}
 	}
 }

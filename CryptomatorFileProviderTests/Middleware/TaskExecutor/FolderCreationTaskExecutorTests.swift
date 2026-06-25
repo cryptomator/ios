@@ -16,9 +16,9 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testCreateFolder() {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/NewFolder")
-		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
-		let task = FolderCreationTask(itemMetadata: itemMetadata)
+		let task = FolderCreationTask(itemMetadata: itemMetadata, cloudPath: cloudPath)
 		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: task).then { item in
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
@@ -26,7 +26,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
 			XCTAssertFalse(item.metadata.isPlaceholderItem)
 			XCTAssertEqual(1, self.cloudProviderMock.createdFolders.count)
-			XCTAssertEqual(item.metadata.cloudPath.path, self.cloudProviderMock.createdFolders[0])
+			XCTAssertEqual(cloudPath.path, self.cloudProviderMock.createdFolders[0])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -38,7 +38,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testCreateFolderFailWithSameErrorAsProvider() {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/NewFolder")
-		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.createFolderResponse = { folderPath in
@@ -46,7 +46,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 			return Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let task = FolderCreationTask(itemMetadata: itemMetadata)
+		let task = FolderCreationTask(itemMetadata: itemMetadata, cloudPath: cloudPath)
 		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: task).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")

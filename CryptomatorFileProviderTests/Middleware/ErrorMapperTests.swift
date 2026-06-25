@@ -54,5 +54,9 @@ class ErrorMapperTests: XCTestCase {
 		var itemMetadata: ItemMetadata {
 			fatalError("not implemented")
 		}
+
+		var cloudPath: CloudPath {
+			fatalError("not implemented")
+		}
 	}
 }
