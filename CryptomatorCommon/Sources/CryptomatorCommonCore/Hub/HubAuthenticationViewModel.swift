@@ -42,6 +42,10 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		static var subscriptionState: String {
 			"hub-subscription-state"
 		}
+
+		static var iosLicense: String {
+			"hub-ios-license"
+		}
 	}
 
 	@Published var authenticationFlowState: State?
@@ -55,6 +59,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	@Dependency(\.hubDeviceRegisteringService) var deviceRegisteringService
 	@Dependency(\.hubKeyService) var hubKeyService
 	@Dependency(\.cryptomatorHubKeyProvider) var cryptomatorHubKeyProvider
+	@Dependency(\.hubLicenseVerifier) var hubLicenseVerifier
 	private weak var delegate: HubAuthenticationViewModelDelegate?
 
 	public init(authState: OIDAuthState,
@@ -120,7 +125,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		do {
 			let deviceKey = try cryptomatorHubKeyProvider.getPrivateKey()
 			userKey = try JWEHelper.decryptUserKey(jwe: flowResponse.encryptedUserKey, privateKey: deviceKey)
-			subscriptionState = getSubscriptionState(from: flowResponse.header)
+			subscriptionState = try resolveSubscriptionState(from: flowResponse.header)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
@@ -141,6 +146,19 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	private func setStateToErrorState(with error: Error) async {
 		await delegate?.hubAuthenticationViewModelWantsToHideLoadingIndicator()
 		await setState(to: .error(description: error.localizedDescription))
+	}
+
+	private func resolveSubscriptionState(from header: [AnyHashable: Any]) throws -> HubSubscriptionState {
+		guard let licenseToken = header[Constants.iosLicense] as? String else {
+			return getSubscriptionState(from: header)
+		}
+		switch try hubLicenseVerifier.verify(token: licenseToken) {
+		case .valid:
+			return .active
+		case .expired:
+			DDLogInfo("Hub-iOS-License expired, defaulting to inactive")
+			return .inactive
+		}
 	}
 
 	private func getSubscriptionState(from header: [AnyHashable: Any]) -> HubSubscriptionState {
