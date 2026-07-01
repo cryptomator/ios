@@ -73,18 +73,6 @@ Submit a new beta build to TestFlight
 
 Requires --env to be set to 'freemium' or 'premium'
 
-### ios update_price
-
-```sh
-[bundle exec] fastlane ios update_price
-```
-
-Update prices via App Store Connect API
-
-Requires --env to be set to 'freemium' or 'premium'
-
-Usage: bundle exec fastlane update_price --env freemium configs:'null:base.json 2025-12-01:sale.json' [dry_run:true]
-
 ### ios app_store
 
 ```sh

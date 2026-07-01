@@ -44,9 +44,3 @@ fastlane/Preview.html
 fastlane/screenshots/screenshots.html
 fastlane/screenshots/*/*.png
 fastlane/test_output
-
-# App Store Connect API keys
-*.p8
-
-# Pricing configs (contain actual prices)
-fastlane/config/*.json
