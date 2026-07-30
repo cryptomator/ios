@@ -154,6 +154,33 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		assertLocalURLProviderCalledWithItemID()
 	}
 
+	// MARK: Packages
+
+	func testLocalItemImportFailsForPackage() throws {
+		let packageURL = try createPackage()
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		XCTAssertThrowsError(try adapter.localItemImport(fileURL: packageURL, parentIdentifier: .rootContainer)) { error in
+			guard case FileProviderAdapterError.folderUploadNotSupported = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
+		XCTAssertFalse(uploadTaskManagerMock.createNewTaskRecordForCalled)
+	}
+
+	func testImportDocumentReportsPackageAsNoSuchItem() throws {
+		let packageURL = try createPackage()
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		let adapter = createFullyMockedAdapter()
+
+		XCTAssertRejects(adapter.importDocument(at: packageURL, toParentItemIdentifier: .rootContainer), with: NSFileProviderError(.noSuchItem))
+		XCTAssertFalse(uploadTaskManagerMock.createNewTaskRecordForCalled)
+	}
+
 	// MARK: ItemChanged
 
 	func testItemChanged() throws {
@@ -293,6 +320,14 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			let storedCloudPath = result.item.metadata.cloudPath.path
 			XCTAssertEqual(Array(storedCloudPath.utf8), Array("/\(nfcName)".utf8), "CloudPath should be stored in NFC form")
 		}
+	}
+
+	/// The Files app hands over packages such as `.rtfd` as directories.
+	private func createPackage() throws -> URL {
+		let packageURL = tmpDirectory.appendingPathComponent("Design Notes.rtfd", isDirectory: true)
+		try FileManager.default.createDirectory(at: packageURL, withIntermediateDirectories: false)
+		try "TestContent".write(to: packageURL.appendingPathComponent("TXT.rtf"), atomically: true, encoding: .utf8)
+		return packageURL
 	}
 
 	private func assertLocalURLProviderCalledWithItemID() {

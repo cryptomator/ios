@@ -199,6 +199,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 						DDLogInfo("FPExt: filenameCollision for: \(fileURL.lastPathComponent)")
 						return completionHandler(nil, error)
 					}
+					DDLogError("FPExt: localItemImport failed for: \(fileURL.lastPathComponent) with error: \(error)")
+					// Anything else is reported as `noSuchItem`. Returning the underlying error instead makes the
+					// Files app render "Couldn't communicate with a helper application", which says even less.
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
 				}
 				let localImportHandler: (Error?) -> Void = { error in
