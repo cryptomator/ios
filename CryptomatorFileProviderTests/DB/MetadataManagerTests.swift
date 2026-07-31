@@ -286,24 +286,163 @@ class MetadataManagerTests: XCTestCase {
 	func testGetCachedMetadataForCaseOnlyDuplicateSiblingsResolvesDeterministically() throws {
 		let db = try DatabaseQueue()
 		try DatabaseHelper.migrate(db)
-		// Reverse the order of unordered SELECTs so this test fails unless childOfFolder explicitly orders by id.
+		// Reverse the order of unordered SELECTs so this test fails unless the sibling fetch explicitly orders by id.
 		try db.writeWithoutTransaction { db in
 			try db.execute(sql: "PRAGMA reverse_unordered_selects = ON")
 		}
-		// Bypass cacheMetadata's case-insensitive dedup to force two case-only siblings into the same parent.
+		let manager = ItemMetadataDBManager(database: db)
 		let firstSibling = ItemMetadata(name: "Foo", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		let secondSibling = ItemMetadata(name: "foo", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
-		try db.write { db in
-			try firstSibling.insert(db)
-			try secondSibling.insert(db)
-		}
-		let lowerId = try XCTUnwrap(firstSibling.id)
-		XCTAssertLessThan(lowerId, try XCTUnwrap(secondSibling.id))
+		try manager.cacheMetadata(firstSibling)
+		try manager.cacheMetadata(secondSibling)
+		let lowerID = try XCTUnwrap(firstSibling.id)
+		let higherID = try XCTUnwrap(secondSibling.id)
+		XCTAssertLessThan(lowerID, higherID)
 
-		let manager = ItemMetadataDBManager(database: db)
-		let resolved = try XCTUnwrap(manager.getCachedMetadata(for: CloudPath("/foo")))
-		XCTAssertEqual(lowerId, resolved.id)
-		XCTAssertEqual("Foo", resolved.name)
+		let exactlyMatchingLowercase = try XCTUnwrap(manager.getCachedMetadata(for: CloudPath("/foo")))
+		XCTAssertEqual(higherID, exactlyMatchingLowercase.id)
+		XCTAssertEqual("foo", exactlyMatchingLowercase.name)
+
+		let exactlyMatchingUppercase = try XCTUnwrap(manager.getCachedMetadata(for: CloudPath("/Foo")))
+		XCTAssertEqual(lowerID, exactlyMatchingUppercase.id)
+		XCTAssertEqual("Foo", exactlyMatchingUppercase.name)
+
+		let caseMismatch = try XCTUnwrap(manager.getCachedMetadata(for: CloudPath("/FOO")))
+		XCTAssertEqual(lowerID, caseMismatch.id)
+	}
+
+	func testCacheMetadataKeepsCaseOnlySiblingsSeparate() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let uppercase = ItemMetadata(name: "CaseTest.txt", type: .file, size: 15, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let lowercase = ItemMetadata(name: "casetest.txt", type: .file, size: 15, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(uppercase)
+		try manager.cacheMetadata(lowercase)
+
+		XCTAssertNotEqual(uppercase.id, lowercase.id)
+		let children = try manager.getCachedMetadata(withParentID: rootID)
+		XCTAssertEqual(["CaseTest.txt", "casetest.txt"], children.map { $0.name }.sorted())
+		XCTAssertEqual(CloudPath("/CaseTest.txt"), try manager.getCloudPath(for: XCTUnwrap(uppercase.id)))
+		XCTAssertEqual(CloudPath("/casetest.txt"), try manager.getCloudPath(for: XCTUnwrap(lowercase.id)))
+	}
+
+	func testCacheMetadataMergesCanonicallyEquivalentNames() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let precomposed = ItemMetadata(name: "Cafe\u{0301}.txt".precomposedStringWithCanonicalMapping, type: .file, size: 10, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let decomposed = ItemMetadata(name: "Cafe\u{0301}.txt".decomposedStringWithCanonicalMapping, type: .file, size: 20, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(precomposed)
+		try manager.cacheMetadata(decomposed)
+
+		// Both spellings encrypt to the same ciphertext name, so they are one item.
+		XCTAssertEqual(precomposed.id, decomposed.id)
+		let children = try manager.getCachedMetadata(withParentID: rootID)
+		XCTAssertEqual(1, children.count)
+		XCTAssertEqual(decomposed.name, children.first?.name)
+	}
+
+	func testCacheMetadataUpdatesCaseOnlyRenameInPlace() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let original = ItemMetadata(name: "foo.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(original)
+		let originalID = try XCTUnwrap(original.id)
+		let tagData = Data("Tag".utf8)
+		try manager.setTagData(to: tagData, forItemWithID: originalID)
+		try manager.setFavoriteRank(to: 42, forItemWithID: originalID)
+
+		// Simulates an enumeration that reports only the renamed spelling.
+		try manager.flagAllItemsAsMaybeOutdated(withParentID: rootID)
+		let renamed = ItemMetadata(name: "Foo.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(renamed)
+
+		XCTAssertEqual(originalID, renamed.id)
+		let children = try manager.getCachedMetadata(withParentID: rootID)
+		XCTAssertEqual(["Foo.txt"], children.map { $0.name })
+		let reloaded = try XCTUnwrap(manager.getCachedMetadata(for: originalID))
+		XCTAssertEqual(tagData, reloaded.tagData)
+		XCTAssertEqual(42, reloaded.favoriteRank)
+	}
+
+	func testCacheMetadataKeepsIdentityWhenCaseVariantIsAddedBeforeTheKnownSpelling() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let known = ItemMetadata(name: "report.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(known)
+		let knownID = try XCTUnwrap(known.id)
+		let tagData = Data("Tag".utf8)
+		try manager.setTagData(to: tagData, forItemWithID: knownID)
+		try manager.flagAllItemsAsMaybeOutdated(withParentID: rootID)
+
+		// Listed before the known spelling: the order a single-pass reconciler would get wrong.
+		let addedVariant = ItemMetadata(name: "Report.txt", type: .file, size: 5, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let knownAgain = ItemMetadata(name: "report.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata([addedVariant, knownAgain])
+
+		XCTAssertEqual(knownID, knownAgain.id)
+		XCTAssertNotEqual(knownID, addedVariant.id)
+		let reloaded = try XCTUnwrap(manager.getCachedMetadata(for: knownID))
+		XCTAssertEqual("report.txt", reloaded.name)
+		XCTAssertEqual(tagData, reloaded.tagData)
+	}
+
+	func testCacheMetadataReconcilesCaseVariantsIndependentlyOfListingOrder() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		func idsAfterCaching(_ names: [String]) throws -> (ids: [String: Int64], knownID: Int64) {
+			let db = try DatabaseQueue()
+			try DatabaseHelper.migrate(db)
+			let manager = ItemMetadataDBManager(database: db)
+			let known = ItemMetadata(name: "report.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+			try manager.cacheMetadata(known)
+			try manager.flagAllItemsAsMaybeOutdated(withParentID: rootID)
+			let batch = names.map { ItemMetadata(name: $0, type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false) }
+			try manager.cacheMetadata(batch)
+			let ids: [String: Int64] = try manager.getCachedMetadata(withParentID: rootID).reduce(into: [:]) { $0[$1.name] = $1.id }
+			return try (ids, XCTUnwrap(known.id))
+		}
+		let variantFirst = try idsAfterCaching(["Report.txt", "report.txt"])
+		let knownFirst = try idsAfterCaching(["report.txt", "Report.txt"])
+		XCTAssertEqual(variantFirst.ids, knownFirst.ids)
+		// Agreement alone would also hold if both orders were wrong in the same way.
+		XCTAssertEqual(variantFirst.knownID, variantFirst.ids["report.txt"])
+	}
+
+	func testCacheMetadataClaimsAnOutdatedRowOnlyOnce() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let known = ItemMetadata(name: "REPORT.TXT", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(known)
+		let knownID = try XCTUnwrap(known.id)
+		try manager.flagAllItemsAsMaybeOutdated(withParentID: rootID)
+
+		// Neither reported spelling matches exactly, so both are candidates for the one outdated row.
+		let first = ItemMetadata(name: "Report.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let second = ItemMetadata(name: "report.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata([first, second])
+
+		XCTAssertNotEqual(first.id, second.id)
+		let children = try manager.getCachedMetadata(withParentID: rootID)
+		XCTAssertEqual(["Report.txt", "report.txt"], children.map { $0.name }.sorted())
+		XCTAssertTrue([first.id, second.id].contains(knownID))
+	}
+
+	func testCacheMetadataMergesCanonicallyEquivalentNamesWithinOneBatch() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let precomposed = ItemMetadata(name: "Cafe\u{0301}.txt".precomposedStringWithCanonicalMapping, type: .file, size: 10, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let decomposed = ItemMetadata(name: "Cafe\u{0301}.txt".decomposedStringWithCanonicalMapping, type: .file, size: 20, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata([precomposed, decomposed])
+
+		XCTAssertEqual(precomposed.id, decomposed.id)
+		XCTAssertEqual(1, try manager.getCachedMetadata(withParentID: rootID).count)
+	}
+
+	func testCacheMetadataForPlaceholderDoesNotAdoptCaseOnlySibling() throws {
+		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+		let existing = ItemMetadata(name: "foo.txt", type: .file, size: 100, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try manager.cacheMetadata(existing)
+		let existingID = try XCTUnwrap(existing.id)
+		try manager.flagAllItemsAsMaybeOutdated(withParentID: rootID)
+
+		let placeholder = ItemMetadata(name: "Foo.txt", type: .file, size: 5, parentID: rootID, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try manager.cacheMetadata(placeholder)
+
+		XCTAssertNotEqual(existingID, placeholder.id)
+		XCTAssertEqual(2, try manager.getCachedMetadata(withParentID: rootID).count)
 	}
 
 	// MARK: Set Tag Data

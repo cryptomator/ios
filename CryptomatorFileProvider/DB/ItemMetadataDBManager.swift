@@ -20,7 +20,7 @@ protocol ItemMetadataManager {
 	/**
 	 Returns the item metadata that has the same path.
 
-	 The path is case-insensitively checked for equality.
+	 An exactly matching item wins; otherwise the path is case-insensitively checked for equality.
 
 	 However, it is stored and returned case-preserving in the database, because this is important for the `VaultDecorator` since the two cleartext paths "/foo" and "/Foo" lead to different ciphertext paths.
 	 */
@@ -52,9 +52,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
-		try database.write { db in
-			try cacheMetadata(metadata, database: db)
-		}
+		try cacheMetadata([metadata])
 	}
 
 	func updateMetadata(_ metadata: ItemMetadata) throws {
@@ -64,9 +62,11 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	}
 
 	func cacheMetadata(_ itemMetadataList: [ItemMetadata]) throws {
+		// Sorted because `Dictionary` iteration order is unspecified, and it decides which folder's rows get the lower ids.
+		let itemMetadataListByParentID = Dictionary(grouping: itemMetadataList, by: { $0.parentID }).sorted { $0.key < $1.key }
 		try database.write { db in
-			for metadata in itemMetadataList {
-				try cacheMetadata(metadata, database: db)
+			for (parentID, siblings) in itemMetadataListByParentID {
+				try reconcile(siblings, inFolder: parentID, database: db)
 			}
 		}
 	}
@@ -198,15 +198,28 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		return try ItemMetadata.fetchOne(database, key: id)
 	}
 
-	private func childOfFolder(parentID: Int64, name: String, database: Database) throws -> ItemMetadata? {
+	/**
+	 Returns every child of the folder, ordered by id so that case-only duplicate siblings resolve to a stable row.
+
+	 Callers match names in Swift rather than SQL: `==` on `String` treats canonically equivalent (NFC/NFD) spellings as equal, whereas SQLite compares bytes and its `NOCASE` collation folds ASCII only. Narrowing this to a `WHERE name = ?` would break that equivalence.
+	 */
+	private func childrenOfFolder(parentID: Int64, database: Database) throws -> [ItemMetadata] {
 		let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
-		let lowercasedName = name.lowercased()
-		// Deterministic order so case-only duplicate siblings resolve to a stable row (SQLite leaves row order unspecified without ORDER BY).
-		let siblings = try ItemMetadata
+		return try ItemMetadata
 			.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.id != rootID)
 			.order(ItemMetadata.Columns.id)
 			.fetchAll(database)
-		return siblings.first { $0.name.lowercased() == lowercasedName }
+	}
+
+	private func childOfFolder(parentID: Int64, name: String, database: Database) throws -> ItemMetadata? {
+		let children = try childrenOfFolder(parentID: parentID, database: database)
+		// Exact spelling wins, so both case-only siblings stay reachable.
+		if let exactMatch = children.first(where: { $0.name == name }) {
+			return exactMatch
+		}
+		// Unlike the reconciler's fallback, this one is not gated on `isMaybeOutdated`: lookups resolve any case, they do not decide identity.
+		let lowercasedName = name.lowercased()
+		return children.first { $0.name.lowercased() == lowercasedName }
 	}
 
 	private func resolveMetadata(for cloudPath: CloudPath, database db: Database) throws -> ItemMetadata? {
@@ -256,17 +269,58 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		return names.reduce(CloudPath("/")) { $0.appendingPathComponent($1) }
 	}
 
-	private func cacheMetadata(_ metadata: ItemMetadata, database: Database) throws {
-		let cached = try childOfFolder(parentID: metadata.parentID, name: metadata.name, database: database)
-		if let cached = cached {
+	/**
+	 Reconciles freshly reported items against the folder's cached rows.
+
+	 Names are compared case-sensitively: `Cryptor.encryptFileName(_:dirId:encoding:)` derives a different ciphertext name per case, so case-only siblings are two distinct cloud items. It precomposes to NFC first, so canonically equivalent (NFC/NFD) spellings share one ciphertext name and must resolve to a single item — including two spellings carried by the same listing, which is why freshly inserted rows join the pool.
+
+	 A row that no reported item matches exactly may instead be claimed by a case-insensitive match, but only while it is still flagged as maybe outdated. That flag separates a case-only rename, where the old spelling is gone and the row should keep its id, tag data and favorite rank, from two case variants coexisting, where each is its own item. Placeholders never claim by case, because an item the user is creating right now must not adopt the identity of an existing row.
+
+	 Every exact match resolves before any case-insensitive claim, so which row a given spelling ends up on never depends on where the cloud provider listed it. In a single pass the first-listed spelling of a newly added case variant would claim the row belonging to the other spelling, and the two would swap identities along with tags, favorite rank and cached content. Where both spellings are new to the cache, the listing order still decides which of them inherits the outdated row; both survive either way.
+	 */
+	private func reconcile(_ itemMetadataList: [ItemMetadata], inFolder parentID: Int64, database: Database) throws {
+		assert(itemMetadataList.allSatisfy { $0.parentID == parentID })
+		var cachedChildren = try childrenOfFolder(parentID: parentID, database: database)
+
+		func overwrite(_ cached: ItemMetadata, with metadata: ItemMetadata) throws {
+			assert(cachedChildren.contains { $0 === cached })
 			metadata.id = cached.id
 			metadata.statusCode = cached.statusCode
 			metadata.tagData = cached.tagData
 			metadata.favoriteRank = cached.favoriteRank
 			metadata.lastEnumeratedAt = cached.lastEnumeratedAt
+			// Clearing the flag is what stops the row being claimed by case again, here and in the remaining pages of the enumeration.
+			metadata.isMaybeOutdated = false
 			try metadata.update(database)
-		} else {
-			try metadata.insert(database)
+			if let index = cachedChildren.firstIndex(where: { $0 === cached }) {
+				cachedChildren[index] = metadata
+			}
 		}
+
+		var unmatchedMetadata = [ItemMetadata]()
+		for metadata in itemMetadataList {
+			if let sameName = cachedChildren.first(where: { $0.name == metadata.name }) {
+				try overwrite(sameName, with: metadata)
+			} else {
+				unmatchedMetadata.append(metadata)
+			}
+		}
+
+		for metadata in unmatchedMetadata {
+			// Rows inserted earlier in this pass are in the pool, so a canonically equivalent spelling later in the same listing merges instead of duplicating.
+			if let sameName = cachedChildren.first(where: { $0.name == metadata.name }) {
+				try overwrite(sameName, with: metadata)
+			} else if !metadata.isPlaceholderItem, let claimed = firstClaimableByCase(named: metadata.name, in: cachedChildren) {
+				try overwrite(claimed, with: metadata)
+			} else {
+				try metadata.insert(database)
+				cachedChildren.append(metadata)
+			}
+		}
+	}
+
+	private func firstClaimableByCase(named name: String, in cachedChildren: [ItemMetadata]) -> ItemMetadata? {
+		let lowercasedName = name.lowercased()
+		return cachedChildren.first { $0.isMaybeOutdated && $0.name.lowercased() == lowercasedName }
 	}
 }
