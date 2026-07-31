@@ -79,7 +79,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		}
 		progress.becomeCurrent(withPendingUnitCount: 1)
 		let uploadPromise = provider.uploadFile(from: localURL,
-		                                        to: itemMetadata.cloudPath,
+		                                        to: task.cloudPath,
 		                                        replaceExisting: !itemMetadata.isPlaceholderItem,
 		                                        onTaskCreation: { task in
 		                                        	guard let task else {

@@ -11,10 +11,6 @@ import Foundation
 
 protocol CloudTask {
 	var itemMetadata: ItemMetadata { get }
-}
-
-extension CloudTask {
-	var cloudPath: CloudPath {
-		return itemMetadata.cloudPath
-	}
+	/// Snapshot captured at task construction; survives concurrent local renames of the same row.
+	var cloudPath: CloudPath { get }
 }

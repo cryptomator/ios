@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
@@ -16,19 +17,25 @@ protocol ItemEnumerationTaskManager {
 
 class ItemEnumerationTaskDBManager: ItemEnumerationTaskManager {
 	private let database: DatabaseWriter
+	private let itemMetadataManager: ItemMetadataManager
 
-	init(database: DatabaseWriter) throws {
+	init(database: DatabaseWriter, itemMetadataManager: ItemMetadataManager) throws {
 		self.database = database
+		self.itemMetadataManager = itemMetadataManager
 		_ = try database.write { db in
 			try ItemEnumerationTaskRecord.deleteAll(db)
 		}
 	}
 
 	func createTask(for item: ItemMetadata, pageToken: String?) throws -> ItemEnumerationTask {
-		try database.write { db in
-			let taskRecord = ItemEnumerationTaskRecord(correspondingItem: item.id!, pageToken: pageToken)
+		guard let id = item.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		let cloudPath = try itemMetadataManager.getCloudPath(for: id)
+		return try database.write { db in
+			let taskRecord = ItemEnumerationTaskRecord(correspondingItem: id, pageToken: pageToken)
 			try taskRecord.save(db)
-			return ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item)
+			return ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item, cloudPath: cloudPath)
 		}
 	}
 

@@ -6,14 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import GRDB
+import CryptomatorCloudAccessCore
 
-struct ReparentTask: CloudTask, FetchableRecord, Decodable {
+struct ReparentTask: CloudTask {
 	let taskRecord: ReparentTaskRecord
 	let itemMetadata: ItemMetadata
+	let cloudPath: CloudPath
 
-	enum CodingKeys: String, CodingKey {
-		case taskRecord = "reparentTask"
-		case itemMetadata
+	func with(cloudPath: CloudPath, taskRecord: ReparentTaskRecord) -> ReparentTask {
+		return ReparentTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath)
 	}
 }

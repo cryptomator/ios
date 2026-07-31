@@ -40,15 +40,30 @@ class OnlineItemNameCollisionHandler<T>: WorkflowMiddleware {
 			guard case CloudProviderError.itemAlreadyExists = error else {
 				throw error
 			}
-			let collisionFreeCloudPath = task.itemMetadata.cloudPath.createCollisionCloudPath()
-			try self.cloudPathCollisionUpdate(with: collisionFreeCloudPath, itemMetadata: task.itemMetadata)
-			return nextMiddleware.execute(task: task)
+			let refreshedTask = try self.cloudPathCollisionUpdate(for: task)
+			return nextMiddleware.execute(task: refreshedTask)
 		}
 	}
 
-	func cloudPathCollisionUpdate(with collisionFreeCloudPath: CloudPath, itemMetadata: ItemMetadata) throws {
-		itemMetadata.name = collisionFreeCloudPath.lastPathComponent
-		itemMetadata.cloudPath = collisionFreeCloudPath
-		try itemMetadataManager.updateMetadata(itemMetadata)
+	func cloudPathCollisionUpdate(for task: CloudTask) throws -> CloudTask {
+		let collisionFreeCloudPath = task.cloudPath.createCollisionCloudPath()
+		task.itemMetadata.name = collisionFreeCloudPath.lastPathComponent
+		try itemMetadataManager.updateMetadata(task.itemMetadata)
+		switch task {
+		case let uploadTask as UploadTask:
+			return uploadTask.with(cloudPath: collisionFreeCloudPath)
+		case let downloadTask as DownloadTask:
+			return downloadTask.with(cloudPath: collisionFreeCloudPath)
+		case let folderCreationTask as FolderCreationTask:
+			return folderCreationTask.with(cloudPath: collisionFreeCloudPath)
+		case let itemEnumerationTask as ItemEnumerationTask:
+			return itemEnumerationTask.with(cloudPath: collisionFreeCloudPath)
+		case let deletionTask as DeletionTask:
+			return deletionTask.with(cloudPath: collisionFreeCloudPath)
+		case let reparentTask as ReparentTask:
+			return reparentTask.with(cloudPath: collisionFreeCloudPath, taskRecord: reparentTask.taskRecord)
+		default:
+			throw FileProviderAdapterError.unsupportedItemType
+		}
 	}
 }

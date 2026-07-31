@@ -63,13 +63,14 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
 		let itemMetadata = enumerationTask.itemMetadata
+		let cloudPath = enumerationTask.cloudPath
 		let promise: Promise<FileProviderItemList>
 		switch itemMetadata.type {
 		case .folder:
 			let taskRecord = enumerationTask.taskRecord
-			promise = fetchItemList(folderMetadata: itemMetadata, pageToken: taskRecord.pageToken)
+			promise = fetchItemList(folderMetadata: itemMetadata, folderCloudPath: cloudPath, pageToken: taskRecord.pageToken)
 		case .file:
-			promise = fetchItemMetadata(fileMetadata: itemMetadata)
+			promise = fetchItemMetadata(fileMetadata: itemMetadata, fileCloudPath: cloudPath)
 		default:
 			DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
 			promise = Promise(NSFileProviderError(.noSuchItem))
@@ -84,8 +85,8 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		return promise
 	}
 
-	func fetchItemList(folderMetadata: ItemMetadata, pageToken: String?) -> Promise<FileProviderItemList> {
-		return provider.fetchItemList(forFolderAt: folderMetadata.cloudPath, withPageToken: pageToken).then { itemList -> FileProviderItemList in
+	func fetchItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, pageToken: String?) -> Promise<FileProviderItemList> {
+		return provider.fetchItemList(forFolderAt: folderCloudPath, withPageToken: pageToken).then { itemList -> FileProviderItemList in
 			if pageToken == nil {
 				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(withParentID: folderMetadata.id!)
 			}
@@ -117,21 +118,21 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			guard pageToken == nil else {
 				return Promise(error)
 			}
-			return self.buildOfflineItemList(folderMetadata: folderMetadata, originalError: error)
+			return self.buildOfflineItemList(folderMetadata: folderMetadata, folderCloudPath: folderCloudPath, originalError: error)
 		}
 	}
 
-	private func buildOfflineItemList(folderMetadata: ItemMetadata, originalError: Error) -> Promise<FileProviderItemList> {
+	private func buildOfflineItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, originalError: Error) -> Promise<FileProviderItemList> {
 		do {
 			guard folderMetadata.lastEnumeratedAt != nil else {
 				return Promise(originalError)
 			}
 			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
 			let items = try FileProviderItem.items(from: cachedMetadata, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
-			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
+			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderCloudPath.path)")
 			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
 		} catch {
-			DDLogError("Offline fallback failed for folder \(folderMetadata.cloudPath.path): \(error)")
+			DDLogError("Offline fallback failed for folder \(folderCloudPath.path): \(error)")
 			return Promise(error)
 		}
 	}
@@ -144,19 +145,19 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	func filterOutWaitingReparentTasks(parentID: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
 		let runningReparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichWere(in: parentID)
 		return itemMetadata.filter { element in
-			!runningReparentTasks.contains { $0.sourceCloudPath == element.cloudPath }
+			!runningReparentTasks.contains { $0.oldParentID == element.parentID && $0.sourceCloudPath.lastPathComponent == element.name }
 		}
 	}
 
 	func filterOutWaitingDeletionTasks(parentID: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
 		let runningDeletionTasks = try deletionTaskManager.getTaskRecordsForItemsWhichWere(in: parentID)
 		return itemMetadata.filter { element in
-			!runningDeletionTasks.contains { $0.cloudPath == element.cloudPath }
+			!runningDeletionTasks.contains { $0.parentID == element.parentID && $0.cloudPath.lastPathComponent == element.name }
 		}
 	}
 
-	func fetchItemMetadata(fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
-		return provider.fetchItemMetadata(at: fileMetadata.cloudPath).then { cloudItem -> FileProviderItemList in
+	func fetchItemMetadata(fileMetadata: ItemMetadata, fileCloudPath: CloudPath) -> Promise<FileProviderItemList> {
+		return provider.fetchItemMetadata(at: fileCloudPath).then { cloudItem -> FileProviderItemList in
 			let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: fileMetadata.parentID)
 			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
 			assert(fileProviderItemMetadata.id == fileMetadata.id)

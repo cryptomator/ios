@@ -22,7 +22,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 	var taskRegistratorMock: SessionTaskRegistratorMock!
 	let dbPath = FileManager.default.temporaryDirectory
 	let domain = NSFileProviderDomain(identifier: .test, displayName: "Foo", pathRelativeToDocumentStorage: "/")
-	let itemStub = FileProviderItem(metadata: .init(name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo"), isPlaceholderItem: false), domainIdentifier: .test)
+	let itemStub = FileProviderItem(metadata: .init(name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false), domainIdentifier: .test)
 
 	override func setUpWithError() throws {
 		notificatorMock = FileProviderNotificatorTypeMock()

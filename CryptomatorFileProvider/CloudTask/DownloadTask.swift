@@ -6,17 +6,17 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Foundation
-import GRDB
 
 struct DownloadTask: CloudTask {
 	let taskRecord: DownloadTaskRecord
 	let itemMetadata: ItemMetadata
+	let cloudPath: CloudPath
 	let onURLSessionTaskCreation: URLSessionTaskCreationClosure?
 
-	enum CodingKeys: String, CodingKey {
-		case taskRecord = "downloadTask"
-		case itemMetadata
+	func with(cloudPath: CloudPath) -> DownloadTask {
+		return DownloadTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
 	}
 }
 
