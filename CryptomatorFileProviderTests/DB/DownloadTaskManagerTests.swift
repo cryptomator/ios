@@ -71,7 +71,9 @@ class DownloadTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let localURL = URL(string: "/Test")!
-		return try manager.createTask(for: itemMetadata, replaceExisting: true, localURL: localURL, onURLSessionTaskCreation: nil)
+		let createdTask = try manager.createTask(for: itemMetadata, replaceExisting: true, localURL: localURL, onURLSessionTaskCreation: nil)
+		XCTAssertEqual(cloudPath, createdTask.cloudPath)
+		return createdTask
 	}
 
 	private func getTaskRecord(for id: Int64) throws -> DownloadTaskRecord {

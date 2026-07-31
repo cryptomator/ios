@@ -100,13 +100,25 @@ class UploadTaskManagerTests: XCTestCase {
 
 	func testGetTask() throws {
 		let cloudPath = CloudPath("/Test")
-		let itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: taskRecord, onURLSessionTaskCreation: nil)
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
+		XCTAssertEqual(cloudPath, fetchedTask.cloudPath)
+	}
+
+	func testGetTaskResolvesCloudPathAfterLocalMoveOfItem() throws {
+		let folderMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try itemMetadataManager.cacheMetadata([folderMetadata, itemMetadata])
+		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
+		itemMetadata.name = "RenamedTest"
+		itemMetadata.parentID = try XCTUnwrap(folderMetadata.id)
+		try itemMetadataManager.updateMetadata(itemMetadata)
+		let fetchedTask = try manager.getTask(for: taskRecord, onURLSessionTaskCreation: nil)
+		XCTAssertEqual(CloudPath("/Folder/RenamedTest"), fetchedTask.cloudPath)
 	}
 
 	// MARK: - getRetryableUploadTaskRecords

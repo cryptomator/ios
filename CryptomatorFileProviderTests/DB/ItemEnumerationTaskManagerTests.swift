@@ -33,6 +33,7 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 		XCTAssertEqual(fetchedTask, createdTask.taskRecord)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.correspondingItem)
 		XCTAssertEqual(pageToken, fetchedTask.pageToken)
+		XCTAssertEqual(cloudPath, createdTask.cloudPath)
 	}
 
 	private func getTaskRecord(for id: Int64) throws -> ItemEnumerationTaskRecord {
