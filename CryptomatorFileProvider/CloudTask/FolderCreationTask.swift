@@ -11,8 +11,9 @@ import CryptomatorCloudAccessCore
 struct FolderCreationTask: CloudTask {
 	let itemMetadata: ItemMetadata
 	let cloudPath: CloudPath
+	var onlineCollisionDisposition: OnlineCollisionDisposition = .renameAndRetry
 
 	func with(cloudPath: CloudPath) -> FolderCreationTask {
-		return FolderCreationTask(itemMetadata: itemMetadata, cloudPath: cloudPath)
+		return FolderCreationTask(itemMetadata: itemMetadata, cloudPath: cloudPath, onlineCollisionDisposition: onlineCollisionDisposition)
 	}
 }

@@ -40,6 +40,10 @@ class OnlineItemNameCollisionHandler<T>: WorkflowMiddleware {
 			guard case CloudProviderError.itemAlreadyExists = error else {
 				throw error
 			}
+			// Must precede `cloudPathCollisionUpdate`, which already writes the renamed path onto the row.
+			guard task.onlineCollisionDisposition == .renameAndRetry else {
+				throw error
+			}
 			let refreshedTask = try self.cloudPathCollisionUpdate(for: task)
 			return nextMiddleware.execute(task: refreshedTask)
 		}

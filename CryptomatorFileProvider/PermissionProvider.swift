@@ -28,7 +28,7 @@ public protocol PermissionProvider {
 	 - renaming
 	 - reparenting
 
-	 - Note: In case of an running upload, i.e. a creation of the folder in the cloud, the capabilities do not get restricted except if something listed above restricts all items of the vault.
+	 - Note: In case of an running upload, i.e. a creation of the folder in the cloud, renaming and reparenting are not allowed.
 
 	 The following capabilities hold for files:
 	 - reading
@@ -81,6 +81,12 @@ struct PermissionProviderImpl: PermissionProvider {
 			return FileProviderItem.readOnlyCapabilities
 		}
 		if item.type == .folder {
+			if item.statusCode == .isUploading {
+				// A rename or reparent here would be overwritten by the collision handler writing its task-derived name back to
+				// the row. Adding sub items stays allowed, because that is how the Files app copies a folder tree into the vault.
+				// Deleting stays allowed, so a folder whose creation never completes can still be removed by the user.
+				return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting]
+			}
 			return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
 		}
 		if item.statusCode == .isUploading {
