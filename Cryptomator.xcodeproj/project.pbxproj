@@ -447,8 +447,10 @@
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 		988E23D6223540118B002237 /* ShareVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988E23D6223540118B002238 /* ShareVaultCoordinator.swift */; };
 		AA38700230040326001F5EB9 /* DefaultAccountSelectionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */; };
+		AA38700330040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700430040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift */; };
 		AA38700530040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
 		AA38700730040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
+		AA38700830040326001F5EB9 /* CloudProviderType+AccountRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700930040326001F5EB9 /* CloudProviderType+AccountRecovery.swift */; };
 		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
 		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
@@ -461,7 +463,10 @@
 		B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */; };
 		B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10002 /* VaultUnlockingMock.swift */; };
 		B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
+		B40000000000000000E00004 /* AccountReauthenticationOutcomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10004 /* AccountReauthenticationOutcomeTests.swift */; };
 		B40000000000000000E00005 /* QuickUnlockFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10005 /* QuickUnlockFailureTests.swift */; };
+		B40000000000000000E00006 /* CloudProviderType+AccountRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10006 /* CloudProviderType+AccountRecoveryTests.swift */; };
+		B40000000000000000E00007 /* DefaultAccountReauthenticationBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10007 /* DefaultAccountReauthenticationBehaviorTests.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1092,7 +1097,9 @@
 		988E23D6223540118B002238 /* ShareVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultCoordinator.swift; sourceTree = "<group>"; };
 		A569CE6CACC0EA3E5CDB3353 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountSelectionBehavior.swift; sourceTree = "<group>"; };
+		AA38700430040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountReauthenticationBehavior.swift; sourceTree = "<group>"; };
 		AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickUnlockFailure.swift; sourceTree = "<group>"; };
+		AA38700930040326001F5EB9 /* CloudProviderType+AccountRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+AccountRecovery.swift"; sourceTree = "<group>"; };
 		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
 		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
@@ -1104,7 +1111,10 @@
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
 		B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewModelTests.swift; sourceTree = "<group>"; };
 		B40000000000000000E10002 /* VaultUnlockingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingMock.swift; sourceTree = "<group>"; };
+		B40000000000000000E10004 /* AccountReauthenticationOutcomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountReauthenticationOutcomeTests.swift; sourceTree = "<group>"; };
 		B40000000000000000E10005 /* QuickUnlockFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickUnlockFailureTests.swift; sourceTree = "<group>"; };
+		B40000000000000000E10006 /* CloudProviderType+AccountRecoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+AccountRecoveryTests.swift"; sourceTree = "<group>"; };
+		B40000000000000000E10007 /* DefaultAccountReauthenticationBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountReauthenticationBehaviorTests.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1574,8 +1584,10 @@
 				4A4B7E6C26B9462F009BFDB1 /* Bindable.swift */,
 				4A644B56267C958F008CBB9A /* ChildCoordinator.swift */,
 				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
+				AA38700930040326001F5EB9 /* CloudProviderType+AccountRecovery.swift */,
 				4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */,
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
+				AA38700430040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift */,
 				4A8A6423286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift */,
 				4A512D69274277FF00DC26F8 /* EditableDataSource.swift */,
 				4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */,
@@ -1908,7 +1920,10 @@
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */,
+				B40000000000000000E10004 /* AccountReauthenticationOutcomeTests.swift */,
 				B40000000000000000E10005 /* QuickUnlockFailureTests.swift */,
+				B40000000000000000E10006 /* CloudProviderType+AccountRecoveryTests.swift */,
+				B40000000000000000E10007 /* DefaultAccountReauthenticationBehaviorTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
 				B40000000000000000E10002 /* VaultUnlockingMock.swift */,
 				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
@@ -2966,6 +2981,8 @@
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A8A6424286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift in Sources */,
 				AA38700230040326001F5EB9 /* DefaultAccountSelectionBehavior.swift in Sources */,
+				AA38700330040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift in Sources */,
+				AA38700830040326001F5EB9 /* CloudProviderType+AccountRecovery.swift in Sources */,
 				4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */,
 				4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */,
 				B34C532A2D142BA700F30FE9 /* SharePointAuthenticating.swift in Sources */,
@@ -3064,7 +3081,10 @@
 				B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */,
 				B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */,
 				B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */,
+				B40000000000000000E00004 /* AccountReauthenticationOutcomeTests.swift in Sources */,
 				B40000000000000000E00005 /* QuickUnlockFailureTests.swift in Sources */,
+				B40000000000000000E00006 /* CloudProviderType+AccountRecoveryTests.swift in Sources */,
+				B40000000000000000E00007 /* DefaultAccountReauthenticationBehaviorTests.swift in Sources */,
 				AA38700730040326001F5EB9 /* QuickUnlockFailure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
