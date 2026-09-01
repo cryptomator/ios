@@ -447,6 +447,8 @@
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 		988E23D6223540118B002237 /* ShareVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988E23D6223540118B002238 /* ShareVaultCoordinator.swift */; };
 		AA38700230040326001F5EB9 /* DefaultAccountSelectionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */; };
+		AA38700530040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
+		AA38700730040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
 		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
 		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
@@ -456,10 +458,10 @@
 		B379DBC12D27F5B5003B5849 /* SharePointDriveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */; };
 		B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */; };
 		B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */; };
-		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
 		B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */; };
 		B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10002 /* VaultUnlockingMock.swift */; };
 		B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
+		B40000000000000000E00005 /* QuickUnlockFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000000000000000E10005 /* QuickUnlockFailureTests.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -1090,6 +1092,7 @@
 		988E23D6223540118B002238 /* ShareVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultCoordinator.swift; sourceTree = "<group>"; };
 		A569CE6CACC0EA3E5CDB3353 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountSelectionBehavior.swift; sourceTree = "<group>"; };
+		AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickUnlockFailure.swift; sourceTree = "<group>"; };
 		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
 		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
@@ -1099,9 +1102,9 @@
 		B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointDriveListViewModel.swift; sourceTree = "<group>"; };
 		B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewController.swift; sourceTree = "<group>"; };
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
-		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
 		B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewModelTests.swift; sourceTree = "<group>"; };
 		B40000000000000000E10002 /* VaultUnlockingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingMock.swift; sourceTree = "<group>"; };
+		B40000000000000000E10005 /* QuickUnlockFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickUnlockFailureTests.swift; sourceTree = "<group>"; };
 		D4BFCEFE82DA5BB518E9DA8B /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Intents.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1728,9 +1731,9 @@
 				4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
 				4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */,
-				B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */,
 				4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */,
 				B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */,
+				AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */,
 				4A6A520C268B5EF7006F7368 /* RootViewController.swift */,
 				4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */,
 				4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */,
@@ -1905,6 +1908,7 @@
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				B40000000000000000E10001 /* UnlockVaultViewModelTests.swift */,
+				B40000000000000000E10005 /* QuickUnlockFailureTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
 				B40000000000000000E10002 /* VaultUnlockingMock.swift */,
 				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
@@ -2787,7 +2791,7 @@
 				4A9BED66268F2D9D00721BAA /* UnlockVaultViewController.swift in Sources */,
 				4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */,
 				B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */,
-				B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */,
+				AA38700530040326001F5EB9 /* QuickUnlockFailure.swift in Sources */,
 				4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */,
 				4AFD8C0F269304A700F77BA6 /* UnlockVaultViewModel.swift in Sources */,
 			);
@@ -3060,6 +3064,8 @@
 				B40000000000000000E00001 /* UnlockVaultViewModelTests.swift in Sources */,
 				B40000000000000000E00002 /* VaultUnlockingMock.swift in Sources */,
 				B40000000000000000E00003 /* UnlockVaultViewModel.swift in Sources */,
+				B40000000000000000E00005 /* QuickUnlockFailureTests.swift in Sources */,
+				AA38700730040326001F5EB9 /* QuickUnlockFailure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

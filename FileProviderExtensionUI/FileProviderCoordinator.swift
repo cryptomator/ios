@@ -12,7 +12,6 @@ import CryptomatorCommon
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProviderUI
-import LocalAuthentication
 import UIKit
 
 class FileProviderCoordinator: Coordinator {
@@ -32,6 +31,8 @@ class FileProviderCoordinator: Coordinator {
 
 	private let extensionContext: FPUIActionExtensionContext
 	private weak var hostViewController: UIViewController?
+	/// Set when an unlock starts and never cleared, thus it is nil only for an error that precedes any unlock.
+	private var authenticatingDomain: NSFileProviderDomain?
 
 	init(extensionContext: FPUIActionExtensionContext, hostViewController: UIViewController) {
 		self.extensionContext = extensionContext
@@ -62,14 +63,7 @@ class FileProviderCoordinator: Coordinator {
 	}
 
 	func handleError(_ error: Error, for viewController: UIViewController) {
-		DDLogError("Error: \(error)")
-		if let fileProviderError = error as? FileProviderCoordinatorError, case let .unauthorized(vaultName) = fileProviderError {
-			showUnauthorizedError(vaultName: vaultName)
-		} else {
-			let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
-			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
-			viewController.present(alertController, animated: true)
-		}
+		showError(error, for: viewController, onOKTapped: nil)
 	}
 
 	func done() {
@@ -104,12 +98,9 @@ class FileProviderCoordinator: Coordinator {
 	}
 
 	func openCryptomatorApp() {
-		let url = URL(string: "cryptomator:")!
-		extensionContext.open(url) { success in
-			if success {
-				self.userCancelled()
-			}
-		}
+		open(URL(string: "cryptomator:")!, onFailure: { [weak self] in
+			self?.userCancelled()
+		})
 	}
 
 	func showSalePromoAlert() {
@@ -122,12 +113,9 @@ class FileProviderCoordinator: Coordinator {
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		alertController.addAction(UIAlertAction(title: "Learn More", style: .default) { [weak self] _ in
 			guard let self = self else { return }
-			let url = URL(string: "cryptomator://purchase")!
-			self.extensionContext.open(url) { success in
-				if success {
-					self.userCancelled()
-				}
-			}
+			self.open(URL(string: "cryptomator://purchase")!, onFailure: { [weak self] in
+				self?.done()
+			})
 		})
 		alertController.addAction(UIAlertAction(title: "Not Now", style: .cancel) { [weak self] _ in
 			self?.done()
@@ -138,6 +126,7 @@ class FileProviderCoordinator: Coordinator {
 	// MARK: - Vault Unlock
 
 	func startAuthentication(for domain: NSFileProviderDomain, unlockError: UnlockError) {
+		authenticatingDomain = domain
 		let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
 		if unlockError == .defaultLock, viewModel.canQuickUnlock {
 			performQuickUnlock(viewModel: viewModel)
@@ -149,17 +138,21 @@ class FileProviderCoordinator: Coordinator {
 	/**
 	 Performs a quick unlock, i.e. biometric authentication gets triggered immediately.
 
-	 If the biometric authentication has failed several times, the user is shown "Enter password" as a fallback option as of iOS 16.
-	 In this case, the regular unlock screen will be shown.
+	 The manual unlock screen is shown when the user picks "Enter password" after repeated biometric failures. It is also shown when biometric authentication is unavailable on the device.
+
+	 A canceled or failed biometric authentication ends the request without a message. Every other error, e.g. an expired cloud session, is shown first, because the quick unlock leaves the user with nothing else on screen.
 	 */
 	func performQuickUnlock(viewModel: UnlockVaultViewModel) {
 		viewModel.biometricalUnlock().then { [weak self] in
 			self?.completeUnlock()
 		}.catch { [weak self] error in
-			if case LAError.userFallback = error {
+			switch QuickUnlockFailure(error: error) {
+			case .fallBackToPassword:
 				self?.showManualPasswordScreen(viewModel: viewModel)
-			} else {
+			case .dismiss:
 				self?.done()
+			case .report:
+				self?.reportQuickUnlockFailure(error)
 			}
 		}
 	}
@@ -180,8 +173,6 @@ class FileProviderCoordinator: Coordinator {
 			switch error {
 			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
 				break
-			case LocalizedCloudProviderError.unauthorized:
-				throw FileProviderCoordinatorError.unauthorized(vaultName: domain.displayName)
 			default:
 				guard error.isTransientConnectivityError else {
 					throw error
@@ -237,10 +228,54 @@ class FileProviderCoordinator: Coordinator {
 		viewController.didMove(toParent: hostViewController)
 	}
 
+	/**
+	 Opens a URL, which sends the user out of the extension.
+
+	 The user leaves the extension, thus a successful open cancels the request. A failed open keeps the user here, thus the caller decides how the request ends.
+	 */
+	private func open(_ url: URL, onFailure: @escaping () -> Void) {
+		extensionContext.open(url) { [weak self] success in
+			if success {
+				self?.userCancelled()
+			} else {
+				DDLogError("Opening \(url) failed")
+				onFailure()
+			}
+		}
+	}
+
 	private func handleError(_ error: Error) {
 		guard let hostViewController = hostViewController else {
 			return
 		}
 		handleError(error, for: hostViewController)
+	}
+
+	/**
+	 The quick unlock has nothing on screen, so the alert has to end the request. Otherwise the extension keeps the request open and the user cannot leave the empty screen.
+	 */
+	private func reportQuickUnlockFailure(_ error: Error) {
+		guard let hostViewController = hostViewController else {
+			return
+		}
+		showError(error, for: hostViewController, onOKTapped: { [weak self] in
+			self?.done()
+		})
+	}
+
+	/**
+	 Routes an unauthorized error to the dedicated screen and every other error to an alert.
+
+	 The vault name comes from the domain that is currently being unlocked, thus an unauthorized error before an unlock falls back to the alert.
+
+	 `onOKTapped` applies to the alert only. The unauthorized screen ends the request through its own actions, thus it ignores the callback.
+	 */
+	private func showError(_ error: Error, for viewController: UIViewController, onOKTapped: (() -> Void)?) {
+		if error.isUnauthorizedError, let vaultName = authenticatingDomain?.displayName {
+			DDLogError("Error: \(error)")
+			showUnauthorizedError(vaultName: vaultName)
+		} else {
+			handleError(error, for: viewController, onOKTapped: onOKTapped)
+		}
 	}
 }
