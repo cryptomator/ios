@@ -6,22 +6,16 @@
 //  Copyright © 2026 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptoKit
 import Dependencies
 import Foundation
 import JOSESwift
 import Security
 
-public enum HubLicenseVerificationError: Error, LocalizedError {
+public enum HubLicenseVerificationError: Error {
 	case invalidSignature
 	case malformed
-
-	public var errorDescription: String? {
-		switch self {
-		case .invalidSignature, .malformed:
-			return LocalizedString.getValue("hubAuthentication.license.error.invalidSignature")
-		}
-	}
 }
 
 public enum HubLicenseVerificationResult: Equatable {
@@ -33,10 +27,7 @@ public enum HubLicenseVerifier {
 	/// Static ES512 (P-521 / secp521r1) public key of Skymatic's License Server, base64-encoded SPKI (DER).
 	private static let licensePublicKeyBase64 = "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBLJOU8YgKkP19EPV6p3eDlnpljZxDc2BXK+RPAb3caj2EuEH9a5ORaLAY+PjIkDPIQdHaa44Cbrzmug97bTyXTzQB97C90Utw0bzNkE22YwKdqWwKebUCSP3Tifxgn8JzrWb/9oI2D3q4+ZPzHZkty0SSM8kTwJwgT0wOwB4dj1GBEFc="
 
-	/// Lenient clock-skew allowance for the `exp` check, mirroring the backend's tolerance.
-	private static let leeway: TimeInterval = 60
-
-	private static let embeddedPublicKey: SecKey = {
+	private static let embeddedPublicKey: SecKey? = {
 		do {
 			guard let derData = Data(base64Encoded: licensePublicKeyBase64) else {
 				throw HubLicenseVerificationError.malformed
@@ -44,12 +35,16 @@ public enum HubLicenseVerifier {
 			let publicKey = try P521.Signing.PublicKey(derRepresentation: derData)
 			return try makeSecKey(x963Representation: publicKey.x963Representation, keyClass: kSecAttrKeyClassPublic)
 		} catch {
-			fatalError("Embedded License Server public key is invalid: \(error)")
+			DDLogError("Embedded License Server public key is invalid: \(error)")
+			return nil
 		}
 	}()
 
 	public static func verify(token: String) throws -> HubLicenseVerificationResult {
-		try verify(token: token, publicKey: embeddedPublicKey)
+		guard let publicKey = embeddedPublicKey else {
+			throw HubLicenseVerificationError.malformed
+		}
+		return try verify(token: token, publicKey: publicKey)
 	}
 
 	static func verify(token: String, publicKey: SecKey) throws -> HubLicenseVerificationResult {
@@ -66,7 +61,7 @@ public enum HubLicenseVerifier {
 			throw HubLicenseVerificationError.invalidSignature
 		}
 		let expiration = try expirationDate(from: jws.payload)
-		if expiration < Date().addingTimeInterval(-leeway) {
+		if expiration < Date() {
 			return .expired
 		}
 		return .valid

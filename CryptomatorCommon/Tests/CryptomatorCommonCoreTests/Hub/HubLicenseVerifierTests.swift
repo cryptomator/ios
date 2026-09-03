@@ -38,16 +38,8 @@ final class HubLicenseVerifierTests: XCTestCase {
 		XCTAssertEqual(result, .expired)
 	}
 
-	func testValidSignatureExpiredWithinLeewayStillValid() throws {
-		let token = try makeToken(signingKey: signingKey, claims: ["exp": Date().addingTimeInterval(-30).timeIntervalSince1970])
-
-		let result = try HubLicenseVerifier.verify(token: token, publicKey: publicKey)
-
-		XCTAssertEqual(result, .valid)
-	}
-
-	func testValidSignatureExpiredBeyondLeewayExpired() throws {
-		let token = try makeToken(signingKey: signingKey, claims: ["exp": Date().addingTimeInterval(-90).timeIntervalSince1970])
+	func testValidSignatureJustExpired() throws {
+		let token = try makeToken(signingKey: signingKey, claims: ["exp": Date().addingTimeInterval(-1).timeIntervalSince1970])
 
 		let result = try HubLicenseVerifier.verify(token: token, publicKey: publicKey)
 

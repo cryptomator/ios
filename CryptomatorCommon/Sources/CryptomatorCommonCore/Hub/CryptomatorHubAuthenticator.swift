@@ -26,7 +26,8 @@ public enum HubAuthenticationFlow {
 public struct HubAuthenticationFlowSuccess {
 	public let encryptedUserKey: JWE
 	public let encryptedVaultKey: JWE
-	public let header: [AnyHashable: Any]
+	public let iosLicenseToken: String?
+	public let legacySubscriptionState: String?
 }
 
 public enum CryptomatorHubAuthenticatorError: Error {
@@ -43,11 +44,22 @@ public enum CryptomatorHubAuthenticatorError: Error {
 }
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
+	typealias DataLoader = (URLRequest) async throws -> (Data, URLResponse)
+
 	private static let scheme = "hub+"
 	private static let minimumHubVersion = 2
+	private static let iosLicenseHeader = "Hub-iOS-License"
+	private static let legacySubscriptionStateHeader = "Hub-Subscription-State"
 	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
+	private let load: DataLoader
 
-	public init() {}
+	public init() {
+		self.load = { try await URLSession.shared.data(for: $0) }
+	}
+
+	init(load: @escaping DataLoader) {
+		self.load = load
+	}
 
 	// swiftlint:disable:next cyclomatic_complexity
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
@@ -68,11 +80,13 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		                                                            webAppURL: webAppURL)
 
 		let encryptedVaultKey: String
-		let unlockHeader: [AnyHashable: Any]
+		let iosLicenseToken: String?
+		let legacySubscriptionState: String?
 		switch retrieveMasterkeyResponse {
-		case let .success(key, header):
+		case let .success(key, licenseToken, subscriptionState):
 			encryptedVaultKey = key
-			unlockHeader = header
+			iosLicenseToken = licenseToken
+			legacySubscriptionState = subscriptionState
 		case .accessNotGranted:
 			return .accessNotGranted
 		case .licenseExceeded:
@@ -98,7 +112,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let encryptedUserKeyJWE = try JWE(compactSerialization: encryptedUserKey)
 		let encryptedVaultKeyJWE = try JWE(compactSerialization: encryptedVaultKey)
 
-		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: unlockHeader))
+		return .success(.init(encryptedUserKey: encryptedUserKeyJWE,
+		                      encryptedVaultKey: encryptedVaultKeyJWE,
+		                      iosLicenseToken: iosLicenseToken,
+		                      legacySubscriptionState: legacySubscriptionState))
 	}
 
 	/**
@@ -148,7 +165,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 		var request = URLRequest(url: url)
 		request.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-		let (data, response) = try await URLSession.shared.data(with: request)
+		let (data, response) = try await load(request)
 		let httpResponse = response as? HTTPURLResponse
 		guard httpResponse?.statusCode == 200 else {
 			throw CryptomatorHubAuthenticatorError.unexpectedResponse
@@ -178,7 +195,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 		request.allHTTPHeaderFields = ["Authorization": "Bearer \(secondAccessToken)"]
 
-		let (_, response) = try await URLSession.shared.data(with: request)
+		let (_, response) = try await load(request)
 
 		switch (response as? HTTPURLResponse)?.statusCode {
 		case 201:
@@ -217,7 +234,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 		var request = URLRequest(url: url)
 		request.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-		let (data, response) = try await URLSession.shared.data(with: request)
+		let (data, response) = try await load(request)
 
 		guard (response as? HTTPURLResponse)?.statusCode == 200 else {
 			throw CryptomatorHubAuthenticatorError.unexpectedResponse
@@ -235,14 +252,16 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		var urlRequest = URLRequest(url: url)
 		let deviceID = try getDeviceID()
 		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)", "Hub-Device-ID": deviceID]
-		let (data, response) = try await URLSession.shared.data(with: urlRequest)
+		let (data, response) = try await load(urlRequest)
 		let httpResponse = response as? HTTPURLResponse
 		switch httpResponse?.statusCode {
 		case 200:
 			guard let body = String(data: data, encoding: .utf8) else {
 				throw CryptomatorHubAuthenticatorError.unexpectedResponse
 			}
-			return .success(encryptedVaultKey: body, header: httpResponse?.allHeaderFields ?? [:])
+			return .success(encryptedVaultKey: body,
+			                iosLicenseToken: httpResponse?.value(forHTTPHeaderField: CryptomatorHubAuthenticator.iosLicenseHeader),
+			                legacySubscriptionState: httpResponse?.value(forHTTPHeaderField: CryptomatorHubAuthenticator.legacySubscriptionStateHeader))
 		case 402:
 			return .licenseExceeded
 		case 403:
@@ -268,7 +287,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 		var urlRequest = URLRequest(url: url)
 		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-		let (data, response) = try await URLSession.shared.data(with: urlRequest)
+		let (data, response) = try await load(urlRequest)
 		let httpResponse = response as? HTTPURLResponse
 
 		switch httpResponse?.statusCode {
@@ -303,7 +322,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
 		/// 200
-		case success(encryptedVaultKey: String, header: [AnyHashable: Any])
+		case success(encryptedVaultKey: String, iosLicenseToken: String?, legacySubscriptionState: String?)
 		/// 403
 		case accessNotGranted
 		/// 402
@@ -318,24 +337,6 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	private struct DeviceDto: Codable {
 		let userPrivateKey: String
-	}
-}
-
-extension URLSession {
-	@available(iOS, deprecated: 15.0, message: "This extension is no longer necessary. Use API built into SDK")
-	func data(with request: URLRequest) async throws -> (Data, URLResponse) {
-		try await withCheckedThrowingContinuation { continuation in
-			let task = self.dataTask(with: request) { data, response, error in
-				guard let data = data, let response = response else {
-					let error = error ?? URLError(.badServerResponse)
-					return continuation.resume(throwing: error)
-				}
-
-				continuation.resume(returning: (data, response))
-			}
-
-			task.resume()
-		}
 	}
 }
 

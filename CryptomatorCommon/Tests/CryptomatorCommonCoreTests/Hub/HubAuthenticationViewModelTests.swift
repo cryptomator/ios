@@ -108,12 +108,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success with an active Cryptomator Hub subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "ACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(legacySubscriptionState: "ACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -136,12 +133,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success with an inactive Cryptomator Hub subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "INACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(legacySubscriptionState: "INACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -164,12 +158,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success with an unknown Cryptomator Hub subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "foo"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(legacySubscriptionState: "foo")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -192,12 +183,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success without a Hub-Subscription-State header
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: [:])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock()
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -222,12 +210,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success with a valid Hub-iOS-License but an inactive legacy subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-ios-license": "license.jwt.token", "hub-subscription-state": "INACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(iosLicenseToken: "license.jwt.token", legacySubscriptionState: "INACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -254,12 +239,9 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 		// GIVEN
 		// the hub key service returns success with an expired Hub-iOS-License but an active legacy subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-ios-license": "license.jwt.token", "hub-subscription-state": "ACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(iosLicenseToken: "license.jwt.token", legacySubscriptionState: "ACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -279,19 +261,16 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(licenseVerifierMock.verifyTokenReceivedToken, "license.jwt.token")
 	}
 
-	func testContinueToAccessCheck_iosLicenseInvalidSignature_setsErrorStateAndDoesNotUnlock() async throws {
+	func testContinueToAccessCheck_iosLicenseInvalidSignature_takesPrecedenceOverSubscriptionState() async throws {
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
 		let licenseVerifierMock = HubLicenseVerifyingMock()
 		licenseVerifierMock.verifyTokenThrowableError = HubLicenseVerificationError.invalidSignature
 
 		// GIVEN
 		// the hub key service returns success with a Hub-iOS-License whose signature does not verify, alongside an active legacy subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-ios-license": "license.jwt.token", "hub-subscription-state": "ACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(iosLicenseToken: "license.jwt.token", legacySubscriptionState: "ACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -304,25 +283,83 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		})
 
 		// THEN
-		// the authentication flow state is set to error and the vault is not unlocked, without falling back to the legacy header
-		guard case .error = viewModel.authenticationFlowState else {
-			return XCTFail("Expected error state, got \(String(describing: viewModel.authenticationFlowState))")
-		}
-		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 0)
+		// the unlock handler gets informed about the successful remote unlock with an inactive subscription state, ignoring the legacy header
+		let receivedResponse = unlockHandlerMock.didSuccessfullyRemoteUnlockReceivedResponse
+		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 1)
+		XCTAssertEqual(receivedResponse?.subscriptionState, .inactive)
+		XCTAssertNil(viewModel.authenticationFlowState)
+	}
+
+	func testContinueToAccessCheck_iosLicenseMalformed_takesPrecedenceOverSubscriptionState() async throws {
+		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
+		let licenseVerifierMock = HubLicenseVerifyingMock()
+		licenseVerifierMock.verifyTokenThrowableError = HubLicenseVerificationError.malformed
+
+		// GIVEN
+		// the hub key service returns success with a malformed Hub-iOS-License but an active legacy subscription state
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(iosLicenseToken: "not-a-valid-token", legacySubscriptionState: "ACTIVE")
+
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
+
+		// WHEN
+		// continue the access check
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+			$0.hubLicenseVerifier = licenseVerifierMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
+
+		// THEN
+		// the unlock handler gets informed about the successful remote unlock with an inactive subscription state, ignoring the legacy header
+		let receivedResponse = unlockHandlerMock.didSuccessfullyRemoteUnlockReceivedResponse
+		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 1)
+		XCTAssertEqual(receivedResponse?.subscriptionState, .inactive)
+		XCTAssertNil(viewModel.authenticationFlowState)
+	}
+
+	func testContinueToAccessCheck_iosLicenseEmpty_fallsBackToSubscriptionState() async throws {
+		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
+		let licenseVerifierMock = HubLicenseVerifyingMock()
+		// set so that a regression which consults the verifier fails on the assertions below instead of trapping
+		licenseVerifierMock.verifyTokenReturnValue = .expired
+
+		// GIVEN
+		// the hub key service returns success with an empty Hub-iOS-License and an active legacy subscription state
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(iosLicenseToken: "", legacySubscriptionState: "ACTIVE")
+
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
+
+		// WHEN
+		// continue the access check
+		await withDependencies({
+			$0.hubKeyService = hubKeyServiceMock
+			$0.cryptomatorHubKeyProvider = hubKeyProviderMock
+			$0.hubLicenseVerifier = licenseVerifierMock
+		}, operation: {
+			await self.viewModel.continueToAccessCheck()
+		})
+
+		// THEN
+		// the legacy subscription state is used and the license verifier is not consulted
+		let receivedResponse = unlockHandlerMock.didSuccessfullyRemoteUnlockReceivedResponse
+		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 1)
+		XCTAssertEqual(receivedResponse?.subscriptionState, .active)
+		XCTAssertFalse(licenseVerifierMock.verifyTokenCalled)
 	}
 
 	func testContinueToAccessCheck_iosLicenseMissing_fallsBackToSubscriptionState() async throws {
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
 		let licenseVerifierMock = HubLicenseVerifyingMock()
+		// set so that a regression which consults the verifier fails on the assertions below instead of trapping
+		licenseVerifierMock.verifyTokenReturnValue = .expired
 
 		// GIVEN
 		// the hub key service returns success without a Hub-iOS-License but with an active legacy subscription state
-		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "ACTIVE"])
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(legacySubscriptionState: "ACTIVE")
 
-		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
-		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
-		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+		hubKeyProviderMock.getPrivateKeyReturnValue = try Self.devicePrivateKey()
 
 		// WHEN
 		// continue the access check
@@ -423,8 +460,13 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 	private struct TestError: Error {}
 
+	private static func devicePrivateKey() throws -> P384.KeyAgreement.PrivateKey {
+		let data = try XCTUnwrap(Data(base64Encoded: HubTestFixtures.devicePrivateKey))
+		return try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+	}
+
 	private func validHubVaultConfig() -> Data {
-		Data("eyJraWQiOiJodWIraHR0cHM6Ly90ZXN0aW5nLmh1Yi5jcnlwdG9tYXRvci5vcmcvaHViMzAvYXBpL3ZhdWx0cy83NWFmMjFiNy00ODQ5LTQ1NTgtYjA1Yy1kZTZkYzkwNzdhNjciLCJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiIsImh1YiI6eyJjbGllbnRJZCI6ImNyeXB0b21hdG9yIiwiYXV0aEVuZHBvaW50IjoiaHR0cHM6Ly90ZXN0aW5nLmh1Yi5jcnlwdG9tYXRvci5vcmcva2MvcmVhbG1zL2h1YjMwL3Byb3RvY29sL29wZW5pZC1jb25uZWN0L2F1dGgiLCJ0b2tlbkVuZHBvaW50IjoiaHR0cHM6Ly90ZXN0aW5nLmh1Yi5jcnlwdG9tYXRvci5vcmcva2MvcmVhbG1zL2h1YjMwL3Byb3RvY29sL29wZW5pZC1jb25uZWN0L3Rva2VuIiwiYXV0aFN1Y2Nlc3NVcmwiOiJodHRwczovL3Rlc3RpbmcuaHViLmNyeXB0b21hdG9yLm9yZy9odWIzMC9hcHAvdW5sb2NrLXN1Y2Nlc3M_dmF1bHQ9NzVhZjIxYjctNDg0OS00NTU4LWIwNWMtZGU2ZGM5MDc3YTY3IiwiYXV0aEVycm9yVXJsIjoiaHR0cHM6Ly90ZXN0aW5nLmh1Yi5jcnlwdG9tYXRvci5vcmcvaHViMzAvYXBwL3VubG9jay1lcnJvcj92YXVsdD03NWFmMjFiNy00ODQ5LTQ1NTgtYjA1Yy1kZTZkYzkwNzdhNjciLCJhcGlCYXNlVXJsIjoiaHR0cHM6Ly90ZXN0aW5nLmh1Yi5jcnlwdG9tYXRvci5vcmcvaHViMzAvYXBpLyIsImRldmljZXNSZXNvdXJjZVVybCI6Imh0dHBzOi8vdGVzdGluZy5odWIuY3J5cHRvbWF0b3Iub3JnL2h1YjMwL2FwaS9kZXZpY2VzLyJ9fQ.eyJqdGkiOiI3NWFmMjFiNy00ODQ5LTQ1NTgtYjA1Yy1kZTZkYzkwNzdhNjciLCJmb3JtYXQiOjgsImNpcGhlckNvbWJvIjoiU0lWX0dDTSIsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMH0.Z0x_5D073zo3smZq5q5wgDRheewcapCrIqg_0iD5qwM".utf8)
+		Data(HubTestFixtures.vaultConfigToken.utf8)
 	}
 
 	private func validHubResponseData() -> Data {
@@ -432,40 +474,12 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 	}
 }
 
-private extension OIDAuthState {
-	static var stub: Self {
-		.init(authorizationResponse: .init(request: .init(configuration: .init(authorizationEndpoint: URL(string: "example.com")!, tokenEndpoint: URL(string: "example.com")!), clientId: "", scopes: nil, redirectURL: URL(string: "example.com")!, responseType: "code", additionalParameters: nil), parameters: [:]))
-	}
-}
-
-private extension JWE {
-	static func encryptedUserKeyStub() throws -> JWE {
-		try JWE(compactSerialization: """
-		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrZXlfb3BzIjpbXSwiZXh0Ijp\
-		0cnVlLCJrdHkiOiJFQyIsIngiOiJoeHpiSWh6SUJza3A5ZkZFUmJSQ2RfOU1fbWYxNElqaDZhcnNoVX\
-		NkcEEyWno5ejZZNUs4NHpZR2I4b2FHemNUIiwieSI6ImJrMGRaNWhpelZ0TF9hN2hNejBjTUduNjhIR\
-		jZFdWlyNHdlclNkTFV5QWd2NWUzVzNYSG5sdHJ2VlRyU3pzUWYiLCJjcnYiOiJQLTM4NCJ9LCJhcHUi\
-		OiIiLCJhcHYiOiIifQ..pu3Q1nR_yvgRAapG.4zW0xm0JPxbcvZ66R-Mn3k841lHelDQfaUvsZZAtWs\
-		L2w4FMi6H_uu6ArAWYLtNREa_zfcPuyuJsFferYPSNRUWt4OW6aWs-l_wfo7G1ceEVxztQXzQiwD30U\
-		TA8OOdPcUuFfEq2-d9217jezrcyO6m6FjyssEZIrnRArUPWKzGdghXccGkkf0LTZcGJoHeKal-RtyP8\
-		PfvEAWTjSOCpBlSdUJ-1JL3tyd97uVFNaVuH3i7vvcMoUP_bdr0XW3rvRgaeC6X4daPLUvR1hK5Msut\
-		QMtM2vpFghS_zZxIQRqz3B2ECxa9Bjxhmn8kLX5heZ8fq3lH-bmJp1DxzZ4V1RkWk.yVwXG9yARa5Ih\
-		q2koh2NbQ
-		""")
-	}
-
-	static func encryptedVaultKeyStub() throws -> JWE {
-		try JWE(compactSerialization: """
-		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImNZdlVFZm9LYkJjenZySE5zQjUxOGpycUxPMGJDOW5lZjR4NzFFMUQ5dk95MXRqd1piZzV3cFI0OE5nU1RQdHgiLCJ5IjoiaWRJekhCWERzSzR2NTZEeU9yczJOcDZsSG1zb29fMXV0VTlzX3JNdVVkbkxuVXIzUXdLZkhYMWdaVXREM1RKayJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..0VZqu5ei9U3blGtq.eDvhU6drw7mIwvXu6Q.f05QnhI7JWG3IYHvexwdFQ
-		""")
-	}
-}
-
 private extension HubAuthenticationFlow {
-	static func successMock(header: [AnyHashable: Any] = [:]) throws -> HubAuthenticationFlow {
+	static func successMock(iosLicenseToken: String? = nil, legacySubscriptionState: String? = nil) throws -> HubAuthenticationFlow {
 		try .success(.init(encryptedUserKey: .encryptedUserKeyStub(),
 		                   encryptedVaultKey: .encryptedVaultKeyStub(),
-		                   header: header))
+		                   iosLicenseToken: iosLicenseToken,
+		                   legacySubscriptionState: legacySubscriptionState))
 	}
 }
 
