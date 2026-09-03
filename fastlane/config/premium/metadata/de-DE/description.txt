@@ -2,40 +2,45 @@ Die „Vollversion“ ist im Grunde die gleiche Version wie Cryptomator mit dem 
 
 ---
 
-Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator sicherst und verschlüsselst du deine sensiblen Daten in deiner Lieblingscloud. So bleiben sie privat und vor unbefugtem Zugriff geschützt.
+Nimm die Sicherung deiner Daten selbst in die Hand. Cryptomator verschlüsselt deine Dateien, bevor sie in die Cloud gelangen — so hast nur du den Schlüssel. Nicht dein Cloudanbieter, nicht wir, niemand.
+
+Die meisten Cloudanbieter verschlüsseln deine Daten nur während der Übertragung oder behalten die Schlüssel zur Entschlüsselung für sich selbst — Schlüssel, die gestohlen, kopiert oder missbraucht werden können. Mit Cryptomator bleibt der Schlüssel zu deinen Daten in deiner Hand.
 
 EINFACH
 
-Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermöglicht dir, deine Cloud-Daten eigenständig und unabhängig zu schützen.
+Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Schütze deine Cloud-Daten eigenständig und unabhängig.
 
-• Erstelle einen Tresor und vergib ein Passwort
-• Keine komplizierte Konfiguration und keine weiteren Accounts notwendig
+• Vergib ein Passwort für einen Ordner — bei uns heißt er Tresor. Das ist alles: keine Schlüsselerstellung, keine Registrierung, keine Konfiguration
 • Entsperr Tresore mit Face ID / Touch ID
-• Vollständig in die App „Dateien“ integriert
+• Vollständig in die App „Dateien“ integriert — durchsuche und öffne deine verschlüsselten Dateien direkt dort, wo du sie ohnehin verwaltest
+• Alles, was du in einem Tresor speicherst, wird automatisch verschlüsselt
 
 KOMPATIBEL
 
 Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
 
 • Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, SharePoint (inkl. Microsoft Teams), pCloud, Box, WebDAV- und S3-basierten Cloudspeicher-Diensten
-• Erstelle auch Tresore an einem beliebigen Ort über andere Speicher-Anbieter (Drittanbieter-Apps müssen dies unterstützen)
-• Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
+• Erstelle Tresore an einem beliebigen Ort über andere Speicher-Anbieter (Drittanbieter-Apps müssen dies unterstützen)
+• Greife von all deinen mobilen Endgeräten und Computern auf dieselben Tresore zu
 
-SICHER
+SICHER & VERTRAUENSWÜRDIG
 
-Du musst Cryptomator nicht blind vertrauen, denn die App ist quelloffen, was für dich als Nutzer bedeutet, dass jeder den Code einsehen kann: https://github.com/cryptomator/ios
+Du musst Cryptomator nicht blind vertrauen, denn die App ist quelloffen — jeder kann den Code einsehen: https://github.com/cryptomator/ios
 
+• Keine Hintertüren, kein Verfallsdatum durch Quelloffenheit
 • Verschlüsselung der Dateiinhalte und Dateinamen mit AES und 256-Bit-Schlüssellänge
 • Erhöhte Brute-Force-Resistenz des Tresor-Passworts durch Einsatz von scrypt
-• Verschlüsselungsimplementierung ist öffentlich dokumentiert
+• Unabhängig von Sicherheitsforschern auditiert; Verschlüsselungsimplementierung öffentlich dokumentiert
+
+Schaut jemand in den Ordner in deiner Cloud, kann er keinerlei Rückschlüsse auf deine Daten ziehen.
 
 PREISGEKRÖNT
 
-Cryptomator wurde mit dem CeBIT Innovation Award 2016 for Usable Security and Privacy ausgezeichnet. Wir freuen uns, hunderttausenden Cryptomator-Nutzern Sicherheit und Privatsphärenschutz bieten zu können.
+Cryptomator wurde mit dem CeBIT Innovation Award 2016 for Usable Security and Privacy ausgezeichnet.
 
 CRYPTOMATOR COMMUNITY
 
-Tritt der Cryptomator Community bei und tausche dich mit Cryptomator-Nutzern aus: https://community.cryptomator.org
+Tritt der Cryptomator Community bei und tausche dich mit anderen Cryptomator-Nutzern aus:
 
-• Folge uns auf Mastodon @cryptomator@mastodon.online
-• Like uns auf Facebook /Cryptomator
+• Community: https://community.cryptomator.org
+• Mastodon: @cryptomator@mastodon.online

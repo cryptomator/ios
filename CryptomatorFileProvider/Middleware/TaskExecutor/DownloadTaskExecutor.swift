@@ -53,9 +53,10 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 		let downloadDestination = taskRecord.replaceExisting ? taskRecord.localURL.createCollisionURL() : taskRecord.localURL
 		var lastModifiedDate: Date?
 		let itemMetadata = task.itemMetadata
-		return provider.fetchItemMetadata(at: itemMetadata.cloudPath).then { cloudMetadata -> Promise<Void> in
+		let cloudPath = task.cloudPath
+		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
-			return self.provider.downloadFile(from: itemMetadata.cloudPath, to: downloadDestination, onTaskCreation: { task in
+			return self.provider.downloadFile(from: cloudPath, to: downloadDestination, onTaskCreation: { task in
 				guard let task else {
 					return
 				}

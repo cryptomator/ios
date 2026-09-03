@@ -14,4 +14,6 @@ enum FileProviderAdapterError: Error {
 	case parentFolderNotFound
 	case parentItemTypeMismatch
 	case unsupportedItemType
+	case itemNotFound
+	case unresolvableParentChain
 }

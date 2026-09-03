@@ -148,6 +148,8 @@
 "keepUnlockedDuration.auto" = "iOS'un otomatik olarak karar vermesine izin ver";
 "keepUnlockedDuration.auto.shortDisplayName" = "Otomatik";
 "keepUnlockedDuration.indefinite" = "Süresiz";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Sıradaki ekranda iCloud Drive\u0027a gidin, depolama konumunu seçin ve Aç\u0027a dokunun.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
@@ -204,6 +206,7 @@
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Tam versiyona yükselterek kasalarına yazma erişimine sahip oldunuz.";
 "settings.cacheSize" = "Önbellek Boyutu";
 "settings.clearCache" = "Önbelleği Temizle";
 "settings.cloudServices" = "Bulut Servisleri";
@@ -227,7 +230,9 @@
 "shareVault.normal.button.visitHub" = "Cryptomator Hub'ı ziyaret et";
 "shareVault.hub.header.title" = "Hub kasası nasıl paylaşılır";
 "shareVault.hub.header.subtitle" = "Kasa içeriğini başka bir ekip üyesiyle paylaşmak için iki adım gerçekleştirmeniz gerekir:";
+"shareVault.hub.step1" = "Bulut depolama üzerinden şifreli kasa klasörünüze erişimi paylaşın.";
 "shareVault.hub.button.openHub" = "Cryptomator Hub'ı aç";
+"shareVault.error.hubURLExtraction.message" = "Kasanın Hub yapılandırması yüklenemiyor. Lütfen kasa ayarlarınızı kontrol edin veya Hub yöneticinize danışın.";
 
 "snapshots.fileprovider.file1" = "/Muhasebe.numbers";
 "snapshots.fileprovider.file2" = "/Son Sunum.key";
@@ -253,6 +258,7 @@
 
 "trialStatus.active" = "Aktif";
 "trialStatus.expired" = "Süresi doldu";
+"trustedHubHosts.clearAll.alert.message" = ".";
 
 "unlockVault.button.unlock" = "Kilidi Aç";
 "unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
@@ -289,6 +295,7 @@
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
 "vaultDetail.button.renameVault" = "Yeniden Adlandır";
 "vaultDetail.button.shareVault" = "Kasayı Paylaş";
+"vaultDetail.shareVault.footer" = "Cryptomator Hub ile ekibinizle güven içinde ortaklaşa çalışın.";
 "vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir parola seçin.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";

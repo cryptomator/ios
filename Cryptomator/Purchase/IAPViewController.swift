@@ -292,8 +292,8 @@ class BaseIAPViewModel {
 	 */
 	func addLifetimeLicenseItem() {
 		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
-			// Temporarily added for 10th Anniversary Sale
-			let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
+			// Temporarily added for Summer 2026 Sale
+			let productDetail = SalePromo.isSummer2026Active() ? "\(SalePromo.summer2026Emoji) \(SalePromo.summer2026Discount)" : nil
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
 			                                      productDetail: productDetail,
 			                                      price: localizedPrice,

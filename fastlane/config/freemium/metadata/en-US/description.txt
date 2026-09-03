@@ -1,40 +1,45 @@
-With Cryptomator, the key to your data is in your hands. Cryptomator secures and encrypts your sensitive data in your favorite cloud service. So you can rest assured that only you can access your data.
+Take the security of your data into your own hands. Cryptomator encrypts your files before they reach the cloud — so only you hold the key. Not your cloud provider, not us, no one.
 
-EASY-TO-USE
+Most cloud providers encrypt your data only during transmission, or they keep the decryption keys themselves — keys that can be stolen, copied, or misused. With Cryptomator, the key to your data stays in your hands.
 
-Cryptomator is a simple tool for digital self-defense. It allows you to protect your cloud data by yourself and independently.
+EASY TO USE
 
-• Simply create a vault and assign a password
-• No additional account or configuration needed
+Cryptomator is a simple tool for digital self-defense. Protect your cloud data yourself, independently.
+
+• Assign a password to a folder — we call it a vault. That's all: no key creation, no registration, no configuration
 • Unlock vaults with Face ID / Touch ID
-• Fully integrated into the Files app
+• Fully integrated into the Files app — browse and open your encrypted files right where you already manage them
+• Everything you save into a vault is encrypted automatically
 
 COMPATIBLE
 
-Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
+Cryptomator works with the most commonly used cloud storages and is available for all major operating systems.
 
 • Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, SharePoint (incl. Microsoft Teams), pCloud, Box, WebDAV- and S3-based cloud storage services
 • Create vaults in any location via other File Providers (third-party apps must support this)
-• Access your vaults on all your mobile devices and computers
+• Access the same vaults across all your mobile devices and computers
 
-SECURE
+SECURE & TRUSTWORTHY
 
-You don't have to trust Cryptomator blindly, because it is open source software. For you as a user, this means that everyone can see the code: https://github.com/cryptomator/ios
+You don't have to trust Cryptomator blindly, because it is open source software — everyone can see the code: https://github.com/cryptomator/ios
 
+• No backdoors and no expiration date, thanks to open source
 • File content and filename encryption with AES and 256 bit key length
-• Vault password is secured with scrypt for enhanced brute-force resistance
-• Crypto implementation is publicly documented
+• Vault password secured with scrypt for enhanced brute-force resistance
+• Independently audited by security researchers; crypto implementation publicly documented
+
+If someone looks into the folder in your cloud, they cannot draw any conclusions about your data.
 
 AWARD-WINNING
 
-Cryptomator received the CeBIT Innovation Award 2016 for Usable Security and Privacy. We're proud to provide security and privacy for hundreds of thousands of Cryptomator users.
+Cryptomator received the CeBIT Innovation Award 2016 for Usable Security and Privacy.
 
 CRYPTOMATOR COMMUNITY
 
-Join the Cryptomator Community and participate in the conversations with other Cryptomator users: https://community.cryptomator.org
+Join the Cryptomator Community and participate in the conversations with other Cryptomator users:
 
-• Follow us on Mastodon @cryptomator@mastodon.online
-• Like us on Facebook /Cryptomator
+• Community: https://community.cryptomator.org
+• Mastodon: @cryptomator@mastodon.online
 
 ---
 

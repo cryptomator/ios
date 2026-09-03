@@ -17,11 +17,11 @@ public protocol CryptomatorSettings {
 	var hasRunningSubscription: Bool { get set }
 	var trustedHubAuthorities: Set<String> { get set }
 	#if !ALWAYS_PREMIUM
-	var tenthAnniversaryBannerDismissed: Bool {
+	var summer2026BannerDismissed: Bool {
 		get set
 	}
 
-	var tenthAnniversaryUnlockPromoShown: Bool {
+	var summer2026UnlockPromoShown: Bool {
 		get set
 	}
 	#endif
@@ -125,12 +125,12 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 	}
 
 	#if !ALWAYS_PREMIUM
-	public var tenthAnniversaryBannerDismissed: Bool {
+	public var summer2026BannerDismissed: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}
 
-	public var tenthAnniversaryUnlockPromoShown: Bool {
+	public var summer2026UnlockPromoShown: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}

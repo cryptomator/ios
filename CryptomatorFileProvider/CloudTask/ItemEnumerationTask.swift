@@ -6,15 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
-import GRDB
+import CryptomatorCloudAccessCore
 
 struct ItemEnumerationTask: CloudTask {
 	let taskRecord: ItemEnumerationTaskRecord
 	let itemMetadata: ItemMetadata
+	let cloudPath: CloudPath
 
-	enum CodingKeys: String, CodingKey {
-		case taskRecord = "itemEnumerationTask"
-		case itemMetadata
+	func with(cloudPath: CloudPath) -> ItemEnumerationTask {
+		return ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath)
 	}
 }

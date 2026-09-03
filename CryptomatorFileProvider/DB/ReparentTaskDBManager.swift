@@ -11,7 +11,7 @@ import Foundation
 import GRDB
 
 protocol ReparentTaskManager {
-	func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord
+	func createTaskRecord(for itemMetadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord
 	func removeTaskRecord(_ task: ReparentTaskRecord) throws
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord]
 	func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord]
@@ -28,12 +28,12 @@ class ReparentTaskDBManager: ReparentTaskManager {
 		}
 	}
 
-	func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
+	func createTaskRecord(for itemMetadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
 		guard let id = itemMetadata.id else {
 			throw DBManagerError.nonSavedItemMetadata
 		}
 		return try database.write { db in
-			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
+			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
 			try task.save(db)
 			return task
 		}
@@ -66,7 +66,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return ReparentTask(taskRecord: taskRecord, itemMetadata: itemMetadata)
+			return ReparentTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: taskRecord.sourceCloudPath)
 		}
 	}
 }

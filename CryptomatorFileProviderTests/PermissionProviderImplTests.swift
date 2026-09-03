@@ -32,7 +32,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.fullVersionCheckerMock.isFullVersion = true
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, actualCapabilities)
 		}
@@ -46,7 +46,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.fullVersionCheckerMock.isFullVersion = true
 
 			let cloudPath = CloudPath("/test")
-			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(Self.defaultFolderCapabilities, actualCapabilities)
 		}
@@ -60,7 +60,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.fullVersionCheckerMock.isFullVersion = false
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, actualCapabilities)
 		}
@@ -74,7 +74,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.fullVersionCheckerMock.isFullVersion = false
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, actualCapabilities)
 		}
@@ -88,7 +88,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.fullVersionCheckerMock.isFullVersion = false
 
 			let cloudPath = CloudPath("/test")
-			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, actualCapabilities)
 		}
@@ -103,7 +103,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .inactive)
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual([.allowsWriting, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], actualCapabilities)
 		}
@@ -120,7 +120,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .active)
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, actualCapabilities)
 		}
@@ -135,7 +135,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .inactive)
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, actualCapabilities)
 		}
@@ -150,7 +150,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .active)
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(Self.defaultFolderCapabilities, actualCapabilities)
 		}
@@ -165,7 +165,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .active)
 
 			let cloudPath = CloudPath("/test")
-			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual(Self.defaultFolderCapabilities, actualCapabilities)
 		}
@@ -180,7 +180,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			self.hubRepositoryMock.getHubVaultVaultIDReturnValue = .init(vaultUID: "12345", subscriptionState: .active)
 
 			let cloudPath = CloudPath("/test.txt")
-			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
 			XCTAssertEqual([.allowsWriting, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], actualCapabilities)
 		}

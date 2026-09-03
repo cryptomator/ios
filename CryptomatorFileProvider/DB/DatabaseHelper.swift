@@ -209,6 +209,32 @@ public struct DatabaseHelper: DatabaseHelping {
 			  )
 			""")
 		}
+		migrator.registerMigration("v5", foreignKeyChecks: .deferred) { db in
+			// SQLite refuses DROP COLUMN on UNIQUE-constrained columns, so we must rebuild to drop `cloudPath`.
+			try db.execute(sql: """
+			CREATE TABLE itemMetadata_tmp (
+				id INTEGER PRIMARY KEY AUTOINCREMENT,
+				name TEXT NOT NULL,
+				type TEXT NOT NULL,
+				size INTEGER,
+				parentID INTEGER REFERENCES itemMetadata(id) ON DELETE CASCADE,
+				lastModifiedDate DATE,
+				statusCode TEXT NOT NULL,
+				isPlaceholderItem BOOLEAN NOT NULL DEFAULT 0,
+				isMaybeOutdated BOOLEAN NOT NULL DEFAULT 0,
+				favoriteRank INTEGER,
+				tagData BLOB,
+				lastEnumeratedAt DATE
+			)
+			""")
+			try db.execute(sql: """
+			INSERT INTO itemMetadata_tmp (id, name, type, size, parentID, lastModifiedDate, statusCode, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData, lastEnumeratedAt)
+			SELECT id, name, type, size, parentID, lastModifiedDate, statusCode, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData, lastEnumeratedAt FROM itemMetadata
+			""")
+			try db.execute(sql: "DROP TABLE itemMetadata")
+			try db.execute(sql: "ALTER TABLE itemMetadata_tmp RENAME TO itemMetadata")
+			try db.execute(sql: "CREATE INDEX itemMetadata_parentID_idx ON itemMetadata(parentID)")
+		}
 		try migrator.migrate(dbWriter)
 	}
 

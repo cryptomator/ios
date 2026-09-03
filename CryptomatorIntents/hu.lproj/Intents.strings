@@ -1,21 +1,33 @@
+"common.failureReason" = "A hiba oka";
 "common.false" = "hamis";
 "common.folder" = "Mappa";
 "common.true" = "igaz";
 "common.vault" = "Széf";
 
-"getFolderIntent.description" = "Visszaad egy mappa objektumot a megadott útvonalhoz a megadott széfben.";
+"getFolderIntent.description" = "Visszaad egy mappa objektumot a megadott útvonalhoz a megadott tárolóban.";
 "getFolderIntent.path" = "Útvonal";
-"getFolderIntent.text" = "Visszaadja a mappát ezen a helyen: ${path}, ebben a széfben: ${vault}";
+"getFolderIntent.text" = "Visszaadja a mappát ezen a helyen: ${path}, ebben a titkosított tárolóban: ${vault}";
+"getFolderIntent.title" = "Mappa letöltése";
 
-"isUnlockedIntent.description" = "Visszaadja, hogy az adott széf fel van-e oldva.";
+"isUnlockedIntent.description" = "Visszaadja, hogy az adott tároló fel van-e oldva.";
+"isUnlockedIntent.title" = "Feloldva";
+
+"isVaultLockedIntent.title" = "A titkosított tároló fel van oldva";
+"isVaultUnlockedIntent.text" = "A ${vault} fel van oldva?";
+
+"lockVaultIntent.description" = "Megadott tároló zárolása.";
 "lockVaultIntent.text" = "${vault} zárolása";
-"lockVaultIntent.title" = "Széf zárolása";
+"lockVaultIntent.title" = "Tároló zárolása";
 
-"openVaultIntent.description" = "Megnyitja az adott széfet a Fájlok appban.";
+"openVaultIntent.description" = "Megnyitja az adott titkosított tárolót a Fájlok appban.";
 "openVaultIntent.text" = "${vault} megnyitása a Fájlok appban";
-"openVaultIntent.title" = "Széf megnyitása";
+"openVaultIntent.title" = "Titkosított tároló megnyitása";
 
-"saveFileIntent.description" = "Elment egy fájlt egy széfbe.";
+"saveFileIntent.description" = "Elment egy fájlt egy titkosított tárolóba.";
+"saveFileIntent.file" = "Fájl";
+"saveFileIntent.parameter.ignoreExisting" = "A meglévő, azonos nevű fájl figyelmen kívül hagyása";
+"saveFileIntent.text" = "${file} mentése a ${folder} mappába";
+"saveFileIntent.title" = "Fájl mentése";
 
-"vaultFolder.displayName" = "Széf mappa";
-"vaultFolder.vaultIdentifier" = "Széf azonosító";
+"vaultFolder.displayName" = "Tároló mappa";
+"vaultFolder.vaultIdentifier" = "Tároló azonosító";

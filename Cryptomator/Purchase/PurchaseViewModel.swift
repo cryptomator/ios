@@ -36,9 +36,9 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		return LocalizedString.getValue("purchase.title")
 	}
 
-	/// Temporarily added for 10th Anniversary Sale
+	/// Temporarily added for Summer 2026 Sale
 	override var infoText: NSAttributedString? {
-		if SalePromo.isTenthAnniversaryActive() {
+		if SalePromo.isSummer2026Active() {
 			return NSAttributedString(
 				string: "*Note: The discount amount may vary by region.",
 				attributes: [

@@ -166,7 +166,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	}
 
 	private var lifetimeLicenseCell: Item {
-		let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
+		let productDetail = SalePromo.isSummer2026Active() ? "\(SalePromo.summer2026Emoji) \(SalePromo.summer2026Discount)" : nil
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
 		                           productDetail: productDetail,
 		                           price: "$11.99",

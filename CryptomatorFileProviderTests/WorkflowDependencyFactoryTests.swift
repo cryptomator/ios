@@ -239,6 +239,40 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
 	}
 
+	func testWriteTaskDependentOnExistingMoveTask() {
+		let dependenciesForMoveTask = factory.createDependencies(paths: [CloudPath("/a/b"), CloudPath("/c/b")], lockType: .write)
+		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/c/b"), lockType: .write)
+		// check if move task starts immediately (but isn't completed yet, blocking the write task on the move target)
+		wait(for: dependenciesForMoveTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+
+		// when the move task completes, check if the dependent write task starts (but doesn't finish yet)
+		dependenciesForMoveTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
+
+		// when the write task completes its completion promise is fulfilled
+		dependenciesForWriteTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.workflowCompleted)
+	}
+
+	func testWriteTaskOnDescendantDependentOnExistingMoveTask() {
+		let dependenciesForMoveTask = factory.createDependencies(paths: [CloudPath("/a"), CloudPath("/c")], lockType: .write)
+		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/c/d"), lockType: .write)
+		// check if move task starts immediately (but isn't completed yet, blocking the write task below the move target)
+		wait(for: dependenciesForMoveTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+
+		// when the move task completes, check if the dependent write task starts (but doesn't finish yet)
+		dependenciesForMoveTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
+
+		// when the write task completes its completion promise is fulfilled
+		dependenciesForWriteTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.workflowCompleted)
+	}
+
 	// MARK: Error propagation
 
 	func testErrorDoesNotPropagateBetweenDependentWorkflows() {

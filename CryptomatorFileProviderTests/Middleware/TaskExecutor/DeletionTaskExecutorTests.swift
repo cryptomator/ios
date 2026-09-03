@@ -20,8 +20,8 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 
 	func testDeleteFile() throws {
 		let expectation = XCTestExpectation()
-		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFile"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
-		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata)
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name))
 		let deletionTask = try deletionTaskManagerMock.getTask(for: taskRecord)
 		taskExecutor.execute(task: deletionTask).then {
 			XCTAssertEqual(1, self.cloudProviderMock.deletedFiles.count)
@@ -39,8 +39,8 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 
 	func testDeleteFolder() throws {
 		let expectation = XCTestExpectation()
-		let itemMetadata = ItemMetadata(id: 2, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
-		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata)
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name))
 		let deletionTask = try deletionTaskManagerMock.getTask(for: taskRecord)
 		taskExecutor.execute(task: deletionTask).then {
 			XCTAssertEqual(1, self.cloudProviderMock.deletedFolders.count)
@@ -63,8 +63,8 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}
 
 		let expectation = XCTestExpectation()
-		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFile"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
-		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata)
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name))
 		let deletionTask = try deletionTaskManagerMock.getTask(for: taskRecord)
 		let taskExecutor = DeletionTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: deletionTask).then {
@@ -88,8 +88,8 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}
 
 		let expectation = XCTestExpectation()
-		let itemMetadata = ItemMetadata(id: 2, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
-		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata)
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let taskRecord = try deletionTaskManagerMock.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name))
 		let deletionTask = try deletionTaskManagerMock.getTask(for: taskRecord)
 		let taskExecutor = DeletionTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: deletionTask).then {

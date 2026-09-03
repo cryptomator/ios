@@ -24,7 +24,6 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		                                                                                                           parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue,
 		                                                                                                           lastModifiedDate: nil,
 		                                                                                                           statusCode: .isUploaded,
-		                                                                                                           cloudPath: CloudPath("/"),
 		                                                                                                           isPlaceholderItem: false)
 	}
 
@@ -45,7 +44,6 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		                                  parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue,
 		                                  lastModifiedDate: nil,
 		                                  statusCode: .isUploaded,
-		                                  cloudPath: CloudPath("/Directory 1"),
 		                                  isPlaceholderItem: false)
 
 		let folderMetadataID = try XCTUnwrap(folderMetadata.id)
@@ -58,7 +56,6 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		                                         parentID: XCTUnwrap(folderMetadata.id),
 		                                         lastModifiedDate: nil,
 		                                         statusCode: .isUploaded,
-		                                         cloudPath: CloudPath("/Directory 1/Directory 2"),
 		                                         isPlaceholderItem: false)
 		let subFolderMetadataID = try XCTUnwrap(subFolderMetadata.id)
 		metadataManagerMock.cachedMetadata[subFolderMetadataID] = subFolderMetadata
@@ -70,43 +67,20 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(expectedItemIdentifier, itemIdentifier)
 	}
 
-	func testGetItemIdentifierForCachedItemMissingInCloud() throws {
-		let cloudPath = CloudPath("/Directory 1/Directory 3")
-		let folderMetadata = ItemMetadata(id: 2,
-		                                  name: "Directory 1",
-		                                  type: .folder,
-		                                  size: nil,
-		                                  parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue,
-		                                  lastModifiedDate: nil,
-		                                  statusCode: .isUploaded,
-		                                  cloudPath: CloudPath("/Directory 1"),
-		                                  isPlaceholderItem: false)
-
-		let folderMetadataID = try XCTUnwrap(folderMetadata.id)
-		metadataManagerMock.cachedMetadata[folderMetadataID] = folderMetadata
-
-		let subFolderMetadata = try ItemMetadata(id: 3,
-		                                         name: "Directory 3",
-		                                         type: .folder,
-		                                         size: nil,
-		                                         parentID: XCTUnwrap(folderMetadata.id),
-		                                         lastModifiedDate: nil,
-		                                         statusCode: .isUploaded,
-		                                         cloudPath: CloudPath("/Directory 1/Directory 3"),
-		                                         isPlaceholderItem: false)
-		let subFolderMetadataID = try XCTUnwrap(subFolderMetadata.id)
-		metadataManagerMock.cachedMetadata[subFolderMetadataID] = subFolderMetadata
-
-		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		XCTAssertRejects(getItemIdentifierPromise, with: NSFileProviderError(.noSuchItem)._nsError)
-	}
-
-	func testGetItemIdentifierForItemNotYetCached() throws {
+	func testGetItemIdentifierFallsBackToEnumerationForColdPath() throws {
+		// Not cached, but exists in mock cloud; enumeration populates the cache, then lookup succeeds.
 		let cloudPath = CloudPath("/Directory 1/Directory 2")
 		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
 		wait(for: getItemIdentifierPromise, timeout: 5.0)
 		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
-		let expectedItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 7)
-		XCTAssertEqual(expectedItemIdentifier, itemIdentifier)
+		let resolvedMetadata = try XCTUnwrap(metadataManagerMock.getCachedMetadata(for: cloudPath))
+		XCTAssertEqual(try NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: XCTUnwrap(resolvedMetadata.id)), itemIdentifier)
+	}
+
+	func testGetItemIdentifierForNonexistentItem() {
+		// Neither cached nor in mock cloud; enumeration finds nothing, lookup rejects.
+		let cloudPath = CloudPath("/Directory 1/Does Not Exist")
+		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
+		XCTAssertRejects(getItemIdentifierPromise, with: NSFileProviderError(.noSuchItem)._nsError)
 	}
 }

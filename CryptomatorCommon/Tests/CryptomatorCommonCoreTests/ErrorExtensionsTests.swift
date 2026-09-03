@@ -32,6 +32,22 @@ class ErrorExtensionsTests: XCTestCase {
 		XCTAssertFalse(CloudProviderError.unauthorized.isNoInternetConnectionError)
 	}
 
+	// MARK: - isUnauthorizedError
+
+	func testIsUnauthorizedErrorForCloudProviderError() {
+		XCTAssertTrue(CloudProviderError.unauthorized.isUnauthorizedError)
+	}
+
+	func testIsUnauthorizedErrorForLocalizedCloudProviderError() {
+		let error = LocalizedCloudProviderError.unauthorized
+		XCTAssertTrue(error.isUnauthorizedError)
+	}
+
+	func testIsUnauthorizedErrorReturnsFalseForUnrelatedError() {
+		XCTAssertFalse(CloudProviderError.noInternetConnection.isUnauthorizedError)
+		XCTAssertFalse(NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut).isUnauthorizedError)
+	}
+
 	// MARK: - isTransientConnectivityError
 
 	func testIsTransientConnectivityErrorIncludesNoInternetConnectionErrors() {

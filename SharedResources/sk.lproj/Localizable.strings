@@ -134,7 +134,7 @@
 "hubAuthentication.trustHost.alert.trustButton" = "Veriť";
 "hubAuthentication.vaultArchived" = "Tento trezor bol archivovaný. Prosím požiadajte vlastníka o odarchivovanie.";
 
-"intents.clearCache.description" = "Vymaže súbor lokálnej vyrovnávacej pamäte Cryptomatora.";
+"intents.clearCache.description" = "Vymaže súbor lokálnej vyrovnávacej pamäte Cryptomator-a.";
 "intents.clearCache.cacheCleared" = "Vyrovnávacia pamäť vymazaná.";
 
 "intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";

@@ -17,11 +17,11 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/Test.txt")
-		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let reparentTaskRecord = try ReparentTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: itemMetadata.parentID)
-		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
+		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata, cloudPath: sourceCloudPath)
 		let taskExecutor = ReparentTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, reparentTaskManager: reparentTaskManagerMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 
 		taskExecutor.execute(task: reparentTask).then { item in
@@ -49,11 +49,11 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let sourceCloudPath = CloudPath("/Test")
 		let targetCloudPath = CloudPath("/Folder/Test")
-		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let reparentTaskRecord = try ReparentTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: itemMetadata.parentID)
-		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
+		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata, cloudPath: sourceCloudPath)
 		let taskExecutor = ReparentTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, reparentTaskManager: reparentTaskManagerMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 
 		taskExecutor.execute(task: reparentTask).then { item in
@@ -86,11 +86,11 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/Test.txt")
-		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let reparentTaskRecord = try ReparentTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: itemMetadata.parentID)
-		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
+		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata, cloudPath: sourceCloudPath)
 		let taskExecutor = ReparentTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, reparentTaskManager: reparentTaskManagerMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		taskExecutor.execute(task: reparentTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
@@ -116,11 +116,11 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let sourceCloudPath = CloudPath("/Test")
 		let targetCloudPath = CloudPath("/Folder/Test")
-		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let reparentTaskRecord = try ReparentTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: itemMetadata.parentID)
-		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
+		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata, cloudPath: sourceCloudPath)
 		let taskExecutor = ReparentTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, reparentTaskManager: reparentTaskManagerMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		taskExecutor.execute(task: reparentTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
