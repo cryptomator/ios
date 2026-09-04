@@ -38,12 +38,6 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		case needsAuthorization
 	}
 
-	private enum Constants {
-		static var subscriptionState: String {
-			"hub-subscription-state"
-		}
-	}
-
 	@Published var authenticationFlowState: State?
 	@Published public var deviceName: String = UIDevice.current.name
 	@Published public var setupCode: String = ""
@@ -55,6 +49,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	@Dependency(\.hubDeviceRegisteringService) var deviceRegisteringService
 	@Dependency(\.hubKeyService) var hubKeyService
 	@Dependency(\.cryptomatorHubKeyProvider) var cryptomatorHubKeyProvider
+	@Dependency(\.hubLicenseVerifier) var hubLicenseVerifier
 	private weak var delegate: HubAuthenticationViewModelDelegate?
 
 	public init(authState: OIDAuthState,
@@ -120,7 +115,8 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		do {
 			let deviceKey = try cryptomatorHubKeyProvider.getPrivateKey()
 			userKey = try JWEHelper.decryptUserKey(jwe: flowResponse.encryptedUserKey, privateKey: deviceKey)
-			subscriptionState = getSubscriptionState(from: flowResponse.header)
+			subscriptionState = resolveSubscriptionState(iosLicenseToken: flowResponse.iosLicenseToken,
+			                                             legacySubscriptionState: flowResponse.legacySubscriptionState)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
@@ -143,8 +139,26 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		await setState(to: .error(description: error.localizedDescription))
 	}
 
-	private func getSubscriptionState(from header: [AnyHashable: Any]) -> HubSubscriptionState {
-		guard let subscriptionStateValue = header[Constants.subscriptionState] as? String else {
+	private func resolveSubscriptionState(iosLicenseToken: String?, legacySubscriptionState: String?) -> HubSubscriptionState {
+		guard let licenseToken = iosLicenseToken, !licenseToken.isEmpty else {
+			return getLegacySubscriptionState(from: legacySubscriptionState)
+		}
+		do {
+			switch try hubLicenseVerifier.verify(token: licenseToken) {
+			case .valid:
+				return .active
+			case .expired:
+				DDLogInfo("Hub-iOS-License expired, defaulting to inactive")
+				return .inactive
+			}
+		} catch {
+			DDLogError("Hub-iOS-License verification failed: \(error), defaulting to inactive")
+			return .inactive
+		}
+	}
+
+	private func getLegacySubscriptionState(from legacySubscriptionState: String?) -> HubSubscriptionState {
+		guard let subscriptionStateValue = legacySubscriptionState else {
 			DDLogInfo("Hub-Subscription-State header missing, defaulting to inactive")
 			return .inactive
 		}
