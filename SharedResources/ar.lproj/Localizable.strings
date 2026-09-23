@@ -88,9 +88,14 @@
 "cloudProvider.error.pageTokenInvalid" = "لا يمكن متابعة جلب محتويات الدليل.";
 "cloudProvider.error.quotaInsufficient" = "مساحة التخزين الخاصة بك غير كافية.";
 "cloudProvider.error.unauthorized" = "غير قادر على تنفيذ عملية غير مصرح بها.";
+"cloudProvider.error.unauthorized.reauth.title" = "انتهت الجلسة";
+"cloudProvider.error.unauthorized.reauth.message" = "يرجى تسجيل الدخول إلى %@ مرة أخرى.";
+"cloudProvider.error.unauthorized.reauth.button" = "تسجيل الدخول";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "لقد سجّلت الدخول بحساب مختلف. يرجى المحاولة مرة أخرى وتسجيل الدخول باستخدام حساب %@ الأصلي.";
 "cloudProvider.error.noInternetConnection" = "الاتصال بشبكة الإنترنت لازم لهذه العملية.";
 
 "cloudProviderType.localFileSystem" = "موفر ملفات آخر";
+"cloudProviderType.sharePoint.secondary" = "بما في ذلك Microsoft Teams";
 
 "fileProvider.onboarding.title" = "مرحباً بك";
 "fileProvider.onboarding.info" = "شكراً لاختيار Cryptomator لحماية ملفاتك. للبدء، اذهب إلى التطبيق الرئيس وأضف مخزن.";
@@ -126,8 +131,16 @@
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
+"hubAuthentication.trustHost.alert.title" = "هل تثق بهذا الخادم؟";
+"hubAuthentication.trustHost.alert.message" = "تريد هذه الخزنة الاتصال بالخادم (الخوادم) التالية:\n\n%@\n\nهل تثق بهذا الخادم؟";
 "hubAuthentication.trustHost.alert.trustButton" = "ثق";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "تحتوي إعدادات الخزنة على عناوين URL غير متسقة للخادم. يرجى التواصل مع مالك الخزنة.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "الاتصال غير الآمن (HTTP) بـ \"%@\" غير مسموح به. يرجى استخدام HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "المضيف غير موثوق";
 "hubAuthentication.vaultArchived" = "تم أرشفة هذه الخزنة، الرجاء طلب من مالك الخزنة إلغاء أرشفته.";
+
+"intents.clearCache.description" = "يمسح ذاكرة التخزين المؤقت المحلية للملفات في Cryptomator.";
+"intents.clearCache.cacheCleared" = "تم مسح ذاكرة التخزين المؤقت.";
 
 "intents.saveFile.missingFile" = "الملف المقدم غير صالح.";
 "intents.saveFile.invalidFolder" = "المجلد المقدم غير صالح.";
@@ -144,8 +157,13 @@
 "keepUnlockedDuration.auto" = "السماح لنظام iOS بالتحديد تلقائيًا";
 "keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
 "keepUnlockedDuration.indefinite" = "دائم";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "في الشاشة التالية، انتقل إلى iCloud Drive، واختر موقع تخزين، ثم اضغط على فتح.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "في الشاشة التالية، انتقل إلى موقع التخزين الخاص بك، واختره، ثم اضغط على فتح.";
 "localFileSystemAuthentication.createNewVault.button" = "حدد موقع التخزين";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "يوجد مخزن بالفعل في هذا الموقع. الرجاء المحاولة مرة أخرى مع موقع تخزين مختلف.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "في الشاشة التالية، انتقل إلى iCloud Drive، واختر مجلد الخزنة الخاص بك، ثم اضغط على فتح.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "في الشاشة التالية، انتقل إلى مجلد الخزنة الخاص بك، واختره، ثم اضغط على فتح.";
 "localFileSystemAuthentication.openExistingVault.button" = "حدد مجلد المخزن";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
 "localFileSystemAuthentication.info.footer" = "موفرو الملفات الذين يظهرون باللون الرمادي لا يدعمون \"اختيار المجلدات\". هذا ليس قيدًا من Cryptomator.";
@@ -194,12 +212,19 @@
 "purchase.title" = "فتح النسخة الكاملة";
 "purchase.unlockedFullVersion.message" = "يمكنك الآن استخدام النسخة الكاملة من Cryptomter. تشفير سعيد!";
 "purchase.unlockedFullVersion.title" = "شكراً لك";
+"purchase.error.paymentNotAllowed" = "عمليات الشراء داخل التطبيق غير مسموح بها على هذا الجهاز. يرجى التحقق من إعدادات وقت الشاشة ضمن قيود المحتوى والخصوصية لتمكين عمليات الشراء.";
 "purchase.error.unknown" = "هذه الشراء غير متاح في متجر التطبيقات لسبب غير معروف. يرجى المحاولة مرة أخرى لاحقًا.\n\nإذا استمرت هذه المشكلة، حاول إعادة تشغيل جهازك أو تسجيل الخروج وتسجيل الدخول مرة أخرى إلى حساب Apple ID الخاص بك في إعدادات iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "لديك اشتراك نشط";
+"purchase.lifetime.hasSubscription.alert.message" = "بعد شراء ترخيص مدى الحياة، ستحتاج إلى إلغاء اشتراكك السنوي لتجنب تحصيل رسوم كليهما.";
+"purchase.lifetime.hasSubscription.hint" = "ألغِ اشتراكك بعد الشراء لتجنب الرسوم المزدوجة.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "تم تفعيل ترخيص مدى الحياة";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "لإيقاف رسوم الاشتراك المستقبلية، يرجى إلغاء اشتراكك السنوي.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "إدارة الاشتراك";
 
 "settings.title" = "الإعدادات";
 "settings.aboutCryptomator" = "حول Cryptomator";
 "settings.aboutCryptomator.title" = "الإصدار %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "لقد فتحت النسخة الكاملة وحصلت على حق الكتابة في خزائنك.";
 "settings.cacheSize" = "حجم ذاكرة التخزين المؤقت";
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 "settings.cloudServices" = "الخدمات السحابية";
@@ -211,6 +236,10 @@
 "settings.sendLogFile" = "إرسال ملف السجل";
 "settings.shortcutsGuide" = "دليل الاختصارات";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
+"settings.unlockFullVersion.detail" = "احصل على حق الكتابة في خزائنك.";
+"settings.unlockFullVersion.trialExpirationDate" = "تاريخ انتهاء الفترة التجريبية: %@";
+"settings.upgradeToLifetime" = "الترقية إلى مدى الحياة";
+"settings.hub.trustedHosts" = "مضيفو Hub الموثوقون";
 
 "sharePoint.enterURL.title" = "ادخل رابط SharePoint";
 "sharePoint.enterURL.placeholder" = "رابط موقع SharePoint";
@@ -223,10 +252,16 @@
 
 "shareVault.title" = "مشاركة الخزانة";
 "shareVault.normal.header.title" = "الطريقة الآمنة للعمل ضمن الفرق";
+"shareVault.normal.header.features" = "تعاون بأمان مع فريقك. امنح حق الوصول وألغِه في أي وقت دون مشاركة كلمات المرور.";
+"shareVault.normal.footer.text" = "لمزيد من المعلومات، اطّلع على اقتراحات أفضل الممارسات في [docs](%@).";
 "shareVault.normal.button.visitHub" = "زيارة Cryptomator Hub";
 "shareVault.hub.header.title" = "كيفية مشاركة خزانة Hub";
 "shareVault.hub.header.subtitle" = "لمشاركة محتوى الخزانة مع عضو آخر في الفريق، عليك القيام بخطوتين:";
+"shareVault.hub.step1" = "شارك حق الوصول إلى مجلد الخزنة المشفّر عبر التخزين السحابي.";
+"shareVault.hub.step2" = "امنح حق الوصول لعضو الفريق في Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "زيارة Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "تعذّر تحميل معلومات Hub";
+"shareVault.error.hubURLExtraction.message" = "تعذّر تحميل إعدادات Hub للخزنة. يرجى التحقق من إعدادات الخزنة أو التواصل مع مسؤول Hub.";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
@@ -252,6 +287,10 @@
 
 "trialStatus.active" = "مفعل";
 "trialStatus.expired" = "منتهية الصلاحية";
+
+"trustedHubHosts.clearAll" = "مسح الكل";
+"trustedHubHosts.clearAll.alert.message" = "ستتم إزالة جميع مضيفي Hub الموثوقين سابقًا. ستحتاج إلى تأكيد الثقة مرة أخرى عند الاتصال بخزائن Hub.";
+"trustedHubHosts.emptyList.message" = "لا يوجد مضيفو Hub موثوقون بعد. تتم إضافة المضيفين عند اتصالك بخزنة Hub لأول مرة.";
 
 "unlockVault.button.unlock" = "افتح";
 "unlockVault.button.unlockVia" = "فتح عبر %@";
@@ -288,6 +327,7 @@
 "vaultDetail.button.removeVault" = "إزالة من قائمة المخازن";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
 "vaultDetail.button.shareVault" = "مشاركة الخزانة";
+"vaultDetail.shareVault.footer" = "تعاون بأمان مع فريقك باستخدام Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "اختر كلمة مرور قوية لخزانتك يعرفها فقط أنت واحفظها في مكان آمن.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "إذا مكّنت %@، سيتم تخزين كلمة المرور الخاصة بك في سلسلة مفاتيح iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "ستكون كلمة مرور خزينتك مطلوبة فقط إذا فشلت مصادقة %@.";
