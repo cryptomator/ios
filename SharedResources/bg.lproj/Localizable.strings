@@ -23,7 +23,7 @@
 "addVault.openExistingVault.downloadVault.progress" = "Изтегля се хранилище…";
 "fileProvider.error.unlockButton" = "Отключване";
 
-"hubAuthentication.title" = "Хранилище на Hub";
+"hubAuthentication.title" = "Хъб трезор хранилище";
 "hubAuthentication.licenseExceeded" = "Лиценза на екземпляра на Концентратора на Криптоматор който вие използвате е лиценз. Информирайте администратора на Концентратора, за да поднови или надгради лиценза.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Име на устройството";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Изглежда, че това е първи достъп до Hub от това устройство. За да го разпознаете при разрешаване на достъпа, трябва да му дадете име.";
