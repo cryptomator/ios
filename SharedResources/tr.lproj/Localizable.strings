@@ -132,6 +132,7 @@
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Profile Git";
 "hubAuthentication.trustHost.alert.trustButton" = "Güven";
 "hubAuthentication.vaultArchived" = "Bu kasa arşivlendi. Lütfen kasa sahibinden onu açmasını isteyin.";
+"intents.clearCache.cacheCleared" = "Bellek temizlendi.";
 
 "intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";
 "intents.saveFile.invalidFolder" = "Sağlanan klasör geçersiz.";

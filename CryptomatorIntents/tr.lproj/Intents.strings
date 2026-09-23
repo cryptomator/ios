@@ -30,4 +30,4 @@
 "saveFileIntent.title" = "Dosyayı kaydet";
 
 "vaultFolder.displayName" = "Kasa Klasörü";
-"vaultFolder.vaultIdentifier" = "Kasa Tanımlayıcısı";
+"vaultFolder.vaultIdentifier" = "Kasa Kimliği";
