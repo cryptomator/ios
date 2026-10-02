@@ -26,7 +26,6 @@ public class ItemMetadata: Record, Codable {
 	var parentID: Int64
 	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
-	var cloudPath: CloudPath
 	var isPlaceholderItem: Bool
 	var isMaybeOutdated: Bool
 	var favoriteRank: Int64?
@@ -41,7 +40,6 @@ public class ItemMetadata: Record, Codable {
 		self.parentID = row[Columns.parentID]
 		self.lastModifiedDate = row[Columns.lastModifiedDate]
 		self.statusCode = row[Columns.statusCode]
-		self.cloudPath = row[Columns.cloudPath]
 		self.isPlaceholderItem = row[Columns.isPlaceholderItem]
 		self.isMaybeOutdated = row[Columns.isMaybeOutdated]
 		self.favoriteRank = row[Columns.favoriteRank]
@@ -51,10 +49,10 @@ public class ItemMetadata: Record, Codable {
 	}
 
 	convenience init(item: CloudItemMetadata, withParentID parentID: Int64, isPlaceholderItem: Bool = false) {
-		self.init(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
+		self.init(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, isPlaceholderItem: isPlaceholderItem)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false, favoriteRank: Int64? = nil, tagData: Data? = nil, lastEnumeratedAt: Date? = nil) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false, favoriteRank: Int64? = nil, tagData: Data? = nil, lastEnumeratedAt: Date? = nil) {
 		self.id = id
 		self.name = name
 		self.type = type
@@ -62,7 +60,6 @@ public class ItemMetadata: Record, Codable {
 		self.parentID = parentID
 		self.lastModifiedDate = lastModifiedDate
 		self.statusCode = statusCode
-		self.cloudPath = cloudPath
 		self.isPlaceholderItem = isPlaceholderItem
 		self.isMaybeOutdated = isCandidateForCacheCleanup
 		self.favoriteRank = favoriteRank
@@ -83,7 +80,6 @@ public class ItemMetadata: Record, Codable {
 		container[Columns.parentID] = parentID
 		container[Columns.lastModifiedDate] = lastModifiedDate
 		container[Columns.statusCode] = statusCode
-		container[Columns.cloudPath] = cloudPath
 		container[Columns.isPlaceholderItem] = isPlaceholderItem
 		container[Columns.isMaybeOutdated] = isMaybeOutdated
 		container[Columns.favoriteRank] = favoriteRank
@@ -92,7 +88,7 @@ public class ItemMetadata: Record, Codable {
 	}
 
 	enum Columns: String, ColumnExpression {
-		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData, lastEnumeratedAt
+		case id, name, type, size, parentID, lastModifiedDate, statusCode, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData, lastEnumeratedAt
 	}
 
 	static func filterWorkingSet() -> QueryInterfaceRequest<ItemMetadata> {
@@ -103,6 +99,6 @@ public class ItemMetadata: Record, Codable {
 extension ItemStatus: DatabaseValueConvertible {}
 extension ItemMetadata: Equatable {
 	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
-		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData && lhs.lastEnumeratedAt == rhs.lastEnumeratedAt
+		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData && lhs.lastEnumeratedAt == rhs.lastEnumeratedAt
 	}
 }

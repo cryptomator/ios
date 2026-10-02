@@ -32,7 +32,9 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		reparentTaskManagerMock = ReparentTaskManagerMock()
 		deletionTaskManagerMock = DeletionTaskManagerMock()
 		itemEnumerationTaskManagerMock = ItemEnumerationTaskManagerMock()
+		itemEnumerationTaskManagerMock.itemMetadataManager = metadataManagerMock
 		downloadTaskManagerMock = DownloadTaskManagerMock()
+		downloadTaskManagerMock.itemMetadataManager = metadataManagerMock
 		deleteItemHelper = DeleteItemHelper(itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
@@ -51,7 +53,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var setFavoriteRank = [Int64: Int64?]()
 
 		func cacheMetadata(_ metadata: ItemMetadata) throws {
-			if let cachedItemMetadata = try getCachedMetadata(for: metadata.cloudPath) {
+			if let cachedItemMetadata = try childOfFolder(parentID: metadata.parentID, name: metadata.name), cachedItemMetadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
 				metadata.id = cachedItemMetadata.id
 				metadata.statusCode = cachedItemMetadata.statusCode
 				metadata.tagData = cachedItemMetadata.tagData
@@ -75,6 +77,9 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func updateMetadata(_ metadata: ItemMetadata) throws {
 			updatedMetadata.append(metadata)
+			if let id = metadata.id {
+				cachedMetadata[id] = metadata
+			}
 		}
 
 		func cacheMetadata(_ itemMetadataList: [ItemMetadata]) throws {
@@ -83,8 +88,49 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			}
 		}
 
+		func getCloudPath(for id: Int64) throws -> CloudPath {
+			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+			if id == rootID {
+				return CloudPath("/")
+			}
+			var components = [String]()
+			var currentID = id
+			var depth = 0
+			while currentID != rootID {
+				guard let metadata = cachedMetadata[currentID] else {
+					throw FileProviderAdapterError.itemNotFound
+				}
+				components.insert(metadata.name, at: 0)
+				currentID = metadata.parentID
+				depth += 1
+				if depth > 1024 {
+					throw FileProviderAdapterError.unresolvableParentChain
+				}
+			}
+			return components.reduce(CloudPath("/")) { $0.appendingPathComponent($1) }
+		}
+
 		func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
-			cachedMetadata.first(where: { $1.cloudPath == cloudPath })?.value
+			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+			if cloudPath == CloudPath("/") {
+				return cachedMetadata[rootID]
+			}
+			var currentID = rootID
+			var current: ItemMetadata?
+			let components = cloudPath.pathComponents.dropFirst()
+			for component in components {
+				guard let child = try childOfFolder(parentID: currentID, name: String(component)) else {
+					return nil
+				}
+				currentID = child.id!
+				current = child
+			}
+			return current
+		}
+
+		private func childOfFolder(parentID: Int64, name: String) throws -> ItemMetadata? {
+			let lowercasedName = name.lowercased()
+			return cachedMetadata.values.first(where: { $0.parentID == parentID && $0.name.lowercased() == lowercasedName && $0.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue })
 		}
 
 		func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
@@ -133,15 +179,17 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
+			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
+			if parent.id == rootID {
+				return cachedMetadata.values.filter { $0.id != rootID }
+			}
 			var result = [ItemMetadata]()
-			for metadata in cachedMetadata.values {
-				if metadata.id == parent.id {
-					continue
-				}
-				if metadata.parentID == parent.id {
+			var queue: [Int64] = [parent.id!]
+			while let current = queue.first {
+				queue.removeFirst()
+				for metadata in cachedMetadata.values where metadata.parentID == current && metadata.id != current {
 					result.append(metadata)
-				} else if metadata.cloudPath.path.hasPrefix(parent.cloudPath.path) {
-					result.append(metadata)
+					queue.append(metadata.id!)
 				}
 			}
 			return result
@@ -260,8 +308,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var deletionTasks = [Int64: DeletionTaskRecord]()
 		var associatedItemMetadata = [Int64: ItemMetadata]()
 
-		func createTaskRecord(for item: ItemMetadata) throws -> DeletionTaskRecord {
-			let deletionTask = DeletionTaskRecord(correspondingItem: item.id!, cloudPath: item.cloudPath, parentID: item.parentID, itemType: item.type)
+		func createTaskRecord(for item: ItemMetadata, cloudPath: CloudPath) throws -> DeletionTaskRecord {
+			let deletionTask = DeletionTaskRecord(correspondingItem: item.id!, cloudPath: cloudPath, parentID: item.parentID, itemType: item.type)
 			deletionTasks[item.id!] = deletionTask
 			associatedItemMetadata[item.id!] = item
 			return deletionTask
@@ -290,7 +338,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			guard let itemMetadata = associatedItemMetadata[deletionTask.correspondingItem] else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata)
+			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata, cloudPath: deletionTask.cloudPath)
 		}
 	}
 
@@ -299,11 +347,18 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var reparentTasks = [Int64: ReparentTaskRecord]()
 		var removedReparentTasks = [ReparentTaskRecord]()
 
-		func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
-			let taskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
+		func createTaskRecord(for itemMetadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
+			let taskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
 			reparentTasks[itemMetadata.id!] = taskRecord
 			associatedItemMetadata[itemMetadata.id!] = itemMetadata
 			return taskRecord
+		}
+
+		func renameItemAndUpdateReparentTask(itemMetadata: ItemMetadata, newName: String, targetCloudPath: CloudPath, reparentRecord: ReparentTaskRecord) throws -> ReparentTaskRecord {
+			itemMetadata.name = newName
+			let refreshed = ReparentTaskRecord(correspondingItem: reparentRecord.correspondingItem, sourceCloudPath: reparentRecord.sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: reparentRecord.oldParentID, newParentID: reparentRecord.newParentID)
+			reparentTasks[reparentRecord.correspondingItem] = refreshed
+			return refreshed
 		}
 
 		func removeTaskRecord(_ task: ReparentTaskRecord) throws {
@@ -330,7 +385,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			guard let itemMetadata = associatedItemMetadata[reparentTask.correspondingItem] else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata)
+			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata, cloudPath: reparentTask.sourceCloudPath)
 		}
 	}
 
@@ -338,9 +393,13 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var removedTaskRecords = [ItemEnumerationTaskRecord]()
 		var createdTasks = [ItemEnumerationTask]()
 
+		var itemMetadataManager: ItemMetadataManager?
+		var stubCloudPath: CloudPath?
+
 		func createTask(for item: ItemMetadata, pageToken: String?) throws -> ItemEnumerationTask {
 			let taskRecord = ItemEnumerationTaskRecord(correspondingItem: item.id!, pageToken: pageToken)
-			let task = ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item)
+			let cloudPath = try stubCloudPath ?? itemMetadataManager?.getCloudPath(for: item.id!) ?? CloudPath("/")
+			let task = ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item, cloudPath: cloudPath)
 			createdTasks.append(task)
 			return task
 		}
@@ -354,10 +413,14 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var removedTasks = [DownloadTaskRecord]()
 		var lastOnURLSessionTaskCreation: URLSessionTaskCreationClosure?
 
+		var itemMetadataManager: ItemMetadataManager?
+		var stubCloudPath: CloudPath?
+
 		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: CryptomatorFileProvider.URLSessionTaskCreationClosure?) throws -> DownloadTask {
 			lastOnURLSessionTaskCreation = onURLSessionTaskCreation
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
-			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, onURLSessionTaskCreation: onURLSessionTaskCreation)
+			let cloudPath = try stubCloudPath ?? itemMetadataManager?.getCloudPath(for: item.id!) ?? CloudPath("/")
+			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
 		}
 
 		func removeTaskRecord(_ task: DownloadTaskRecord) throws {

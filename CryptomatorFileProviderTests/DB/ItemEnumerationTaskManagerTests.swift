@@ -19,13 +19,13 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 	override func setUpWithError() throws {
 		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
-		manager = try ItemEnumerationTaskDBManager(database: inMemoryDB)
+		manager = try ItemEnumerationTaskDBManager(database: inMemoryDB, itemMetadataManager: ItemMetadataDBManager(database: inMemoryDB))
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
 	func testCreateAndGetTaskRecord() throws {
 		let cloudPath = CloudPath("/Test")
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let pageToken: String? = nil
 		let createdTask = try manager.createTask(for: itemMetadata, pageToken: pageToken)
@@ -33,6 +33,7 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 		XCTAssertEqual(fetchedTask, createdTask.taskRecord)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.correspondingItem)
 		XCTAssertEqual(pageToken, fetchedTask.pageToken)
+		XCTAssertEqual(cloudPath, createdTask.cloudPath)
 	}
 
 	private func getTaskRecord(for id: Int64) throws -> ItemEnumerationTaskRecord {

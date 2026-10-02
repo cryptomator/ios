@@ -179,11 +179,11 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		let itemMetadataManager = ItemMetadataDBManager(database: database)
 		let cachedFileManager = CachedFileDBManager(database: database,
 		                                            fileManagerHelper: .init(fileCoordinator: fileCoordinator))
-		let uploadTaskManager = UploadTaskDBManager(database: database)
+		let uploadTaskManager = UploadTaskDBManager(database: database, itemMetadataManager: itemMetadataManager)
 		let reparentTaskManager = try ReparentTaskDBManager(database: database)
 		let deletionTaskManager = try DeletionTaskDBManager(database: database)
-		let itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: database)
-		let downloadTaskManager = try DownloadTaskDBManager(database: database)
+		let itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: database, itemMetadataManager: itemMetadataManager)
+		let downloadTaskManager = try DownloadTaskDBManager(database: database, itemMetadataManager: itemMetadataManager)
 		let maintenanceManager = MaintenanceDBManager(database: database)
 
 		let adapter = FileProviderAdapter(domainIdentifier: domainIdentifier,

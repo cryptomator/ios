@@ -42,7 +42,7 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 
 	func testRecoverStuckUploads_marksErrorWhenLocalFileMissing() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let taskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
@@ -60,7 +60,7 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 
 	func testRecoverStuckUploads_reschedulesWhenLocalFileExists() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		// Create a local file
@@ -83,7 +83,7 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 
 	func testRecoverStuckUploads_retriesConnectivityFailedUploads() throws {
 		let cloudPath = CloudPath("/OfflineFile.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		// Create a local file
@@ -131,7 +131,7 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 
 	func testRecoverStuckUploads_marksErrorForRetryableUploadWithMissingLocalFile() throws {
 		let cloudPath = CloudPath("/OfflineFile.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		// No cached file info exists
 

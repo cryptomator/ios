@@ -55,7 +55,7 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
 
-		return provider.createFolder(at: itemMetadata.cloudPath).then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
+		return provider.createFolder(at: task.cloudPath).then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try itemMetadataManager.updateMetadata(itemMetadata)

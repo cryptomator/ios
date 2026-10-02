@@ -13,7 +13,7 @@ import XCTest
 class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 	func testCreateDirectory() throws {
 		let expectation = XCTestExpectation()
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
 		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: .rootContainer) { item, error in
@@ -27,7 +27,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 			XCTAssertFalse(fileProviderItem.isUploaded)
 			XCTAssertEqual("public.folder", fileProviderItem.typeIdentifier)
 			XCTAssert(fileProviderItem.metadata.isPlaceholderItem)
-			XCTAssertEqual(CloudPath("/TestFolder"), fileProviderItem.metadata.cloudPath)
+			XCTAssertEqual("TestFolder", fileProviderItem.metadata.name)
 			XCTAssertNotNil(fileProviderItem.metadata.id)
 
 			XCTAssertEqual(2, self.metadataManagerMock.cachedMetadata.count)
@@ -62,7 +62,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 	// MARK: Create Placeholder
 
 	func testCreatePlaceholderItemForFolder() throws {
-		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		let placeholderItem = try adapter.createPlaceholderItemForFolder(withName: "TestFolder", in: .rootContainer)
@@ -71,7 +71,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 		XCTAssertFalse(placeholderItem.isUploaded)
 		XCTAssertEqual("public.folder", placeholderItem.typeIdentifier)
 		XCTAssert(placeholderItem.metadata.isPlaceholderItem)
-		XCTAssertEqual(CloudPath("/TestFolder"), placeholderItem.metadata.cloudPath)
+		XCTAssertEqual("TestFolder", placeholderItem.metadata.name)
 		XCTAssertNotNil(placeholderItem.metadata.id)
 
 		XCTAssertEqual(2, metadataManagerMock.cachedMetadata.count)

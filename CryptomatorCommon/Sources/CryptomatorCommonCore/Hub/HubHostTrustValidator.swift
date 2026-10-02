@@ -82,7 +82,9 @@ public enum HubHostTrustValidator {
 	private static func checkHTTP(_ urls: [URL]) throws {
 		for url in urls {
 			guard url.scheme?.lowercased() == "http" else { continue }
-			if isLocalhost(url) { continue }
+			if isLocalhost(url) {
+				continue
+			}
 			throw HubHostTrustError.httpNotAllowed(url.absoluteString)
 		}
 	}

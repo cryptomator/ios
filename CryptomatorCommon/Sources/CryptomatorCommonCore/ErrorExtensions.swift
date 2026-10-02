@@ -24,6 +24,16 @@ public extension Error {
 		return false
 	}
 
+	var isUnauthorizedError: Bool {
+		if let cloudProviderError = self as? CloudProviderError, cloudProviderError == .unauthorized {
+			return true
+		}
+		if let localizedError = self as? LocalizedCloudProviderError, case .unauthorized = localizedError {
+			return true
+		}
+		return false
+	}
+
 	var isTransientConnectivityError: Bool {
 		if isNoInternetConnectionError {
 			return true

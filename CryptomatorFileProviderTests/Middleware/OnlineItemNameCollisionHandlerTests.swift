@@ -39,15 +39,15 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let originalCloudPath = CloudPath("/foo.txt")
 		let workflowMock = WorkflowMiddlewareMock<Void> { task in
-			if task.itemMetadata.cloudPath == originalCloudPath {
+			if task.cloudPath == originalCloudPath {
 				return Promise(CloudProviderError.itemAlreadyExists)
 			}
 			return Promise(())
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: originalCloudPath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
-		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
+		middleware.execute(task: FolderCreationTask(itemMetadata: itemMetadata, cloudPath: originalCloudPath)).then {
 			guard let itemID = itemMetadata.id, let cachedItemMetadata = try self.itemMetadataManager.getCachedMetadata(for: itemID) else {
 				XCTFail("ItemMetadata not found in DB")
 				return
@@ -59,9 +59,10 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			XCTAssert(cachedItemMetadata.name.hasSuffix(").txt"))
 			XCTAssertEqual(15, cachedItemMetadata.name.count)
 
-			XCTAssert(cachedItemMetadata.cloudPath.path.hasPrefix("/foo ("))
-			XCTAssert(cachedItemMetadata.cloudPath.path.hasSuffix(").txt"))
-			XCTAssertEqual(16, cachedItemMetadata.cloudPath.path.count)
+			let cachedCloudPath = (try? self.itemMetadataManager.getCloudPath(for: itemID)) ?? CloudPath("/")
+			XCTAssert(cachedCloudPath.path.hasPrefix("/foo ("))
+			XCTAssert(cachedCloudPath.path.hasSuffix(").txt"))
+			XCTAssertEqual(16, cachedCloudPath.path.count)
 
 			// Check that the remaining item metadata properties have not changed.
 
@@ -85,10 +86,11 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
-		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
+		let sampleCloudPath = CloudPath("/foo.txt")
+		middleware.execute(task: FolderCreationTask(itemMetadata: itemMetadata, cloudPath: sampleCloudPath)).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.itemAlreadyExists = error else {
@@ -105,9 +107,10 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			XCTAssert(cachedItemMetadata.name.hasSuffix(").txt"))
 			XCTAssertEqual(15, cachedItemMetadata.name.count)
 
-			XCTAssert(cachedItemMetadata.cloudPath.path.hasPrefix("/foo ("))
-			XCTAssert(cachedItemMetadata.cloudPath.path.hasSuffix(").txt"))
-			XCTAssertEqual(16, cachedItemMetadata.cloudPath.path.count)
+			let cachedCloudPath = (try? self.itemMetadataManager.getCloudPath(for: itemID)) ?? CloudPath("/")
+			XCTAssert(cachedCloudPath.path.hasPrefix("/foo ("))
+			XCTAssert(cachedCloudPath.path.hasSuffix(").txt"))
+			XCTAssertEqual(16, cachedCloudPath.path.count)
 
 			// Check that the remaining item metadata properties have not changed.
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
@@ -126,10 +129,11 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemNotFound)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
-		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
+		let sampleCloudPath = CloudPath("/foo.txt")
+		middleware.execute(task: FolderCreationTask(itemMetadata: itemMetadata, cloudPath: sampleCloudPath)).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.itemNotFound = error else {
@@ -143,7 +147,6 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 
 			// Check that the item metadata properties have not changed.
 			XCTAssertEqual("foo.txt", cachedItemMetadata.name)
-			XCTAssertEqual(CloudPath("/foo.txt"), cachedItemMetadata.cloudPath)
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
 			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, cachedItemMetadata.parentID)
@@ -153,9 +156,5 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 5.0)
-	}
-
-	private struct SampleCloudTask: CloudTask {
-		let itemMetadata: ItemMetadata
 	}
 }

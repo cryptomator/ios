@@ -78,13 +78,7 @@ class S3AuthenticationViewModel: ObservableObject {
 	}
 
 	private func handleError(_ error: Error) {
-		let convertedError: Error
-		switch error {
-		case LocalizedCloudProviderError.unauthorized, CloudProviderError.unauthorized:
-			convertedError = S3AuthenticationError.invalidCredentials
-		default:
-			convertedError = error
-		}
+		let convertedError = error.isUnauthorizedError ? S3AuthenticationError.invalidCredentials : error
 		loginState = .error(convertedError)
 	}
 }

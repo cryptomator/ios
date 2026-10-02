@@ -16,8 +16,8 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var hasRunningSubscription: Bool = false
 	var trustedHubAuthorities: Set<String> = []
 	#if !ALWAYS_PREMIUM
-	var summer2026BannerDismissed: Bool = false
-	var summer2026UnlockPromoShown: Bool = false
+	var halloween2026BannerDismissed: Bool = false
+	var halloween2026UnlockPromoShown: Bool = false
 	#endif
 }
 #endif

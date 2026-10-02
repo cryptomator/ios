@@ -19,15 +19,15 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
 		let progressManagerMock = ProgressManagerMock()
-		let itemMetadata = ItemMetadata(id: itemID, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(), localURL: localURL)
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock, progressManager: progressManagerMock)
 
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
-		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
+		cloudProviderMock.lastModifiedDate[cloudPath.path] = mockedCloudDate
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
-		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: nil)
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTAssertEqual(Data("TestContent".utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
 
@@ -39,7 +39,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 			let cachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
 			let lastModifiedDate = cachedFileInfo?.lastModifiedDate
 			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path], lastModifiedDate)
+			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 
 			// Verify that the upload task has been removed
 			XCTAssertEqual([itemMetadata.id], self.uploadTaskManagerMock.removeTaskRecordForReceivedInvocations)
@@ -61,15 +61,15 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
-		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
-		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
+		cloudProviderMock.lastModifiedDate[cloudPath.path] = mockedCloudDate
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
-		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: nil)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTFail("Promise should not fulfill for missing local cached file info")
@@ -90,17 +90,17 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
-		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[2] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: 2, localLastModifiedDate: Date(), localURL: localURL)
 
 		let cloudProviderUploadInconsistencyMock = CloudProviderUploadInconsistencyMock()
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
-		cloudProviderUploadInconsistencyMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
+		cloudProviderUploadInconsistencyMock.lastModifiedDate[cloudPath.path] = mockedCloudDate
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderUploadInconsistencyMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
-		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: nil)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { item in
 			// Verify that the file has been modified since the upload began.
@@ -133,7 +133,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/itemNotFound.txt")
-		let itemMetadata = ItemMetadata(id: 2, name: "itemNotFound.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "itemNotFound.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[2] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: 2, localLastModifiedDate: Date(), localURL: localURL)
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
@@ -144,7 +144,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
-		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: nil)
 
 		let promise = uploadTaskExecutor.execute(task: uploadTask)
 		wait(for: promise)

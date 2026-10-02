@@ -27,11 +27,11 @@ class MaintenanceManagerTests: XCTestCase {
 		try DatabaseHelper.migrate(inMemoryDB)
 		manager = MaintenanceDBManager(database: inMemoryDB)
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
-		uploadTaskManager = UploadTaskDBManager(database: inMemoryDB)
+		uploadTaskManager = UploadTaskDBManager(database: inMemoryDB, itemMetadataManager: ItemMetadataDBManager(database: inMemoryDB))
 		reparentTaskManager = try ReparentTaskDBManager(database: inMemoryDB)
 		deletionTaskManager = try DeletionTaskDBManager(database: inMemoryDB)
-		itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: inMemoryDB)
-		downloadTaskManager = try DownloadTaskDBManager(database: inMemoryDB)
+		itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: inMemoryDB, itemMetadataManager: ItemMetadataDBManager(database: inMemoryDB))
+		downloadTaskManager = try DownloadTaskDBManager(database: inMemoryDB, itemMetadataManager: ItemMetadataDBManager(database: inMemoryDB))
 	}
 
 	func testPreventEnablingMaintenanceModeTwice() throws {
@@ -45,7 +45,7 @@ class MaintenanceManagerTests: XCTestCase {
 	// MARK: - Prevent the creation of New tasks when in maintenance mode
 
 	func testPreventCreatingUploadTasks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		// Prevent INSERT
@@ -54,25 +54,25 @@ class MaintenanceManagerTests: XCTestCase {
 	}
 
 	func testPreventCreatingReparentTasks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		try checkThrowsMaintenanceError(reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: CloudPath("Foo"), newParentID: 1))
+		try checkThrowsMaintenanceError(reparentTaskManager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: CloudPath("Foo"), newParentID: 1))
 	}
 
 	func testPreventCreatingDeletionTasks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		try checkThrowsMaintenanceError(deletionTaskManager.createTaskRecord(for: itemMetadata))
+		try checkThrowsMaintenanceError(deletionTaskManager.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name)))
 	}
 
 	func testPreventCreatingItemEnumerationTasks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		// Prevent INSERT
@@ -81,7 +81,7 @@ class MaintenanceManagerTests: XCTestCase {
 	}
 
 	func testPreventCreatingDownloadTasks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		// Prevent INSERT
@@ -92,14 +92,14 @@ class MaintenanceManagerTests: XCTestCase {
 	// MARK: - Prevent enabling maintenance mode for running tasks
 
 	func testPreventEnablingMaintenanceModeForRunningUploadTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 
 	func testAllowMaintenanceModeForFailedUploadTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		var task = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
 
@@ -109,28 +109,28 @@ class MaintenanceManagerTests: XCTestCase {
 	}
 
 	func testPreventEnablingMaintenanceModeForRunningReparentTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
-		_ = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: CloudPath("Foo"), newParentID: 1)
+		_ = try reparentTaskManager.createTaskRecord(for: itemMetadata, sourceCloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name), targetCloudPath: CloudPath("Foo"), newParentID: 1)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 
 	func testPreventEnablingMaintenanceModeForRunningDeletionTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
-		_ = try deletionTaskManager.createTaskRecord(for: itemMetadata)
+		_ = try deletionTaskManager.createTaskRecord(for: itemMetadata, cloudPath: CloudPath("/").appendingPathComponent(itemMetadata.name))
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 
 	func testPreventEnablingMaintenanceModeForRunningItemEnumerationTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try itemEnumerationTaskManager.createTask(for: itemMetadata, pageToken: nil)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 
 	func testPreventEnablingMaintenanceModeForRunningDownloadTask() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: false, localURL: XCTUnwrap(URL(string: "/Test")), onURLSessionTaskCreation: nil)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
