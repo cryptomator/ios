@@ -1,1 +1,3 @@
-Small adjustments to provide you with timely and relevant updates. We hope you enjoy the app!
+- Fixed the unlock screen in the Files app closing without a message when unlocking fails.
+- Fixed Hub vaults opening read-only when Hub is reached through an HTTP/1.1 proxy (#466).
+- Fixed files and folders inside a moved folder pointing to their old location (#450, #459).
