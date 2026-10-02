@@ -451,6 +451,7 @@
 		AA38700530040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
 		AA38700730040326001F5EB9 /* QuickUnlockFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */; };
 		AA38700830040326001F5EB9 /* CloudProviderType+AccountRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700930040326001F5EB9 /* CloudProviderType+AccountRecovery.swift */; };
+		AA5CE0023A8E0000001F5EB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5CE0013A8E0000001F5EB9 /* SceneDelegate.swift */; };
 		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
 		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
@@ -1100,6 +1101,7 @@
 		AA38700430040326001F5EB9 /* DefaultAccountReauthenticationBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountReauthenticationBehavior.swift; sourceTree = "<group>"; };
 		AA38700630040326001F5EB9 /* QuickUnlockFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickUnlockFailure.swift; sourceTree = "<group>"; };
 		AA38700930040326001F5EB9 /* CloudProviderType+AccountRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+AccountRecovery.swift"; sourceTree = "<group>"; };
+		AA5CE0013A8E0000001F5EB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
 		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
@@ -1884,6 +1886,7 @@
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
 				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
+				AA5CE0013A8E0000001F5EB9 /* SceneDelegate.swift */,
 				4A7BC0E825ADF13100F007B3 /* AddVault */,
 				4A8195E325ADB92600F7DDA1 /* Common */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
@@ -2907,6 +2910,7 @@
 				4A3D658626847B11000DA764 /* CreateNewLocalVaultViewModel.swift in Sources */,
 				B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
+				AA5CE0023A8E0000001F5EB9 /* SceneDelegate.swift in Sources */,
 				4AA22C16261CA8D800A17486 /* URLFieldCell.swift in Sources */,
 				4A2FD07925B5D98B008565C8 /* CloudCell.swift in Sources */,
 				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
