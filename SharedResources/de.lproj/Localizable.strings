@@ -131,8 +131,16 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
 "hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
+"hubAuthentication.trustHost.alert.title" = "Diesem Server vertrauen?";
+"hubAuthentication.trustHost.alert.message" = "Dieser Tresor möchte sich mit folgenden Server(n) verbinden:\n\n%@\n\nVertraust du diesem Server?";
 "hubAuthentication.trustHost.alert.trustButton" = "Vertrauen";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "Die Tresor-Konfiguration enthält inkonsistente Server-URLs. Bitte wende dich an den Tresor-Eigentümer.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Eine ungesicherte Verbindung (HTTP) zu „%@“ ist nicht zulässig. Bitte verwende HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Host nicht vertrauenswürdig";
 "hubAuthentication.vaultArchived" = "Dieser Tresor wurde archiviert. Bitte frage den Tresor-Eigentümer, um ihn zu reaktivieren.";
+
+"intents.clearCache.description" = "Löscht den lokalen Dateicache von Cryptomator.";
+"intents.clearCache.cacheCleared" = "Cache geleert.";
 
 "intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
@@ -231,6 +239,7 @@
 "settings.unlockFullVersion.detail" = "Erhalte Schreibzugriff auf deine Tresore.";
 "settings.unlockFullVersion.trialExpirationDate" = "Trial-Ablaufdatum: %@";
 "settings.upgradeToLifetime" = "Upgrade auf Lebenszeit";
+"settings.hub.trustedHosts" = "Vertrauenswürdige Hub-Hosts";
 
 "sharePoint.enterURL.title" = "SharePoint-URL eingeben";
 "sharePoint.enterURL.placeholder" = "SharePoint-Site-URL";
@@ -278,6 +287,10 @@
 
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Abgelaufen";
+
+"trustedHubHosts.clearAll" = "Alle löschen";
+"trustedHubHosts.clearAll.alert.message" = "Alle zuvor vertrauenswürdigen Hub-Hosts werden entfernt. Du musst die Vertrauenswürdigkeit erneut bestätigen, wenn du dich mit Hub-Tresoren verbindest.";
+"trustedHubHosts.emptyList.message" = "Noch keine vertrauenswürdigen Hub-Hosts vorhanden. Hosts werden hinzugefügt, wenn du dich zum ersten Mal mit einem Hub-Tresor verbindest.";
 
 "unlockVault.button.unlock" = "Entsperren";
 "unlockVault.button.unlockVia" = "Entsperren über %@";
