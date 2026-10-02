@@ -44,6 +44,21 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		try FileManager.default.removeItem(at: tmpDirectory)
 	}
 
+	/// Asserts against the values written to the metadata store, not against the live object.
+	func assertPersisted(_ itemMetadata: ItemMetadata, name: String? = nil, statusCode: ItemStatus, file: StaticString = #filePath, line: UInt = #line) throws {
+		let id = try XCTUnwrap(itemMetadata.id, "Item has no id", file: file, line: line)
+		let snapshot = try XCTUnwrap(metadataManagerMock.persistedSnapshots[id], "Item \(id) was never written to the metadata store", file: file, line: line)
+		XCTAssertEqual(statusCode, snapshot.statusCode, "Persisted a different status", file: file, line: line)
+		if let name = name {
+			XCTAssertEqual(name, snapshot.name, "Persisted a different name", file: file, line: line)
+		}
+	}
+
+	struct PersistedMetadata: Equatable {
+		let name: String
+		let statusCode: ItemStatus
+	}
+
 	class MetadataManagerMock: ItemMetadataManager {
 		var cachedMetadata = [Int64: ItemMetadata]()
 		var removedMetadataID = [Int64]()
@@ -51,6 +66,23 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var workingSetMetadata = [ItemMetadata]()
 		var setTagData = [Int64: Data?]()
 		var setFavoriteRank = [Int64: Int64?]()
+		/// A `CloudTask` resolves its path when it is constructed, so this records task construction rather than scheduling.
+		var getCloudPathForReceivedInvocations = [Int64]()
+		/**
+		 Field values as they were at the moment of the write.
+
+		 `cachedMetadata` hands back the very `ItemMetadata` instances production mutates, and the real manager decodes fresh
+		 objects from GRDB — so an assertion against the live instance passes even when the write never happened or ran before
+		 the mutation.
+		 */
+		private(set) var persistedSnapshots = [Int64: PersistedMetadata]()
+
+		private func recordSnapshot(of metadata: ItemMetadata) {
+			guard let id = metadata.id else {
+				return
+			}
+			persistedSnapshots[id] = PersistedMetadata(name: metadata.name, statusCode: metadata.statusCode)
+		}
 
 		func cacheMetadata(_ metadata: ItemMetadata) throws {
 			if let cachedItemMetadata = try childOfFolder(parentID: metadata.parentID, name: metadata.name), cachedItemMetadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
@@ -60,6 +92,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				metadata.favoriteRank = cachedItemMetadata.favoriteRank
 				metadata.lastEnumeratedAt = cachedItemMetadata.lastEnumeratedAt
 				cachedMetadata[cachedItemMetadata.id!] = metadata
+				recordSnapshot(of: metadata)
 				return
 			}
 			if let itemID = metadata.id {
@@ -69,6 +102,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				metadata.id = itemID
 				cachedMetadata[itemID] = metadata
 			}
+			recordSnapshot(of: metadata)
 		}
 
 		func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata? {
@@ -80,6 +114,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			if let id = metadata.id {
 				cachedMetadata[id] = metadata
 			}
+			recordSnapshot(of: metadata)
 		}
 
 		func cacheMetadata(_ itemMetadataList: [ItemMetadata]) throws {
@@ -89,6 +124,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func getCloudPath(for id: Int64) throws -> CloudPath {
+			getCloudPathForReceivedInvocations.append(id)
 			let rootID = NSFileProviderItemIdentifier.rootContainerDatabaseValue
 			if id == rootID {
 				return CloudPath("/")
@@ -224,6 +260,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		func clearCache() throws {}
 
 		var cachedLocalFileInfo = [Int64: LocalCachedFileInfo]()
+		var cacheLocalFileInfoThrowableError: Error?
 		var removeCachedFile = [Int64]()
 
 		func getLocalCachedFileInfo(for identifier: Int64) throws -> LocalCachedFileInfo? {
@@ -235,6 +272,9 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws {
+			if let error = cacheLocalFileInfoThrowableError {
+				throw error
+			}
 			cachedLocalFileInfo[identifier] = LocalCachedFileInfo(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date(), localURL: localURL)
 		}
 

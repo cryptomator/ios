@@ -13,6 +13,7 @@ import Dependencies
 import FileProvider
 import Foundation
 import Promises
+import UniformTypeIdentifiers
 
 public protocol FileProviderAdapterType: AnyObject {
 	var lastUnlockedDate: Date { get }
@@ -75,6 +76,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
 	private let taskRegistrator: SessionTaskRegistrator
+	private let deleteItemHelper: DeleteItemHelper
 	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
@@ -100,6 +102,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.deletionTaskManager = deletionTaskManager
 		self.itemEnumerationTaskManager = itemEnumerationTaskManager
 		self.downloadTaskManager = downloadTaskManager
+		self.deleteItemHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		let factory = WorkflowFactory(provider: provider,
 		                              uploadTaskManager: uploadTaskManager,
 		                              cachedFileManager: cachedFileManager,
@@ -191,18 +194,15 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	public func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DispatchQueue.main.async {
 			autoreleasepool {
+				if self.isPackage(at: fileURL) {
+					self.importPackage(at: fileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
+					return
+				}
 				let localItemImportResult: LocalItemImportResult
 				do {
 					localItemImportResult = try self.localItemImport(fileURL: fileURL, parentIdentifier: parentItemIdentifier)
 				} catch let error as NSError {
-					if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.filenameCollision.rawValue {
-						DDLogInfo("FPExt: filenameCollision for: \(fileURL.lastPathComponent)")
-						return completionHandler(nil, error)
-					}
-					DDLogError("FPExt: localItemImport failed for: \(fileURL.lastPathComponent) with error: \(error)")
-					// Anything else is reported as `noSuchItem`. Returning the underlying error instead makes the
-					// Files app render "Couldn't communicate with a helper application", which says even less.
-					return completionHandler(nil, NSFileProviderError(.noSuchItem))
+					return self.reportLocalImportFailure(error, importing: fileURL.lastPathComponent, completionHandler: completionHandler)
 				}
 				let localImportHandler: (Error?) -> Void = { error in
 					if let error = error {
@@ -221,6 +221,17 @@ public class FileProviderAdapter: FileProviderAdapterType {
 				}.always {}
 			}
 		}
+	}
+
+	private func reportLocalImportFailure(_ error: NSError, importing name: String, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
+		if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.filenameCollision.rawValue {
+			DDLogInfo("FPExt: filenameCollision for: \(name)")
+			return completionHandler(nil, error)
+		}
+		DDLogError("FPExt: local import failed for: \(name) with error: \(error)")
+		// Returning the underlying error instead makes the Files app render "Couldn't communicate with a helper
+		// application", which says even less than `noSuchItem`.
+		completionHandler(nil, NSFileProviderError(.noSuchItem))
 	}
 
 	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) -> Promise<NSFileProviderItem?> {
@@ -284,6 +295,283 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			}
 		}
 		if let error = fileManagerError ?? fileCoordinatorError {
+			throw error
+		}
+	}
+
+	// MARK: Import Package
+
+	/// Reading the resource value is access to the item, so it needs the security scope just like the import itself does.
+	func isPackage(at url: URL) -> Bool {
+		let stopAccess = url.startAccessingSecurityScopedResource()
+		defer {
+			if stopAccess {
+				url.stopAccessingSecurityScopedResource()
+			}
+		}
+		if let isPackage = try? url.resourceValues(forKeys: [.isPackageKey]).isPackage {
+			return isPackage
+		}
+		// `UTType(filenameExtension:conformingTo:)` synthesizes a dynamic type when nothing declared matches, and an extension
+		// cannot tell a package directory from a flat document carrying the same extension, which iWork formats do.
+		guard let type = UTType(filenameExtension: url.pathExtension, conformingTo: .package), type.isDeclared else {
+			return false
+		}
+		return (try? itemType(at: url)) == FileAttributeType.typeDirectory
+	}
+
+	/**
+	 Imports a package by recursively importing its contents as an ordinary encrypted folder.
+
+	 The package keeps its name, including the extension, so copying it back out to a regular file system reconstitutes a
+	 working package.
+
+	 - Returns: A promise that settles once the whole subtree has been scheduled — for tests only, because the completion
+	 handler fires with the root placeholder long before that.
+	 */
+	@discardableResult
+	func importPackage(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) -> Promise<Void> {
+		let result: LocalPackageImportResult
+		do {
+			result = try localPackageImport(fileURL: fileURL, parentIdentifier: parentItemIdentifier)
+		} catch let error as NSError {
+			reportLocalImportFailure(error, importing: fileURL.lastPathComponent, completionHandler: completionHandler)
+			return Promise(())
+		}
+		completionHandler(result.item, nil)
+		return schedulePackageFolder(result.rootNode, isRoot: true).recover { error in
+			// The item exists in the vault by now, so log its id rather than its cleartext name.
+			DDLogError("importPackage failed for item \(result.rootNode.itemMetadata.id ?? -1) with error: \(error)")
+		}
+	}
+
+	/**
+	 Imports a package locally, depth-first.
+
+	 - Precondition: A package exists at the `fileURL`.
+	 - Postcondition: No `UploadTaskRecord` was created, so a stuck upload recovery cannot upload into a package root that does not exist yet.
+	 - Postcondition: If anything failed, the whole subtree was removed again, because the completion handler has not reported success yet.
+	 */
+	func localPackageImport(fileURL: URL, parentIdentifier: NSFileProviderItemIdentifier) throws -> LocalPackageImportResult {
+		// Held across the whole walk, not just a single copy, because every descendant is read through this scope.
+		let stopAccess = fileURL.startAccessingSecurityScopedResource()
+		defer {
+			if stopAccess {
+				fileURL.stopAccessingSecurityScopedResource()
+			}
+		}
+		let parentID = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
+		let name = fileURL.lastPathComponent.precomposedStringWithCanonicalMapping
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .folder)
+		// Stricter than `checkLocalItemCollision`, which treats a pending deletion as free: that deletion would complete later
+		// and take the freshly imported package with it.
+		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: cloudPath) {
+			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata, domainIdentifier: domainIdentifier))
+		}
+		let rootItem = try createPlaceholderItemForFolder(withName: name, in: parentIdentifier)
+		do {
+			let children = try coordinatedPackageContents(of: fileURL, into: convertIDToItemIdentifier(rootItem.metadata.id!))
+			let rootNode = ImportedPackageNode(itemMetadata: rootItem.metadata, localURL: nil, children: children)
+			return LocalPackageImportResult(item: rootItem, rootNode: rootNode)
+		} catch {
+			rollBackPackageImport(rootMetadata: rootItem.metadata)
+			throw error
+		}
+	}
+
+	/**
+	 Walks the package inside a single coordinated read.
+
+	 File coordination treats a package as one unit, so reserving each interior file separately would let a writer commit
+	 between two of them and leave a copy whose files come from different revisions of the package.
+	 */
+	private func coordinatedPackageContents(of packageURL: URL, into parentIdentifier: NSFileProviderItemIdentifier) throws -> [ImportedPackageNode] {
+		var children: [ImportedPackageNode]?
+		var walkError: Error?
+		var fileCoordinatorError: NSError?
+		fileCoordinator.coordinate(readingItemAt: packageURL, options: .withoutChanges, error: &fileCoordinatorError) { url in
+			do {
+				try rejectSymbolicLink(itemType(at: url))
+				children = try importPackageContents(of: url, into: parentIdentifier)
+			} catch {
+				walkError = error
+			}
+		}
+		if let error = walkError ?? fileCoordinatorError {
+			throw error
+		}
+		guard let children = children else {
+			throw NSFileProviderError(.noSuchItem)
+		}
+		return children
+	}
+
+	/// Does not traverse links, so a symbolic link reports its own type here rather than its target's.
+	private func itemType(at url: URL) throws -> FileAttributeType? {
+		let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+		return attributes[FileAttributeKey.type] as? FileAttributeType
+	}
+
+	/**
+	 Rejects a symbolic link before it is walked or copied.
+
+	 A relative link copied into an isolated item directory has no valid target, and a directory link can escape the package or
+	 form a cycle. Every directory needs this immediately before its own read, root included, because `contentsOfDirectory`
+	 resolves a link and would otherwise walk whatever it points at.
+	 */
+	private func rejectSymbolicLink(_ type: FileAttributeType?) throws {
+		if type == FileAttributeType.typeSymbolicLink {
+			throw FileProviderAdapterError.symbolicLinkNotSupported
+		}
+	}
+
+	private func importPackageContents(of directoryURL: URL, into parentIdentifier: NSFileProviderItemIdentifier) throws -> [ImportedPackageNode] {
+		// Does not report AppleDouble sidecars (`._name`), so a package that carries them loses them on import.
+		let names = try FileManager.default.contentsOfDirectory(atPath: directoryURL.path)
+		return try names.sorted().map { name in
+			let childURL = directoryURL.appendingPathComponent(name)
+			let childType = try itemType(at: childURL)
+			try rejectSymbolicLink(childType)
+			switch childType {
+			case FileAttributeType.typeDirectory:
+				let folderItem = try createPlaceholderItemForFolder(withName: name, in: parentIdentifier)
+				let children = try importPackageContents(of: childURL, into: convertIDToItemIdentifier(folderItem.metadata.id!))
+				return ImportedPackageNode(itemMetadata: folderItem.metadata, localURL: nil, children: children)
+			default:
+				let fileMetadata = try createPlaceholderItemForFile(for: childURL, in: parentIdentifier)
+				let localURL = try copyPackageFile(from: childURL, itemMetadata: fileMetadata)
+				return ImportedPackageNode(itemMetadata: fileMetadata, localURL: localURL, children: [])
+			}
+		}
+	}
+
+	private func copyPackageFile(from sourceURL: URL, itemMetadata: ItemMetadata) throws -> URL {
+		let itemIdentifier = convertIDToItemIdentifier(itemMetadata.id!)
+		guard let localURL = localURLProvider.urlForItem(withPersistentIdentifier: itemIdentifier, itemName: itemMetadata.name) else {
+			throw NSFileProviderError(.noSuchItem)
+		}
+		// Uncoordinated on purpose: the whole walk already runs inside one coordinated read of the package root, and taking a
+		// second reservation per file is what would let a writer tear the copy apart.
+		try FileManager.default.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+		try FileManager.default.copyItem(at: sourceURL, to: localURL)
+		do {
+			try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: nil)
+		} catch {
+			// The rollback finds copied bytes through their `LocalCachedFileInfo`, so without that row it would leave the
+			// cleartext behind. Nothing else ever reclaims it.
+			do {
+				try FileManager.default.removeItem(at: localURL)
+			} catch let removalError as NSError {
+				// Only domain and code: a `FileManager` error carries `NSFilePath`, which would put the item's cleartext name
+				// into a log the user can export.
+				DDLogError("Package import: cleartext left behind for item \(itemMetadata.id ?? -1), removal failed with \(removalError.domain) \(removalError.code)")
+			}
+			throw error
+		}
+		return localURL
+	}
+
+	/**
+	 Removes a partially imported package again.
+
+	 Only correct before the completion handler reported success. Afterwards the local copies may be all the user has left,
+	 because the Files app removes the source of a move as soon as the import returns.
+	 */
+	private func rollBackPackageImport(rootMetadata: ItemMetadata) {
+		do {
+			try deleteItemHelper.removeItemFromCache(rootMetadata)
+		} catch let error as NSError {
+			// Domain and code only, because a `FileManager` error names the path it failed on.
+			DDLogError("Package import: removing cached files during rollback failed with \(error.domain) \(error.code)")
+		}
+		do {
+			// Descendants go with it, because `itemMetadata.parentID` cascades. Attempted even when the cache removal failed,
+			// though it can only succeed once every `cachedFiles` row is gone — that table has no cascade rule.
+			try itemMetadataManager.removeItemMetadata(with: rootMetadata.id!)
+		} catch {
+			DDLogError("Package import: removing metadata during rollback failed with error: \(error)")
+		}
+	}
+
+	/**
+	 Creates a package folder in the cloud and only then constructs and schedules everything below it.
+
+	 Chaining on the scheduled workflow rather than on `createWorkflow` is what keeps a failed folder from ever releasing its
+	 descendants: `createWorkflow` resolves with the workflow object, before it ran, and the workflow dependency graph settles
+	 dependents regardless of whether the parent succeeded.
+	 */
+	func schedulePackageFolder(_ node: ImportedPackageNode, isRoot: Bool) -> Promise<Void> {
+		let task: FolderCreationTask
+		do {
+			let cloudPath = try itemMetadataManager.getCloudPath(for: node.itemMetadata.id!)
+			task = FolderCreationTask(itemMetadata: node.itemMetadata, cloudPath: cloudPath, onlineCollisionDisposition: isRoot ? .renameAndRetry : .fail)
+		} catch {
+			// Marked here too: this returns before the `recover` below is attached, so a folder that fails to even produce a
+			// task would otherwise stay `.isUploading` with nothing left to run it.
+			DDLogError("Package import: building the task for folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
+			markFolderAsUploadError(node.itemMetadata, error: error)
+			return Promise(error)
+		}
+		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Promise<Void> in
+			self.notificator?.signalUpdate(for: item)
+			return self.schedulePackageChildren(of: node)
+		}.recover { error -> Promise<Void> in
+			DDLogError("Package import: creating folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
+			self.markFolderAsUploadError(node.itemMetadata, error: error)
+			return Promise(error)
+		}
+	}
+
+	/// Sibling subtrees are independent, so one failing child neither cancels nor fails the others.
+	private func schedulePackageChildren(of node: ImportedPackageNode) -> Promise<Void> {
+		let settledChildren = node.children.map { child -> Promise<Void> in
+			let scheduled: Promise<Void>
+			if child.itemMetadata.type == .folder {
+				scheduled = schedulePackageFolder(child, isRoot: false)
+			} else {
+				scheduled = schedulePackageFileUpload(child)
+			}
+			return scheduled.recover { _ in }
+		}
+		return all(settledChildren).then { _ in }
+	}
+
+	/**
+	 Marks a folder whose creation failed after the import was already reported as successful.
+
+	 `markUploadAsError` cannot be used, because it updates an `UploadTaskRecord` first and a folder never has one.
+	 */
+	private func markFolderAsUploadError(_ itemMetadata: ItemMetadata, error: Error) {
+		do {
+			itemMetadata.statusCode = .uploadError
+			try itemMetadataManager.updateMetadata(itemMetadata)
+			let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, error: error)
+			notificator?.signalUpdate(for: item)
+		} catch {
+			DDLogError("Package import: marking folder \(itemMetadata.id ?? -1) as failed itself failed with error: \(error)")
+		}
+	}
+
+	private func schedulePackageFileUpload(_ node: ImportedPackageNode) -> Promise<Void> {
+		guard let localURL = node.localURL else {
+			return Promise(FileProviderAdapterError.itemNotFound)
+		}
+		let itemIdentifier = convertIDToItemIdentifier(node.itemMetadata.id!)
+		let taskRecord: UploadTaskRecord
+		do {
+			taskRecord = try registerFileInUploadQueue(with: localURL, itemMetadata: node.itemMetadata)
+		} catch {
+			return Promise(error)
+		}
+		return uploadFile(taskRecord: taskRecord, itemIdentifier: itemIdentifier).then { item -> Void in
+			self.notificator?.signalUpdate(for: item)
+			// The upload executor recovers provider errors internally and fulfills with an error-bearing item, so a collision
+			// only becomes visible here. Nothing was renamed, which is why inspecting it after the fact is still in time.
+			guard let error = item.uploadingError as NSError?, error.domain == NSFileProviderErrorDomain,
+			      error.code == NSFileProviderError.filenameCollision.rawValue else {
+				return
+			}
+			DDLogError("Package import: item \(node.itemMetadata.id ?? -1) collided with an existing item, not retrying")
 			throw error
 		}
 	}
@@ -648,8 +936,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
 		// Resolve the cloud path BEFORE removeItemFromCache deletes the row — afterwards the resolver would fail.
 		let cloudPath = try itemMetadataManager.getCloudPath(for: itemMetadata.id!)
-		let deletionHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		try deletionHelper.removeItemFromCache(itemMetadata)
+		try deleteItemHelper.removeItemFromCache(itemMetadata)
 		return try deletionTaskManager.createTaskRecord(for: itemMetadata, cloudPath: cloudPath)
 	}
 
@@ -1024,6 +1311,21 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	struct LocalItemImportResult {
 		let item: FileProviderItem
 		let uploadTaskRecord: UploadTaskRecord
+	}
+
+	struct LocalPackageImportResult {
+		let item: FileProviderItem
+		let rootNode: ImportedPackageNode
+	}
+
+	/**
+	 Keyed by parent rather than flattened, because each node's task is constructed inside its parent's scheduling continuation.
+	 Carries the `localURL` of a file, because `registerFileInUploadQueue` needs it later and nothing else recomputes it.
+	 */
+	struct ImportedPackageNode {
+		let itemMetadata: ItemMetadata
+		let localURL: URL?
+		let children: [ImportedPackageNode]
 	}
 
 	struct MoveItemLocallyResult {
