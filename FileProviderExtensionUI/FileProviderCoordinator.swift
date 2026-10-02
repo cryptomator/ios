@@ -72,11 +72,11 @@ class FileProviderCoordinator: Coordinator {
 
 	func completeUnlock() {
 		#if !ALWAYS_PREMIUM
-		guard SalePromo.shared.shouldShowSummer2026UnlockPromo() else {
+		guard SalePromo.shared.shouldShowHalloween2026UnlockPromo() else {
 			done()
 			return
 		}
-		CryptomatorUserDefaults.shared.summer2026UnlockPromoShown = true
+		CryptomatorUserDefaults.shared.halloween2026UnlockPromoShown = true
 		showSalePromoAlert()
 		#else
 		done()
@@ -108,8 +108,8 @@ class FileProviderCoordinator: Coordinator {
 			done()
 			return
 		}
-		let title = "\(SalePromo.summer2026Emoji) Summer Sale!"
-		let message = "For a limited time, Lifetime License is \(SalePromo.summer2026Discount)!"
+		let title = "\(SalePromo.halloween2026Emoji) Halloween Sale!"
+		let message = "For a limited time, Lifetime License is \(SalePromo.halloween2026Discount)!"
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		alertController.addAction(UIAlertAction(title: "Learn More", style: .default) { [weak self] _ in
 			guard let self = self else { return }
