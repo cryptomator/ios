@@ -125,16 +125,16 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	}
 
 	public func forceLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
-		do {
-			try lockVault(with: domainIdentifier)
-		} catch {
-			DDLogError("Lock vault failed with error: \(error)")
+		queue.sync {
+			unsynchronizedForceLockVault(with: domainIdentifier)
 		}
 	}
 
 	public func vaultIsUnlocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
-		updateLockStatus(domainIdentifier: domainIdentifier)
-		return adapterCache.getItem(identifier: domainIdentifier) != nil
+		queue.sync {
+			updateLockStatus(domainIdentifier: domainIdentifier)
+			return adapterCache.getItem(identifier: domainIdentifier) != nil
+		}
 	}
 
 	/**
@@ -144,19 +144,9 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	 Without a cached adapter, the vault is locked without enabling the maintenance mode.
 	 */
 	public func gracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
-		guard let cachedAdapter = adapterCache.getItem(identifier: domainIdentifier) else {
-			try lockVault(with: domainIdentifier)
-			return
+		try queue.sync {
+			try unsynchronizedGracefulLockVault(with: domainIdentifier)
 		}
-		let maintenanceManager = cachedAdapter.maintenanceManager
-		try maintenanceManager.enableMaintenanceMode()
-		do {
-			try lockVault(with: domainIdentifier)
-		} catch {
-			try? maintenanceManager.disableMaintenanceMode()
-			throw error
-		}
-		try maintenanceManager.disableMaintenanceMode()
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -227,6 +217,30 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		notificator.refreshWorkingSet()
 	}
 
+	private func unsynchronizedForceLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
+		do {
+			try lockVault(with: domainIdentifier)
+		} catch {
+			DDLogError("Lock vault failed with error: \(error)")
+		}
+	}
+
+	private func unsynchronizedGracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
+		guard let cachedAdapter = adapterCache.getItem(identifier: domainIdentifier) else {
+			try lockVault(with: domainIdentifier)
+			return
+		}
+		let maintenanceManager = cachedAdapter.maintenanceManager
+		try maintenanceManager.enableMaintenanceMode()
+		do {
+			try lockVault(with: domainIdentifier)
+		} catch {
+			try? maintenanceManager.disableMaintenanceMode()
+			throw error
+		}
+		try maintenanceManager.disableMaintenanceMode()
+	}
+
 	private func updateLockStatus(domainIdentifier: NSFileProviderDomainIdentifier) {
 		if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: domainIdentifier.rawValue) {
 			autoLockVault(with: domainIdentifier)
@@ -235,10 +249,10 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 
 	private func autoLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
 		do {
-			try gracefulLockVault(with: domainIdentifier)
+			try unsynchronizedGracefulLockVault(with: domainIdentifier)
 		} catch {
 			DDLogInfo("Graceful locking vault (\(domainIdentifier.rawValue)) failed with error: \(error) - force locking instead")
-			forceLockVault(with: domainIdentifier)
+			unsynchronizedForceLockVault(with: domainIdentifier)
 		}
 	}
 }
@@ -256,7 +270,7 @@ protocol FileProviderAdapterCacheType {
 }
 
 class FileProviderAdapterCache: FileProviderAdapterCacheType {
-	private let queue = DispatchQueue(label: "FileProviderAdapterManager")
+	private let queue = DispatchQueue(label: "FileProviderAdapterCache")
 	private var cachedAdapters = [NSFileProviderDomainIdentifier: AdapterCacheItem]()
 
 	func cacheItem(_ item: AdapterCacheItem, identifier: NSFileProviderDomainIdentifier) {
