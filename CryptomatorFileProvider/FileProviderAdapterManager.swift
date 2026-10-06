@@ -72,11 +72,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 			if let cachedAdapter = cachedAdapterItem?.adapter {
 				if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
 					DDLogDebug("Try to automatically lock \(domain.displayName) - \(domain.identifier)")
-					do {
-						try gracefulLockVault(with: domain.identifier)
-					} catch {
-						DDLogDebug("Graceful locking vault \(domain.displayName) - \(domain.identifier) failed with error: \(error)")
-					}
+					autoLockVault(with: domain.identifier)
 					throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 				}
 				adapter = cachedAdapter
@@ -144,15 +140,22 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	/**
 	 Locks a vault gracefully.
 
-	 A vault will be locked only if it is possible to enable the maintenance mode for the vault belonging to the passed `domainIdentifier`.
+	 A vault with a cached adapter is locked only if the maintenance mode can be enabled for it.
+	 Without a cached adapter, only the cached masterkey is removed.
 	 */
 	public func gracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
 		guard let cachedAdapter = adapterCache.getItem(identifier: domainIdentifier) else {
+			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
 			return
 		}
 		let maintenanceManager = cachedAdapter.maintenanceManager
 		try maintenanceManager.enableMaintenanceMode()
-		try lockVault(with: domainIdentifier)
+		do {
+			try lockVault(with: domainIdentifier)
+		} catch {
+			try? maintenanceManager.disableMaintenanceMode()
+			throw error
+		}
 		try maintenanceManager.disableMaintenanceMode()
 	}
 
@@ -226,11 +229,16 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 
 	private func updateLockStatus(domainIdentifier: NSFileProviderDomainIdentifier) {
 		if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: domainIdentifier.rawValue) {
-			do {
-				try gracefulLockVault(with: domainIdentifier)
-			} catch {
-				DDLogDebug("Graceful locking vault (\(domainIdentifier.rawValue)) failed with error: \(error)")
-			}
+			autoLockVault(with: domainIdentifier)
+		}
+	}
+
+	private func autoLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
+		do {
+			try gracefulLockVault(with: domainIdentifier)
+		} catch {
+			DDLogInfo("Graceful locking vault (\(domainIdentifier.rawValue)) failed with error: \(error) - force locking instead")
+			forceLockVault(with: domainIdentifier)
 		}
 	}
 }

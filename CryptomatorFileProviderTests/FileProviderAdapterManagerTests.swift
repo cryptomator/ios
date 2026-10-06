@@ -145,13 +145,14 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
+		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertFalse(maintenanceManagerMock.disableMaintenanceModeCalled)
-		XCTAssertFalse(adapterCacheMock.removeItemIdentifierCalled)
-		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
+		XCTAssertEqual([domain.identifier], adapterCacheMock.removeItemIdentifierReceivedInvocations)
+		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 	}
 
 	// MARK: Lock Vault
@@ -165,6 +166,23 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual(1, notificatorManagerMock.getFileProviderNotificatorForCallsCount)
 		XCTAssertEqual(domain.identifier, notificatorManagerMock.getFileProviderNotificatorForReceivedDomain?.identifier)
 		XCTAssertEqual(1, notificactorMock.refreshWorkingSetCallsCount)
+	}
+
+	func testGracefulLockVaultDisablesMaintenanceModeIfLockFailed() {
+		let maintenanceManagerMock = MaintenanceManagerMock()
+		masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDThrowableError = ErrorMock.test
+		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
+		XCTAssertThrowsError(try fileProviderAdapterManager.gracefulLockVault(with: domain.identifier)) { error in
+			XCTAssertEqual(.test, error as? ErrorMock)
+		}
+		XCTAssertEqual(1, maintenanceManagerMock.enableMaintenanceModeCallsCount)
+		XCTAssertEqual(1, maintenanceManagerMock.disableMaintenanceModeCallsCount)
+	}
+
+	func testGracefulLockVaultAdapterNotCachedRemovesCachedMasterkey() throws {
+		adapterCacheMock.getItemIdentifierReturnValue = nil
+		try fileProviderAdapterManager.gracefulLockVault(with: domain.identifier)
+		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 	}
 
 	private func assertLastUsedDateSet() throws {
@@ -200,6 +218,21 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
 		XCTAssertEqual([domain.identifier], adapterCacheMock.getItemIdentifierReceivedInvocations)
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReceivedInvocations)
+		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
+	}
+
+	func testVaultIsUnlockedAdapterNotCachedShouldAutoLockRemovesCachedMasterkey() {
+		adapterCacheMock.getItemIdentifierReturnValue = nil
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
+		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
+		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
+	}
+
+	func testVaultIsUnlockedAdapterNotCachedShouldAutoLockRemoveCachedMasterkeyFailed() {
+		adapterCacheMock.getItemIdentifierReturnValue = nil
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
+		masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDThrowableError = ErrorMock.test
+		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
 	}
 
 	func testVaultIsUnlockedAdapterCached() {
@@ -224,6 +257,22 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertEqual(1, maintenanceManagerMock.enableMaintenanceModeCallsCount)
 		XCTAssertEqual(1, maintenanceManagerMock.disableMaintenanceModeCallsCount)
+		XCTAssert(cache.isEmpty)
+	}
+
+	func testVaultIsUnlockedAutoLocksEnableMaintenanceModeFailed() {
+		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
+		let maintenanceManagerMock = MaintenanceManagerMock()
+		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
+		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
+		var cache = [NSFileProviderDomainIdentifier: AdapterCacheItem]()
+		cache[domain.identifier] = adapterCacheItem
+		adapterCacheMock.getItemIdentifierClosure = { return cache[$0] }
+		adapterCacheMock.removeItemIdentifierClosure = { cache[$0] = nil }
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
+		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
+		XCTAssertFalse(maintenanceManagerMock.disableMaintenanceModeCalled)
+		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 		XCTAssert(cache.isEmpty)
 	}
 }
