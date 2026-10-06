@@ -141,11 +141,11 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	 Locks a vault gracefully.
 
 	 A vault with a cached adapter is locked only if the maintenance mode can be enabled for it.
-	 Without a cached adapter, only the cached masterkey is removed.
+	 Without a cached adapter, the vault is locked without enabling the maintenance mode.
 	 */
 	public func gracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
 		guard let cachedAdapter = adapterCache.getItem(identifier: domainIdentifier) else {
-			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
+			try lockVault(with: domainIdentifier)
 			return
 		}
 		let maintenanceManager = cachedAdapter.maintenanceManager
