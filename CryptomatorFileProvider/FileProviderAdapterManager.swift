@@ -92,13 +92,15 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		guard let dbPath = dbPath else {
 			return
 		}
-		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
-		try unlockVaultPostProcessing(provider: provider,
-		                              domainIdentifier: domainIdentifier,
-		                              dbPath: dbPath,
-		                              delegate: delegate,
-		                              notificator: notificator,
-		                              taskRegistrator: taskRegistrator)
+		try queue.sync {
+			let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
+			try unlockVaultPostProcessing(provider: provider,
+			                              domainIdentifier: domainIdentifier,
+			                              dbPath: dbPath,
+			                              delegate: delegate,
+			                              notificator: notificator,
+			                              taskRegistrator: taskRegistrator)
+		}
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -106,17 +108,19 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		guard let dbPath = dbPath else {
 			return
 		}
-		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, rawKey: rawKey)
-		try unlockVaultPostProcessing(provider: provider,
-		                              domainIdentifier: domainIdentifier,
-		                              dbPath: dbPath,
-		                              delegate: delegate,
-		                              notificator: notificator,
-		                              taskRegistrator: taskRegistrator)
+		try queue.sync {
+			let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, rawKey: rawKey)
+			try unlockVaultPostProcessing(provider: provider,
+			                              domainIdentifier: domainIdentifier,
+			                              dbPath: dbPath,
+			                              delegate: delegate,
+			                              notificator: notificator,
+			                              taskRegistrator: taskRegistrator)
+		}
 	}
 
 	// swiftlint:disable:next function_parameter_count
-	func unlockVaultPostProcessing(provider: CloudProvider, domainIdentifier: NSFileProviderDomainIdentifier, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws {
+	private func unlockVaultPostProcessing(provider: CloudProvider, domainIdentifier: NSFileProviderDomainIdentifier, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws {
 		let item = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator)
 		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
 		adapterCache.cacheItem(item, identifier: domainIdentifier)
