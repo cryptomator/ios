@@ -225,9 +225,13 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		var cachedLocalFileInfo = [Int64: LocalCachedFileInfo]()
 		var removeCachedFile = [Int64]()
+		var getLocalCachedFileInfoForThrowableError: Error?
 
 		func getLocalCachedFileInfo(for identifier: Int64) throws -> LocalCachedFileInfo? {
-			cachedLocalFileInfo[identifier]
+			if let error = getLocalCachedFileInfoForThrowableError {
+				throw error
+			}
+			return cachedLocalFileInfo[identifier]
 		}
 
 		func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?] {

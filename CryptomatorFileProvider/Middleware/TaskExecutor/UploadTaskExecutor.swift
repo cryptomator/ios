@@ -55,6 +55,13 @@ class UploadTaskExecutor: WorkflowMiddleware {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
 		let itemMetadata = task.itemMetadata
+		return upload(uploadTask).recover { error -> FileProviderItem in
+			try self.handleUploadError(error, taskItemMetadata: itemMetadata)
+		}
+	}
+
+	private func upload(_ uploadTask: UploadTask) -> Promise<FileProviderItem> {
+		let itemMetadata = uploadTask.itemMetadata
 		let localCachedFile: LocalCachedFileInfo?
 		do {
 			localCachedFile = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
@@ -69,6 +76,8 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		do {
 			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
 			localFileSize = attributes[FileAttributeKey.size] as? Int
+		} catch CocoaError.fileReadNoSuchFile {
+			return Promise(NSFileProviderError(.noSuchItem))
 		} catch {
 			return Promise(error)
 		}
@@ -79,7 +88,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		}
 		progress.becomeCurrent(withPendingUnitCount: 1)
 		let uploadPromise = provider.uploadFile(from: localURL,
-		                                        to: task.cloudPath,
+		                                        to: uploadTask.cloudPath,
 		                                        replaceExisting: !itemMetadata.isPlaceholderItem,
 		                                        onTaskCreation: { task in
 		                                        	guard let task else {
@@ -90,8 +99,6 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		progress.resignCurrent()
 		return uploadPromise.then { cloudItemMetadata in
 			try self.uploadPostProcessing(taskItemMetadata: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)
-		}.recover { error -> FileProviderItem in
-			try self.handleUploadError(error, taskItemMetadata: itemMetadata)
 		}
 	}
 
@@ -133,7 +140,13 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		try uploadTaskManager.updateTaskRecord(for: taskItemMetadata, with: convertedError as NSError)
 		taskItemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(taskItemMetadata)
-		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
+		let localCachedFileInfo: LocalCachedFileInfo?
+		do {
+			localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
+		} catch {
+			DDLogError("Get local cached file info for failed upload failed with error: \(error)")
+			localCachedFileInfo = nil
+		}
 		return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: convertedError)
 	}
 }
