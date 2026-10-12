@@ -94,7 +94,7 @@
 "cloudProvider.error.unauthorized.reauth.accountMismatch" = "Ви увійшли за допомогою іншого облікового запису. Спробуйте ще раз, використавши початковий обліковий запис %@.";
 "cloudProvider.error.noInternetConnection" = "Для цієї операції потрібне з’єднання з інтернетом.";
 
-"cloudProviderType.localFileSystem" = "Інший файловий сервіс";
+"cloudProviderType.localFileSystem" = "Інший файловий провайдер";
 "cloudProviderType.sharePoint.secondary" = "включно з Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Вітаємо";

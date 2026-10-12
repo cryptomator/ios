@@ -13,12 +13,12 @@ public struct SalePromo {
 	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
 
 	public static let shared = SalePromo()
-	public static let summer2026Emoji = "☀️"
-	public static let summer2026Discount = "50%* off until July 7"
+	public static let halloween2026Emoji = "🎃"
+	public static let halloween2026Discount = "33%* off until October 31"
 
-	public static func isSummer2026Active() -> Bool {
-		let saleStartComponents = DateComponents(year: 2026, month: 7, day: 1)
-		let saleEndComponents = DateComponents(year: 2026, month: 7, day: 8)
+	public static func isHalloween2026Active() -> Bool {
+		let saleStartComponents = DateComponents(year: 2026, month: 10, day: 1)
+		let saleEndComponents = DateComponents(year: 2026, month: 11, day: 1)
 		let gregorian = Calendar(identifier: .gregorian)
 		guard let saleStartDate = gregorian.date(from: saleStartComponents), let saleEndDate = gregorian.date(from: saleEndComponents) else {
 			return false
@@ -27,21 +27,21 @@ public struct SalePromo {
 		return now >= saleStartDate && now < saleEndDate
 	}
 
-	public func shouldShowSummer2026Banner() -> Bool {
+	public func shouldShowHalloween2026Banner() -> Bool {
 		#if !ALWAYS_PREMIUM
-		return SalePromo.isSummer2026Active()
+		return SalePromo.isHalloween2026Active()
 			&& !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription)
-			&& !cryptomatorSettings.summer2026BannerDismissed
+			&& !cryptomatorSettings.halloween2026BannerDismissed
 		#else
 		return false
 		#endif
 	}
 
-	public func shouldShowSummer2026UnlockPromo() -> Bool {
+	public func shouldShowHalloween2026UnlockPromo() -> Bool {
 		#if !ALWAYS_PREMIUM
-		return SalePromo.isSummer2026Active()
+		return SalePromo.isHalloween2026Active()
 			&& !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription)
-			&& !cryptomatorSettings.summer2026UnlockPromoShown
+			&& !cryptomatorSettings.halloween2026UnlockPromoShown
 		#else
 		return false
 		#endif

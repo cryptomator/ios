@@ -1,5 +1,5 @@
 --minversion 0.60.1
---exclude DerivedData
+--exclude DerivedData,Snapshots/SnapshotHelper.swift
 
 # format options
 

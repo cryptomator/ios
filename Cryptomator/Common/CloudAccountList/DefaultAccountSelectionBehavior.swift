@@ -12,21 +12,21 @@ import Foundation
 import Promises
 import UIKit
 
-protocol DefaultAccountSelectionBehavior {
+protocol DefaultAccountSelectionBehavior: DefaultAccountReauthenticationBehavior {
 	func proceedWithValidatedAccount(provider: CloudProvider, account: CloudProviderAccount)
 }
 
 extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListing {
 	func selectedAccount(_ account: AccountInfo) {
-		switch account.cloudProviderType {
-		case .s3, .webDAV, .localFileSystem:
+		switch account.cloudProviderType.accountRecoveryMode {
+		case .editExisting, .unsupported:
 			do {
 				let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 				proceedWithValidatedAccount(provider: provider, account: account.cloudProviderAccount)
 			} catch {
 				handleError(error, for: navigationController)
 			}
-		default:
+		case .reauthenticate:
 			validateAndProceed(with: account)
 		}
 	}
@@ -52,7 +52,7 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 			}
 		}.catch { error in
 			hud.dismiss(animated: true) {
-				if case CloudProviderError.unauthorized = error {
+				if error.isUnauthorizedError {
 					self.showReauthenticationAlert(for: account)
 				} else {
 					self.handleError(error, for: self.navigationController)
@@ -69,7 +69,8 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 			preferredStyle: .alert
 		)
 		let signInAction = UIAlertAction(title: LocalizedString.getValue("cloudProvider.error.unauthorized.reauth.button"), style: .default) { _ in
-			self.reauthenticate(account: account)
+			guard let viewController = self.navigationController.topViewController else { return }
+			self.showReauthentication(for: account.cloudProviderAccount, from: viewController)
 		}
 		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel)
 		alert.addAction(signInAction)
@@ -77,33 +78,13 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 		navigationController.topViewController?.present(alert, animated: true)
 	}
 
-	private func showAccountMismatchAlert(for account: AccountInfo) {
-		let providerName = account.cloudProviderType.localizedString()
-		let alert = UIAlertController(
-			title: LocalizedString.getValue("common.alert.attention.title"),
-			message: String(format: LocalizedString.getValue("cloudProvider.error.unauthorized.reauth.accountMismatch"), providerName),
-			preferredStyle: .alert
-		)
-		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default)
-		alert.addAction(okAction)
-		navigationController.topViewController?.present(alert, animated: true)
-	}
-
-	private func reauthenticate(account: AccountInfo) {
-		guard let viewController = navigationController.topViewController else { return }
-		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		authenticator.authenticate(account.cloudProviderType, from: viewController).then { reAuthAccount in
-			guard reAuthAccount.accountUID == account.accountUID else {
-				self.showAccountMismatchAlert(for: account)
-				return
-			}
-			CloudProviderDBManager.shared.providerShouldUpdate(with: reAuthAccount.accountUID)
-			let provider = try CloudProviderDBManager.shared.getProvider(with: reAuthAccount.accountUID)
-			self.proceedWithValidatedAccount(provider: provider, account: reAuthAccount)
-		}.catch { error in
-			guard case CocoaError.userCancelled = error else {
+	private func showReauthentication(for account: CloudProviderAccount, from viewController: UIViewController) {
+		reauthenticate(account, from: viewController).then { reAuthAccount in
+			do {
+				let provider = try CloudProviderDBManager.shared.getProvider(with: reAuthAccount.accountUID)
+				self.proceedWithValidatedAccount(provider: provider, account: reAuthAccount)
+			} catch {
 				self.handleError(error, for: self.navigationController)
-				return
 			}
 		}
 	}

@@ -15,7 +15,7 @@ import Promises
 import UIKit
 
 class CloudAuthenticator {
-	private let accountManager: CloudProviderAccountManager
+	let accountManager: CloudProviderAccountManager
 	private let vaultManager: VaultManager
 	private let vaultAccountManager: VaultAccountManager
 	private let microsoftGraphAccountManager: MicrosoftGraphAccountManager

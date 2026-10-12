@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 @testable import CryptomatorFileProvider
 
-final class ProgressManagerMock: ProgressManager {
+final class ProgressManagerMock: CryptomatorFileProvider.ProgressManager {
 	// MARK: - getProgress
 
 	var getProgressForCallsCount = 0

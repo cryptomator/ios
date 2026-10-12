@@ -72,6 +72,12 @@ class UnlockVaultViewController: UITableViewController {
 	private func biometricalUnlock() {
 		viewModel.biometricalUnlock().then { [weak self] in
 			self?.coordinator?.completeUnlock()
+		}.catch { [weak self] error in
+			// This screen stays open, thus a canceled or unavailable biometric authentication needs no message.
+			guard QuickUnlockFailure(error: error) == .report else {
+				return
+			}
+			self?.handleError(error)
 		}
 	}
 
