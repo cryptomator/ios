@@ -251,8 +251,15 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	func testImportDocumentRoutesAPackageToThePackageImport() throws {
 		try cacheRootItemMetadata()
 		let packageURL = try createPackage()
-		let scheduler = createGraphScheduler()
-		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: scheduler)
+		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: createGraphScheduler())
+		// `importDocument` discards the orchestration promise, so only the last node's signal marks the end of the import. The
+		// scheduler's group is no substitute, because it can drain between a folder finishing and its children being scheduled.
+		let childSignalled = expectation(description: "Signalled the package child")
+		fileProviderItemUpdateDelegateMock.signalUpdateForClosure = { item in
+			if item.filename == "TXT.rtf" {
+				childSignalled.fulfill()
+			}
+		}
 
 		let importPromise = adapter.importDocument(at: packageURL, toParentItemIdentifier: .rootContainer)
 		wait(for: importPromise, timeout: 10.0)
@@ -266,12 +273,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(["TXT.rtf"], children.map { $0.name })
 
 		// The completion handler fires before scheduling, so without this the workflows would run on into the next test.
-		let expectation = XCTestExpectation()
-		DispatchQueue.global().async {
-			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 30))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 35)
+		wait(for: [childSignalled], timeout: 30.0)
 	}
 
 	func testImportPackageReportsCollisionWithoutFlatteningIt() throws {
@@ -559,19 +561,18 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		try cacheRootItemMetadata()
 		let provider = CloudProviderGraphMock()
 		try provider.virtualCloudFileSystem.createItem(at: CloudPath("/Reports"), metadata: .init(name: "Reports", cloudPath: CloudPath("/Reports"), itemType: .folder, lastModifiedDate: nil, size: nil))
-		let scheduler = createGraphScheduler()
-		let adapter = createPackageAdapter(provider: provider, scheduler: scheduler)
+		let adapter = createPackageAdapter(provider: provider, scheduler: createGraphScheduler())
+		// The completion handler fires before the workflow is scheduled, so only the signal marks the rename as done.
+		let folderSignalled = expectation(description: "Signalled the created folder")
+		fileProviderItemUpdateDelegateMock.signalUpdateForClosure = { _ in
+			folderSignalled.fulfill()
+		}
 
 		let createDirectoryPromise = adapter.createDirectory(withName: "Reports", inParentItemIdentifier: .rootContainer)
 		wait(for: createDirectoryPromise, timeout: 10.0)
 		let item = try XCTUnwrap(createDirectoryPromise.value ?? nil) as? FileProviderItem
 		let placeholderItem = try XCTUnwrap(item)
-		let expectation = XCTestExpectation()
-		DispatchQueue.global().async {
-			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 30))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 35)
+		wait(for: [folderSignalled], timeout: 30.0)
 
 		let renamedName = placeholderItem.metadata.name
 		XCTAssertNotEqual("Reports", renamedName)
@@ -596,6 +597,42 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(NSFileProviderErrorDomain, recordedError?.uploadErrorDomain)
 		XCTAssertEqual(NSFileProviderError.filenameCollision.rawValue, recordedError?.uploadErrorCode)
 		XCTAssertNotEqual(NSFileProviderError.serverUnreachable.rawValue, recordedError?.uploadErrorCode)
+	}
+
+	/// A child that fails before its workflow exists is absorbed by its parent, so without marking it keeps showing as uploading.
+	func testPackageFileFailingRegistrationIsMarkedAsUploadError() throws {
+		try cacheRootItemMetadata()
+		let packageURL = try createPackage()
+		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: createGraphScheduler())
+
+		let result = try adapter.localPackageImport(fileURL: packageURL, parentIdentifier: .rootContainer)
+		let child = try XCTUnwrap(result.rootNode.children.first)
+		// Fails `registerFileInUploadQueue` after it persisted `.isUploading` but before it created a task record.
+		uploadTaskManagerMock.removeTaskRecordForThrowableError = MockError.notMocked
+		// Like the database, which cannot update a task record that was never created.
+		uploadTaskManagerMock.updateTaskRecordWithLastFailedUploadDateUploadErrorCodeUploadErrorDomainClosure = { id, _, _, _ in
+			guard self.uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.contains(where: { $0.id == id }) else {
+				throw DBManagerError.taskNotFound
+			}
+		}
+		wait(for: adapter.schedulePackageFolder(result.rootNode, isRoot: true), timeout: 30.0)
+
+		try assertPackageFileMarkedAsUploadError(child)
+	}
+
+	func testPackageFileFailingTaskConstructionIsMarkedAsUploadError() throws {
+		try cacheRootItemMetadata()
+		let packageURL = try createPackage()
+		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: createGraphScheduler())
+
+		let result = try adapter.localPackageImport(fileURL: packageURL, parentIdentifier: .rootContainer)
+		let child = try XCTUnwrap(result.rootNode.children.first)
+		uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationClosure = { _, _ in
+			throw MockError.notMocked
+		}
+		wait(for: adapter.schedulePackageFolder(result.rootNode, isRoot: true), timeout: 30.0)
+
+		try assertPackageFileMarkedAsUploadError(child)
 	}
 
 	// MARK: ItemChanged
@@ -770,6 +807,20 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		let remaining = metadataManagerMock.cachedMetadata.values.filter { $0.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue }
 		XCTAssert(remaining.isEmpty, "Left metadata behind: \(remaining.map { $0.name })", file: file, line: line)
 		XCTAssertFalse(uploadTaskManagerMock.createNewTaskRecordForCalled, file: file, line: line)
+	}
+
+	private func assertPackageFileMarkedAsUploadError(_ node: FileProviderAdapter.ImportedPackageNode, file: StaticString = #filePath, line: UInt = #line) throws {
+		let id = try XCTUnwrap(node.itemMetadata.id, file: file, line: line)
+		try assertPersisted(node.itemMetadata, statusCode: .uploadError, file: file, line: line)
+		let recordedError = uploadTaskManagerMock.updateTaskRecordWithLastFailedUploadDateUploadErrorCodeUploadErrorDomainReceivedInvocations.last { $0.id == id }
+		XCTAssertEqual(NSFileProviderErrorDomain, recordedError?.uploadErrorDomain, file: file, line: line)
+		XCTAssertEqual(NSFileProviderError.noSuchItem.rawValue, recordedError?.uploadErrorCode, file: file, line: line)
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: id)
+		let signalledItem = fileProviderItemUpdateDelegateMock.signalUpdateForReceivedInvocations.last { $0.itemIdentifier == itemIdentifier } as? FileProviderItem
+		XCTAssertNotNil(signalledItem?.uploadingError, "Never signalled the failure", file: file, line: line)
+		// Success was already reported, so the copied bytes may be all the user has left.
+		let localURL = try XCTUnwrap(node.localURL, file: file, line: line)
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path), "Deleted cached bytes after success was already reported", file: file, line: line)
 	}
 
 	private func assertLocalURLProviderCalledWithItemID() {

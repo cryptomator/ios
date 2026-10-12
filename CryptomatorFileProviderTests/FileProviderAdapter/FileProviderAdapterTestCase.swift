@@ -139,7 +139,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 
 	class GraphWorkflowSchedulerMock: WorkflowScheduler {
 		let dispatchGroup = DispatchGroup()
-		/// Off for tests that inject a failure.
+		/// Off for tests whose injected failure rejects a scheduled workflow.
 		var failsTestOnRejection = true
 
 		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {

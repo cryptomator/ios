@@ -157,7 +157,7 @@ final class PermissionProviderImplTests: XCTestCase {
 		}
 	}
 
-	func testUploadingFolderCannotBeRenamedOrReparentedForActiveHubSubsription() {
+	func testUploadingFolderCannotBeRenamedOrReparentedForActiveHubSubscription() {
 		withDependencies {
 			$0.hubRepository = hubRepositoryMock
 			$0.fullVersionChecker = fullVersionCheckerMock

@@ -202,7 +202,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 				do {
 					localItemImportResult = try self.localItemImport(fileURL: fileURL, parentIdentifier: parentItemIdentifier)
 				} catch let error as NSError {
-					return self.reportLocalImportFailure(error, importing: fileURL.lastPathComponent, completionHandler: completionHandler)
+					return self.reportLocalImportFailure(error, importing: fileURL, completionHandler: completionHandler)
 				}
 				let localImportHandler: (Error?) -> Void = { error in
 					if let error = error {
@@ -217,18 +217,21 @@ public class FileProviderAdapter: FileProviderAdapterType {
 				                itemIdentifier: localItemImportResult.item.itemIdentifier).then { item in
 					self.notificator?.signalUpdate(for: item)
 				}.catch { error in
-					DDLogError("importDocument uploadFile failed: \(error)")
+					// Domain and code only, because a `FileManager` error names the path it failed on.
+					let error = error as NSError
+					DDLogError("importDocument uploadFile failed with \(error.domain) \(error.code)")
 				}.always {}
 			}
 		}
 	}
 
-	private func reportLocalImportFailure(_ error: NSError, importing name: String, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
+	/// The file name and a `FileManager` error's `NSFilePath` are cleartext, and a failed import hands back no item id to log instead.
+	private func reportLocalImportFailure(_ error: NSError, importing fileURL: URL, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
 		if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.filenameCollision.rawValue {
-			DDLogInfo("FPExt: filenameCollision for: \(name)")
+			DDLogInfo("FPExt: filenameCollision for item with extension: \(fileURL.pathExtension)")
 			return completionHandler(nil, error)
 		}
-		DDLogError("FPExt: local import failed for: \(name) with error: \(error)")
+		DDLogError("FPExt: local import failed for item with extension: \(fileURL.pathExtension) with \(error.domain) \(error.code)")
 		// Returning the underlying error instead makes the Files app render "Couldn't communicate with a helper
 		// application", which says even less than `noSuchItem`.
 		completionHandler(nil, NSFileProviderError(.noSuchItem))
@@ -335,7 +338,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		do {
 			result = try localPackageImport(fileURL: fileURL, parentIdentifier: parentItemIdentifier)
 		} catch let error as NSError {
-			reportLocalImportFailure(error, importing: fileURL.lastPathComponent, completionHandler: completionHandler)
+			reportLocalImportFailure(error, importing: fileURL, completionHandler: completionHandler)
 			return Promise(())
 		}
 		completionHandler(result.item, nil)
@@ -509,7 +512,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			// Marked here too: this returns before the `recover` below is attached, so a folder that fails to even produce a
 			// task would otherwise stay `.isUploading` with nothing left to run it.
 			DDLogError("Package import: building the task for folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
-			markFolderAsUploadError(node.itemMetadata, error: error)
+			markPackageFolderAsUploadError(node.itemMetadata, error: error)
 			return Promise(error)
 		}
 		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Promise<Void> in
@@ -517,7 +520,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return self.schedulePackageChildren(of: node)
 		}.recover { error -> Promise<Void> in
 			DDLogError("Package import: creating folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
-			self.markFolderAsUploadError(node.itemMetadata, error: error)
+			self.markPackageFolderAsUploadError(node.itemMetadata, error: error)
 			return Promise(error)
 		}
 	}
@@ -541,7 +544,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	 `markUploadAsError` cannot be used, because it updates an `UploadTaskRecord` first and a folder never has one.
 	 */
-	private func markFolderAsUploadError(_ itemMetadata: ItemMetadata, error: Error) {
+	private func markPackageFolderAsUploadError(_ itemMetadata: ItemMetadata, error: Error) {
 		do {
 			itemMetadata.statusCode = .uploadError
 			try itemMetadataManager.updateMetadata(itemMetadata)
@@ -552,18 +555,35 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	private func schedulePackageFileUpload(_ node: ImportedPackageNode) -> Promise<Void> {
-		guard let localURL = node.localURL else {
-			return Promise(FileProviderAdapterError.itemNotFound)
+	private func markPackageFileAsUploadError(_ itemMetadata: ItemMetadata) {
+		do {
+			try markUploadAsError(itemMetadata)
+		} catch {
+			DDLogError("Package import: marking item \(itemMetadata.id ?? -1) as failed itself failed with error: \(error)")
 		}
+	}
+
+	private func schedulePackageFileUpload(_ node: ImportedPackageNode) -> Promise<Void> {
 		let itemIdentifier = convertIDToItemIdentifier(node.itemMetadata.id!)
 		let taskRecord: UploadTaskRecord
 		do {
+			guard let localURL = node.localURL else {
+				throw NSFileProviderError(.noSuchItem)
+			}
 			taskRecord = try registerFileInUploadQueue(with: localURL, itemMetadata: node.itemMetadata)
 		} catch {
+			DDLogError("Package import: registering item \(node.itemMetadata.id ?? -1) for upload failed with error: \(error)")
+			markPackageFileAsUploadError(node.itemMetadata)
 			return Promise(error)
 		}
-		return uploadFile(taskRecord: taskRecord, itemIdentifier: itemIdentifier).then { item -> Void in
+		return uploadFile(taskRecord: taskRecord, itemIdentifier: itemIdentifier).recover { error -> Promise<FileProviderItem> in
+			// The upload executor records every failure it recovers from and fulfills, so a rejection is one nothing has recorded.
+			// Domain and code only, because a `FileManager` error names the path it failed on.
+			let error = error as NSError
+			DDLogError("Package import: uploading item \(node.itemMetadata.id ?? -1) failed with \(error.domain) \(error.code)")
+			self.markPackageFileAsUploadError(node.itemMetadata)
+			return Promise(error)
+		}.then { item -> Void in
 			self.notificator?.signalUpdate(for: item)
 			// The upload executor recovers provider errors internally and fulfills with an error-bearing item, so a collision
 			// only becomes visible here. Nothing was renamed, which is why inspecting it after the fact is still in time.
@@ -582,7 +602,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 */
 	public func itemChanged(at url: URL) {
 		guard let itemIdentifier = localURLProvider.persistentIdentifierForItem(at: url) else {
-			DDLogError("itemChanged - no persistentIdentifier for item at url: \(url)")
+			DDLogError("itemChanged - no persistentIdentifier for item")
 			return
 		}
 		let uploadTaskRecord: UploadTaskRecord
@@ -590,7 +610,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			let itemMetadata = try getCachedMetadata(for: itemIdentifier)
 			uploadTaskRecord = try registerFileInUploadQueue(with: url, itemMetadata: itemMetadata)
 		} catch {
-			DDLogError("itemChanged - register file in upload queue with url: \(url) and identifier: \(itemIdentifier) failed with error: \(error)")
+			DDLogError("itemChanged - register file in upload queue for identifier: \(itemIdentifier) failed with error: \(error)")
 			return
 		}
 		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
@@ -670,12 +690,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			}
 			guard let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemID) else {
 				DDLogInfo("rescheduleUpload - no local cached file for item \(itemID), marking as error")
-				try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
+				try markUploadAsError(itemMetadata)
 				return
 			}
 			guard FileManager.default.fileExists(atPath: localCachedFileInfo.localURL.path) else {
-				DDLogInfo("rescheduleUpload - local file missing at \(localCachedFileInfo.localURL) for item \(itemID), marking as error")
-				try markUploadAsError(itemID: itemID, itemMetadata: itemMetadata)
+				DDLogInfo("rescheduleUpload - local file missing for item \(itemID), marking as error")
+				try markUploadAsError(itemMetadata)
 				return
 			}
 			DDLogInfo("rescheduleUpload - re-scheduling upload for item \(itemID)")
@@ -689,9 +709,13 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	private func markUploadAsError(itemID: Int64, itemMetadata: ItemMetadata) throws {
+	/// Creates the task record if the upload failed before it existed, because re-enumeration rebuilds the error from the record alone.
+	private func markUploadAsError(_ itemMetadata: ItemMetadata) throws {
 		let error = NSFileProviderError(.noSuchItem) as NSError
-		try uploadTaskManager.updateTaskRecord(with: itemID, lastFailedUploadDate: Date(), uploadErrorCode: error.code, uploadErrorDomain: error.domain)
+		if try uploadTaskManager.getTaskRecord(for: itemMetadata) == nil {
+			_ = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
+		}
+		try uploadTaskManager.updateTaskRecord(for: itemMetadata, with: error)
 		itemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(itemMetadata)
 		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, error: error)
@@ -733,8 +757,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			try uploadTaskManager.removeTaskRecord(for: itemMetadata)
 			uploadTaskRecord = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
 			try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
-		} catch {
-			DDLogError("Register file in upload queue failed with error: \(error)")
+		} catch let error as NSError {
+			// Domain and code only, because a `FileManager` error names the path it failed on.
+			DDLogError("Register file in upload queue for item \(itemMetadata.id ?? -1) failed with \(error.domain) \(error.code)")
 			throw NSFileProviderError(.noSuchItem)
 		}
 		return uploadTaskRecord
