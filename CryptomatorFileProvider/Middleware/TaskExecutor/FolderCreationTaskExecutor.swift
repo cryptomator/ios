@@ -28,13 +28,16 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 	private let itemMetadataManager: ItemMetadataManager
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	private let limiter: ConcurrencyLimiter
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
 	     provider: CloudProvider,
-	     itemMetadataManager: ItemMetadataManager) {
+	     itemMetadataManager: ItemMetadataManager,
+	     limiter: ConcurrencyLimiter) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
+		self.limiter = limiter
 	}
 
 	/**
@@ -55,7 +58,11 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
 
-		return provider.createFolder(at: task.cloudPath).then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
+		// Held for the request alone, never while waiting on dependencies, so a folder can never wait for a permit its own
+		// descendants hold.
+		return limiter.withPermit { [provider] in
+			provider.createFolder(at: task.cloudPath)
+		}.then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try itemMetadataManager.updateMetadata(itemMetadata)
