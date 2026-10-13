@@ -138,19 +138,14 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	class GraphWorkflowSchedulerMock: WorkflowScheduler {
-		let dispatchGroup = DispatchGroup()
 		/// Off for tests whose injected failure rejects a scheduled workflow.
 		var failsTestOnRejection = true
 
 		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
-			dispatchGroup.enter()
 			return super.schedule(workflow).catch { error in
 				if self.failsTestOnRejection {
 					XCTFail("failed with error: \(error)")
 				}
-			}.always {
-				// Left in `always`, so an expected rejection settles the group instead of hanging the wait.
-				self.dispatchGroup.leave()
 			}
 		}
 	}

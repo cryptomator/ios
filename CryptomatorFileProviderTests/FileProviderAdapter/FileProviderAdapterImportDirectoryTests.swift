@@ -25,20 +25,20 @@ class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 			return self.tmpDirectory.appendingPathComponent($0.rawValue)
 		}
 		metadataManagerMock.cachedMetadata[1] = ItemMetadata(item: .init(name: "/", cloudPath: CloudPath("/"), itemType: .folder, lastModifiedDate: nil, size: nil), withParentID: 1)
-		let provider = CloudProviderGraphMock()
-		let scheduler = createGraphScheduler()
-		let adapter = createPackageAdapter(provider: provider, scheduler: scheduler)
+		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: createGraphScheduler())
+		// The completion handlers fire before the workflows are scheduled, so only a signal per folder and file marks the end.
+		let directoryCount = 5
+		let allSignalled = expectation(description: "Signalled every folder and file")
+		allSignalled.expectedFulfillmentCount = directoryCount * 2
+		fileProviderItemUpdateDelegateMock.signalUpdateForClosure = { _ in
+			allSignalled.fulfill()
+		}
 		var parentIdentifier: NSFileProviderItemIdentifier = .rootContainer
 
-		for _ in 0 ..< 5 {
+		for _ in 0 ..< directoryCount {
 			parentIdentifier = try createDirectoryWithFiles(adapter: adapter, parentIdentifier: parentIdentifier).itemIdentifier
 		}
-		let expectation = XCTestExpectation()
-		DispatchQueue.global().async {
-			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 30))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 35)
+		wait(for: [allSignalled], timeout: 30.0)
 	}
 
 	private func createDirectoryWithFiles(adapter: FileProviderAdapter, parentIdentifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {

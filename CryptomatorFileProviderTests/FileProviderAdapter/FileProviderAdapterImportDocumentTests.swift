@@ -252,8 +252,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		try cacheRootItemMetadata()
 		let packageURL = try createPackage()
 		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: createGraphScheduler())
-		// `importDocument` discards the orchestration promise, so only the last node's signal marks the end of the import. The
-		// scheduler's group is no substitute, because it can drain between a folder finishing and its children being scheduled.
+		// `importDocument` discards the orchestration promise, so only the last node's signal marks the end of the import.
 		let childSignalled = expectation(description: "Signalled the package child")
 		fileProviderItemUpdateDelegateMock.signalUpdateForClosure = { item in
 			if item.filename == "TXT.rtf" {
