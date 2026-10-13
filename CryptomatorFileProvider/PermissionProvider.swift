@@ -17,7 +17,7 @@ public protocol PermissionProvider {
 	 Returns the permission for a given `item` at a given `domain`.
 
 	 The following restrictions can apply to any item:
-	 - in case of an upload error it's only allowed to delete the item, even in a free version.
+	 - in case of an upload error it's only allowed to read and delete the item, even in a free version.
 	 - in case of a free version only reading is allowed, except if the vault belongs to Cryptomator Hub and it has an active subscription state.
 
 	 The following capabilities hold for folders:
@@ -64,7 +64,9 @@ struct PermissionProviderImpl: PermissionProvider {
 
 	func getPermissions(for item: ItemMetadata, at domain: NSFileProviderDomainIdentifier) -> NSFileProviderItemCapabilities {
 		if item.statusCode == .uploadError {
-			return .allowsDeleting
+			// Reading stays allowed, because after a failed upload the local copy can be all the user has left. For a folder it
+			// also allows enumerating, since `.allowsContentEnumerating` is the same bit as `.allowsReading`.
+			return [.allowsReading, .allowsDeleting]
 		}
 
 		let vaultID = domain.rawValue

@@ -246,6 +246,8 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		XCTAssertFalse(cachedFileManagerMock.cachedLocalFileInfo.isEmpty, "Deleted cached bytes after success was already reported")
 		let root = try XCTUnwrap(remaining.first { $0.type == .folder })
 		try assertPersisted(root, statusCode: .uploadError)
+		let child = try XCTUnwrap(remaining.first { $0.type == .file })
+		try assertPersisted(child, statusCode: .uploadError)
 	}
 
 	func testImportDocumentRoutesAPackageToThePackageImport() throws {
@@ -496,18 +498,17 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		XCTAssertFalse(try constructedFor.contains(XCTUnwrap(deep.itemMetadata.id)), "Constructed a task for a folder below a failed folder")
 		XCTAssertFalse(try constructedFor.contains(XCTUnwrap(logo.itemMetadata.id)), "Constructed a task for a file below a failed folder")
 		XCTAssertFalse(try constructedFor.contains(XCTUnwrap(note.itemMetadata.id)), "Constructed a task for a nested file below a failed folder")
-		let registeredIDs = uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id! }
-		XCTAssertFalse(try registeredIDs.contains(XCTUnwrap(logo.itemMetadata.id)))
-		XCTAssertFalse(try registeredIDs.contains(XCTUnwrap(note.itemMetadata.id)))
 
 		// The sibling subtree is independent and must be unaffected.
 		XCTAssertNotNil(provider.virtualCloudFileSystem.getItem(at: CloudPath("/Design Notes.rtfd/TXT.rtf")))
+		let registeredIDs = uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id! }
 		XCTAssert(try registeredIDs.contains(XCTUnwrap(sibling.itemMetadata.id)))
 
-		// Failed after the completion handler already reported success, so the local subtree survives and is marked instead.
+		// Failed after the completion handler already reported success, so the local subtree survives and every descendant is marked instead.
 		try assertPersisted(attachments.itemMetadata, statusCode: .uploadError)
-		XCTAssertNotNil(try metadataManagerMock.cachedMetadata[XCTUnwrap(deep.itemMetadata.id)])
-		XCTAssertNotNil(try metadataManagerMock.cachedMetadata[XCTUnwrap(note.itemMetadata.id)])
+		try assertPersisted(deep.itemMetadata, statusCode: .uploadError)
+		try assertPackageFileMarkedAsUploadError(logo)
+		try assertPackageFileMarkedAsUploadError(note)
 		XCTAssertNotNil(try cachedFileManagerMock.cachedLocalFileInfo[XCTUnwrap(note.itemMetadata.id)])
 	}
 

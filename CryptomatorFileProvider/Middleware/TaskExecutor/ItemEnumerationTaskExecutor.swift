@@ -65,15 +65,21 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		let itemMetadata = enumerationTask.itemMetadata
 		let cloudPath = enumerationTask.cloudPath
 		let promise: Promise<FileProviderItemList>
-		switch itemMetadata.type {
-		case .folder:
-			let taskRecord = enumerationTask.taskRecord
-			promise = fetchItemList(folderMetadata: itemMetadata, folderCloudPath: cloudPath, pageToken: taskRecord.pageToken)
-		case .file:
-			promise = fetchItemMetadata(fileMetadata: itemMetadata, fileCloudPath: cloudPath)
-		default:
-			DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
-			promise = Promise(NSFileProviderError(.noSuchItem))
+		// The cloud knows nothing about an item whose creation failed or never ran, so its local rows are all there is. The root
+		// is excluded, because its row carries the placeholder flag from the initial migration.
+		if itemMetadata.isPlaceholderItem, itemMetadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
+			promise = buildPlaceholderItemList(for: itemMetadata)
+		} else {
+			switch itemMetadata.type {
+			case .folder:
+				let taskRecord = enumerationTask.taskRecord
+				promise = fetchItemList(folderMetadata: itemMetadata, folderCloudPath: cloudPath, pageToken: taskRecord.pageToken)
+			case .file:
+				promise = fetchItemMetadata(fileMetadata: itemMetadata, fileCloudPath: cloudPath)
+			default:
+				DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
+				promise = Promise(NSFileProviderError(.noSuchItem))
+			}
 		}
 		promise.always {
 			do {
@@ -127,14 +133,31 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			guard folderMetadata.lastEnumeratedAt != nil else {
 				return Promise(originalError)
 			}
-			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
-			let items = try FileProviderItem.items(from: cachedMetadata, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
-			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderCloudPath.path)")
-			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
+			let itemList = try buildCachedItemList(folderMetadata: folderMetadata)
+			DDLogInfo("Offline fallback: serving \(itemList.items.count) cached items for folder \(folderCloudPath.path)")
+			return Promise(itemList)
 		} catch {
 			DDLogError("Offline fallback failed for folder \(folderCloudPath.path): \(error)")
 			return Promise(error)
 		}
+	}
+
+	private func buildPlaceholderItemList(for itemMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
+		do {
+			if itemMetadata.type == .folder {
+				return try Promise(buildCachedItemList(folderMetadata: itemMetadata))
+			}
+			let items = try FileProviderItem.items(from: [itemMetadata], domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
+		} catch {
+			return Promise(error)
+		}
+	}
+
+	private func buildCachedItemList(folderMetadata: ItemMetadata) throws -> FileProviderItemList {
+		let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
+		let items = try FileProviderItem.items(from: cachedMetadata, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+		return FileProviderItemList(items: items, nextPageToken: nil)
 	}
 
 	func getReparentMetadata(for parentID: Int64) throws -> [ItemMetadata] {

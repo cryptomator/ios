@@ -171,7 +171,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
 			var result = [ItemMetadata]()
-			for metadata in cachedMetadata.values where metadata.parentID == parentID && metadata.isPlaceholderItem {
+			for metadata in cachedMetadata.values where metadata.parentID == parentID && metadata.isPlaceholderItem && metadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
 				result.append(metadata)
 			}
 			return result

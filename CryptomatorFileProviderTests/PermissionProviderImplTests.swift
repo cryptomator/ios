@@ -77,7 +77,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			let cloudPath = CloudPath("/test.txt")
 			let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
-			XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, actualCapabilities)
+			XCTAssertEqual([.allowsReading, .allowsDeleting], actualCapabilities)
 		}
 	}
 
@@ -91,7 +91,7 @@ final class PermissionProviderImplTests: XCTestCase {
 			let cloudPath = CloudPath("/test")
 			let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
 			let actualCapabilities = PermissionProviderImpl().getPermissions(for: metadata, at: .test)
-			XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, actualCapabilities)
+			XCTAssertEqual([.allowsReading, .allowsDeleting], actualCapabilities)
 		}
 	}
 

@@ -509,10 +509,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			let cloudPath = try itemMetadataManager.getCloudPath(for: node.itemMetadata.id!)
 			task = FolderCreationTask(itemMetadata: node.itemMetadata, cloudPath: cloudPath, onlineCollisionDisposition: isRoot ? .renameAndRetry : .fail)
 		} catch {
-			// Marked here too: this returns before the `recover` below is attached, so a folder that fails to even produce a
-			// task would otherwise stay `.isUploading` with nothing left to run it.
+			// Marked here too, because this returns before the `recover` below is attached.
 			DDLogError("Package import: building the task for folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
-			markPackageFolderAsUploadError(node.itemMetadata, error: error)
+			markPackageSubtreeAsUploadError(node, error: error)
 			return Promise(error)
 		}
 		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Promise<Void> in
@@ -520,7 +519,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return self.schedulePackageChildren(of: node)
 		}.recover { error -> Promise<Void> in
 			DDLogError("Package import: creating folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
-			self.markPackageFolderAsUploadError(node.itemMetadata, error: error)
+			self.markPackageSubtreeAsUploadError(node, error: error)
 			return Promise(error)
 		}
 	}
@@ -539,11 +538,19 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return all(settledChildren).then { _ in }
 	}
 
-	/**
-	 Marks a folder whose creation failed after the import was already reported as successful.
+	/// Marks the descendants too, because nothing schedules them once their folder failed.
+	private func markPackageSubtreeAsUploadError(_ node: ImportedPackageNode, error: Error) {
+		if node.itemMetadata.type == .folder {
+			markPackageFolderAsUploadError(node.itemMetadata, error: error)
+		} else {
+			markPackageFileAsUploadError(node.itemMetadata)
+		}
+		for child in node.children {
+			markPackageSubtreeAsUploadError(child, error: error)
+		}
+	}
 
-	 `markUploadAsError` cannot be used, because it updates an `UploadTaskRecord` first and a folder never has one.
-	 */
+	/// `markUploadAsError` cannot be used, because it creates an `UploadTaskRecord`, which only a file may have.
 	private func markPackageFolderAsUploadError(_ itemMetadata: ItemMetadata, error: Error) {
 		do {
 			itemMetadata.statusCode = .uploadError
