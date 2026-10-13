@@ -171,7 +171,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/Test")
 		let id: Int64 = 2
-		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), pageToken: nil)
@@ -694,13 +694,93 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 5.0)
 	}
 
+	// MARK: Placeholder
+
+	/// A package folder whose creation failed holds the only copy of its contents, so it must stay browsable.
+	func testPlaceholderFolderEnumerationServesLocalChildrenWithoutAskingTheCloud() throws {
+		let expectation = XCTestExpectation()
+		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
+		try metadataManagerMock.cacheMetadata(folderMetadata)
+
+		let child = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try metadataManagerMock.cacheMetadata(child)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(folderMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: folderMetadata, cloudPath: CloudPath("/").appendingPathComponent(folderMetadata.name))
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemListResponse = { _, _ in
+			XCTFail("Asked the cloud to list a folder that was never created there")
+			return Promise(CloudProviderError.itemNotFound)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
+			XCTAssertNil(itemList.nextPageToken)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	func testPlaceholderFileEnumerationServesTheLocalItemWithoutAskingTheCloud() throws {
+		let expectation = XCTestExpectation()
+		let fileMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try metadataManagerMock.cacheMetadata(fileMetadata)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(fileMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: fileMetadata, cloudPath: CloudPath("/").appendingPathComponent(fileMetadata.name))
+
+		let errorCloudProviderMock = CloudProviderErrorMock()
+		errorCloudProviderMock.fetchItemMetadataResponse = { _ in
+			XCTFail("Asked the cloud for a file that was never uploaded there")
+			return Promise(CloudProviderError.itemNotFound)
+		}
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	/// The initial migration stores the root with the placeholder flag set, but the root always exists in the cloud.
+	func testRootEnumerationAsksTheCloudDespiteItsPlaceholderFlag() throws {
+		let expectation = XCTestExpectation()
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nil)
+		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
+
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+
+		taskExecutor.execute(task: enumerationTask).then { itemList in
+			XCTAssertEqual(5, itemList.items.count)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
 	// MARK: Error Passthrough
 
 	func testFolderEnumerationFailWithSameErrorAsProvider() throws {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/Test")
 		let id: Int64 = 2
-		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
 		let enumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), pageToken: nil)

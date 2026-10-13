@@ -124,6 +124,66 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		wait(for: [expectation], timeout: 5.0)
 	}
 
+	func testNoRenameForFailDisposition() throws {
+		let expectation = XCTestExpectation()
+		var executedCloudPaths = [CloudPath]()
+		let workflowMock = WorkflowMiddlewareMock<Void> { task in
+			executedCloudPaths.append(task.cloudPath)
+			return Promise(CloudProviderError.itemAlreadyExists)
+		}
+		let itemMetadata = ItemMetadata(name: "Attachments", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
+		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
+		let sampleCloudPath = CloudPath("/Attachments")
+		middleware.execute(task: FolderCreationTask(itemMetadata: itemMetadata, cloudPath: sampleCloudPath, onlineCollisionDisposition: .fail)).then {
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.itemAlreadyExists = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+			// The retry is what creates the renamed object remotely, so it must not have happened at all.
+			XCTAssertEqual([sampleCloudPath], executedCloudPaths)
+			guard let itemID = itemMetadata.id, let cachedItemMetadata = try? self.itemMetadataManager.getCachedMetadata(for: itemID) else {
+				XCTFail("ItemMetadata not found in DB")
+				return
+			}
+			XCTAssertEqual("Attachments", cachedItemMetadata.name)
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
+	/// The middleware is also installed for uploads and reparents, which never opt out and must keep renaming.
+	func testTaskWithoutOwnDispositionStillRenames() throws {
+		let expectation = XCTestExpectation()
+		let originalCloudPath = CloudPath("/foo.txt")
+		var executedCloudPaths = [CloudPath]()
+		let workflowMock = WorkflowMiddlewareMock<Void> { task in
+			executedCloudPaths.append(task.cloudPath)
+			if task.cloudPath == originalCloudPath {
+				return Promise(CloudProviderError.itemAlreadyExists)
+			}
+			return Promise(())
+		}
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
+		let taskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
+		let task = UploadTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: originalCloudPath, onURLSessionTaskCreation: nil)
+		XCTAssertEqual(.renameAndRetry, task.onlineCollisionDisposition)
+		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
+		middleware.execute(task: task).then {
+			XCTAssertEqual(2, executedCloudPaths.count, "Did not retry under a collision-free path")
+			XCTAssertNotEqual(originalCloudPath, executedCloudPaths.last)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 5.0)
+	}
+
 	func testNoRetryForDifferentError() throws {
 		let expectation = XCTestExpectation()
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in

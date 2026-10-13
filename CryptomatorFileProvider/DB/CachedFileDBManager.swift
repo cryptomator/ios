@@ -126,13 +126,7 @@ class CachedFileDBManager: CachedFileManager {
 
 	func clearCache() throws {
 		try database.write { db in
-			let entries = try LocalCachedFileInfo.fetchAll(db, sql: """
-				  SELECT \(LocalCachedFileInfo.databaseTableName).*
-				  FROM \(LocalCachedFileInfo.databaseTableName)
-				  LEFT JOIN \(UploadTaskRecord.databaseTableName)
-				  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
-				  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
-			""")
+			let entries = try fetchEvictableEntries(db)
 			for entry in entries {
 				try? db.inSavepoint({
 					try entry.delete(db)
@@ -150,13 +144,7 @@ class CachedFileDBManager: CachedFileManager {
 
 	func getLocalCacheSizeInBytes() throws -> Int {
 		try database.read({ db in
-			let entries = try LocalCachedFileInfo.fetchAll(db, sql: """
-				  SELECT \(LocalCachedFileInfo.databaseTableName).*
-				  FROM \(LocalCachedFileInfo.databaseTableName)
-				  LEFT JOIN \(UploadTaskRecord.databaseTableName)
-				  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
-				  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
-			""")
+			let entries = try fetchEvictableEntries(db)
 			return try entries.reduce(0) {
 				do {
 					let attributes = try $1.localURL.resourceValues(forKeys: [.fileSizeKey])
@@ -167,5 +155,21 @@ class CachedFileDBManager: CachedFileManager {
 				}
 			}
 		})
+	}
+
+	/// Skips items that never reached the cloud as well as pending uploads, because a package file gets no upload task until its folder exists in the cloud, and its cached bytes can be the only copy the user has left.
+	private func fetchEvictableEntries(_ db: Database) throws -> [LocalCachedFileInfo] {
+		return try LocalCachedFileInfo.fetchAll(db, sql: """
+			  SELECT \(LocalCachedFileInfo.databaseTableName).*
+			  FROM \(LocalCachedFileInfo.databaseTableName)
+			  LEFT JOIN \(UploadTaskRecord.databaseTableName)
+			  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
+			  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
+			  AND NOT EXISTS (
+			  	SELECT 1 FROM \(ItemMetadata.databaseTableName)
+			  	WHERE \(ItemMetadata.databaseTableName).id = \(LocalCachedFileInfo.databaseTableName).correspondingItem
+			  	AND \(ItemMetadata.databaseTableName).isPlaceholderItem
+			  )
+		""")
 	}
 }

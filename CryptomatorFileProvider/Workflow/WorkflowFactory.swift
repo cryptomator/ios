@@ -21,6 +21,8 @@ struct WorkflowFactory {
 	let itemEnumerationTaskManager: ItemEnumerationTaskManager
 	let downloadTaskManager: DownloadTaskManager
 	let dependencyFactory = WorkflowDependencyFactory()
+	/// The scheduler leaves folder creation unconstrained, so many sibling folders, as in a package, would otherwise be requested all at once.
+	private let folderCreationLimiter = ConcurrencyLimiter(maxConcurrentOperations: 2)
 	let domainIdentifier: NSFileProviderDomainIdentifier
 	@Dependency(\.permissionProvider) private var permissionProvider
 
@@ -89,7 +91,7 @@ struct WorkflowFactory {
 
 	func createWorkflow(for folderCreationTask: FolderCreationTask) -> Workflow<FileProviderItem> {
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
-		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, itemMetadataManager: itemMetadataManager)
+		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, itemMetadataManager: itemMetadataManager, limiter: folderCreationLimiter)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())

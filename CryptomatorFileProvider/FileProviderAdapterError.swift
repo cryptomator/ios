@@ -16,4 +16,5 @@ enum FileProviderAdapterError: Error {
 	case unsupportedItemType
 	case itemNotFound
 	case unresolvableParentChain
+	case symbolicLinkNotSupported
 }
