@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import Promises
 @testable import CryptomatorFileProvider
 
 class WorkflowMiddlewareMock<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
-	private let _execute: (CloudTask) -> Promise<T>
+	private let _execute: (CloudTask) async throws -> T
 
-	init(execute: @escaping (CloudTask) -> Promise<T>) {
+	init(execute: @escaping (CloudTask) async throws -> T) {
 		self._execute = execute
 	}
 
@@ -29,7 +28,7 @@ class WorkflowMiddlewareMock<T>: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	func execute(task: CloudTask) -> Promise<T> {
-		_execute(task)
+	func execute(task: CloudTask) async throws -> T {
+		try await _execute(task)
 	}
 }

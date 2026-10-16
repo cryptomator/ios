@@ -6,12 +6,13 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import Promises
+import os
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 
+@MainActor
 class WebDAVAuthenticationViewModelTests: XCTestCase {
 	var viewModel: WebDAVAuthenticationViewModel!
 	var credentialManagerMock: WebDAVCredentialManagerMock!
@@ -19,10 +20,14 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	var cloudProviderUpdatingMock: CloudProviderUpdatingMock!
 	let untrustedCertificate = TLSCertificate(data: WebDAVCredential.mockCertificate, isTrusted: false, fingerprint: UUID().uuidString)
 	let trustedCertificate = TLSCertificate(data: Data(), isTrusted: true, fingerprint: UUID().uuidString)
-	var verifyClientCallsCount = 0
+	var verifyClientCalls: OSAllocatedUnfairLock<Int>!
+	var verifyClientCallsCount: Int {
+		verifyClientCalls.withLock { $0 }
+	}
 
-	override func setUpWithError() throws {
-		verifyClientCallsCount = 0
+	override func setUp() async throws {
+		try await super.setUp()
+		verifyClientCalls = OSAllocatedUnfairLock(initialState: 0)
 		credentialManagerMock = WebDAVCredentialManagerMock()
 		validationHelperMock = TLSCertificateValidationHelpingMock()
 		cloudProviderUpdatingMock = CloudProviderUpdatingMock()
@@ -64,12 +69,8 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 
 	func testSaveAccount() throws {
 		let viewModel = WebDAVAuthenticationViewModel(credentialManager: credentialManagerMock, validationHelper: validationHelperMock, cloudProviderUpdating: cloudProviderUpdatingMock)
-		validationHelperMock.validateUrlReturnValue = Promise(trustedCertificate)
-		var verifyClientCallsCount = 0
-		viewModel.verifyClient = { _ in
-			verifyClientCallsCount += 1
-			return Promise(())
-		}
+		validationHelperMock.validateUrlReturnValue = trustedCertificate
+		viewModel.verifyClient = makeCountingVerifyClient()
 		let stateRecorder = viewModel.$state.recordNext(3)
 		let saveButtonIsEnabledRecorder = viewModel.saveButtonIsEnabled.recordNext(4)
 		viewModel.username = "user"
@@ -92,12 +93,8 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 
 	func testUpdateAccount() throws {
 		let expectedUpdatedCredential = try WebDAVCredential(baseURL: XCTUnwrap(URL(string: "https://example.com")), username: "user", password: "updatedPassword", allowedCertificate: nil)
-		validationHelperMock.validateUrlReturnValue = Promise(trustedCertificate)
-		var verifyClientCallsCount = 0
-		viewModel.verifyClient = { _ in
-			verifyClientCallsCount += 1
-			return Promise(())
-		}
+		validationHelperMock.validateUrlReturnValue = trustedCertificate
+		viewModel.verifyClient = makeCountingVerifyClient()
 		let stateRecorder = viewModel.$state.recordNext(3)
 		viewModel.username = "user"
 		viewModel.password = "updatedPassword"
@@ -120,12 +117,8 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	// MARK: - Untrusted Certificate
 
 	func testSaveAccountWithUntrustedCertificate() throws {
-		validationHelperMock.validateUrlReturnValue = Promise(untrustedCertificate)
-		var verifyClientCallsCount = 0
-		viewModel.verifyClient = { _ in
-			verifyClientCallsCount += 1
-			return Promise(())
-		}
+		validationHelperMock.validateUrlReturnValue = untrustedCertificate
+		viewModel.verifyClient = makeCountingVerifyClient()
 		let stateRecorder = viewModel.$state.recordNext(3)
 		viewModel.username = "user"
 		viewModel.password = "pass"
@@ -168,11 +161,8 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	// MARK: - Insecure Connection
 
 	func testSaveAccountWithInsecureConnection() {
-		validationHelperMock.validateUrlReturnValue = Promise(trustedCertificate)
-		viewModel.verifyClient = { _ in
-			self.verifyClientCallsCount += 1
-			return Promise(())
-		}
+		validationHelperMock.validateUrlReturnValue = trustedCertificate
+		viewModel.verifyClient = makeCountingVerifyClient()
 		let stateRecorder = viewModel.$state.recordNext(2)
 		viewModel.username = "user"
 		viewModel.password = "pass"
@@ -236,6 +226,13 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		let savedCredential = try XCTUnwrap(credentialManagerMock.saveCredentialToKeychainReceivedCredential)
 		XCTAssert(savedCredential.isEqual(.mock))
 	}
+
+	private func makeCountingVerifyClient() -> @Sendable (WebDAVClient) async throws -> Void {
+		let verifyClientCalls = verifyClientCalls!
+		return { _ in
+			verifyClientCalls.withLock { $0 += 1 }
+		}
+	}
 }
 
 private extension WebDAVCredential {
@@ -245,7 +242,7 @@ private extension WebDAVCredential {
 	static let mockWithInsecureConnection = WebDAVCredential(baseURL: URL(string: "http://example.com")!, username: "user", password: "pass", allowedCertificate: nil)
 }
 
-extension WebDAVAuthenticationViewModel.State: Equatable {
+extension WebDAVAuthenticationViewModel.State: @MainActor Equatable {
 	public static func == (lhs: WebDAVAuthenticationViewModel.State, rhs: WebDAVAuthenticationViewModel.State) -> Bool {
 		switch (lhs, rhs) {
 		case (.initial, .initial):

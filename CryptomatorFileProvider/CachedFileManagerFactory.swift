@@ -31,10 +31,8 @@ struct CachedFileDBManagerFactory: CachedFileManagerFactory {
 			throw MissingProviderIdentifierError()
 		}
 		let database = try DatabaseHelper.default.getMigratedDB(at: databaseURL, purposeIdentifier: providerIdentifier)
-		let fileCoordinator = NSFileCoordinator()
-		fileCoordinator.purposeIdentifier = providerIdentifier
 		return CachedFileDBManager(database: database,
-		                           fileManagerHelper: .init(fileCoordinator: fileCoordinator))
+		                           fileManagerHelper: .init(fileCoordinatorPurposeIdentifier: providerIdentifier))
 	}
 }
 

@@ -10,9 +10,11 @@ import CryptomatorCommonCore
 import XCTest
 @testable import Cryptomator
 
+@MainActor
 class SetVaultNameViewModelTests: XCTestCase {
 	var viewModel: SetVaultNameViewModel!
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		viewModel = SetVaultNameViewModel()
 	}
 

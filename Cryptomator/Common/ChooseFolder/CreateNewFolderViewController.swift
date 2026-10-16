@@ -9,7 +9,6 @@
 import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
@@ -62,13 +61,14 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 		hud.text = LocalizedString.getValue("chooseFolder.createNewFolder.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		let createFolderPromise = viewModel.createFolder()
-		createFolderPromise.then { _ -> Promise<(CloudPath, Void)> in
-			return all(createFolderPromise, hud.transformToSelfDismissingSuccess())
-		}.then { [weak self] folderPath, _ in
-			self?.coordinator?.createdNewFolder(at: folderPath)
-		}.catch { [weak self] error in
-			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+		Task {
+			do {
+				let folderPath = try await viewModel.createFolder()
+				await hud.transformToSelfDismissingSuccess()
+				coordinator?.createdNewFolder(at: folderPath)
+			} catch {
+				await handleError(error, coordinator: coordinator, progressHUD: hud)
+			}
 		}
 	}
 }
@@ -86,8 +86,8 @@ private class CreateNewFolderViewModelMock: SingleSectionTableViewModel, CreateN
 	}
 
 	let folderNameCellViewModel = TextFieldCellViewModel(type: .normal)
-	func createFolder() -> Promise<CloudPath> {
-		return Promise(CloudPath("/"))
+	func createFolder() async throws -> CloudPath {
+		return CloudPath("/")
 	}
 
 	let headerTitle = "Choose a name for the folder."

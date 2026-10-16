@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-public enum CloudProviderType: Codable, Equatable, Hashable, DatabaseValueConvertible {
+public enum CloudProviderType: Codable, Equatable, Hashable, DatabaseValueConvertible, Sendable {
 	case box
 	case dropbox
 	case googleDrive
@@ -21,15 +21,15 @@ public enum CloudProviderType: Codable, Equatable, Hashable, DatabaseValueConver
 	case webDAV(type: WebDAVType)
 }
 
-public enum LocalFileSystemType: Codable {
+public enum LocalFileSystemType: Codable, Sendable {
 	case custom
 	case iCloudDrive
 }
 
-public enum WebDAVType: Codable {
+public enum WebDAVType: Codable, Sendable {
 	case custom
 }
 
-public enum S3Type: Codable {
+public enum S3Type: Codable, Sendable {
 	case custom
 }

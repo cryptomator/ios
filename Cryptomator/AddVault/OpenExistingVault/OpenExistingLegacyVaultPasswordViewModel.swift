@@ -10,7 +10,6 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class OpenExistingLegacyVaultPasswordViewModel: SingleSectionTableViewModel, OpenExistingVaultPasswordViewModelProtocol {
 	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
@@ -57,8 +56,8 @@ class OpenExistingLegacyVaultPasswordViewModel: SingleSectionTableViewModel, Ope
 		self.downloadedMasterkeyFile = downloadedMasterkeyFile
 	}
 
-	func addVault() -> Promise<Void> {
-		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultItem: vault, password: password, storePasswordInKeychain: false)
+	func addVault() async throws {
+		try await VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultItem: vault, password: password, storePasswordInKeychain: false)
 	}
 
 	override func getFooterTitle(for section: Int) -> String? {

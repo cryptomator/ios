@@ -8,13 +8,12 @@
 
 import CryptomatorCloudAccessCore
 import Dependencies
-import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 
 class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
 			return $0.map { _ in nil }
 		}
@@ -22,8 +21,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 	// MARK: File
 
-	func testFileEnumeration() throws {
-		let expectation = XCTestExpectation()
+	func testFileEnumeration() async throws {
 		let path = CloudPath("/File 1")
 		let fileMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(fileMetadata)
@@ -33,40 +31,33 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(1, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
-			guard let fetchedItemMetadata = try self.metadataManagerMock.getCachedMetadata(for: 2) else {
-				XCTFail("No Metadata in DB")
-				return
-			}
-			XCTAssertEqual("File 1", fetchedItemMetadata.name)
-			XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
-			XCTAssertEqual(14, fetchedItemMetadata.size)
-			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, fetchedItemMetadata.parentID)
-			XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
-			XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
-			XCTAssertEqual("File 1", fetchedItemMetadata.name)
-			XCTAssertFalse(fetchedItemMetadata.isPlaceholderItem)
-			XCTAssertFalse(fetchedItemMetadata.isMaybeOutdated)
-
-			let item = itemList.items[0]
-			XCTAssertEqual(fetchedItemMetadata, item.metadata)
-			XCTAssertNil(item.error)
-			XCTAssertFalse(item.newestVersionLocallyCached)
-			XCTAssertNil(item.localURL)
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(1, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
+		guard let fetchedItemMetadata = try metadataManagerMock.getCachedMetadata(for: 2) else {
+			XCTFail("No Metadata in DB")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual("File 1", fetchedItemMetadata.name)
+		XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
+		XCTAssertEqual(14, fetchedItemMetadata.size)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, fetchedItemMetadata.parentID)
+		XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
+		XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
+		XCTAssertEqual("File 1", fetchedItemMetadata.name)
+		XCTAssertFalse(fetchedItemMetadata.isPlaceholderItem)
+		XCTAssertFalse(fetchedItemMetadata.isMaybeOutdated)
+
+		let item = itemList.items[0]
+		XCTAssertEqual(fetchedItemMetadata, item.metadata)
+		XCTAssertNil(item.error)
+		XCTAssertFalse(item.newestVersionLocallyCached)
+		XCTAssertNil(item.localURL)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 	}
 
-	func testFileEnumerationPreservesUploadError() throws {
-		let expectation = XCTestExpectation()
+	func testFileEnumerationPreservesUploadError() async throws {
 		let path = CloudPath("/File 1")
 		let id: Int64 = 2
 		let fileMetadata = ItemMetadata(id: id, name: "File 1", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: false)
@@ -84,37 +75,30 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(1, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
-			guard let fetchedItemMetadata = try self.metadataManagerMock.getCachedMetadata(for: id) else {
-				XCTFail("No Metadata in DB")
-				return
-			}
-			XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
-
-			guard let uploadTask = try self.uploadTaskManagerMock.getTaskRecord(for: id) else {
-				XCTFail("No UploadTask found for id")
-				return
-			}
-			XCTAssertEqual(-1003, uploadTask.uploadErrorCode)
-			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
-			XCTAssertNotNil(uploadTask.lastFailedUploadDate)
-
-			let item = itemList.items[0]
-			XCTAssertEqual(NSFileProviderError(.insufficientQuota)._nsError, item.uploadingError as NSError?)
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(1, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
+		guard let fetchedItemMetadata = try metadataManagerMock.getCachedMetadata(for: id) else {
+			XCTFail("No Metadata in DB")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
+
+		guard let uploadTask = try uploadTaskManagerMock.getTaskRecord(for: id) else {
+			XCTFail("No UploadTask found for id")
+			return
+		}
+		XCTAssertEqual(-1003, uploadTask.uploadErrorCode)
+		XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
+		XCTAssertNotNil(uploadTask.lastFailedUploadDate)
+
+		let item = itemList.items[0]
+		XCTAssertEqual(NSFileProviderError(.insufficientQuota)._nsError, item.uploadingError as NSError?)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 	}
 
-	func testFileEnumerationPreservesLocalCachedFileInfo() throws {
-		let expectation = XCTestExpectation()
+	func testFileEnumerationPreservesLocalCachedFileInfo() async throws {
 		let path = CloudPath("/File 1")
 		let id: Int64 = 2
 		let fileMetadata = ItemMetadata(id: id, name: "File 1", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -129,46 +113,39 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(1, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
-			guard let fetchedLocalFileInfo = try self.cachedFileManagerMock.getLocalCachedFileInfo(for: id) else {
-				XCTFail("No LocalCachedFileInfo in DB")
-				return
-			}
-			XCTAssertEqual(lastModifiedDate, fetchedLocalFileInfo.lastModifiedDate)
-			XCTAssertEqual(localURL, fetchedLocalFileInfo.localURL)
-
-			guard let fetchedItemMetadata = try self.metadataManagerMock.getCachedMetadata(for: id) else {
-				XCTFail("No Metadata in DB")
-				return
-			}
-			XCTAssertEqual("File 1", fetchedItemMetadata.name)
-			XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
-			XCTAssertEqual(14, fetchedItemMetadata.size)
-			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, fetchedItemMetadata.parentID)
-			XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
-			XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
-			XCTAssertEqual("File 1", fetchedItemMetadata.name)
-			XCTAssertFalse(fetchedItemMetadata.isPlaceholderItem)
-			XCTAssertFalse(fetchedItemMetadata.isMaybeOutdated)
-
-			let item = itemList.items[0]
-			XCTAssertEqual(fetchedItemMetadata, item.metadata)
-			XCTAssert(item.newestVersionLocallyCached)
-			XCTAssertEqual(localURL, item.localURL)
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(1, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
+		guard let fetchedLocalFileInfo = try cachedFileManagerMock.getLocalCachedFileInfo(for: id) else {
+			XCTFail("No LocalCachedFileInfo in DB")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(lastModifiedDate, fetchedLocalFileInfo.lastModifiedDate)
+		XCTAssertEqual(localURL, fetchedLocalFileInfo.localURL)
+
+		guard let fetchedItemMetadata = try metadataManagerMock.getCachedMetadata(for: id) else {
+			XCTFail("No Metadata in DB")
+			return
+		}
+		XCTAssertEqual("File 1", fetchedItemMetadata.name)
+		XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
+		XCTAssertEqual(14, fetchedItemMetadata.size)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, fetchedItemMetadata.parentID)
+		XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
+		XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
+		XCTAssertEqual("File 1", fetchedItemMetadata.name)
+		XCTAssertFalse(fetchedItemMetadata.isPlaceholderItem)
+		XCTAssertFalse(fetchedItemMetadata.isMaybeOutdated)
+
+		let item = itemList.items[0]
+		XCTAssertEqual(fetchedItemMetadata, item.metadata)
+		XCTAssert(item.newestVersionLocallyCached)
+		XCTAssertEqual(localURL, item.localURL)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 	}
 
-	func testFileEnumerationFailWithSameErrorAsProvider() throws {
-		let expectation = XCTestExpectation()
+	func testFileEnumerationFailWithSameErrorAsProvider() async throws {
 		let cloudPath = CloudPath("/Test")
 		let id: Int64 = 2
 		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -179,25 +156,20 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemMetadataResponse = { _ in
-			Promise(CloudTaskTestError.correctPassthrough)
+			throw CloudTaskTestError.correctPassthrough
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { _ in
-			XCTFail("Promise should not fulfill if the provider fails with an error")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await taskExecutor.execute(task: enumerationTask)) { error in
 			guard case CloudTaskTestError.correctPassthrough = error else {
-				XCTFail("Promise rejected but with the wrong error: \(error)")
+				XCTFail("Rejected with the wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.metadataManagerMock.removedMetadataID.isEmpty, "Unexpected removal of ItemMetadata")
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-		}.always {
-			expectation.fulfill()
+			XCTAssert(metadataManagerMock.removedMetadataID.isEmpty, "Unexpected removal of ItemMetadata")
+			XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 		}
-		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: Folder
@@ -227,7 +199,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			let expectedRootFolderFileProviderItems = expectedItemMetadataInsideRootFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 			let expectedSubFolderFileProviderItems = expectedItemMetadataInsideSubFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 
-			let rootFolderItemList = try await taskExecutor.execute(task: enumerationTask).getValue()
+			let rootFolderItemList = try await taskExecutor.execute(task: enumerationTask)
 			XCTAssertEqual(5, rootFolderItemList.items.count)
 			XCTAssertEqual(expectedRootFolderFileProviderItems, rootFolderItemList.items)
 			XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.metadata.name), rootFolderItemList.items.map(\.metadata.name))
@@ -246,7 +218,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			let subfolderMetadata = rootFolderItemList.items[0].metadata
 			let subfolderEnumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(subfolderMetadata.id), pageToken: nil)
 			let subfolderEnumerationTask = ItemEnumerationTask(taskRecord: subfolderEnumerationTaskRecord, itemMetadata: subfolderMetadata, cloudPath: CloudPath("/").appendingPathComponent(subfolderMetadata.name))
-			let subfolderItemList = try await taskExecutor.execute(task: subfolderEnumerationTask).getValue()
+			let subfolderItemList = try await taskExecutor.execute(task: subfolderEnumerationTask)
 
 			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
 			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == subfolderEnumerationTaskRecord }))
@@ -289,7 +261,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false), domainIdentifier: .test),
 			                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false), domainIdentifier: .test)]
 
-			let firstEnumerationItemList = try await taskExecutor.execute(task: enumerationTask).getValue()
+			let firstEnumerationItemList = try await taskExecutor.execute(task: enumerationTask)
 			XCTAssertEqual(5, firstEnumerationItemList.items.count)
 			XCTAssertEqual(expectedRootFolderFileProviderItems, firstEnumerationItemList.items)
 			XCTAssertEqual(expectedRootFolderFileProviderItems.map(\.metadata.name), firstEnumerationItemList.items.map(\.metadata.name))
@@ -300,7 +272,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			self.cloudProviderMock.files["/NewFileFromCloud"] = Data("NewFileFromCloud content".utf8)
 			let secondEnumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 			let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
-			let secondEnumerationItemList = try await taskExecutor.execute(task: secondEnumerationTask).getValue()
+			let secondEnumerationItemList = try await taskExecutor.execute(task: secondEnumerationTask)
 
 			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
 			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == secondEnumerationTaskRecord }))
@@ -310,8 +282,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		})
 	}
 
-	func testFolderEnumerationPreservesUploadError() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationPreservesUploadError() async throws {
 		let id: Int64 = 3
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
@@ -322,46 +293,37 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		let lastFailedUploadDate = Date()
-		taskExecutor.execute(task: enumerationTask).then { _ -> Void in
-			self.metadataManagerMock.cachedMetadata[id]?.statusCode = .uploadError
-			let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
-			self.uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
-				return $0.map {
-					if $0 == id {
-						return uploadTask
-					} else {
-						return nil
-					}
+		_ = try await taskExecutor.execute(task: enumerationTask)
+		metadataManagerMock.cachedMetadata[id]?.statusCode = .uploadError
+		let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
+		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
+			return $0.map {
+				if $0 == id {
+					return uploadTask
+				} else {
+					return nil
 				}
 			}
-		}.then { _ -> Promise<FileProviderItemList> in
-			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
-			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
-			return taskExecutor.execute(task: secondEnumerationTask)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			let errorItem = fileProviderItemList.items[1]
-			guard let fetchedItemMetadata = try self.metadataManagerMock.getCachedMetadata(for: id) else {
-				XCTFail("No Metadata in DB")
-				return
-			}
-			XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
-			XCTAssertFalse(self.uploadTaskManagerMock.removeTaskRecordForCalled)
-			XCTAssertFalse(self.uploadTaskManagerMock.createNewTaskRecordForCalled)
-
-			XCTAssertNotNil(errorItem.uploadingError)
-			XCTAssertEqual(NSFileProviderError(.insufficientQuota)._nsError, errorItem.uploadingError as NSError?)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
+		let secondEnumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nil)
+		let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
+		let fileProviderItemList = try await taskExecutor.execute(task: secondEnumerationTask)
+		XCTAssertEqual(2, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssertEqual(5, fileProviderItemList.items.count)
+		let errorItem = fileProviderItemList.items[1]
+		guard let fetchedItemMetadata = try metadataManagerMock.getCachedMetadata(for: id) else {
+			XCTFail("No Metadata in DB")
+			return
+		}
+		XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
+		XCTAssertFalse(uploadTaskManagerMock.removeTaskRecordForCalled)
+		XCTAssertFalse(uploadTaskManagerMock.createNewTaskRecordForCalled)
+
+		XCTAssertNotNil(errorItem.uploadingError)
+		XCTAssertEqual(NSFileProviderError(.insufficientQuota)._nsError, errorItem.uploadingError as NSError?)
 	}
 
-	func testPartialFolderEnumerationMarksMetadataAsMaybeOutdated() throws {
-		let expectation = XCTestExpectation()
+	func testPartialFolderEnumerationMarksMetadataAsMaybeOutdated() async throws {
 		let paginatedMockedProvider = CloudProviderPaginationMock()
 
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -375,25 +337,18 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "TestItem", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cachedMetadata[XCTUnwrap(itemMetadata.id)] = itemMetadata
 
-		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList in
-			XCTAssertNotNil(fileProviderItemList.nextPageToken)
-			XCTAssertEqual(2, fileProviderItemList.items.count)
-			XCTAssertEqual(0, fileProviderItemList.items.filter { $0.metadata.id == itemMetadata.id }.count)
-			guard let markedAsMaybeOutdatedCachedMetadata = try self.metadataManagerMock.getCachedMetadata(for: id) else {
-				XCTFail("No ItemMetadata for id found")
-				return
-			}
-			XCTAssert(markedAsMaybeOutdatedCachedMetadata.isMaybeOutdated)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		let fileProviderItemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertNotNil(fileProviderItemList.nextPageToken)
+		XCTAssertEqual(2, fileProviderItemList.items.count)
+		XCTAssertEqual(0, fileProviderItemList.items.filter { $0.metadata.id == itemMetadata.id }.count)
+		guard let markedAsMaybeOutdatedCachedMetadata = try metadataManagerMock.getCachedMetadata(for: id) else {
+			XCTFail("No ItemMetadata for id found")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssert(markedAsMaybeOutdatedCachedMetadata.isMaybeOutdated)
 	}
 
-	func testFullFolderEnumerationRemovesInvalidatedCachedMetadata() throws {
-		let expectation = XCTestExpectation()
+	func testFullFolderEnumerationRemovesInvalidatedCachedMetadata() async throws {
 		let paginatedMockedProvider = CloudProviderPaginationMock()
 
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -408,46 +363,36 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: paginatedMockedProvider, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
-			XCTAssertEqual(2, fileProviderItemList.items.count)
-			// Check that a next page exists
-			XCTAssertNotNil(fileProviderItemList.nextPageToken)
-			guard let tokenData = fileProviderItemList.nextPageToken, let nextPageToken = String(data: tokenData.rawValue, encoding: .utf8) else {
-				throw NSError(domain: "ItemEnumerationTaskExecutorTestError", code: -100, userInfo: ["localizedDescription": "No page token"])
-			}
-			// Check that the (possible) old items have been marked as maybe outdated
-			XCTAssert(self.metadataManagerMock.cachedMetadata[2]?.isMaybeOutdated ?? false)
-			XCTAssert(self.metadataManagerMock.cachedMetadata[3]?.isMaybeOutdated ?? false)
-
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-
-			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nextPageToken)
-			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
-			return taskExecutor.execute(task: secondEnumerationTask)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssertEqual(4, fileProviderItemList.items.count)
-
-			// Check that the whole folder has been enumerated
-			XCTAssertNil(fileProviderItemList.nextPageToken)
-
-			// Check that the old items has been removed
-			XCTAssertEqual(2, self.metadataManagerMock.removedMetadataID.count)
-			XCTAssert(self.metadataManagerMock.removedMetadataID.contains { $0 == 2 })
-			XCTAssert(self.metadataManagerMock.removedMetadataID.contains { $0 == 3 })
-
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
+		let firstItemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(2, firstItemList.items.count)
+		// Check that a next page exists
+		XCTAssertNotNil(firstItemList.nextPageToken)
+		guard let tokenData = firstItemList.nextPageToken, let nextPageToken = String(data: tokenData.rawValue, encoding: .utf8) else {
+			throw NSError(domain: "ItemEnumerationTaskExecutorTestError", code: -100, userInfo: ["localizedDescription": "No page token"])
 		}
-		wait(for: [expectation], timeout: 5.0)
+		// Check that the (possible) old items have been marked as maybe outdated
+		XCTAssert(metadataManagerMock.cachedMetadata[2]?.isMaybeOutdated ?? false)
+		XCTAssert(metadataManagerMock.cachedMetadata[3]?.isMaybeOutdated ?? false)
+
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
+
+		let secondEnumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nextPageToken)
+		let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
+		let secondItemList = try await taskExecutor.execute(task: secondEnumerationTask)
+		XCTAssertEqual(2, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssertEqual(4, secondItemList.items.count)
+
+		// Check that the whole folder has been enumerated
+		XCTAssertNil(secondItemList.nextPageToken)
+
+		// Check that the old items has been removed
+		XCTAssertEqual(2, metadataManagerMock.removedMetadataID.count)
+		XCTAssert(metadataManagerMock.removedMetadataID.contains { $0 == 2 })
+		XCTAssert(metadataManagerMock.removedMetadataID.contains { $0 == 3 })
 	}
 
-	func testFolderEnumerationDidNotOverwriteReparentTask() throws {
-		let expectation = XCTestExpectation()
-
+	func testFolderEnumerationDidNotOverwriteReparentTask() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -457,43 +402,34 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		let newCloudPath = CloudPath("/RenamedItem")
-		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-			// Simulate a local rename, i.e. update name, status code and create a reparent task, which renames the item with filename File 1 to RenamedItem
-			let item = fileProviderItemList.items[1]
-			XCTAssertEqual("File 1", item.filename)
-			self.reparentTaskManagerMock.reparentTasks[item.metadata.id!] = ReparentTaskRecord(correspondingItem: item.metadata.id!, sourceCloudPath: CloudPath("/").appendingPathComponent(item.metadata.name), targetCloudPath: newCloudPath, oldParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
+		let firstItemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(5, firstItemList.items.count)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
+		// Simulate a local rename, i.e. update name, status code and create a reparent task, which renames the item with filename File 1 to RenamedItem
+		let item = firstItemList.items[1]
+		XCTAssertEqual("File 1", item.filename)
+		try reparentTaskManagerMock.reparentTasks[XCTUnwrap(item.metadata.id)] = try ReparentTaskRecord(correspondingItem: XCTUnwrap(item.metadata.id), sourceCloudPath: CloudPath("/").appendingPathComponent(item.metadata.name), targetCloudPath: newCloudPath, oldParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, newParentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 
-			self.metadataManagerMock.cachedMetadata[item.metadata.id!]?.name = "RenamedItem"
-			self.metadataManagerMock.cachedMetadata[item.metadata.id!]?.statusCode = .isUploading
+		try metadataManagerMock.cachedMetadata[XCTUnwrap(item.metadata.id)]?.name = "RenamedItem"
+		try metadataManagerMock.cachedMetadata[XCTUnwrap(item.metadata.id)]?.statusCode = .isUploading
 
-			// Enumerate the Root folder again, File 1 has not been renamed in the cloud yet
-			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
-			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
-			return taskExecutor.execute(task: secondEnumerationTask)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			// Check that the item has the new name (RenamedItem) and there is no duplicate item with the old name (File 1)
-			let renamedItem = fileProviderItemList.items.first(where: { $0.filename == "RenamedItem" })
-			let oldItem = fileProviderItemList.items.first(where: { $0.filename == "File 1" })
-			XCTAssertNil(oldItem)
-			XCTAssertNotNil(renamedItem)
-			XCTAssertEqual(ItemStatus.isUploading, renamedItem?.metadata.statusCode)
-			XCTAssertEqual(newCloudPath.lastPathComponent, renamedItem?.metadata.name)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		// Enumerate the Root folder again, File 1 has not been renamed in the cloud yet
+		let secondEnumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nil)
+		let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
+		let secondItemList = try await taskExecutor.execute(task: secondEnumerationTask)
+		XCTAssertEqual(2, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssertEqual(5, secondItemList.items.count)
+		// Check that the item has the new name (RenamedItem) and there is no duplicate item with the old name (File 1)
+		let renamedItem = secondItemList.items.first(where: { $0.filename == "RenamedItem" })
+		let oldItem = secondItemList.items.first(where: { $0.filename == "File 1" })
+		XCTAssertNil(oldItem)
+		XCTAssertNotNil(renamedItem)
+		XCTAssertEqual(ItemStatus.isUploading, renamedItem?.metadata.statusCode)
+		XCTAssertEqual(newCloudPath.lastPathComponent, renamedItem?.metadata.name)
 	}
 
-	func testFolderEnumerationDidNotOverwriteDeletionTask() throws {
-		let expectation = XCTestExpectation()
-
+	func testFolderEnumerationDidNotOverwriteDeletionTask() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -502,39 +438,31 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-			// Simulate a local item deletion, i.e. update the status code and create a deletion task.
-			let item = fileProviderItemList.items[1]
-			XCTAssertEqual("File 1", item.filename)
-			self.deletionTaskManagerMock.deletionTasks[item.metadata.id!] = DeletionTaskRecord(correspondingItem: item.metadata.id!, cloudPath: CloudPath("/").appendingPathComponent(item.metadata.name), parentID: item.metadata.parentID, itemType: item.metadata.type)
+		let firstItemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
+		XCTAssertEqual(5, firstItemList.items.count)
+		XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
+		// Simulate a local item deletion, i.e. update the status code and create a deletion task.
+		let item = firstItemList.items[1]
+		XCTAssertEqual("File 1", item.filename)
+		try deletionTaskManagerMock.deletionTasks[XCTUnwrap(item.metadata.id)] = try DeletionTaskRecord(correspondingItem: XCTUnwrap(item.metadata.id), cloudPath: CloudPath("/").appendingPathComponent(item.metadata.name), parentID: item.metadata.parentID, itemType: item.metadata.type)
 
-			self.metadataManagerMock.cachedMetadata[item.metadata.id!]?.statusCode = .isUploading
-			// Enumerate the Root folder again, File 1 has not been deleted in the cloud yet
-			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
-			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
-			return taskExecutor.execute(task: secondEnumerationTask)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(2, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			// Check that the item is no longer returned in the FileProviderItemList.
-			XCTAssertEqual(4, fileProviderItemList.items.count)
-			XCTAssertFalse(fileProviderItemList.items.contains(where: { $0.filename == "File 1" }))
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try metadataManagerMock.cachedMetadata[XCTUnwrap(item.metadata.id)]?.statusCode = .isUploading
+		// Enumerate the Root folder again, File 1 has not been deleted in the cloud yet
+		let secondEnumerationTaskRecord = try ItemEnumerationTaskRecord(correspondingItem: XCTUnwrap(rootItemMetadata.id), pageToken: nil)
+		let secondEnumerationTask = ItemEnumerationTask(taskRecord: secondEnumerationTaskRecord, itemMetadata: rootItemMetadata, cloudPath: CloudPath("/"))
+		let secondItemList = try await taskExecutor.execute(task: secondEnumerationTask)
+		XCTAssertEqual(2, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+		// Check that the item is no longer returned in the FileProviderItemList.
+		XCTAssertEqual(4, secondItemList.items.count)
+		XCTAssertFalse(secondItemList.items.contains(where: { $0.filename == "File 1" }))
 	}
 
 	// MARK: Offline Fallback
 
-	func testFolderEnumerationOfflineFallbackWithCachedItems() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationOfflineFallbackWithCachedItems() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -548,24 +476,17 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(2, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(2, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
-	func testFolderEnumerationOfflineFallbackWithNoCachedItems() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationOfflineFallbackWithNoCachedItems() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "EmptyFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -574,26 +495,20 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { _ in
-			XCTFail("Promise should not fulfill when no cached items exist")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await taskExecutor.execute(task: enumerationTask)) { error in
 			guard let cloudProviderError = error as? CloudProviderError, cloudProviderError == .noInternetConnection else {
 				XCTFail("Expected noInternetConnection error but got: \(error)")
 				return
 			}
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testFolderEnumerationOfflineFallbackWithEmptyEnumeratedFolder() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationOfflineFallbackWithEmptyEnumeratedFolder() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "EmptyFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -602,24 +517,17 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(0, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(0, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
-	func testFolderEnumerationOfflineFallbackWithPageToken() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationOfflineFallbackWithPageToken() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -631,26 +539,20 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { _ in
-			XCTFail("Promise should not fulfill with a page token during offline fallback")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await taskExecutor.execute(task: enumerationTask)) { error in
 			guard let cloudProviderError = error as? CloudProviderError, cloudProviderError == .noInternetConnection else {
 				XCTFail("Expected noInternetConnection error but got: \(error)")
 				return
 			}
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testFolderEnumerationOfflineFallbackPreservesCachedFileInfo() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationOfflineFallbackPreservesCachedFileInfo() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -668,37 +570,30 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(2, itemList.items.count)
-			XCTAssertNil(itemList.nextPageToken)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(2, itemList.items.count)
+		XCTAssertNil(itemList.nextPageToken)
 
-			let cachedItem = itemList.items.first(where: { $0.metadata.id == 3 })
-			XCTAssertNotNil(cachedItem)
-			XCTAssert(cachedItem!.newestVersionLocallyCached)
-			XCTAssertEqual(localURL, cachedItem!.localURL)
+		let cachedItem = itemList.items.first(where: { $0.metadata.id == 3 })
+		XCTAssertNotNil(cachedItem)
+		XCTAssert(try XCTUnwrap(cachedItem?.newestVersionLocallyCached))
+		XCTAssertEqual(localURL, cachedItem?.localURL)
 
-			let nonCachedItem = itemList.items.first(where: { $0.metadata.id == 4 })
-			XCTAssertNotNil(nonCachedItem)
-			XCTAssertFalse(nonCachedItem!.newestVersionLocallyCached)
-			XCTAssertNil(nonCachedItem!.localURL)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let nonCachedItem = itemList.items.first(where: { $0.metadata.id == 4 })
+		XCTAssertNotNil(nonCachedItem)
+		XCTAssertFalse(try XCTUnwrap(nonCachedItem?.newestVersionLocallyCached))
+		XCTAssertNil(nonCachedItem?.localURL)
 	}
 
 	// MARK: Placeholder
 
 	/// A package folder whose creation failed holds the only copy of its contents, so it must stay browsable.
-	func testPlaceholderFolderEnumerationServesLocalChildrenWithoutAskingTheCloud() throws {
-		let expectation = XCTestExpectation()
+	func testPlaceholderFolderEnumerationServesLocalChildrenWithoutAskingTheCloud() async throws {
 		let folderMetadata = ItemMetadata(id: 2, name: "Folder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(folderMetadata)
 
@@ -711,24 +606,17 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
 			XCTFail("Asked the cloud to list a folder that was never created there")
-			return Promise(CloudProviderError.itemNotFound)
+			throw CloudProviderError.itemNotFound
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
-	func testPlaceholderFileEnumerationServesTheLocalItemWithoutAskingTheCloud() throws {
-		let expectation = XCTestExpectation()
+	func testPlaceholderFileEnumerationServesTheLocalItemWithoutAskingTheCloud() async throws {
 		let fileMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(fileMetadata)
 
@@ -738,24 +626,17 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemMetadataResponse = { _ in
 			XCTFail("Asked the cloud for a file that was never uploaded there")
-			return Promise(CloudProviderError.itemNotFound)
+			throw CloudProviderError.itemNotFound
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(["File 1"], itemList.items.map { $0.filename })
 	}
 
 	/// The initial migration stores the root with the placeholder flag set, but the root always exists in the cloud.
-	func testRootEnumerationAsksTheCloudDespiteItsPlaceholderFlag() throws {
-		let expectation = XCTestExpectation()
+	func testRootEnumerationAsksTheCloudDespiteItsPlaceholderFlag() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -764,20 +645,13 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { itemList in
-			XCTAssertEqual(5, itemList.items.count)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let itemList = try await taskExecutor.execute(task: enumerationTask)
+		XCTAssertEqual(5, itemList.items.count)
 	}
 
 	// MARK: Error Passthrough
 
-	func testFolderEnumerationFailWithSameErrorAsProvider() throws {
-		let expectation = XCTestExpectation()
+	func testFolderEnumerationFailWithSameErrorAsProvider() async throws {
 		let cloudPath = CloudPath("/Test")
 		let id: Int64 = 2
 		let itemMetadata = ItemMetadata(id: id, name: "Test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -788,25 +662,20 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemListResponse = { _, _ in
-			Promise(CloudTaskTestError.correctPassthrough)
+			throw CloudTaskTestError.correctPassthrough
 		}
 
 		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
-		taskExecutor.execute(task: enumerationTask).then { _ in
-			XCTFail("Promise should not fulfill if the provider fails with an error")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await taskExecutor.execute(task: enumerationTask)) { error in
 			guard case CloudTaskTestError.correctPassthrough = error else {
-				XCTFail("Promise rejected but with the wrong error: \(error)")
+				XCTFail("Rejected with the wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.metadataManagerMock.removedMetadataID.isEmpty, "Unexpected removal of ItemMetadata")
-			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
-			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
-		}.always {
-			expectation.fulfill()
+			XCTAssert(metadataManagerMock.removedMetadataID.isEmpty, "Unexpected removal of ItemMetadata")
+			XCTAssertEqual(1, itemEnumerationTaskManagerMock.removedTaskRecords.count)
+			XCTAssert(itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 		}
-		wait(for: [expectation], timeout: 5.0)
 	}
 }
 

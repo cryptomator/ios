@@ -11,7 +11,8 @@ import CryptomatorCommonCore
 import FileProvider
 import Foundation
 
-public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
+/// @unchecked Sendable: nothing is mutated after init
+public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking, @unchecked Sendable {
 	private let domain: NSFileProviderDomain
 	private let notificator: FileProviderNotificatorType?
 	private let dbPath: URL?
@@ -34,7 +35,8 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 	// MARK: - VaultUnlocking
 
 	public func unlockVault(kek: [UInt8], reply: @escaping (NSError?) -> Void) {
-		let domain = self.domain
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
 		let vaultUID = vaultUID
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			guard let notificator = self.notificator else {
@@ -43,13 +45,13 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 				return
 			}
 			do {
-				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
+				try FileProviderAdapterManager.shared.unlockVault(with: self.domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
 				FileProviderAdapterManager.shared.unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
-				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
+				DDLogInfo("Unlocked vault \"\(self.domain.displayName)\" (\(self.domain.identifier.rawValue))")
 				reply(nil)
 			} catch {
 				FileProviderAdapterManager.shared.unlockMonitor.unlockFailed(forVaultUID: vaultUID)
-				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
+				DDLogError("Unlocking vault \"\(self.domain.displayName)\" (\(self.domain.identifier.rawValue)) failed with error: \(error)")
 				reply(XPCErrorHelper.bridgeError(error))
 			}
 		}
@@ -66,7 +68,8 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 	}
 
 	public func unlockVault(rawKey: [UInt8], reply: @escaping (NSError?) -> Void) {
-		let domain = self.domain
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
 		let vaultUID = vaultUID
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			guard let notificator = self.notificator else {
@@ -75,13 +78,13 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 				return
 			}
 			do {
-				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, rawKey: rawKey, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
+				try FileProviderAdapterManager.shared.unlockVault(with: self.domain.identifier, rawKey: rawKey, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
 				FileProviderAdapterManager.shared.unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
-				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
+				DDLogInfo("Unlocked vault \"\(self.domain.displayName)\" (\(self.domain.identifier.rawValue))")
 				reply(nil)
 			} catch {
 				FileProviderAdapterManager.shared.unlockMonitor.unlockFailed(forVaultUID: vaultUID)
-				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
+				DDLogError("Unlocking vault \"\(self.domain.displayName)\" (\(self.domain.identifier.rawValue)) failed with error: \(error)")
 				reply(XPCErrorHelper.bridgeError(error))
 			}
 		}

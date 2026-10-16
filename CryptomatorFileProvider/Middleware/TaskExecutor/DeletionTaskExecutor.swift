@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
 class DeletionTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<Void>?
@@ -20,21 +19,20 @@ class DeletionTaskExecutor: WorkflowMiddleware {
 		self.itemMetadataManager = itemMetadataManager
 	}
 
-	func execute(task: CloudTask) -> Promise<Void> {
+	func execute(task: CloudTask) async throws {
 		let itemMetadata = task.itemMetadata
-		return deleteItemInCloud(type: itemMetadata.type, at: task.cloudPath).then {
-			try self.itemMetadataManager.removeItemMetadata(with: itemMetadata.id!)
-		}
+		try await deleteItemInCloud(type: itemMetadata.type, at: task.cloudPath)
+		try itemMetadataManager.removeItemMetadata(with: itemMetadata.id!)
 	}
 
-	private func deleteItemInCloud(type: CloudItemType, at cloudPath: CloudPath) -> Promise<Void> {
+	private func deleteItemInCloud(type: CloudItemType, at cloudPath: CloudPath) async throws {
 		switch type {
 		case .file:
-			return provider.deleteFile(at: cloudPath)
+			try await provider.deleteFile(at: cloudPath)
 		case .folder:
-			return provider.deleteFolder(at: cloudPath)
+			try await provider.deleteFolder(at: cloudPath)
 		default:
-			return Promise(FileProviderAdapterError.unsupportedItemType)
+			throw FileProviderAdapterError.unsupportedItemType
 		}
 	}
 

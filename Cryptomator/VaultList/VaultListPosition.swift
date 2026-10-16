@@ -9,14 +9,16 @@
 import Foundation
 import GRDB
 
-struct VaultListPosition: Codable {
+nonisolated struct VaultListPosition: Codable {
 	var id: Int64?
 	var position: Int?
 	let vaultUID: String
 }
 
-extension VaultListPosition: FetchableRecord, MutablePersistableRecord {
-	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
+nonisolated extension VaultListPosition: FetchableRecord, MutablePersistableRecord {
+	static var databaseSelection: [SQLSelectable] {
+		[AllColumns(), Column.rowID]
+	}
 
 	mutating func didInsert(_ inserted: InsertionSuccess) {
 		id = inserted.rowID

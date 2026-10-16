@@ -274,7 +274,8 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	}
 }
 
-private class VaultKeepUnlockedManagerShouldAutoLockMocked: VaultKeepUnlockedManager {
+/// @unchecked Sendable: test double, never touched concurrently
+private class VaultKeepUnlockedManagerShouldAutoLockMocked: VaultKeepUnlockedManager, @unchecked Sendable {
 	private let shouldAutoLockVaultReturnValue: Bool
 
 	init(shouldAutoLockVault: Bool, keychain: CryptomatorKeychainType) {

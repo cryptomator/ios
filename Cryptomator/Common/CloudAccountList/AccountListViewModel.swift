@@ -12,7 +12,6 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import GRDB
-import Promises
 
 class AccountListViewModel: AccountListViewModelProtocol {
 	let headerTitle = LocalizedString.getValue("accountList.header.title")
@@ -63,36 +62,36 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		accounts = refreshedAccounts
 	}
 
-	func refreshDropboxItems() -> Promise<Void> {
-		return all(accountInfos
+	func refreshDropboxItems() async throws {
+		accounts = try await all(accountInfos
 			.map { DropboxCredential(tokenUID: $0.accountUID) }
-			.map { self.createAccountCellContent(for: $0) }).then { accounts in
-			self.accounts = accounts
-		}
+			.map { credential in Task { try await self.createAccountCellContent(for: credential) } })
 	}
 
-	func refreshMicrosoftGraphItems() -> Promise<Void> {
-		return all(accountInfos
+	func refreshMicrosoftGraphItems() async throws {
+		accounts = try await all(accountInfos
 			.compactMap { try? MicrosoftGraphAccountDBManager.shared.getAccount(for: $0.accountUID) }
-			.compactMap { try? self.createAccountCellContent(for: $0) }).then { accounts in
-			self.accounts = accounts
-		}
+			.compactMap { try? self.createAccountCellContent(for: $0) })
 	}
 
-	func refreshPCloudItems() -> Promise<Void> {
-		return all(accountInfos
+	func refreshPCloudItems() async throws {
+		accounts = try await all(accountInfos
 			.compactMap { try? PCloudCredential(userID: $0.accountUID) }
-			.map { self.createAccountCellContent(for: $0) }).then { accounts in
-			self.accounts = accounts
-		}
+			.map { credential in Task { try await self.createAccountCellContent(for: credential) } })
 	}
 
-	func refreshBoxItems() -> Promise<Void> {
-		return all(accountInfos
+	func refreshBoxItems() async throws {
+		accounts = try await all(accountInfos
 			.map { BoxCredential(tokenStorage: BoxTokenStorage(userID: $0.accountUID)) }
-			.map { self.createAccountCellContent(for: $0) }).then { accounts in
-			self.accounts = accounts
+			.map { credential in Task { try await self.createAccountCellContent(for: credential) } })
+	}
+
+	private func all(_ tasks: [Task<AccountCellContent, Error>]) async throws -> [AccountCellContent] {
+		var accounts = [AccountCellContent]()
+		for task in tasks {
+			try await accounts.append(task.value)
 		}
+		return accounts
 	}
 
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
@@ -129,10 +128,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
 	}
 
-	private func createAccountCellContent(for credential: DropboxCredential) -> Promise<AccountCellContent> {
-		return credential.getUsername().then { username in
-			AccountCellContent(mainLabelText: username, detailLabelText: nil)
-		}
+	private func createAccountCellContent(for credential: DropboxCredential) async throws -> AccountCellContent {
+		let username = try await credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
 	private func createAccountCellContent(for credential: GoogleDriveCredential) throws -> AccountCellContent {
@@ -154,14 +152,16 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
 	}
 
-	func createAccountCellContent(for account: MicrosoftGraphAccount) throws -> Promise<AccountCellContent> {
+	func createAccountCellContent(for account: MicrosoftGraphAccount) throws -> Task<AccountCellContent, Error> {
 		guard let driveID = account.driveID else {
-			return try Promise(createAccountCellContentPlaceholder(for: account))
+			let accountCellContent = try createAccountCellContentPlaceholder(for: account)
+			return Task { accountCellContent }
 		}
 		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
-		return discovery.fetchDrive(for: driveID).then { drive in
+		return Task {
+			let drive = try await discovery.fetchDrive(for: driveID)
 			var detailLabelTextComponents: [String] = []
 			if let siteURL = account.siteURL?.absoluteString.replacingOccurrences(of: "https://", with: "") {
 				detailLabelTextComponents.append(siteURL)
@@ -172,16 +172,14 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
-	func createAccountCellContent(for credential: PCloudCredential) -> Promise<AccountCellContent> {
-		return credential.getUsername().then { username in
-			AccountCellContent(mainLabelText: username, detailLabelText: nil)
-		}
+	func createAccountCellContent(for credential: PCloudCredential) async throws -> AccountCellContent {
+		let username = try await credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	func createAccountCellContent(for credential: BoxCredential) -> Promise<AccountCellContent> {
-		return credential.getUsername().then { username in
-			AccountCellContent(mainLabelText: username, detailLabelText: nil)
-		}
+	func createAccountCellContent(for credential: BoxCredential) async throws -> AccountCellContent {
+		let username = try await credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
 	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
@@ -222,7 +220,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
-	// swiftlint:disable:next function_body_length
 	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
 		observation = dbManager.observeCloudProviderAccounts(onError: { error in
 			DDLogError("Observe vault accounts failed with error: \(error)")
@@ -249,33 +246,26 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				// Also fixes the problem that an empty account list is sent a second time via the `databaseChangedPublisher`.
 				return
 			}
+			let refreshOnlineItems: () async throws -> Void
 			switch self.cloudProviderType {
 			case .box:
-				self.refreshBoxItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
+				refreshOnlineItems = self.refreshBoxItems
 			case .dropbox:
-				self.refreshDropboxItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
+				refreshOnlineItems = self.refreshDropboxItems
 			case .microsoftGraph:
-				self.refreshMicrosoftGraphItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
+				refreshOnlineItems = self.refreshMicrosoftGraphItems
 			case .pCloud:
-				self.refreshPCloudItems().then {
+				refreshOnlineItems = self.refreshPCloudItems
+			default:
+				return
+			}
+			Task {
+				do {
+					try await refreshOnlineItems()
 					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
+				} catch {
 					self.databaseChangedPublisher.send(.failure(error))
 				}
-			default:
-				break
 			}
 		})
 		return databaseChangedPublisher.eraseToAnyPublisher()

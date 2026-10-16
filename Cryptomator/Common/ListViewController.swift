@@ -9,11 +9,10 @@
 import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
-	enum Section {
+	nonisolated enum Section {
 		case main
 	}
 
@@ -137,34 +136,34 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 		snapshot.deleteItems([itemIdentifier])
 		dataSource?.apply(snapshot) {
 			if snapshot.numberOfItems == 0 {
-				self.hideHeaderAnimated().then(self.showEmptyListMessageAnimated)
+				Task {
+					await self.hideHeaderAnimated()
+					await self.showEmptyListMessageAnimated()
+				}
 			}
 		}
 	}
 
-	func hideHeaderAnimated() -> Promise<Void> {
-		wrap { handler in
+	func hideHeaderAnimated() async {
+		await withCheckedContinuation { continuation in
 			UIView.animate(withDuration: 0.5, animations: ({
 				self.header.alpha = 0
-			}), completion: handler)
-		}.then { _ in
-			self.header.isHidden = true
+			}), completion: { _ in continuation.resume() })
 		}
+		header.isHidden = true
 	}
 
-	func showEmptyListMessageAnimated() -> Promise<Void> {
+	func showEmptyListMessageAnimated() async {
 		let emptyListMessage = self.emptyListMessage
 		emptyListMessage.alpha = 0.0
-		return wrap { handler in
+		await withCheckedContinuation { continuation in
 			UIView.animate(withDuration: 0.5, animations: ({
 				emptyListMessage.alpha = 1.0
 				self.tableView.backgroundView = emptyListMessage
 				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
-			}), completion: handler)
-		}.then { _ in
-			// no-op
+			}), completion: { _ in continuation.resume() })
 		}
 	}
 
@@ -174,7 +173,10 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 
 	func hideHeaderAndShowEmptyListMessage(animated: Bool) {
 		if animated {
-			hideHeaderAnimated().then(showEmptyListMessageAnimated)
+			Task {
+				await hideHeaderAnimated()
+				await showEmptyListMessageAnimated()
+			}
 		} else {
 			header.isHidden = true
 			tableView.backgroundView = emptyListMessage

@@ -9,7 +9,7 @@
 import Dependencies
 import Foundation
 
-public protocol FullVersionChecker {
+public protocol FullVersionChecker: Sendable {
 	var isFullVersion: Bool { get }
 	var hasExpiredTrial: Bool { get }
 }
@@ -27,8 +27,11 @@ public extension DependencyValues {
 	}
 }
 
-public class UserDefaultsFullVersionChecker: FullVersionChecker {
-	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
+public final class UserDefaultsFullVersionChecker: FullVersionChecker {
+	private let cryptomatorSettingsDependency = Dependency(\.cryptomatorSettings)
+	private var cryptomatorSettings: CryptomatorSettings {
+		cryptomatorSettingsDependency.wrappedValue
+	}
 
 	public static let `default` = UserDefaultsFullVersionChecker()
 
@@ -55,7 +58,7 @@ public class UserDefaultsFullVersionChecker: FullVersionChecker {
 	}
 }
 
-public class AlwaysActivatedPremium: FullVersionChecker {
+public final class AlwaysActivatedPremium: FullVersionChecker {
 	public let isFullVersion = true
 	public let hasExpiredTrial = false
 

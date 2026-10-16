@@ -12,9 +12,10 @@ import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class AccountListViewModelTests: XCTestCase {
 	func testMoveRow() throws {
-		let dbManagerMock = try DatabaseManagerMock()
+		let dbManagerMock = DatabaseManagerMock()
 		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModelMock(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)

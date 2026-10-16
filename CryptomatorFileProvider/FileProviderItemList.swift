@@ -9,7 +9,7 @@
 import FileProvider
 import Foundation
 
-public struct FileProviderItemList {
+public struct FileProviderItemList: Sendable {
 	public let items: [FileProviderItem]
 	public let nextPageToken: NSFileProviderPage?
 }

@@ -10,14 +10,13 @@ import StoreKit
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
-@testable import Promises
 
 class PurchaseViewModelTests: IAPViewModelTestCase {
 	var viewModel: PurchaseViewModel!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!
 
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		viewModel = PurchaseViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
 	}
@@ -28,18 +27,18 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 		assertShowsLoadingCell(viewModel: viewModel)
 	}
 
-	func testCellsAfterFetchProducts() {
+	func testCellsAfterFetchProducts() async {
 		let expectedCells: [BaseIAPViewModel.Item] = [
 			purchaseTrialCell,
 			yearlySubscriptionCell,
 			lifetimeLicenseCell,
 			upgradeOfferCell
 		]
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testCellsAfterFetchProductsWithRunningTrial() {
+	func testCellsAfterFetchProductsWithRunningTrial() async {
 		let expectedCells: [BaseIAPViewModel.Item] = [
 			runningTrialCell,
 			yearlySubscriptionCell,
@@ -47,11 +46,11 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 			upgradeOfferCell
 		]
 		cryptomatorSettingsMock.trialExpirationDate = .distantFuture
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testCellsAfterFetchProductsWithExpiredTrial() {
+	func testCellsAfterFetchProductsWithExpiredTrial() async {
 		let expectedCells: [BaseIAPViewModel.Item] = [
 			expiredTrialCell,
 			yearlySubscriptionCell,
@@ -60,93 +59,93 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 		]
 		cryptomatorSettingsMock.trialExpirationDate = .distantPast
 
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testCellsAfterFetchProductsFailed() {
+	func testCellsAfterFetchProductsFailed() async {
 		iapStoreMock.fetchProductsWithThrowableError = SKError(.unknown)
 		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
-		wait(for: viewModel.fetchProducts(), timeout: 5.0)
+		await viewModel.fetchProducts()
 		XCTAssertEqual([retryCell], viewModel.cells)
 	}
 
 	// MARK: Begin Free Trial
 
-	func testBeginFreeTrial() throws {
+	func testBeginFreeTrial() async throws {
 		let trialExpirationDate = Date()
 		setUpIAPManagerMockForBeginTrial(trialExpirationDate: trialExpirationDate)
-		try assertBuyProductWorks(viewModel: viewModel,
-		                          productIdentifier: .thirtyDayTrial,
-		                          expectedPurchaseTransaction: .freeTrial(expiresOn: trialExpirationDate))
+		try await assertBuyProductWorks(viewModel: viewModel,
+		                                productIdentifier: .thirtyDayTrial,
+		                                expectedPurchaseTransaction: .freeTrial(expiresOn: trialExpirationDate))
 	}
 
-	func testBeginFreeTrialCancelled() throws {
-		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		try assertCancelledBuyProduct(viewModel: viewModel,
-		                              productIdentifier: .thirtyDayTrial)
+	func testBeginFreeTrialCancelled() async throws {
+		iapManagerMock.buyClosure = { _ in throw SKError(.paymentCancelled) }
+		try await assertCancelledBuyProduct(viewModel: viewModel,
+		                                    productIdentifier: .thirtyDayTrial)
 	}
 
 	// MARK: Purchase Full Version
 
-	func testPurchaseFullVersion() throws {
+	func testPurchaseFullVersion() async throws {
 		setUpIAPManagerMockForFullVersionPurchase()
-		try assertBuyProductWorks(viewModel: viewModel,
-		                          productIdentifier: .fullVersion,
-		                          expectedPurchaseTransaction: .fullVersion)
+		try await assertBuyProductWorks(viewModel: viewModel,
+		                                productIdentifier: .fullVersion,
+		                                expectedPurchaseTransaction: .fullVersion)
 	}
 
-	func testPurchaseFullVersionCancelled() throws {
-		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		try assertCancelledBuyProduct(viewModel: viewModel,
-		                              productIdentifier: .fullVersion)
+	func testPurchaseFullVersionCancelled() async throws {
+		iapManagerMock.buyClosure = { _ in throw SKError(.paymentCancelled) }
+		try await assertCancelledBuyProduct(viewModel: viewModel,
+		                                    productIdentifier: .fullVersion)
 	}
 
 	// MARK: Start Yearly Subscription
 
-	func testPurchaseYearlySubscription() throws {
+	func testPurchaseYearlySubscription() async throws {
 		setUpIAPManagerMockForYearlySubscriptionPurchase()
-		try assertBuyProductWorks(viewModel: viewModel,
-		                          productIdentifier: .yearlySubscription,
-		                          expectedPurchaseTransaction: .yearlySubscription)
+		try await assertBuyProductWorks(viewModel: viewModel,
+		                                productIdentifier: .yearlySubscription,
+		                                expectedPurchaseTransaction: .yearlySubscription)
 	}
 
-	func testPurchaseYearlySubscriptionCancelled() throws {
-		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		try assertCancelledBuyProduct(viewModel: viewModel,
-		                              productIdentifier: .yearlySubscription)
+	func testPurchaseYearlySubscriptionCancelled() async throws {
+		iapManagerMock.buyClosure = { _ in throw SKError(.paymentCancelled) }
+		try await assertCancelledBuyProduct(viewModel: viewModel,
+		                                    productIdentifier: .yearlySubscription)
 	}
 
 	// MARK: - Restore Purchase
 
-	func testRestoreFreeTrial() throws {
+	func testRestoreFreeTrial() async throws {
 		let expectedTrialExpirationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 30, to: Date()))
-		iapManagerMock.restoreReturnValue = Promise(.restoredFreeTrial(expiresOn: expectedTrialExpirationDate))
-		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFreeTrial(expiresOn: expectedTrialExpirationDate))
+		iapManagerMock.restoreReturnValue = .restoredFreeTrial(expiresOn: expectedTrialExpirationDate)
+		try await assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFreeTrial(expiresOn: expectedTrialExpirationDate))
 	}
 
-	func testRestoreFullVersion() throws {
-		iapManagerMock.restoreReturnValue = Promise(.restoredFullVersion)
-		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFullVersion)
+	func testRestoreFullVersion() async throws {
+		iapManagerMock.restoreReturnValue = .restoredFullVersion
+		try await assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFullVersion)
 	}
 
-	func testRestoreNothing() throws {
-		iapManagerMock.restoreReturnValue = Promise(.noRestorablePurchases)
-		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .noRestorablePurchases)
+	func testRestoreNothing() async throws {
+		iapManagerMock.restoreReturnValue = .noRestorablePurchases
+		try await assertRestoredPurchase(viewModel: viewModel, expectedResult: .noRestorablePurchases)
 	}
 
 	// MARK: Internal
 
 	private func setUpIAPManagerMockForFullVersionPurchase() {
-		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
+		iapManagerMock.buyReturnValue = PurchaseTransaction.fullVersion
 	}
 
 	private func setUpIAPManagerMockForBeginTrial(trialExpirationDate: Date) {
-		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.freeTrial(expiresOn: trialExpirationDate))
+		iapManagerMock.buyReturnValue = PurchaseTransaction.freeTrial(expiresOn: trialExpirationDate)
 	}
 
 	private func setUpIAPManagerMockForYearlySubscriptionPurchase() {
-		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.yearlySubscription)
+		iapManagerMock.buyReturnValue = PurchaseTransaction.yearlySubscription
 	}
 
 	private var purchaseTrialCell: Item {
@@ -187,7 +186,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	}
 }
 
-extension Section: Equatable {
+extension Section: @MainActor Equatable {
 	public static func == (lhs: Section, rhs: Section) -> Bool {
 		lhs.id == rhs.id && lhs.elements == rhs.elements
 	}

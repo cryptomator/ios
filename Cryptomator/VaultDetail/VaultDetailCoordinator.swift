@@ -11,7 +11,6 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import GRDB
-import Promises
 import UIKit
 
 class VaultDetailCoordinator: Coordinator {
@@ -36,15 +35,15 @@ class VaultDetailCoordinator: Coordinator {
 		navigationController.pushViewController(vaultDetailViewController, animated: true)
 	}
 
-	func unlockVault(_ vault: VaultInfo, biometryTypeName: String) -> Promise<Void> {
+	func unlockVault(_ vault: VaultInfo, biometryTypeName: String) async throws {
 		let modalNavigationController = BaseNavigationController()
-		let pendingAuthentication = Promise<Void>.pending()
+		let pendingAuthentication = OneShotSignal<Void>()
 		let child = VaultDetailUnlockCoordinator(navigationController: modalNavigationController, vault: vault, biometryTypeName: biometryTypeName, pendingAuthentication: pendingAuthentication)
 		child.parentCoordinator = self
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
-		return pendingAuthentication
+		try await pendingAuthentication.value
 	}
 
 	func showKeepUnlockedSettings(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>) {

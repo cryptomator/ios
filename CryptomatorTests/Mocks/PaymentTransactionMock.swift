@@ -11,7 +11,8 @@ import StoreKit
 
 // swiftlint:disable all
 
-final class PaymentTransactionMock: SKPaymentTransaction {
+/// @unchecked Sendable: test double, never touched concurrently
+final class PaymentTransactionMock: SKPaymentTransaction, @unchecked Sendable {
 	private let _transactionState: SKPaymentTransactionState
 	private let _payment: SKPayment
 	private let _transactionIdentifier: String?

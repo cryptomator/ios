@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 @testable import Cryptomator
 
 final class S3CredentialVerifierTypeMock: S3CredentialVerifierType {
@@ -22,16 +21,15 @@ final class S3CredentialVerifierTypeMock: S3CredentialVerifierType {
 
 	var verifyCredentialReceivedCredential: S3Credential?
 	var verifyCredentialReceivedInvocations: [S3Credential] = []
-	var verifyCredentialReturnValue: Promise<Void>!
-	var verifyCredentialClosure: ((S3Credential) -> Promise<Void>)?
+	var verifyCredentialClosure: ((S3Credential) async throws -> Void)?
 
-	func verifyCredential(_ credential: S3Credential) -> Promise<Void> {
+	func verifyCredential(_ credential: S3Credential) async throws {
 		if let error = verifyCredentialThrowableError {
-			return Promise(error)
+			throw error
 		}
 		verifyCredentialCallsCount += 1
 		verifyCredentialReceivedCredential = credential
 		verifyCredentialReceivedInvocations.append(credential)
-		return verifyCredentialClosure.map({ $0(credential) }) ?? verifyCredentialReturnValue
+		try await verifyCredentialClosure?(credential)
 	}
 }

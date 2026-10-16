@@ -10,7 +10,8 @@ import FileProvider
 import Foundation
 @testable import CryptomatorFileProvider
 
-final class ProgressManagerMock: CryptomatorFileProvider.ProgressManager {
+/// @unchecked Sendable: test double, never touched concurrently
+final class ProgressManagerMock: CryptomatorFileProvider.ProgressManager, @unchecked Sendable {
 	// MARK: - getProgress
 
 	var getProgressForCallsCount = 0

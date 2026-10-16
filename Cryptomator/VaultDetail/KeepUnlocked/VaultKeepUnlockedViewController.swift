@@ -8,7 +8,6 @@
 
 import Combine
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class VaultKeepUnlockedViewController: BaseUITableViewController {
@@ -67,53 +66,52 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 			return
 		}
 		let selectedDuration = keepUnlockedDurationItem.duration
-		viewModel.setKeepUnlockedDuration(to: selectedDuration).recover { [weak self] error -> Promise<Void> in
-			guard case VaultKeepUnlockedViewModelError.vaultIsUnlocked = error, let self = self else {
-				return Promise(error)
+		Task {
+			defer {
+				// Workaround to animate row deselection (see https://stackoverflow.com/a/69165547 for more details)
+				UIView.animate(withDuration: 0.3, animations: {
+					tableView.deselectRow(at: indexPath, animated: true)
+				})
 			}
-			return self.handleUnlockedVault(selectedDuration: selectedDuration)
-		}.always {
-			// Workaround to animate row deselection (see https://stackoverflow.com/a/69165547 for more details)
-			UIView.animate(withDuration: 0.3, animations: {
-				tableView.deselectRow(at: indexPath, animated: true)
-			})
-		}
-	}
-
-	private func handleUnlockedVault(selectedDuration: KeepUnlockedDuration) -> Promise<Void> {
-		return askForLockConfirmation().then { [weak self] _ -> Promise<Void> in
-			guard let self = self else {
-				return Promise(())
-			}
-			return self.lockConfirmed(with: selectedDuration)
-		}.catch { [weak self] error in
-			if case CocoaError.userCancelled = error {
+			do {
+				try await viewModel.setKeepUnlockedDuration(to: selectedDuration)
+			} catch VaultKeepUnlockedViewModelError.vaultIsUnlocked {
+				await handleUnlockedVault(selectedDuration: selectedDuration)
+			} catch {
 				return
 			}
-			self?.handleError(error)
 		}
 	}
 
-	private func askForLockConfirmation() -> Promise<Void> {
-		let promise = Promise<Void>.pending()
+	private func handleUnlockedVault(selectedDuration: KeepUnlockedDuration) async {
+		guard await askForLockConfirmation() else {
+			return
+		}
+		do {
+			try await lockConfirmed(with: selectedDuration)
+		} catch {
+			handleError(error)
+		}
+	}
+
+	private func askForLockConfirmation() async -> Bool {
+		let confirmation = OneShotSignal<Bool>()
 		let alertController = UIAlertController(title: LocalizedString.getValue("keepUnlocked.alert.title"), message: LocalizedString.getValue("keepUnlocked.alert.message"), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("keepUnlocked.alert.confirm"), style: .default) { _ in
-			promise.fulfill(())
+			confirmation.fulfill(true)
 		}
 		alertController.addAction(okAction)
 		alertController.preferredAction = okAction
 		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel) { _ in
-			promise.reject(CocoaError.error(.userCancelled))
+			confirmation.fulfill(false)
 		})
 		present(alertController, animated: true)
-		return promise
+		return (try? await confirmation.value) ?? false
 	}
 
-	private func lockConfirmed(with selectedDuration: KeepUnlockedDuration) -> Promise<Void> {
-		let viewModel = viewModel
-		return viewModel.gracefulLockVault().then {
-			viewModel.setKeepUnlockedDuration(to: selectedDuration)
-		}
+	private func lockConfirmed(with selectedDuration: KeepUnlockedDuration) async throws {
+		try await viewModel.gracefulLockVault()
+		try await viewModel.setKeepUnlockedDuration(to: selectedDuration)
 	}
 
 	private func handleError(_ error: Error) {

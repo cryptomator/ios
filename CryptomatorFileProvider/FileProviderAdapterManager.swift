@@ -13,14 +13,14 @@ import Dependencies
 import FileProvider
 import Foundation
 import GRDB
-import Promises
 
 protocol FileProviderAdapterProviding {
 	var unlockMonitor: UnlockMonitorType { get }
 	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> FileProviderAdapterType
 }
 
-public class FileProviderAdapterManager: FileProviderAdapterProviding {
+/// @unchecked Sendable: every stored property is immutable, and `queue` serializes all operations on the adapter cache
+public final class FileProviderAdapterManager: FileProviderAdapterProviding, @unchecked Sendable {
 	public static let shared = FileProviderAdapterManager()
 	public typealias FileProviderAdapterDelegate = LocalURLProviderType
 	let unlockMonitor: UnlockMonitorType
@@ -170,12 +170,10 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 
 	// swiftlint:disable:next function_parameter_count
 	private func createAdapterCacheItem(domainIdentifier: NSFileProviderDomainIdentifier, cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> AdapterCacheItem {
-		let fileCoordinator = NSFileCoordinator()
-		fileCoordinator.purposeIdentifier = providerIdentifier
 		let database = try DatabaseHelper.default.getMigratedDB(at: dbPath, purposeIdentifier: providerIdentifier)
 		let itemMetadataManager = ItemMetadataDBManager(database: database)
 		let cachedFileManager = CachedFileDBManager(database: database,
-		                                            fileManagerHelper: .init(fileCoordinator: fileCoordinator))
+		                                            fileManagerHelper: .init(fileCoordinatorPurposeIdentifier: providerIdentifier))
 		let uploadTaskManager = UploadTaskDBManager(database: database, itemMetadataManager: itemMetadataManager)
 		let reparentTaskManager = try ReparentTaskDBManager(database: database)
 		let deletionTaskManager = try DeletionTaskDBManager(database: database)
@@ -191,9 +189,11 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  deletionTaskManager: deletionTaskManager,
 		                                  itemEnumerationTaskManager: itemEnumerationTaskManager,
 		                                  downloadTaskManager: downloadTaskManager,
-		                                  scheduler: WorkflowScheduler(maxParallelUploads: 2, maxParallelDownloads: 2),
+		                                  scheduler: WorkflowScheduler(),
+		                                  maxParallelUploads: 2,
+		                                  maxParallelDownloads: 2,
 		                                  provider: cloudProvider,
-		                                  coordinator: fileCoordinator,
+		                                  fileCoordinatorPurposeIdentifier: providerIdentifier,
 		                                  notificator: notificator,
 		                                  localURLProvider: delegate,
 		                                  taskRegistrator: taskRegistrator)

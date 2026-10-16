@@ -7,7 +7,6 @@
 //
 
 import CryptomatorCommonCore
-import Promises
 import StoreKit
 import XCTest
 @testable import Cryptomator
@@ -15,9 +14,9 @@ import XCTest
 class UpgradeViewModelTests: IAPViewModelTestCase {
 	var viewModel: UpgradeViewModel!
 
-	override func setUpWithError() throws {
-		try super.setUpWithError()
-		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
+	override func setUp() async throws {
+		try await super.setUp()
+		iapManagerMock.buyReturnValue = PurchaseTransaction.fullVersion
 		viewModel = UpgradeViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, minimumDisplayTime: 0)
 	}
 
@@ -27,50 +26,50 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 		assertShowsLoadingCell(viewModel: viewModel)
 	}
 
-	func testCellsAfterFetchProducts() {
+	func testCellsAfterFetchProducts() async {
 		let expectedCells: [BaseIAPViewModel.Item] = [
 			paidUpgradeCell,
 			freeUpgradeCell
 		]
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testCellsAfterFetchProductsFailed() {
+	func testCellsAfterFetchProductsFailed() async {
 		iapStoreMock.fetchProductsWithThrowableError = SKError(.unknown)
 		let viewModel = UpgradeViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, minimumDisplayTime: 0)
-		wait(for: viewModel.fetchProducts(), timeout: 5.0)
+		await viewModel.fetchProducts()
 		XCTAssertEqual([retryCell], viewModel.cells)
 	}
 
 	// MARK: Paid Upgrade
 
-	func testPaidUpgrade() throws {
-		iapManagerMock.buyReturnValue = Promise(.fullVersion)
-		try assertBuyProductWorks(viewModel: viewModel,
-		                          productIdentifier: .paidUpgrade,
-		                          expectedPurchaseTransaction: .fullVersion)
+	func testPaidUpgrade() async throws {
+		iapManagerMock.buyReturnValue = .fullVersion
+		try await assertBuyProductWorks(viewModel: viewModel,
+		                                productIdentifier: .paidUpgrade,
+		                                expectedPurchaseTransaction: .fullVersion)
 	}
 
-	func testPaidUpgradeCancelled() throws {
-		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		try assertCancelledBuyProduct(viewModel: viewModel,
-		                              productIdentifier: .paidUpgrade)
+	func testPaidUpgradeCancelled() async throws {
+		iapManagerMock.buyClosure = { _ in throw SKError(.paymentCancelled) }
+		try await assertCancelledBuyProduct(viewModel: viewModel,
+		                                    productIdentifier: .paidUpgrade)
 	}
 
 	// MARK: Free Upgrade
 
-	func testFreeUpgrade() throws {
-		iapManagerMock.buyReturnValue = Promise(.fullVersion)
-		try assertBuyProductWorks(viewModel: viewModel,
-		                          productIdentifier: .freeUpgrade,
-		                          expectedPurchaseTransaction: .fullVersion)
+	func testFreeUpgrade() async throws {
+		iapManagerMock.buyReturnValue = .fullVersion
+		try await assertBuyProductWorks(viewModel: viewModel,
+		                                productIdentifier: .freeUpgrade,
+		                                expectedPurchaseTransaction: .fullVersion)
 	}
 
-	func testFreeUpgradeCancelled() throws {
-		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		try assertCancelledBuyProduct(viewModel: viewModel,
-		                              productIdentifier: .freeUpgrade)
+	func testFreeUpgradeCancelled() async throws {
+		iapManagerMock.buyClosure = { _ in throw SKError(.paymentCancelled) }
+		try await assertCancelledBuyProduct(viewModel: viewModel,
+		                                    productIdentifier: .freeUpgrade)
 	}
 
 	private var freeUpgradeCell: Item {

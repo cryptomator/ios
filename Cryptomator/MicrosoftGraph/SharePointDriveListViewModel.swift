@@ -34,23 +34,23 @@ class SharePointDriveListViewModel {
 	}
 
 	func refreshItems() {
-		discovery.fetchSharePointSite(for: siteURL).then { site in
-			self.fetchDrives(for: site.identifier)
-		}.catch { error in
-			self.errorListener?(error)
+		Task {
+			do {
+				let site = try await discovery.fetchSharePointSite(for: siteURL)
+				try await fetchDrives(for: site.identifier)
+			} catch {
+				errorListener?(error)
+			}
 		}
 	}
 
-	private func fetchDrives(for siteIdentifier: String) {
-		discovery.fetchSharePointDrives(for: siteIdentifier).then { drives in
-			self.drives = drives
-			if drives.count == 1, let drive = drives.first {
-				self.driveListener?(drive)
-			} else {
-				self.changeListener?()
-			}
-		}.catch { error in
-			self.errorListener?(error)
+	private func fetchDrives(for siteIdentifier: String) async throws {
+		let drives = try await discovery.fetchSharePointDrives(for: siteIdentifier)
+		self.drives = drives
+		if drives.count == 1, let drive = drives.first {
+			driveListener?(drive)
+		} else {
+			changeListener?()
 		}
 	}
 }

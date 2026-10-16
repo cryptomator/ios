@@ -82,7 +82,7 @@ final class HubLicenseVerifierTests: XCTestCase {
 		let symmetricKey = Data(repeating: 0x01, count: 64)
 		let header = JWSHeader(algorithm: .HS256)
 		let payload = try Payload(JSONSerialization.data(withJSONObject: ["exp": Date().addingTimeInterval(3600).timeIntervalSince1970]))
-		let signer = try XCTUnwrap(Signer(signingAlgorithm: .HS256, key: symmetricKey))
+		let signer = try XCTUnwrap(Signer(signatureAlgorithm: .HS256, key: symmetricKey))
 		let token = try JWS(header: header, payload: payload, signer: signer).compactSerializedString
 
 		XCTAssertThrowsError(try HubLicenseVerifier.verify(token: token, publicKey: publicKey)) { error in
@@ -121,7 +121,7 @@ final class HubLicenseVerifierTests: XCTestCase {
 		let privateKey = try HubLicenseVerifier.makeSecKey(x963Representation: signingKey.x963Representation, keyClass: kSecAttrKeyClassPrivate)
 		let header = JWSHeader(algorithm: .ES512)
 		let payload = try Payload(JSONSerialization.data(withJSONObject: claims))
-		let signer = try XCTUnwrap(Signer(signingAlgorithm: .ES512, key: privateKey))
+		let signer = try XCTUnwrap(Signer(signatureAlgorithm: .ES512, key: privateKey))
 		let jws = try JWS(header: header, payload: payload, signer: signer)
 		return jws.compactSerializedString
 	}

@@ -10,7 +10,6 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
-import Promises
 
 class DownloadTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItem>?
@@ -31,46 +30,42 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 	private let downloadTaskManager: DownloadTaskManager
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	private let limiter: ConcurrencyLimiter
 	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
 	     provider: CloudProvider,
 	     itemMetadataManager: ItemMetadataManager,
 	     cachedFileManager: CachedFileManager,
-	     downloadTaskManager: DownloadTaskManager) {
+	     downloadTaskManager: DownloadTaskManager,
+	     limiter: ConcurrencyLimiter) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
 		self.downloadTaskManager = downloadTaskManager
+		self.limiter = limiter
 	}
 
-	func execute(task: CloudTask) -> Promise<FileProviderItem> {
+	func execute(task: CloudTask) async throws -> FileProviderItem {
 		guard let downloadTask = task as? DownloadTask else {
-			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
+			throw WorkflowMiddlewareError.incompatibleCloudTask
 		}
 		let taskRecord = downloadTask.taskRecord
-		let downloadDestination = taskRecord.replaceExisting ? taskRecord.localURL.createCollisionURL() : taskRecord.localURL
-		var lastModifiedDate: Date?
-		let itemMetadata = task.itemMetadata
-		let cloudPath = task.cloudPath
-		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Promise<Void> in
-			lastModifiedDate = cloudMetadata.lastModifiedDate
-			return self.provider.downloadFile(from: cloudPath, to: downloadDestination, onTaskCreation: { task in
-				guard let task else {
-					return
-				}
-				downloadTask.onURLSessionTaskCreation?(task)
-			})
-		}.then { _ -> FileProviderItem in
-			try self.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: taskRecord.localURL, downloadDestination: downloadDestination)
-		}.always {
+		defer {
 			do {
-				try self.downloadTaskManager.removeTaskRecord(taskRecord)
+				try downloadTaskManager.removeTaskRecord(taskRecord)
 			} catch {
 				DDLogError("Remove DownloadTask failed with error: \(error)")
 			}
 		}
+		let downloadDestination = taskRecord.replaceExisting ? taskRecord.localURL.createCollisionURL() : taskRecord.localURL
+		let itemMetadata = task.itemMetadata
+		let cloudPath = task.cloudPath
+		let cloudItemMetadata = try await limiter.withPermit {
+			try await provider.downloadFile(from: cloudPath, to: downloadDestination, progress: nil, onTaskCreation: downloadTask.onURLSessionTaskCreation)
+		}
+		return try downloadPostProcessing(for: itemMetadata, lastModifiedDate: cloudItemMetadata.lastModifiedDate, localURL: taskRecord.localURL, downloadDestination: downloadDestination)
 	}
 
 	/**
@@ -81,7 +76,7 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 	 In the case of a non-overwriting download, the `localURL` and the `downloadDestination`, can be the same `URL`.
 
 	 - Parameter itemMetadata: The metadata of the item for which post-processing is performed.
-	 - Parameter lastModifiedDate: (Optional) The date the item was last modified in the cloud.
+	 - Parameter lastModifiedDate: (Optional) The date the downloaded version was last modified in the cloud, as reported by the download.
 	 - Parameter localURL: The local URL where the downloaded file is located at the end.
 	 - Parameter downloadDestination: The local URL to which the file was downloaded.
 	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.

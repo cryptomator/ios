@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 @testable import Cryptomator
 
 // swiftlint:disable all
@@ -22,14 +21,21 @@ final class TLSCertificateValidationHelpingMock: TLSCertificateValidationHelping
 
 	var validateUrlReceivedUrl: URL?
 	var validateUrlReceivedInvocations: [URL] = []
-	var validateUrlReturnValue: Promise<TLSCertificate>!
-	var validateUrlClosure: ((URL) -> Promise<TLSCertificate>)?
+	var validateUrlThrowableError: Error?
+	var validateUrlReturnValue: TLSCertificate!
+	var validateUrlClosure: ((URL) async throws -> TLSCertificate)?
 
-	func validate(url: URL) -> Promise<TLSCertificate> {
+	func validate(url: URL) async throws -> TLSCertificate {
+		if let error = validateUrlThrowableError {
+			throw error
+		}
 		validateUrlCallsCount += 1
 		validateUrlReceivedUrl = url
 		validateUrlReceivedInvocations.append(url)
-		return validateUrlClosure.map({ $0(url) }) ?? validateUrlReturnValue
+		if let validateUrlClosure = validateUrlClosure {
+			return try await validateUrlClosure(url)
+		}
+		return validateUrlReturnValue
 	}
 }
 

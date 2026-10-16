@@ -7,7 +7,6 @@
 //
 
 import CryptomatorCommonCore
-import Promises
 import StoreKit
 import UIKit
 
@@ -138,7 +137,8 @@ extension MainCoordinator: StoreObserverDelegate {
 			guard let navigationController = self?.navigationController else {
 				return
 			}
-			PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController).then {
+			Task {
+				await PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController)
 				if let windowScene = navigationController.view.window?.windowScene {
 					SKStoreReviewController.requestReview(in: windowScene)
 				}
@@ -151,11 +151,13 @@ extension MainCoordinator: StoreObserverDelegate {
 			guard let navigationController = self?.navigationController else {
 				return
 			}
-			_ = PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController)
+			Task {
+				await PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController)
+			}
 		}
 	}
 
-	private func showAlert(_ showAlertCall: @escaping () -> Void) {
+	private func showAlert(_ showAlertCall: @escaping @MainActor @Sendable () -> Void) {
 		guard navigationController.presentedViewController == nil else {
 			DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
 				self?.showAlert(showAlertCall)

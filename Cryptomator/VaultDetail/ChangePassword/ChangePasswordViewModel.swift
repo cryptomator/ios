@@ -13,7 +13,6 @@ import CryptomatorCryptoLib
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 
 protocol ChangePasswordViewModelProtocol: TableViewModel<ChangePasswordSection>, ReturnButtonSupport {
 	func changePassword() async throws
@@ -42,7 +41,7 @@ extension ChangePasswordViewModelError: LocalizedError {
 	}
 }
 
-enum ChangePasswordSection: Int {
+nonisolated enum ChangePasswordSection: Int {
 	case oldPassword = 0
 	case newPassword
 	case newPasswordConfirmation
@@ -111,7 +110,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		defer {
 			fileProviderConnector.invalidateXPC(xpc)
 		}
-		try await xpc.proxy.executeExclusiveOperation {
+		try await xpc.proxy.executeExclusiveOperation { @MainActor in
 			try await self.lockVault()
 			do {
 				try await self.changePassphrase(validatedPasswords: validatedPasswords)
@@ -163,13 +162,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 	}
 
 	private func changePassphrase(validatedPasswords: ValidatedPasswords) async throws {
-		try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) -> Void in
-			vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: self.vaultAccount.vaultUID).then {
-				continuation.resume()
-			}.catch {
-				continuation.resume(throwing: $0)
-			}
-		})
+		try await vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: vaultAccount.vaultUID)
 	}
 }
 

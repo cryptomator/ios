@@ -10,7 +10,6 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import UIKit
 
 protocol DefaultAccountReauthenticationBehavior {}
@@ -19,38 +18,40 @@ extension Coordinator where Self: DefaultAccountReauthenticationBehavior {
 	/**
 	 Signs the user in again for an account that is already in use.
 
-	 The returned promise is rejected if the user cancels, signs in with a different account, or the cloud provider cannot keep its account. Callers therefore handle success alone, because every failure is already dealt with here. A mismatch gets an alert, a cancellation needs none, an unsupported provider is logged, and anything else goes to `handleError`.
+	 The call throws if the user cancels, signs in with a different account, or the cloud provider cannot keep its account. Callers therefore handle success alone, because every failure is already dealt with here. A mismatch gets an alert, a cancellation needs none, an unsupported provider is logged, and anything else goes to `handleError`.
 
 	 Only a provider with `AccountRecoveryMode.reauthenticate` is accepted. Signing in again would mint a new identifier for S3 and WebDAV, and the local file system has no sign-in at all.
 
 	 - Parameter authenticator: Both the account list and the discard go through this authenticator, thus they always see the same store.
 	 */
-	func reauthenticate(_ account: CloudProviderAccount, from viewController: UIViewController, authenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) -> Promise<CloudProviderAccount> {
+	func reauthenticate(_ account: CloudProviderAccount, from viewController: UIViewController, authenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) async throws -> CloudProviderAccount {
 		guard account.cloudProviderType.accountRecoveryMode == .reauthenticate else {
 			DDLogError("Signing in again is not supported for \(account.cloudProviderType)")
-			return Promise(AccountReauthenticationError.unsupportedCloudProviderType)
+			throw AccountReauthenticationError.unsupportedCloudProviderType
 		}
 		let accountUIDsBeforeSignIn = try? authenticator.accountManager.getAllAccountUIDs(for: account.cloudProviderType)
-		return authenticator.authenticate(account.cloudProviderType, from: viewController).then { reAuthAccount -> CloudProviderAccount in
+		do {
+			let reAuthAccount = try await authenticator.authenticate(account.cloudProviderType, from: viewController)
 			switch AccountReauthenticationOutcome(expectedAccountUID: account.accountUID, reAuthAccountUID: reAuthAccount.accountUID, accountUIDsBeforeSignIn: accountUIDsBeforeSignIn) {
 			case .matched:
 				CloudProviderDBManager.shared.providerShouldUpdate(with: reAuthAccount.accountUID)
 				return reAuthAccount
 			case .mismatchedWithNewAccount:
-				self.discard(reAuthAccount, with: authenticator)
-				self.showAccountMismatchAlert(for: account)
+				discard(reAuthAccount, with: authenticator)
+				showAccountMismatchAlert(for: account)
 				throw AccountReauthenticationError.accountMismatch
 			case .mismatchedWithKnownAccount:
-				self.showAccountMismatchAlert(for: account)
+				showAccountMismatchAlert(for: account)
 				throw AccountReauthenticationError.accountMismatch
 			}
-		}.catch { error in
+		} catch {
 			switch error {
 			case CocoaError.userCancelled, AccountReauthenticationError.accountMismatch:
 				break
 			default:
-				self.handleError(error, for: self.navigationController)
+				handleError(error, for: navigationController)
 			}
+			throw error
 		}
 	}
 

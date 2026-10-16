@@ -11,15 +11,14 @@ import CryptomatorCommonCore
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 
 protocol VaultKeepUnlockedViewModelType: TableViewModel<VaultKeepUnlockedSection> {
 	func getFooterViewModel(forSection section: Int) -> HeaderFooterViewModel?
-	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) -> Promise<Void>
-	func gracefulLockVault() -> Promise<Void>
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) async throws
+	func gracefulLockVault() async throws
 }
 
-enum VaultKeepUnlockedSection: Hashable {
+nonisolated enum VaultKeepUnlockedSection: Hashable {
 	case main
 }
 
@@ -62,34 +61,27 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		setupBinding()
 	}
 
-	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) -> Promise<Void> {
-		let promise: Promise<Void>
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) async throws {
 		if currentKeepUnlockedDuration.value == .auto, duration != .auto {
-			promise = assertVaultIsLocked()
-		} else {
-			promise = Promise(())
+			try await assertVaultIsLocked()
 		}
-		return promise.then { [self] in
-			if let selectedKeepUnlockedItem = keepUnlockedItems.first(where: { $0.duration == duration }) {
-				try vaultKeepUnlockedSettings.setKeepUnlockedDuration(selectedKeepUnlockedItem.duration, forVaultUID: vaultUID)
-				currentKeepUnlockedDuration.value = selectedKeepUnlockedItem.duration
-				if case KeepUnlockedDuration.auto = duration {
-					try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-				}
+		if let selectedKeepUnlockedItem = keepUnlockedItems.first(where: { $0.duration == duration }) {
+			try vaultKeepUnlockedSettings.setKeepUnlockedDuration(selectedKeepUnlockedItem.duration, forVaultUID: vaultUID)
+			currentKeepUnlockedDuration.value = selectedKeepUnlockedItem.duration
+			if case KeepUnlockedDuration.auto = duration {
+				try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			}
 		}
 	}
 
-	func gracefulLockVault() -> Promise<Void> {
+	func gracefulLockVault() async throws {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc in
-			xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
-		}.then {
-			self.vaultInfo.vaultIsUnlocked.value = false
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
 		}
+		try await xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
+		vaultInfo.vaultIsUnlocked.value = false
 	}
 
 	func getFooterViewModel(forSection section: Int) -> HeaderFooterViewModel? {
@@ -116,21 +108,18 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		}
 	}
 
-	private func getVaultIsUnlocked() -> Promise<Bool> {
+	private func getVaultIsUnlocked() async throws -> Bool {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc in
-			return xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
 		}
+		return await xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 	}
 
-	private func assertVaultIsLocked() -> Promise<Void> {
-		return getVaultIsUnlocked().then { vaultIsUnlocked -> Void in
-			if vaultIsUnlocked {
-				throw VaultKeepUnlockedViewModelError.vaultIsUnlocked
-			}
+	private func assertVaultIsLocked() async throws {
+		if try await getVaultIsUnlocked() {
+			throw VaultKeepUnlockedViewModelError.vaultIsUnlocked
 		}
 	}
 }
@@ -152,12 +141,16 @@ class KeepUnlockedDurationItem: TableViewCellViewModel, CheckMarkCellViewModelTy
 		self.isSelected = Bindable(isSelected)
 	}
 
-	override func hash(into hasher: inout Hasher) {
-		hasher.combine(duration)
-		hasher.combine(isSelected)
+	override nonisolated func hash(into hasher: inout Hasher) {
+		MainActor.assumeIsolated {
+			hasher.combine(duration)
+			hasher.combine(isSelected)
+		}
 	}
 
-	static func == (lhs: KeepUnlockedDurationItem, rhs: KeepUnlockedDurationItem) -> Bool {
-		lhs.duration == rhs.duration && lhs.isSelected == rhs.isSelected
+	nonisolated static func == (lhs: KeepUnlockedDurationItem, rhs: KeepUnlockedDurationItem) -> Bool {
+		MainActor.assumeIsolated {
+			lhs.duration == rhs.duration && lhs.isSelected == rhs.isSelected
+		}
 	}
 }

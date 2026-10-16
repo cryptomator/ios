@@ -55,11 +55,10 @@ class ChangePasswordViewController: StaticUITableViewController<ChangePasswordSe
 
 		do {
 			try await viewModel.changePassword()
-			hud.transformToSelfDismissingSuccess {
-				self.coordinator?.changedPassword()
-			}
+			await hud.transformToSelfDismissingSuccess()
+			coordinator?.changedPassword()
 		} catch {
-			handleError(error, coordinator: coordinator, progressHUD: hud)
+			await handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }

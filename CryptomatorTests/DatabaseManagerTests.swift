@@ -13,12 +13,14 @@ import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class DatabaseManagerTests: XCTestCase {
 	var tmpDir: URL!
 	private var dbURL: URL!
 	private var database: DatabaseWriter!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
 		dbURL = tmpDir.appendingPathComponent("db.sqlite")
@@ -29,8 +31,9 @@ class DatabaseManagerTests: XCTestCase {
 		}
 	}
 
-	override func tearDownWithError() throws {
+	override func tearDown() async throws {
 		try FileManager.default.removeItem(at: tmpDir)
+		try await super.tearDown()
 	}
 
 	// MARK: VaultListPosition
@@ -302,6 +305,43 @@ class DatabaseManagerTests: XCTestCase {
 
 			let googleDriveAccounts = try dbManager.getAllAccounts(for: .googleDrive)
 			XCTAssertEqual(0, googleDriveAccounts.count)
+		}
+	}
+
+	// MARK: CloudProviderAccount Observation
+
+	func testObserveCloudProviderAccountsNotifiesOnS3DisplayNameChange() async throws {
+		try await withDependencies {
+			$0.database = database
+		} operation: {
+			let dbManager = DatabaseManager()
+			let cloudAccountManager = CloudProviderAccountDBManager()
+
+			let s3CloudProviderAccount = CloudProviderAccount(accountUID: "s3CloudProviderAccount", cloudProviderType: .s3(type: .custom))
+			try cloudAccountManager.saveNewAccount(s3CloudProviderAccount)
+			try await self.database.write { db in
+				try S3DisplayName(id: s3CloudProviderAccount.accountUID, displayName: "Old Name").insert(db)
+			}
+
+			let displayNameChanged = XCTestExpectation()
+			var changeCount = 0
+			let observation = dbManager.observeCloudProviderAccounts(onError: { error in
+				XCTFail("Observation failed with error: \(error)")
+			}, onChange: { _ in
+				changeCount += 1
+				if changeCount == 2 {
+					displayNameChanged.fulfill()
+				}
+			})
+			defer {
+				observation.cancel()
+			}
+
+			try await self.database.write { db in
+				try S3DisplayName(id: s3CloudProviderAccount.accountUID, displayName: "New Name").update(db)
+			}
+
+			await self.fulfillment(of: [displayNameChanged], timeout: 5.0)
 		}
 	}
 }

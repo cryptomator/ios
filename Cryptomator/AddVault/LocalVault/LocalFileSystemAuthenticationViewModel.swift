@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 protocol LocalFileSystemAuthenticationViewModelProtocol: SingleSectionTableViewModel {
 	var headerText: String { get }
@@ -18,7 +17,7 @@ protocol LocalFileSystemAuthenticationViewModelProtocol: SingleSectionTableViewM
 }
 
 protocol LocalFileSystemVaultInstallingViewModelProtocol {
-	func addVault(for credential: LocalFileSystemCredential) -> Promise<LocalFileSystemAuthenticationResult>
+	func addVault(for credential: LocalFileSystemCredential) async throws -> LocalFileSystemAuthenticationResult
 }
 
 protocol LocalFileSystemAuthenticationValidationLogic {
@@ -63,22 +62,15 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		return LocalFileSystemCredential(rootURL: rootURL, identifier: UUID().uuidString)
 	}
 
-	func validateAndSave(credential: LocalFileSystemCredential) -> Promise<CloudProviderAccount> {
-		return validate(credential: credential).then {
-			try self.save(credential: credential)
-		}
+	func validateAndSave(credential: LocalFileSystemCredential) async throws -> CloudProviderAccount {
+		try await validate(credential: credential)
+		return try save(credential: credential)
 	}
 
-	private func validate(credential: LocalFileSystemCredential) -> Promise<Void> {
-		let provider: CloudProvider
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: LocalFileSystemProvider(rootURL: credential.rootURL))
-		} catch {
-			return Promise(error)
-		}
-		return provider.fetchItemListExhaustively(forFolderAt: CloudPath("/")).then { itemList in
-			try self.validationLogic.validate(items: itemList.items)
-		}
+	private func validate(credential: LocalFileSystemCredential) async throws {
+		let provider = try LocalizedCloudProviderDecorator(delegate: LocalFileSystemProvider(rootURL: credential.rootURL))
+		let itemList = try await provider.fetchItemListExhaustively(forFolderAt: CloudPath("/"))
+		try validationLogic.validate(items: itemList.items)
 	}
 
 	private func save(credential: LocalFileSystemCredential) throws -> CloudProviderAccount {

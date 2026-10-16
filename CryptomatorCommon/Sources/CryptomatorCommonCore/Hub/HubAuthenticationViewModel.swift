@@ -24,6 +24,7 @@ public protocol HubAuthenticationViewModelDelegate: AnyObject {
 	func hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: URL)
 }
 
+@MainActor
 public final class HubAuthenticationViewModel: ObservableObject {
 	public enum State: Equatable {
 		case accessNotGranted
@@ -74,7 +75,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 			await setStateToErrorState(with: error)
 			return
 		}
-		await setState(to: .deviceRegistration(.needsAuthorization))
+		authenticationFlowState = .deviceRegistration(.needsAuthorization)
 	}
 
 	public func refresh() async {
@@ -82,7 +83,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	public func continueToAccessCheck() async {
-		await delegate?.hubAuthenticationViewModelWantsToShowLoadingIndicator()
+		delegate?.hubAuthenticationViewModelWantsToShowLoadingIndicator()
 
 		let authFlow: HubAuthenticationFlow
 		do {
@@ -97,15 +98,15 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		case let .success(response):
 			await receivedExistingKey(response)
 		case .accessNotGranted:
-			await setState(to: .accessNotGranted)
+			authenticationFlowState = .accessNotGranted
 		case .needsDeviceRegistration:
-			await setState(to: .deviceRegistration(.deviceName))
+			authenticationFlowState = .deviceRegistration(.deviceName)
 		case .licenseExceeded:
-			await setState(to: .licenseExceeded)
+			authenticationFlowState = .licenseExceeded
 		case let .requiresAccountInitialization(profileURL):
-			await delegate?.hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: profileURL)
+			delegate?.hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: profileURL)
 		case .vaultArchived:
-			await setState(to: .vaultArchived)
+			authenticationFlowState = .vaultArchived
 		}
 	}
 
@@ -125,18 +126,13 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		let response = HubUnlockResponse(jwe: flowResponse.encryptedVaultKey,
 		                                 privateKey: userKey,
 		                                 subscriptionState: subscriptionState)
-		await MainActor.run { isLoggedIn = true }
+		isLoggedIn = true
 		await unlockHandler.didSuccessfullyRemoteUnlock(response)
-	}
-
-	@MainActor
-	private func setState(to newState: State) {
-		authenticationFlowState = newState
 	}
 
 	private func setStateToErrorState(with error: Error) async {
 		await delegate?.hubAuthenticationViewModelWantsToHideLoadingIndicator()
-		await setState(to: .error(description: error.localizedDescription))
+		authenticationFlowState = .error(description: error.localizedDescription)
 	}
 
 	private func resolveSubscriptionState(iosLicenseToken: String?, legacySubscriptionState: String?) -> HubSubscriptionState {

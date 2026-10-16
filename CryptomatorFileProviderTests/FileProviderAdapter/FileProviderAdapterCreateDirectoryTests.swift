@@ -11,52 +11,38 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
-	func testCreateDirectory() throws {
-		let expectation = XCTestExpectation()
+	func testCreateDirectory() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
-		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
-		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: .rootContainer) { item, error in
-			XCTAssertNil(error)
-			guard let fileProviderItem = item as? FileProviderItem else {
-				XCTFail("FileProviderItem is nil")
-				return
-			}
-			XCTAssertEqual("TestFolder", fileProviderItem.filename)
-			XCTAssert(fileProviderItem.isUploading)
-			XCTAssertFalse(fileProviderItem.isUploaded)
-			XCTAssertEqual("public.folder", fileProviderItem.typeIdentifier)
-			XCTAssert(fileProviderItem.metadata.isPlaceholderItem)
-			XCTAssertEqual("TestFolder", fileProviderItem.metadata.name)
-			XCTAssertNotNil(fileProviderItem.metadata.id)
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), maxParallelUploads: 1, maxParallelDownloads: 1, provider: cloudProviderMock, fileCoordinatorPurposeIdentifier: fileCoordinatorPurposeIdentifier, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
 
-			XCTAssertEqual(2, self.metadataManagerMock.cachedMetadata.count)
-			XCTAssertEqual(fileProviderItem.metadata, self.metadataManagerMock.cachedMetadata[fileProviderItem.metadata.id!])
+		let item = try await adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: .rootContainer)
 
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let fileProviderItem = try XCTUnwrap(item, "FileProviderItem is nil")
+		XCTAssertEqual("TestFolder", fileProviderItem.filename)
+		XCTAssert(fileProviderItem.isUploading)
+		XCTAssertFalse(fileProviderItem.isUploaded)
+		XCTAssertEqual("public.folder", fileProviderItem.typeIdentifier)
+		XCTAssert(fileProviderItem.metadata.isPlaceholderItem)
+		XCTAssertEqual("TestFolder", fileProviderItem.metadata.name)
+		XCTAssertNotNil(fileProviderItem.metadata.id)
+
+		XCTAssertEqual(2, metadataManagerMock.cachedMetadata.count)
+		XCTAssertEqual(fileProviderItem.metadata, try metadataManagerMock.cachedMetadata[XCTUnwrap(fileProviderItem.metadata.id)])
 	}
 
-	func testCreateDirectoryFailsIfParentDoesNotExist() {
-		let expectation = XCTestExpectation()
-		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: LocalURLProviderMock(), taskRegistrator: taskRegistratorMock)
-		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)) { item, error in
-			XCTAssertNil(item)
-			guard let error = error else {
-				XCTFail("Error is nil")
-				return
-			}
+	func testCreateDirectoryFailsIfParentDoesNotExist() async {
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), maxParallelUploads: 1, maxParallelDownloads: 1, provider: cloudProviderMock, fileCoordinatorPurposeIdentifier: fileCoordinatorPurposeIdentifier, localURLProvider: LocalURLProviderMock(), taskRegistrator: taskRegistratorMock)
+
+		await XCTAssertThrowsAsyncError(try await adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2))) { error in
 			guard case FileProviderAdapterError.parentFolderNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
-			XCTAssert(self.metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
-			XCTAssert(self.metadataManagerMock.removedMetadataID.isEmpty, "Unexpected change of cached metadata.")
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssert(metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
+		XCTAssert(metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
+		XCTAssert(metadataManagerMock.removedMetadataID.isEmpty, "Unexpected change of cached metadata.")
 	}
 
 	// MARK: Create Placeholder

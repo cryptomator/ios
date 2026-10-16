@@ -3,12 +3,13 @@ import CryptomatorCloudAccessCore
 import Dependencies
 import UIKit
 
-public protocol HubAuthenticating {
+public protocol HubAuthenticating: Sendable {
+	@MainActor
 	func authenticate(with hubConfig: HubConfig, from viewController: UIViewController) async throws -> OIDAuthState
 }
 
 public enum HubAuthenticatingKey: TestDependencyKey {
-	public static var testValue: HubAuthenticating = UnimplementedHubAuthenticatingService()
+	public static let testValue: HubAuthenticating = UnimplementedHubAuthenticatingService()
 }
 
 public extension DependencyValues {

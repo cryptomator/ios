@@ -43,14 +43,18 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case incompatibleHubVersion
 }
 
-public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
-	typealias DataLoader = (URLRequest) async throws -> (Data, URLResponse)
+public final class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
+	typealias DataLoader = @Sendable (URLRequest) async throws -> (Data, URLResponse)
 
 	private static let scheme = "hub+"
 	private static let minimumHubVersion = 2
 	private static let iosLicenseHeader = "Hub-iOS-License"
 	private static let legacySubscriptionStateHeader = "Hub-Subscription-State"
-	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
+	private let cryptomatorHubKeyProviderDependency = Dependency(\.cryptomatorHubKeyProvider)
+	private var cryptomatorHubKeyProvider: CryptomatorHubKeyProvider {
+		cryptomatorHubKeyProviderDependency.wrappedValue
+	}
+
 	private let load: DataLoader
 
 	public init() {

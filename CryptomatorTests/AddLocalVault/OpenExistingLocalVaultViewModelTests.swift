@@ -14,83 +14,63 @@ import XCTest
 class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 	var viewModel: OpenExistingLocalVaultViewModel!
 
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		viewModel = OpenExistingLocalVaultViewModel(selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 	}
 
-	func testAddVault() throws {
-		let expectation = XCTestExpectation()
+	func testAddVault() async throws {
 		let vaultURL = tmpDirURL.appendingPathComponent("MyVault")
 		try createVault(at: vaultURL)
 		let rootURL = vaultURL.appendingPathComponent("/")
 		let credential = LocalFileSystemCredential(rootURL: rootURL, identifier: UUID().uuidString)
-		viewModel.addVault(for: credential).then { result in
-			XCTAssertEqual(credential, result.credential)
-			XCTAssertEqual(credential.identifier, result.account.accountUID)
-			XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
+		let result = try await viewModel.addVault(for: credential)
+		XCTAssertEqual(credential, result.credential)
+		XCTAssertEqual(credential.identifier, result.account.accountUID)
+		XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
 
-			guard let vaultDetailItem = result.item as? VaultDetailItem else {
-				XCTFail("result item is not a VaultDetailItem")
-				return
-			}
-			XCTAssertEqual("MyVault", vaultDetailItem.name)
-			XCTAssertEqual(CloudPath("/"), vaultDetailItem.path)
-			XCTAssertFalse(vaultDetailItem.isLegacyVault)
-
-			XCTAssertEqual(1, self.accountManagerMock.savedAccounts.count)
-			XCTAssertEqual(result.account, self.accountManagerMock.savedAccounts[0])
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
+		guard let vaultDetailItem = result.item as? VaultDetailItem else {
+			XCTFail("result item is not a VaultDetailItem")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual("MyVault", vaultDetailItem.name)
+		XCTAssertEqual(CloudPath("/"), vaultDetailItem.path)
+		XCTAssertFalse(vaultDetailItem.isLegacyVault)
+
+		XCTAssertEqual(1, accountManagerMock.savedAccounts.count)
+		XCTAssertEqual(result.account, accountManagerMock.savedAccounts[0])
 	}
 
-	func testAddLegacyVault() throws {
-		let expectation = XCTestExpectation()
+	func testAddLegacyVault() async throws {
 		let vaultURL = tmpDirURL.appendingPathComponent("MyLegacyVault")
 		try createLegacyVault(at: vaultURL)
 		let rootURL = vaultURL.appendingPathComponent("/")
 		let credential = LocalFileSystemCredential(rootURL: rootURL, identifier: UUID().uuidString)
-		viewModel.addVault(for: credential).then { result in
-			XCTAssertEqual(credential, result.credential)
-			XCTAssertEqual(credential.identifier, result.account.accountUID)
-			XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
+		let result = try await viewModel.addVault(for: credential)
+		XCTAssertEqual(credential, result.credential)
+		XCTAssertEqual(credential.identifier, result.account.accountUID)
+		XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
 
-			guard let vaultDetailItem = result.item as? VaultDetailItem else {
-				XCTFail("result item is not a VaultDetailItem")
-				return
-			}
-			XCTAssertEqual("MyLegacyVault", vaultDetailItem.name)
-			XCTAssertEqual(CloudPath("/"), vaultDetailItem.path)
-			XCTAssertTrue(vaultDetailItem.isLegacyVault)
-
-			XCTAssertEqual(1, self.accountManagerMock.savedAccounts.count)
-			XCTAssertEqual(result.account, self.accountManagerMock.savedAccounts[0])
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
+		guard let vaultDetailItem = result.item as? VaultDetailItem else {
+			XCTFail("result item is not a VaultDetailItem")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual("MyLegacyVault", vaultDetailItem.name)
+		XCTAssertEqual(CloudPath("/"), vaultDetailItem.path)
+		XCTAssertTrue(vaultDetailItem.isLegacyVault)
+
+		XCTAssertEqual(1, accountManagerMock.savedAccounts.count)
+		XCTAssertEqual(result.account, accountManagerMock.savedAccounts[0])
 	}
 
-	func testAddVaultWithMissingVault() {
-		let expectation = XCTestExpectation()
+	func testAddVaultWithMissingVault() async {
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
-		viewModel.addVault(for: credential).then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await viewModel.addVault(for: credential)) { error in
 			guard case OpenExistingLocalVaultViewModelError.noVaultFound = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
+				XCTFail("Threw wrong error: \(error)")
 				return
 			}
-			XCTAssertEqual(0, self.accountManagerMock.savedAccounts.count)
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(0, accountManagerMock.savedAccounts.count)
 	}
 }

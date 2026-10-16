@@ -10,7 +10,8 @@ import Foundation
 @testable import CryptomatorFileProvider
 
 // swiftlint:disable all
-final class CachedFileManagerMock: CachedFileManager {
+/// @unchecked Sendable: test double, never touched concurrently
+final class CachedFileManagerMock: CachedFileManager, @unchecked Sendable {
 	// MARK: - getLocalCachedFileInfo
 
 	var getLocalCachedFileInfoForThrowableError: Error?

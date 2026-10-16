@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-protocol DeletionTaskManager {
+protocol DeletionTaskManager: Sendable {
 	func createTaskRecord(for item: ItemMetadata, cloudPath: CloudPath) throws -> DeletionTaskRecord
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord
 	func removeTaskRecord(_ task: DeletionTaskRecord) throws
@@ -18,7 +18,7 @@ protocol DeletionTaskManager {
 	func getTask(for taskRecord: DeletionTaskRecord) throws -> DeletionTask
 }
 
-class DeletionTaskDBManager: DeletionTaskManager {
+final class DeletionTaskDBManager: DeletionTaskManager {
 	private let database: DatabaseWriter
 
 	init(database: DatabaseWriter) throws {

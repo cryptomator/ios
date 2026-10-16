@@ -10,7 +10,7 @@ import UIKit
 
 // Taken from: https://github.com/carekit-apple/CareKit/blob/main/CareKit/CareKit/iOS/Extensions/NSLayoutConstraint+Extensions.swift
 
-public struct LayoutDirection: OptionSet {
+public struct LayoutDirection: OptionSet, Sendable {
 	public let rawValue: Int
 
 	public static let top = LayoutDirection(rawValue: 1 << 0)

@@ -10,7 +10,6 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import FileProvider
 import Foundation
-import Promises
 
 class ErrorMapper<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
@@ -26,15 +25,12 @@ class ErrorMapper<T>: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	func execute(task: CloudTask) -> Promise<T> {
-		let nextMiddleware: AnyWorkflowMiddleware<T>
+	func execute(task: CloudTask) async throws -> T {
+		let nextMiddleware = try getNext()
 		do {
-			nextMiddleware = try getNext()
+			return try await nextMiddleware.execute(task: task)
 		} catch {
-			return Promise(error)
-		}
-		return nextMiddleware.execute(task: task).recover { error -> Promise<T> in
-			return Promise(self.mapError(error))
+			throw mapError(error)
 		}
 	}
 

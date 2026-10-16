@@ -12,8 +12,8 @@ public protocol UpgradeCheckerProtocol {
 	func isEligibleForUpgrade() -> Bool
 }
 
-public class UpgradeChecker: UpgradeCheckerProtocol {
-	public static var shared = UpgradeChecker()
+public final class UpgradeChecker: UpgradeCheckerProtocol, Sendable {
+	public static let shared = UpgradeChecker()
 	public static let upgradeURL = URL(string: "cryptomator-legacy:upgrade")!
 
 	public func isEligibleForUpgrade() -> Bool {

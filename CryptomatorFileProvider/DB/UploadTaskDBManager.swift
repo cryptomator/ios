@@ -11,14 +11,14 @@ import FileProvider
 import Foundation
 import GRDB
 
-protocol UploadTaskManager {
+protocol UploadTaskManager: Sendable {
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord
 	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord?
 	func updateTaskRecord(with id: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws
 	func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?]
 	func removeTaskRecord(for id: Int64) throws
-	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?) throws -> UploadTask
 	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord]
 	func getRetryableUploadTaskRecords() throws -> [UploadTaskRecord]
 }
@@ -56,7 +56,7 @@ extension UploadTaskManager {
 	}
 }
 
-class UploadTaskDBManager: UploadTaskManager {
+final class UploadTaskDBManager: UploadTaskManager {
 	private let database: DatabaseWriter
 	private let itemMetadataManager: ItemMetadataManager
 
@@ -118,7 +118,7 @@ class UploadTaskDBManager: UploadTaskManager {
 		}
 	}
 
-	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?) throws -> UploadTask {
 		let itemMetadata: ItemMetadata = try database.read { db in
 			guard let metadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata

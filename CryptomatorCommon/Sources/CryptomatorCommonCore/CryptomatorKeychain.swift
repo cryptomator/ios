@@ -13,14 +13,15 @@ enum CryptomatorKeychainError: Error {
 	case unhandledError(status: OSStatus)
 }
 
-protocol CryptomatorKeychainType {
+protocol CryptomatorKeychainType: Sendable {
 	func set(_ key: String, value: Data) throws
 	func getAsData(_ key: String) -> Data?
 	func delete(_ key: String) throws
 	func queryWithDict(_ query: [String: AnyObject]) -> [String: Any]
 }
 
-class CryptomatorKeychain: CryptomatorKeychainType {
+/// @unchecked Sendable: immutable; the subclass adds no stored state
+class CryptomatorKeychain: CryptomatorKeychainType, @unchecked Sendable {
 	let service: String
 	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let box = CryptomatorKeychain(service: "box.auth")
@@ -138,12 +139,15 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	}
 }
 
-class CryptomatorUserPresenceKeychain: CryptomatorKeychain {
+/// @unchecked Sendable: restates the conformance of `CryptomatorKeychain`; this subclass adds no stored state
+class CryptomatorUserPresenceKeychain: CryptomatorKeychain, @unchecked Sendable {
 	static let vaultPassword = CryptomatorUserPresenceKeychain(service: "cryptomatorVaultPassword")
-	private static var access = SecAccessControlCreateWithFlags(nil, // Use the default allocator.
-	                                                            kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-	                                                            .biometryCurrentSet,
-	                                                            nil) // Ignore any error.
+	private static var access: SecAccessControl? {
+		SecAccessControlCreateWithFlags(nil, // Use the default allocator.
+		                                kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+		                                .biometryCurrentSet,
+		                                nil) // Ignore any error.
+	}
 
 	override func setQuery(key: String, value: Data) -> [String: Any] {
 		var query = super.setQuery(key: key, value: value)

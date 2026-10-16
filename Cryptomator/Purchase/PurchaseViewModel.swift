@@ -8,7 +8,6 @@
 
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 
 enum PurchaseError: LocalizedError {
@@ -58,8 +57,8 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		super.init(storeManager: storeManager, iapManager: iapManager, minimumDisplayTime: minimumDisplayTime)
 	}
 
-	func fetchProducts() -> Promise<Void> {
-		return fetchProducts(with: [.thirtyDayTrial, .fullVersion, .yearlySubscription])
+	func fetchProducts() async {
+		await fetchProducts(with: [.thirtyDayTrial, .fullVersion, .yearlySubscription])
 	}
 
 	override func fetchProductsSuccess() {

@@ -9,7 +9,6 @@
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 import UIKit
 
@@ -42,23 +41,22 @@ class PurchaseCoordinator: Coordinator {
 	}
 
 	func freeTrialStarted(expirationDate: Date) {
-		PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController).then {
-			self.unlockedPro()
+		Task {
+			await PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController)
+			unlockedPro()
 		}
 	}
 
 	func fullVersionPurchased(transaction: PurchaseTransaction = .unknown) {
-		PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController).then {
-			if let windowScene = self.navigationController.view.window?.windowScene {
+		Task {
+			await PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController)
+			if let windowScene = navigationController.view.window?.windowScene {
 				SKStoreReviewController.requestReview(in: windowScene)
 			}
 			if transaction == .fullVersion, CryptomatorUserDefaults.shared.hasRunningSubscription {
-				return PurchaseAlert.showForSubscriptionCancelGuide(on: self.navigationController)
-			} else {
-				return Promise(())
+				await PurchaseAlert.showForSubscriptionCancelGuide(on: navigationController)
 			}
-		}.then {
-			self.unlockedPro()
+			unlockedPro()
 		}
 		// Temporarily added for Halloween 2026 Sale
 		NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
@@ -67,17 +65,21 @@ class PurchaseCoordinator: Coordinator {
 	func handleRestoreResult(_ result: RestoreTransactionsResult) {
 		switch result {
 		case .restoredFullVersion:
-			PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), on: navigationController).then {
-				self.unlockedPro()
+			Task {
+				await PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), on: navigationController)
+				unlockedPro()
 			}
 		case let .restoredFreeTrial(expiresOn):
-			PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
-			                           expirationDate: expiresOn,
-			                           on: navigationController).then {
-				self.unlockedPro()
+			Task {
+				await PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
+				                                 expirationDate: expiresOn,
+				                                 on: navigationController)
+				unlockedPro()
 			}
 		case .noRestorablePurchases:
-			_ = PurchaseAlert.showForNoRestorablePurchases(on: navigationController, eligibleForUpgrade: UpgradeChecker.shared.isEligibleForUpgrade())
+			Task {
+				await PurchaseAlert.showForNoRestorablePurchases(on: navigationController, eligibleForUpgrade: UpgradeChecker.shared.isEligibleForUpgrade())
+			}
 		}
 	}
 

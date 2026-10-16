@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
-import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
@@ -41,7 +40,6 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 	}
 
 	func testRecoverStuckUploads_marksErrorWhenLocalFileMissing() throws {
-		let cloudPath = CloudPath("/File.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
@@ -58,8 +56,7 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(NSFileProviderError(.noSuchItem).errorCode, updateArgs?.uploadErrorCode)
 	}
 
-	func testRecoverStuckUploads_reschedulesWhenLocalFileExists() throws {
-		let cloudPath = CloudPath("/File.txt")
+	func testRecoverStuckUploads_reschedulesWhenLocalFileExists() async throws {
 		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
@@ -77,12 +74,35 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 		// Verify the upload was re-registered
 		XCTAssertTrue(uploadTaskManagerMock.createNewTaskRecordForCalled)
 		XCTAssertEqual(itemID, uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.last?.id)
+
+		await adapter.awaitWorkflows()
+		XCTAssertEqual([itemID], uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationReceivedInvocations.map { $0.uploadTask.correspondingItem })
+	}
+
+	/// Called inside `FileProviderAdapterManager`'s `queue.sync`, so hopping to main synchronously would deadlock the extension.
+	func testRecoverStuckUploadsReturnsWhileMainThreadIsBlocked() async throws {
+		let itemMetadata = ItemMetadata(id: itemID, name: "File.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(itemMetadata)
+		let localURL = tmpDirectory.appendingPathComponent("File.txt")
+		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
+		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: localURL, lastModifiedDate: Date())
+		let taskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
+		uploadTaskManagerMock.getActiveUploadTaskRecordsReturnValue = [taskRecord]
+		let adapter = createFullyMockedAdapter()
+
+		XCTAssertEqual(.success, recoverStuckUploadsOnBackgroundThreadBlockingMain(adapter), "recoverStuckUploads did not return while the main thread was blocked")
+
+		XCTAssertEqual(1, uploadTaskManagerMock.getActiveUploadTaskRecordsCallsCount)
+		XCTAssertEqual([itemID], uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id })
+		XCTAssertFalse(uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationCalled, "Created the upload workflow off the main actor")
+
+		await adapter.awaitWorkflows()
+		XCTAssertEqual([itemID], uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationReceivedInvocations.map { $0.uploadTask.correspondingItem })
 	}
 
 	// MARK: - Connectivity-Failed Upload Retry
 
-	func testRecoverStuckUploads_retriesConnectivityFailedUploads() throws {
-		let cloudPath = CloudPath("/OfflineFile.txt")
+	func testRecoverStuckUploads_retriesConnectivityFailedUploads() async throws {
 		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
@@ -102,6 +122,9 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 		// Verify the upload was re-registered
 		XCTAssertTrue(uploadTaskManagerMock.createNewTaskRecordForCalled)
 		XCTAssertEqual(itemID, uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.last?.id)
+
+		await adapter.awaitWorkflows()
+		XCTAssertEqual([itemID], uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationReceivedInvocations.map { $0.uploadTask.correspondingItem })
 	}
 
 	func testRecoverStuckUploads_noRetryableUploads() {
@@ -130,7 +153,6 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 	}
 
 	func testRecoverStuckUploads_marksErrorForRetryableUploadWithMissingLocalFile() throws {
-		let cloudPath = CloudPath("/OfflineFile.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "OfflineFile.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, isPlaceholderItem: true)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		// No cached file info exists
@@ -148,5 +170,15 @@ class FileProviderAdapterRecoverUploadsTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(itemID, updateArgs?.id)
 		XCTAssertEqual(NSFileProviderErrorDomain, updateArgs?.uploadErrorDomain)
 		XCTAssertEqual(NSFileProviderError(.noSuchItem).errorCode, updateArgs?.uploadErrorCode)
+	}
+
+	/// Blocking the main thread also keeps the main-confined mocks single-threaded.
+	private func recoverStuckUploadsOnBackgroundThreadBlockingMain(_ adapter: FileProviderAdapter) -> DispatchTimeoutResult {
+		let returned = DispatchSemaphore(value: 0)
+		DispatchQueue.global().async {
+			adapter.recoverStuckUploads()
+			returned.signal()
+		}
+		return returned.wait(timeout: .now() + 5)
 	}
 }

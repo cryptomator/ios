@@ -13,7 +13,6 @@ import Dependencies
 import FileProvider
 import Foundation
 import GRDB
-import Promises
 
 class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	var error: AnyPublisher<Error, Never> {
@@ -52,7 +51,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		}, onChange: { _ in
 			do {
 				try self.refreshItems()
-				_ = self.refreshVaultLockStates()
+				self.startRefreshingVaultLockStates()
 				if !self.removedRow {
 					self.databaseChangedPublisher.send(.success(self.vaultCellViewModels))
 				}
@@ -68,7 +67,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	func refreshItems() throws {
 		var vaults = try dbManager.getAllVaults()
 		vaults.sort { $0.listPosition < $1.listPosition }
-		_ = refreshVaultLockStates()
+		startRefreshingVaultLockStates()
 		vaultCellViewModels = vaults.map { VaultCellViewModel(vault: $0) }
 	}
 
@@ -90,38 +89,45 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		}
 	}
 
-	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
+	func lockVault(_ vaultInfo: VaultInfo) async throws {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc in
-			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
-		}.then {
-			vaultInfo.vaultIsUnlocked.value = false
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
+		}
+		xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
+		vaultInfo.vaultIsUnlocked.value = false
+	}
+
+	func refreshVaultLockStates() async {
+		await withTaskGroup(of: Void.self) { group in
+			for vaultCellViewModel in vaultCellViewModels {
+				group.addTask {
+					await self.checkVaultUnlockStatus(of: vaultCellViewModel)
+				}
+			}
 		}
 	}
 
-	func refreshVaultLockStates() -> Promise<Void> {
-		let promises = vaultCellViewModels.map { vaultCellViewModel in
-			return checkVaultUnlockStatus(for: vaultCellViewModel.vault)
+	private func startRefreshingVaultLockStates() {
+		Task {
+			await refreshVaultLockStates()
 		}
-		return all(ignoringResult: promises)
 	}
 
-	private func checkVaultUnlockStatus(for vault: VaultInfo) -> Promise<Void> {
+	private func checkVaultUnlockStatus(of vaultCellViewModel: VaultCellViewModel) async {
+		let vault = vaultCellViewModel.vault
 		let domainIdentifier = NSFileProviderDomainIdentifier(vault.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-
-		return getXPCPromise.then { xpc in
-			return xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
-		}.then { isUnlocked -> Void in
+		do {
+			let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+			defer {
+				fileProviderConnector.invalidateXPC(xpc)
+			}
+			let isUnlocked = await xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 			DDLogDebug("Vault \(vault.vaultUID) unlock status: \(isUnlocked ? "Unlocked" : "Locked")")
 			vault.vaultIsUnlocked.value = isUnlocked
-		}.catch { error in
+		} catch {
 			DDLogError("Failed to check unlock status for vault \(vault.vaultUID): \(error)")
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 

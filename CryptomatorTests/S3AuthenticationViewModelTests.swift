@@ -7,11 +7,11 @@
 //
 
 import CryptomatorCloudAccessCore
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class S3AuthenticationViewModelTests: XCTestCase {
 	var existingCredentialViewModel: S3AuthenticationViewModel!
 	var viewModel: S3AuthenticationViewModel!
@@ -26,7 +26,8 @@ class S3AuthenticationViewModelTests: XCTestCase {
 	let defaultEndpoint = "https://example.com"
 	let defaultRegion = "custom-region"
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		credentialManagerMock = S3CredentialManagerTypeMock()
 		credentialVerifierMock = S3CredentialVerifierTypeMock()
 		viewModel = S3AuthenticationViewModel(verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
@@ -69,7 +70,6 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		let recorder = viewModel.$loginState.recordNext(3)
 
 		prepareViewModelWithDefaultValues()
-		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 
 		viewModel.saveS3Credential()
 
@@ -99,7 +99,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		let recorder = viewModel.$loginState.recordNext(3)
 
 		prepareViewModelWithDefaultValues()
-		credentialVerifierMock.verifyCredentialReturnValue = Promise(CloudProviderError.unauthorized)
+		credentialVerifierMock.verifyCredentialThrowableError = CloudProviderError.unauthorized
 
 		viewModel.saveS3Credential()
 
@@ -114,7 +114,6 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		prepareViewModelWithDefaultValues()
 		viewModel.endpoint = "https://example invalid endpoint"
-		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 
 		viewModel.saveS3Credential()
 
@@ -136,7 +135,6 @@ class S3AuthenticationViewModelTests: XCTestCase {
 			vm.region = defaultRegion
 
 			let recorder = vm.$loginState.recordNext(2)
-			credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 
 			vm.saveS3Credential()
 
@@ -149,7 +147,6 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 	func testSaveS3CredentialForExistingCredential() {
 		let recorder = existingCredentialViewModel.$loginState.recordNext(3)
-		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 		existingCredentialViewModel.saveS3Credential()
 
 		wait(for: recorder, timeout: 5.0)
@@ -172,7 +169,7 @@ private extension S3Credential {
 	static let stub = S3Credential(accessKey: "access-key-123", secretKey: "secret-key-345", url: URL(string: "https://example.com")!, bucket: "exampleBucket", region: "customRegion", identifier: "Foo-12345")
 }
 
-extension S3LoginState: Equatable {
+extension S3LoginState: @MainActor Equatable {
 	public static func == (lhs: S3LoginState, rhs: S3LoginState) -> Bool {
 		switch (lhs, rhs) {
 		case (.notLoggedIn, .notLoggedIn):

@@ -8,7 +8,6 @@
 
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class UpgradeViewModel: BaseIAPViewModel, ProductFetching {
 	override var title: String? {
@@ -22,8 +21,8 @@ class UpgradeViewModel: BaseIAPViewModel, ProductFetching {
 		                                   color: .secondaryLabel)
 	}
 
-	func fetchProducts() -> Promise<Void> {
-		return fetchProducts(with: [.paidUpgrade, .freeUpgrade])
+	func fetchProducts() async {
+		await fetchProducts(with: [.paidUpgrade, .freeUpgrade])
 	}
 
 	override func fetchProductsSuccess() {

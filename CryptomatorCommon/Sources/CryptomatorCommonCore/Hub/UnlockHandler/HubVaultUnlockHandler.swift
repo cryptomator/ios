@@ -4,10 +4,9 @@ public protocol HubVaultUnlockHandler {
 	func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async
 }
 
-public protocol HubVaultUnlockHandlerDelegate: AnyObject {
-	@MainActor
+@MainActor
+public protocol HubVaultUnlockHandlerDelegate: AnyObject, Sendable {
 	func successfullyProcessedUnlockedVault()
-	@MainActor
 	func failedToProcessUnlockedVault(error: Error)
 }
 

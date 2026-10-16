@@ -45,14 +45,16 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		navigationItem.rightBarButtonItem = addNewVaulButton
 
 		willEnterForegroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.viewModel.refreshVaultLockStates().catch { error in
-				DDLogError("Refresh vault lock states failed with error: \(error)")
+			MainActor.assumeIsolated {
+				self?.refreshVaultLockStates()
 			}
 		}
 
 		#if !ALWAYS_PREMIUM
 		fullVersionPurchasedObserver = NotificationCenter.default.addObserver(forName: .purchasedFullVersionNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.dismissHalloween2026Banner()
+			MainActor.assumeIsolated {
+				self?.dismissHalloween2026Banner()
+			}
 		}
 		if SalePromo.shared.shouldShowHalloween2026Banner() {
 			showHalloween2026Banner()
@@ -62,9 +64,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		viewModel.refreshVaultLockStates().catch { error in
-			DDLogError("Refresh vault lock states failed with error: \(error)")
-		}
+		refreshVaultLockStates()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +73,16 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			coordinator?.showOnboarding()
 		} else if fullVersionChecker.hasExpiredTrial, !CryptomatorUserDefaults.shared.showedTrialExpiredAtStartup {
 			coordinator?.showTrialExpired()
+		}
+	}
+
+	private func refreshVaultLockStates() {
+		Task {
+			do {
+				try await viewModel.refreshVaultLockStates()
+			} catch {
+				DDLogError("Refresh vault lock states failed with error: \(error)")
+			}
 		}
 	}
 

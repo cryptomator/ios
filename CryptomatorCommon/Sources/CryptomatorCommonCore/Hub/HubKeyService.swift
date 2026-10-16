@@ -11,7 +11,7 @@ import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
 
-public protocol HubKeyReceiving {
+public protocol HubKeyReceiving: Sendable {
 	func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow
 }
 
@@ -38,7 +38,8 @@ final class UnimplementedHubKeyReceivingService: HubKeyReceiving {
 
 // MARK: - HubKeyReceivingMock -
 
-final class HubKeyReceivingMock: HubKeyReceiving {
+/// @unchecked Sendable: test double, never touched concurrently
+final class HubKeyReceivingMock: HubKeyReceiving, @unchecked Sendable {
 	// MARK: - receiveKey
 
 	var receiveKeyAuthStateVaultConfigThrowableError: Error?

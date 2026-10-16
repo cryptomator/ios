@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Promises
 
 enum WorkflowMiddlewareError: Error {
 	case missingMiddleware
@@ -21,27 +20,23 @@ enum WorkflowMiddlewareError: Error {
  Allows to wrap itself around the execution of a given task.
  A implementation of `execute(task:)` may look like the following way:
  ```swift
- func execute(task: CloudTask) -> Promise<ReturnType> {
+ func execute(task: CloudTask) async throws -> ReturnType {
    ... // some preprocessing logic (optional)
-   let nextMiddleware: NextMiddleware
-   do {
-      nextMiddleware = try getNext()
-   } catch {
-      return Promise(error)
-   }
-   return nextMiddleware.execute(task: task).then {
-      ... // some postprocessing logic (optional)
-   }
+   let nextMiddleware = try getNext()
+   let value = try await nextMiddleware.execute(task: task)
+   ... // some postprocessing logic (optional)
+   return value
  }
  ```
  */
+@MainActor
 protocol WorkflowMiddleware {
 	associatedtype ReturnType
 	associatedtype NextMiddleware: WorkflowMiddleware where NextMiddleware.ReturnType == ReturnType
 
 	func getNext() throws -> NextMiddleware
 	func setNext(_ next: NextMiddleware) throws
-	func execute(task: CloudTask) -> Promise<ReturnType>
+	func execute(task: CloudTask) async throws -> ReturnType
 }
 
 extension WorkflowMiddleware {
@@ -51,9 +46,9 @@ extension WorkflowMiddleware {
 }
 
 class AnyWorkflowMiddleware<T>: WorkflowMiddleware {
-	private let _execute: (CloudTask) -> Promise<T>
-	private let _getNext: () throws -> AnyWorkflowMiddleware<T>
-	private let _setNext: (AnyWorkflowMiddleware<T>) throws -> Void
+	private let _execute: @MainActor (CloudTask) async throws -> T
+	private let _getNext: @MainActor () throws -> AnyWorkflowMiddleware<T>
+	private let _setNext: @MainActor (AnyWorkflowMiddleware<T>) throws -> Void
 
 	func getNext() throws -> AnyWorkflowMiddleware<T> {
 		try _getNext()
@@ -63,13 +58,13 @@ class AnyWorkflowMiddleware<T>: WorkflowMiddleware {
 		try _setNext(next)
 	}
 
-	func execute(task: CloudTask) -> Promise<T> {
-		_execute(task)
+	func execute(task: CloudTask) async throws -> T {
+		try await _execute(task)
 	}
 
 	init<W: WorkflowMiddleware>(_ delegate: W) where W.ReturnType == T {
 		self._execute = { task in
-			return delegate.execute(task: task)
+			return try await delegate.execute(task: task)
 		}
 		self._getNext = {
 			let next = try delegate.getNext()

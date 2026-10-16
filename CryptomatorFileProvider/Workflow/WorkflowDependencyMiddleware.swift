@@ -8,22 +8,16 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
 /**
- A middleware that makes sure to wait for a workflow's dependencies before executing.
+ A middleware that runs the next middleware once every workflow it depends on has finished, whether that workflow succeeded or failed.
+
+ It notifies its own dependents when it exits, even if its task failed or never ran.
  */
 class WorkflowDependencyMiddleware<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
 	private let workflowDependency: WorkflowDependency
 
-	/**
-	 Initializes a new workflow dependency middleware.
-
-	 - Parameter dependency: The workflow dependency (leaf) nodes which belong to this workflow.
-	 The next middleware is executed as soon as a lock is acquired for the dependency.
-	 All leaf nodes are unlocked once the `CloudTask` associated with the workflow is completed (either successfully or with an error).
-	 */
 	init(dependency: WorkflowDependency) {
 		self.workflowDependency = dependency
 	}
@@ -39,20 +33,10 @@ class WorkflowDependencyMiddleware<T>: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	func execute(task: CloudTask) -> Promise<T> {
-		let nextMiddleware: AnyWorkflowMiddleware<T>
-		do {
-			nextMiddleware = try getNext()
-		} catch {
-			return Promise(error)
-		}
-		return workflowDependency.awaitPreconditions().then {
-			nextMiddleware.execute(task: task)
-		}.then { value -> T in
-			self.workflowDependency.notifyDependents(with: nil)
-			return value
-		}.catch { error in
-			self.workflowDependency.notifyDependents(with: error)
-		}
+	func execute(task: CloudTask) async throws -> T {
+		defer { workflowDependency.notifyDependents() }
+		let nextMiddleware = try getNext()
+		try await workflowDependency.awaitPreconditions()
+		return try await nextMiddleware.execute(task: task)
 	}
 }

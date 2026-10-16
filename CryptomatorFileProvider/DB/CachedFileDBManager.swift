@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 import GRDB
 
-protocol CachedFileManager {
+protocol CachedFileManager: Sendable {
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo?
 	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?]
 	func cacheLocalFileInfo(for id: Int64, localURL: URL, lastModifiedDate: Date?) throws
@@ -49,11 +49,12 @@ enum CachedFileManagerError: Error {
 	case fileHasUnsyncedEdits
 }
 
-class CachedFileManagerHelper {
-	let fileCoordinator: NSFileCoordinator
+/// @unchecked Sendable: all stored properties are immutable and Sendable; the class is only subclassed by test doubles
+class CachedFileManagerHelper: @unchecked Sendable {
+	let fileCoordinatorPurposeIdentifier: String
 
-	init(fileCoordinator: NSFileCoordinator) {
-		self.fileCoordinator = fileCoordinator
+	init(fileCoordinatorPurposeIdentifier: String) {
+		self.fileCoordinatorPurposeIdentifier = fileCoordinatorPurposeIdentifier
 	}
 
 	/**
@@ -64,6 +65,8 @@ class CachedFileManagerHelper {
 	func removeItem(at url: URL) throws {
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = fileCoordinatorPurposeIdentifier
 		fileCoordinator.coordinate(writingItemAt: url, options: .forDeleting, error: &fileCoordinatorError) { url in
 			do {
 				try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
@@ -78,7 +81,7 @@ class CachedFileManagerHelper {
 	}
 }
 
-class CachedFileDBManager: CachedFileManager {
+final class CachedFileDBManager: CachedFileManager {
 	private let database: DatabaseWriter
 	private let fileManagerHelper: CachedFileManagerHelper
 

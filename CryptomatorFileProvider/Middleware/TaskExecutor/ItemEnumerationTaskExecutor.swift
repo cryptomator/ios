@@ -12,7 +12,6 @@ import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import GRDB
-import Promises
 
 class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItemList>?
@@ -58,43 +57,41 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		self.deleteItemHelper = deleteItemHelper
 	}
 
-	func execute(task: CloudTask) -> Promise<FileProviderItemList> {
+	func execute(task: CloudTask) async throws -> FileProviderItemList {
 		guard let enumerationTask = task as? ItemEnumerationTask else {
-			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
+			throw WorkflowMiddlewareError.incompatibleCloudTask
 		}
-		let itemMetadata = enumerationTask.itemMetadata
-		let cloudPath = enumerationTask.cloudPath
-		let promise: Promise<FileProviderItemList>
-		// The cloud knows nothing about an item whose creation failed or never ran, so its local rows are all there is. The root
-		// is excluded, because its row carries the placeholder flag from the initial migration.
-		if itemMetadata.isPlaceholderItem, itemMetadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
-			promise = buildPlaceholderItemList(for: itemMetadata)
-		} else {
-			switch itemMetadata.type {
-			case .folder:
-				let taskRecord = enumerationTask.taskRecord
-				promise = fetchItemList(folderMetadata: itemMetadata, folderCloudPath: cloudPath, pageToken: taskRecord.pageToken)
-			case .file:
-				promise = fetchItemMetadata(fileMetadata: itemMetadata, fileCloudPath: cloudPath)
-			default:
-				DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
-				promise = Promise(NSFileProviderError(.noSuchItem))
-			}
-		}
-		promise.always {
+		defer {
 			do {
-				try self.itemEnumerationTaskManager.removeTaskRecord(enumerationTask.taskRecord)
+				try itemEnumerationTaskManager.removeTaskRecord(enumerationTask.taskRecord)
 			} catch {
 				DDLogError("Remove ItemEnumerationTask failed with error: \(error)")
 			}
 		}
-		return promise
+		let itemMetadata = enumerationTask.itemMetadata
+		let cloudPath = enumerationTask.cloudPath
+		// The cloud knows nothing about an item whose creation failed or never ran, so its local rows are all there is. The root
+		// is excluded, because its row carries the placeholder flag from the initial migration.
+		if itemMetadata.isPlaceholderItem, itemMetadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
+			return try buildPlaceholderItemList(for: itemMetadata)
+		}
+		switch itemMetadata.type {
+		case .folder:
+			let taskRecord = enumerationTask.taskRecord
+			return try await fetchItemList(folderMetadata: itemMetadata, folderCloudPath: cloudPath, pageToken: taskRecord.pageToken)
+		case .file:
+			return try await fetchItemMetadata(fileMetadata: itemMetadata, fileCloudPath: cloudPath)
+		default:
+			DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
+			throw NSFileProviderError(.noSuchItem)
+		}
 	}
 
-	func fetchItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, pageToken: String?) -> Promise<FileProviderItemList> {
-		return provider.fetchItemList(forFolderAt: folderCloudPath, withPageToken: pageToken).then { itemList -> FileProviderItemList in
+	func fetchItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, pageToken: String?) async throws -> FileProviderItemList {
+		do {
+			let itemList = try await provider.fetchItemList(forFolderAt: folderCloudPath, withPageToken: pageToken)
 			if pageToken == nil {
-				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(withParentID: folderMetadata.id!)
+				try itemMetadataManager.flagAllItemsAsMaybeOutdated(withParentID: folderMetadata.id!)
 			}
 
 			var metadataList = [ItemMetadata]()
@@ -102,56 +99,46 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: folderMetadata.id!)
 				metadataList.append(fileProviderItemMetadata)
 			}
-			metadataList = try self.filterOutWaitingReparentTasks(parentID: folderMetadata.id!, for: metadataList)
-			metadataList = try self.filterOutWaitingDeletionTasks(parentID: folderMetadata.id!, for: metadataList)
-			try self.itemMetadataManager.cacheMetadata(metadataList)
-			let reparentMetadata = try self.getReparentMetadata(for: folderMetadata.id!)
+			metadataList = try filterOutWaitingReparentTasks(parentID: folderMetadata.id!, for: metadataList)
+			metadataList = try filterOutWaitingDeletionTasks(parentID: folderMetadata.id!, for: metadataList)
+			try itemMetadataManager.cacheMetadata(metadataList)
+			let reparentMetadata = try getReparentMetadata(for: folderMetadata.id!)
 			metadataList.append(contentsOf: reparentMetadata)
-			let placeholderMetadata = try self.itemMetadataManager.getPlaceholderMetadata(withParentID: folderMetadata.id!)
+			let placeholderMetadata = try itemMetadataManager.getPlaceholderMetadata(withParentID: folderMetadata.id!)
 			metadataList.append(contentsOf: placeholderMetadata)
-			let items = try FileProviderItem.items(from: metadataList, domainIdentifier: self.domainIdentifier, uploadTaskManager: self.uploadTaskManager, cachedFileManager: self.cachedFileManager)
+			let items = try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 			if let nextPageToken = itemList.nextPageToken {
 				let nextPageTokenData = Data(nextPageToken.utf8)
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
-			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
-			try self.itemMetadataManager.setLastEnumeratedAt(Date(), forItemWithID: folderMetadata.id!)
+			try cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
+			try itemMetadataManager.setLastEnumeratedAt(Date(), forItemWithID: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
-		}.recover { error -> Promise<FileProviderItemList> in
-			guard error.isNoInternetConnectionError else {
-				return Promise(error)
-			}
-			guard pageToken == nil else {
-				return Promise(error)
-			}
-			return self.buildOfflineItemList(folderMetadata: folderMetadata, folderCloudPath: folderCloudPath, originalError: error)
+		} catch let error where error.isNoInternetConnectionError && pageToken == nil {
+			return try buildOfflineItemList(folderMetadata: folderMetadata, folderCloudPath: folderCloudPath, originalError: error)
 		}
 	}
 
-	private func buildOfflineItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, originalError: Error) -> Promise<FileProviderItemList> {
+	private func buildOfflineItemList(folderMetadata: ItemMetadata, folderCloudPath: CloudPath, originalError: Error) throws -> FileProviderItemList {
+		guard folderMetadata.lastEnumeratedAt != nil else {
+			throw originalError
+		}
 		do {
-			guard folderMetadata.lastEnumeratedAt != nil else {
-				return Promise(originalError)
-			}
 			let itemList = try buildCachedItemList(folderMetadata: folderMetadata)
 			DDLogInfo("Offline fallback: serving \(itemList.items.count) cached items for folder \(folderCloudPath.path)")
-			return Promise(itemList)
+			return itemList
 		} catch {
 			DDLogError("Offline fallback failed for folder \(folderCloudPath.path): \(error)")
-			return Promise(error)
+			throw error
 		}
 	}
 
-	private func buildPlaceholderItemList(for itemMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
-		do {
-			if itemMetadata.type == .folder {
-				return try Promise(buildCachedItemList(folderMetadata: itemMetadata))
-			}
-			let items = try FileProviderItem.items(from: [itemMetadata], domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
-			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
-		} catch {
-			return Promise(error)
+	private func buildPlaceholderItemList(for itemMetadata: ItemMetadata) throws -> FileProviderItemList {
+		if itemMetadata.type == .folder {
+			return try buildCachedItemList(folderMetadata: itemMetadata)
 		}
+		let items = try FileProviderItem.items(from: [itemMetadata], domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+		return FileProviderItemList(items: items, nextPageToken: nil)
 	}
 
 	private func buildCachedItemList(folderMetadata: ItemMetadata) throws -> FileProviderItemList {
@@ -179,16 +166,15 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		}
 	}
 
-	func fetchItemMetadata(fileMetadata: ItemMetadata, fileCloudPath: CloudPath) -> Promise<FileProviderItemList> {
-		return provider.fetchItemMetadata(at: fileCloudPath).then { cloudItem -> FileProviderItemList in
-			let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: fileMetadata.parentID)
-			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
-			assert(fileProviderItemMetadata.id == fileMetadata.id)
-			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
-			let uploadTask = try self.uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata)
-			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
-			return FileProviderItemList(items: [item], nextPageToken: nil)
-		}
+	func fetchItemMetadata(fileMetadata: ItemMetadata, fileCloudPath: CloudPath) async throws -> FileProviderItemList {
+		let cloudItem = try await provider.fetchItemMetadata(at: fileCloudPath)
+		let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: fileMetadata.parentID)
+		try itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
+		assert(fileProviderItemMetadata.id == fileMetadata.id)
+		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
+		let uploadTask = try uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata)
+		let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: uploadTask?.failedWithError)
+		return FileProviderItemList(items: [item], nextPageToken: nil)
 	}
 
 	func cleanUpNoLongerInTheCloudExistingItems(insideParentID parentID: Int64) throws {

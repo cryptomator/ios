@@ -19,7 +19,7 @@ protocol MasterkeyCacheHelper {
 	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool
 }
 
-public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
+public final class MasterkeyCacheKeychainManager: MasterkeyCacheManager, Sendable {
 	public static let shared = MasterkeyCacheKeychainManager(keychain: CryptomatorKeychain(service: "masterkeyCache"))
 	private let keychain: CryptomatorKeychainType
 

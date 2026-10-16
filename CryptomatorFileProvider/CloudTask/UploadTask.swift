@@ -13,9 +13,11 @@ struct UploadTask: CloudTask {
 	let taskRecord: UploadTaskRecord
 	let itemMetadata: ItemMetadata
 	let cloudPath: CloudPath
-	let onURLSessionTaskCreation: URLSessionTaskCreationClosure?
+	let onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?
 
 	func with(cloudPath: CloudPath) -> UploadTask {
 		return UploadTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
 	}
 }
+
+typealias URLSessionUploadTaskCreationHook = @concurrent @Sendable (URLSessionUploadTask) async -> Void

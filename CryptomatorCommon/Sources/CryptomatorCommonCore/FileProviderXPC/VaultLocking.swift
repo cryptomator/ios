@@ -8,7 +8,6 @@
 
 import FileProvider
 import Foundation
-import Promises
 
 @objc public protocol VaultLocking: NSFileProviderServiceSource {
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier)
@@ -23,21 +22,23 @@ public extension NSFileProviderServiceName {
 // MARK: Convenience
 
 public extension VaultLocking {
-	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<Void> {
-		return wrap { replyHandler in
-			self.gracefulLockVault(domainIdentifier: domainIdentifier, reply: replyHandler)
-		}.then { maybeError in
-			if let error = maybeError {
-				return Promise(error)
-			} else {
-				return Promise(())
-			}
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier) async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.gracefulLockVault(domainIdentifier: domainIdentifier, reply: { error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume()
+				}
+			})
 		}
 	}
 
-	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<Bool> {
-		return wrap { replyHandler in
-			self.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: replyHandler)
+	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) async -> Bool {
+		await withCheckedContinuation { continuation in
+			self.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: { isUnlocked in
+				continuation.resume(returning: isUnlocked)
+			})
 		}
 	}
 }

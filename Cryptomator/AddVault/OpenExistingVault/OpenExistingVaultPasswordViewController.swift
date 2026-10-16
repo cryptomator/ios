@@ -53,23 +53,19 @@ class OpenExistingVaultPasswordViewController: SingleSectionStaticUITableViewCon
 		hud.text = LocalizedString.getValue("addVault.openExistingVault.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.addVault().then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			guard let self = self else { return }
-			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
-		}.catch { [weak self] error in
-			self?.handleError(error, hud: hud)
+		Task {
+			do {
+				try await viewModel.addVault()
+				await hud.transformToSelfDismissingSuccess()
+				coordinator?.showSuccessfullyAddedVault(withName: viewModel.vaultName, vaultUID: viewModel.vaultUID)
+			} catch {
+				await hud.dismiss(animated: true)
+				handleError(error)
+			}
 		}
 	}
 
 	// MARK: - Internal
-
-	private func handleError(_ error: Error, hud: ProgressHUD) {
-		hud.dismiss(animated: true).then { [weak self] in
-			self?.handleError(error)
-		}
-	}
 
 	private func handleError(_ error: Error) {
 		if case MasterkeyFileError.invalidPassphrase = error {
@@ -82,7 +78,6 @@ class OpenExistingVaultPasswordViewController: SingleSectionStaticUITableViewCon
 
 #if DEBUG
 import Combine
-import Promises
 import SwiftUI
 
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: SingleSectionTableViewModel, OpenExistingVaultPasswordViewModelProtocol {
@@ -103,9 +98,7 @@ private class OpenExistingVaultMasterkeyProcessingViewModelMock: SingleSectionTa
 
 	let vaultName = "Work"
 
-	func addVault() -> Promise<Void> {
-		Promise(())
-	}
+	func addVault() async throws {}
 
 	override func getFooterTitle(for section: Int) -> String? {
 		return footerTitle

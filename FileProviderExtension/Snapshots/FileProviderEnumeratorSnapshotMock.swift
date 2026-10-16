@@ -15,7 +15,8 @@ import Foundation
 import MobileCoreServices
 
 public class FileProviderEnumeratorSnapshotMock: NSObject, NSFileProviderEnumerator {
-	static var isUnlocked = false
+	// nonisolated(unsafe): Snapshots only, set by the unlock mock before the Files app enumerates again
+	nonisolated(unsafe) static var isUnlocked = false
 	private lazy var items: [FileProviderItemSnapshotMock] = [
 		.init(path: CloudPath(LocalizedString.getValue("snapshots.fileprovider.file1")), itemType: .file, contentModificationDate: currentDate - 604_800, documentSize: 254_076),
 		.init(path: CloudPath("/CeBIT Award 2016.jpg"), itemType: .file, contentModificationDate: currentDate - 31_536_000, documentSize: 240_660),

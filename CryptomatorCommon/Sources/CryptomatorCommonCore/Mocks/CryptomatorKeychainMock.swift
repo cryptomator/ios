@@ -9,7 +9,8 @@ import Foundation
 
 // swiftlint:disable all
 
-final class CryptomatorKeychainMock: CryptomatorKeychainType {
+/// @unchecked Sendable: test double, never touched concurrently
+final class CryptomatorKeychainMock: CryptomatorKeychainType, @unchecked Sendable {
 	// MARK: - set
 
 	var setValueThrowableError: Error?

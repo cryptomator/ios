@@ -15,6 +15,8 @@ import XCTest
 class WorkingSetObserverTests: XCTestCase {
 	var observer: WorkingSetObserver!
 	var notificatorMock: FileProviderNotificatorTypeMock!
+	var database: DatabaseQueue!
+	var uploadTaskManagerMock: UploadTaskManagerMock!
 	let updatedMetadataIDs: [Int64] = [1, 2, 3]
 	lazy var updatedItems: [FileProviderItem] = updatedMetadataIDs.map {
 		FileProviderItem(metadata: ItemMetadata(id: $0, name: "\($0)", type: .file, size: nil, parentID: 0, lastModifiedDate: nil, statusCode: .isDownloading, isPlaceholderItem: false), domainIdentifier: .test)
@@ -22,7 +24,28 @@ class WorkingSetObserverTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		notificatorMock = FileProviderNotificatorTypeMock()
-		observer = try WorkingSetObserver(domainIdentifier: .test, database: DatabaseQueue(), notificator: notificatorMock, uploadTaskManager: UploadTaskManagerMock(), cachedFileManager: CloudTaskExecutorTestCase.CachedFileManagerMock())
+		database = try DatabaseQueue()
+		try DatabaseHelper.migrate(database)
+		uploadTaskManagerMock = UploadTaskManagerMock()
+		observer = WorkingSetObserver(domainIdentifier: .test, database: database, notificator: notificatorMock, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: CloudTaskExecutorTestCase.CachedFileManagerMock())
+	}
+
+	func testStartObservationDeliversWorkingSetItemWithAllFields() throws {
+		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = { ids in ids.map { _ in nil } }
+		let itemMetadata = ItemMetadata(id: 2, name: "Favorite.txt", type: .file, size: 42, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: Date(timeIntervalSince1970: 100), statusCode: .uploadError, isPlaceholderItem: true, isCandidateForCacheCleanup: true, favoriteRank: 7, tagData: Data("Tag".utf8), lastEnumeratedAt: Date(timeIntervalSince1970: 200))
+		let workingSetUpdated = expectation(description: "Working set updated")
+		notificatorMock.updateWorkingSetItemsClosure = { _ in
+			workingSetUpdated.fulfill()
+		}
+
+		observer.startObservation()
+		try database.write { db in
+			try itemMetadata.insert(db)
+		}
+		wait(for: [workingSetUpdated], timeout: 5.0)
+
+		let items = try XCTUnwrap(notificatorMock.updateWorkingSetItemsReceivedItems as? [FileProviderItem])
+		XCTAssertEqual([itemMetadata], items.map(\.metadata))
 	}
 
 	func testHandleNewWorkingSetUpdate() {

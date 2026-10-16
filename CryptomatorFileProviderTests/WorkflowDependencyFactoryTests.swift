@@ -10,283 +10,172 @@ import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
 
+@MainActor
 class WorkflowDependencyFactoryTests: XCTestCase {
 	var factory: WorkflowDependencyFactory!
-	var readTasksCollectionMock: WorkflowDependencyTaskCollectionMock!
-	var writeTasksCollectionMock: WorkflowDependencyTaskCollectionMock!
 
-	override func setUpWithError() throws {
-		readTasksCollectionMock = WorkflowDependencyTaskCollectionMock()
-		writeTasksCollectionMock = WorkflowDependencyTaskCollectionMock()
-		factory = WorkflowDependencyFactory(readTasks: readTasksCollectionMock,
-		                                    writeTasks: writeTasksCollectionMock)
+	override func setUp() async throws {
+		try await super.setUp()
+		factory = WorkflowDependencyFactory()
 	}
 
-	func testSingleDependency() {
+	func testSingleDependency() async throws {
 		let foo = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 
-		wait(for: foo.awaitPreconditions())
+		try await foo.awaitPreconditions()
 
-		let expectedReadTasksPaths = [CloudPath("/"),
-		                              CloudPath("/a"),
-		                              CloudPath("/a"),
-		                              CloudPath("/")]
-		XCTAssertEqual(expectedReadTasksPaths, readTasksCollectionMock.insertForReceivedInvocations.map { $0.path })
+		XCTAssertEqual([LockRegistration("/a/b", .write), LockRegistration("/a", .read), LockRegistration("/", .read)], foo.registrations)
 
-		let expectedWriteTasksPaths = [CloudPath("/a/b"), CloudPath("/a/b")]
-		XCTAssertEqual(expectedWriteTasksPaths, writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path })
+		foo.notifyDependents()
 
-		foo.notifyDependents(with: nil)
-		wait(for: foo.workflowCompleted)
+		// once notified, the workflow no longer blocks a new writer on its path
+		let bar = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
+		try await bar.awaitPreconditions()
 	}
 
 	// MARK: Write / Write
 
-	func testWriteTaskDependentsOnExistingWriteTask() {
+	func testWriteTaskDependentsOnExistingWriteTask() async throws {
 		let firstWriteTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 		let secondWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		// check if first tasks starts immediately (but isn't completed yet, blocking the second task)
-		wait(for: firstWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(secondWriteTask.awaitPreconditions())
+		try await firstWriteTask.awaitPreconditions()
+		await assertStaysBlocked { try await secondWriteTask.awaitPreconditions() }
 
-		// when the first task completes, check if the dependent second task starts (but doesn't finish yet)
-		firstWriteTask.workflowCompleted.fulfill(())
+		// when the first task completes, check if the dependent second task starts
+		firstWriteTask.notifyDependents()
+		try await secondWriteTask.awaitPreconditions()
+		secondWriteTask.notifyDependents()
 
-		wait(for: secondWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(secondWriteTask.workflowCompleted)
-
-		// when the second task completes its completion promise is fulfilled
-		secondWriteTask.workflowCompleted.fulfill(())
-		wait(for: secondWriteTask.workflowCompleted)
-
-		let expectedFirstWriteTaskReadLockPaths = [CloudPath("/"),
-		                                           CloudPath("/a")]
-		let expectedFirstWriteTaskReadUnlockPaths = expectedFirstWriteTaskReadLockPaths.reversed()
-		let expectedSecondWriteTaskReadLockPaths = [CloudPath("/")]
-		let expectedSecondWriteTaskReadUnlockPaths = expectedSecondWriteTaskReadLockPaths.reversed()
-		var expectedReadTasksPaths = [CloudPath]()
-		expectedReadTasksPaths.append(contentsOf: expectedFirstWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedFirstWriteTaskReadUnlockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedSecondWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedSecondWriteTaskReadUnlockPaths)
-		let actualReadTasksPaths = readTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedReadTasksPaths, actualReadTasksPaths)
-
-		let expectedWriteTasksPaths = [CloudPath("/a/b"),
-		                               CloudPath("/a/b"),
-		                               CloudPath("/a"),
-		                               CloudPath("/a")]
-		let actualWriteTasksPaths = writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
+		let expectedRegistrations = [LockRegistration("/a/b", .write),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a", .write),
+		                             LockRegistration("/", .read)]
+		XCTAssertEqual(expectedRegistrations, firstWriteTask.registrations + secondWriteTask.registrations)
 	}
 
 	// MARK: Read / Read
 
-	func testParallelReadTasks() {
+	func testParallelReadTasks() async throws {
 		let firstReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let secondReadTask = factory.createDependencies(for: CloudPath("/a"), lockType: .read)
-		// check if both tasks start immediately (but aren't completed yet)
-		wait(for: firstReadTask.awaitPreconditions())
-		wait(for: secondReadTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(firstReadTask.workflowCompleted)
-		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
+		let writeTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
+		// check if both read tasks start immediately (but aren't completed yet, blocking the write task)
+		try await firstReadTask.awaitPreconditions()
+		try await secondReadTask.awaitPreconditions()
+		await assertStaysBlocked { try await writeTask.awaitPreconditions() }
 
-		// when the first task completes its completion promise is fulfilled but the second task isn't
-		firstReadTask.workflowCompleted.fulfill(())
-		wait(for: firstReadTask.workflowCompleted)
-		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
+		// when the first read task completes, the second one still blocks the write task
+		firstReadTask.notifyDependents()
+		await assertStaysBlocked { try await writeTask.awaitPreconditions() }
 
-		// when the second task completes its completion promise is fulfilled
-		secondReadTask.workflowCompleted.fulfill(())
-		wait(for: secondReadTask.workflowCompleted)
+		// when the second read task completes, the write task starts
+		secondReadTask.notifyDependents()
+		try await writeTask.awaitPreconditions()
 
-		let expectedFirstReadTaskLockPaths = [CloudPath("/"),
-		                                      CloudPath("/a"),
-		                                      CloudPath("/a/b")]
-		let expectedFirstReadTaskUnlockPaths = expectedFirstReadTaskLockPaths.reversed()
-		let expectedSecondReadTaskLockPaths = [CloudPath("/"),
-		                                       CloudPath("/a")]
-		let expectedSecondReadTaskUnlockPaths = expectedSecondReadTaskLockPaths.reversed()
-		var expectedReadTasksPaths = [CloudPath]()
-		expectedReadTasksPaths.append(contentsOf: expectedFirstReadTaskLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedFirstReadTaskUnlockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedSecondReadTaskLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedSecondReadTaskUnlockPaths)
-		let actualReadTasksPaths = readTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedReadTasksPaths, actualReadTasksPaths)
+		let expectedRegistrations = [LockRegistration("/a/b", .read),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a", .write),
+		                             LockRegistration("/", .read)]
+		XCTAssertEqual(expectedRegistrations, firstReadTask.registrations + secondReadTask.registrations + writeTask.registrations)
 	}
 
 	// MARK: Read / Write
 
-	func testWriteTaskDependentOnExistingReadTask() {
+	func testWriteTaskDependentOnExistingReadTask() async throws {
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		// check if read tasks starts immediately (but isn't completed yet, blocking the write task)
-		wait(for: dependenciesForReadTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
+		try await dependenciesForReadTask.awaitPreconditions()
+		await assertStaysBlocked { try await dependenciesForWriteTask.awaitPreconditions() }
 
-		// when the read task completes, check if the dependent write task starts (but doesn't finish yet)
-		dependenciesForReadTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
+		// when the read task completes, check if the dependent write task starts
+		dependenciesForReadTask.notifyDependents()
+		try await dependenciesForWriteTask.awaitPreconditions()
+		dependenciesForWriteTask.notifyDependents()
 
-		// when the write task completes its completion promise is fulfilled
-		dependenciesForWriteTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.workflowCompleted)
-
-		let expectedReadTaskLockPaths = [CloudPath("/"),
-		                                 CloudPath("/a"),
-		                                 CloudPath("/a/b")]
-		let expectedReadTaskUnlockPaths = expectedReadTaskLockPaths.reversed()
-		let expectedWriteTaskReadLockPaths = [CloudPath("/")]
-		let expectedWriteTaskReadUnlockPaths = expectedWriteTaskReadLockPaths.reversed()
-		var expectedReadTasksPaths = [CloudPath]()
-		expectedReadTasksPaths.append(contentsOf: expectedReadTaskLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedReadTaskUnlockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedWriteTaskReadUnlockPaths)
-		let actualReadTasksPaths = readTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedReadTasksPaths, actualReadTasksPaths)
-
-		let expectedWriteTasksLockPath = CloudPath("/a")
-		let expectedWriteTasksUnlockPath = expectedWriteTasksLockPath
-		let expectedWriteTasksPaths = [expectedWriteTasksLockPath, expectedWriteTasksUnlockPath]
-		let actualWriteTasksPaths = writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
+		let expectedRegistrations = [LockRegistration("/a/b", .read),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a", .write),
+		                             LockRegistration("/", .read)]
+		XCTAssertEqual(expectedRegistrations, dependenciesForReadTask.registrations + dependenciesForWriteTask.registrations)
 	}
 
 	// MARK: Write / Read
 
-	func testReadTaskDependentOnExistingWriteTask() {
+	func testReadTaskDependentOnExistingWriteTask() async throws {
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		// check if write tasks starts immediately (but isn't completed yet, blocking the read task)
-		wait(for: dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
+		try await dependenciesForWriteTask.awaitPreconditions()
+		await assertStaysBlocked { try await dependenciesForReadTask.awaitPreconditions() }
 
-		// when the write task completes, check if the dependent read task starts (but doesn't finish yet)
-		dependenciesForWriteTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForReadTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
+		// when the write task completes, check if the dependent read task starts
+		dependenciesForWriteTask.notifyDependents()
+		try await dependenciesForReadTask.awaitPreconditions()
+		dependenciesForReadTask.notifyDependents()
 
-		// when the read task completes its completion promise is fulfilled
-		dependenciesForReadTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForReadTask.workflowCompleted)
-
-		let expectedWriteTaskReadLockPaths = [CloudPath("/")]
-		let expectedWriteTaskReadUnlockPaths = expectedWriteTaskReadLockPaths.reversed()
-		let expectedReadTaskLockPaths = [CloudPath("/"),
-		                                 CloudPath("/a"),
-		                                 CloudPath("/a/b")]
-		let expectedReadTaskUnlockPaths = expectedReadTaskLockPaths.reversed()
-		var expectedReadTasksPaths = [CloudPath]()
-		expectedReadTasksPaths.append(contentsOf: expectedWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedWriteTaskReadUnlockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedReadTaskLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedReadTaskUnlockPaths)
-		let actualReadTasksPaths = readTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedReadTasksPaths, actualReadTasksPaths)
-
-		let expectedWriteTasksLockPath = CloudPath("/a")
-		let expectedWriteTasksUnlockPath = expectedWriteTasksLockPath
-		let expectedWriteTasksPaths = [expectedWriteTasksLockPath, expectedWriteTasksUnlockPath]
-		let actualWriteTasksPaths = writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
+		let expectedRegistrations = [LockRegistration("/a", .write),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a/b", .read),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read)]
+		XCTAssertEqual(expectedRegistrations, dependenciesForWriteTask.registrations + dependenciesForReadTask.registrations)
 	}
 
 	// MARK: Move Task
 
-	func testDependencyForMoveTask() {
+	func testDependencyForMoveTask() async throws {
 		let sourceCloudPath = CloudPath("/a/b")
 		let targetCloudPath = CloudPath("/a/c")
 
 		let dependenciesForMoveTask = factory.createDependencies(paths: [sourceCloudPath, targetCloudPath], lockType: .write)
-		// check if move task starts immediately (but doesn't complete yet)
-		wait(for: dependenciesForMoveTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForMoveTask.workflowCompleted)
+		// check if move task starts immediately
+		try await dependenciesForMoveTask.awaitPreconditions()
+		dependenciesForMoveTask.notifyDependents()
 
-		// when the move task completes its completion promise is fulfilled
-		dependenciesForMoveTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForMoveTask.workflowCompleted)
-
-		let expectedSourceWriteTaskReadLockPaths = [CloudPath("/"),
-		                                            CloudPath("/a")]
-		let expectedSourceWriteTaskReadUnlockPaths = expectedSourceWriteTaskReadLockPaths.reversed()
-		let expectedTargetWriteTaskReadLockPaths = [CloudPath("/"),
-		                                            CloudPath("/a")]
-		let expectedTargetWriteTaskReadUnlockPaths = expectedTargetWriteTaskReadLockPaths.reversed()
-		var expectedReadTasksPaths = [CloudPath]()
-		expectedReadTasksPaths.append(contentsOf: expectedSourceWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedSourceWriteTaskReadUnlockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedTargetWriteTaskReadLockPaths)
-		expectedReadTasksPaths.append(contentsOf: expectedTargetWriteTaskReadUnlockPaths)
-		let actualReadTasksPaths = readTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedReadTasksPaths, actualReadTasksPaths)
-
-		let expectedSourceWriteTasksLockPath = CloudPath("/a/b")
-		let expectedSourceWriteTasksUnlockPath = expectedSourceWriteTasksLockPath
-
-		let expectedTargetWriteTasksLockPath = CloudPath("/a/c")
-		let expectedTargetWriteTasksUnlockPath = expectedTargetWriteTasksLockPath
-
-		let expectedWriteTasksPaths = [expectedSourceWriteTasksLockPath,
-		                               expectedSourceWriteTasksUnlockPath,
-		                               expectedTargetWriteTasksLockPath,
-		                               expectedTargetWriteTasksUnlockPath]
-		let actualWriteTasksPaths = writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
-		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
+		// the ancestors shared by source and target register once
+		let expectedRegistrations = [LockRegistration("/a/b", .write),
+		                             LockRegistration("/a", .read),
+		                             LockRegistration("/", .read),
+		                             LockRegistration("/a/c", .write)]
+		XCTAssertEqual(expectedRegistrations, dependenciesForMoveTask.registrations)
 	}
 
-	func testWriteTaskDependentOnExistingMoveTask() {
+	func testWriteTaskDependentOnExistingMoveTask() async throws {
 		let dependenciesForMoveTask = factory.createDependencies(paths: [CloudPath("/a/b"), CloudPath("/c/b")], lockType: .write)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/c/b"), lockType: .write)
 		// check if move task starts immediately (but isn't completed yet, blocking the write task on the move target)
-		wait(for: dependenciesForMoveTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+		try await dependenciesForMoveTask.awaitPreconditions()
+		await assertStaysBlocked { try await dependenciesForWriteTask.awaitPreconditions() }
 
-		// when the move task completes, check if the dependent write task starts (but doesn't finish yet)
-		dependenciesForMoveTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
-
-		// when the write task completes its completion promise is fulfilled
-		dependenciesForWriteTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.workflowCompleted)
+		// when the move task completes, check if the dependent write task starts
+		dependenciesForMoveTask.notifyDependents()
+		try await dependenciesForWriteTask.awaitPreconditions()
+		dependenciesForWriteTask.notifyDependents()
 	}
 
-	func testWriteTaskOnDescendantDependentOnExistingMoveTask() {
+	func testWriteTaskOnDescendantDependentOnExistingMoveTask() async throws {
 		let dependenciesForMoveTask = factory.createDependencies(paths: [CloudPath("/a"), CloudPath("/c")], lockType: .write)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/c/d"), lockType: .write)
 		// check if move task starts immediately (but isn't completed yet, blocking the write task below the move target)
-		wait(for: dependenciesForMoveTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+		try await dependenciesForMoveTask.awaitPreconditions()
+		await assertStaysBlocked { try await dependenciesForWriteTask.awaitPreconditions() }
 
-		// when the move task completes, check if the dependent write task starts (but doesn't finish yet)
-		dependenciesForMoveTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
-
-		// when the write task completes its completion promise is fulfilled
-		dependenciesForWriteTask.workflowCompleted.fulfill(())
-		wait(for: dependenciesForWriteTask.workflowCompleted)
+		// when the move task completes, check if the dependent write task starts
+		dependenciesForMoveTask.notifyDependents()
+		try await dependenciesForWriteTask.awaitPreconditions()
+		dependenciesForWriteTask.notifyDependents()
 	}
+}
 
-	// MARK: Error propagation
-
-	func testErrorDoesNotPropagateBetweenDependentWorkflows() {
-		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
-		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
-		// check if read task starts immediately (but doesn't complete yet, blocking the write task)
-		wait(for: dependenciesForReadTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
-
-		// Simulate error for read task
-		dependenciesForReadTask.workflowCompleted.reject(NSError(domain: "SimulatedError", code: -100))
-
-		// Write task can now acquire the lock
-		wait(for: dependenciesForWriteTask.awaitPreconditions())
+private extension LockRegistration {
+	init(_ path: String, _ lockType: LockType) {
+		self.init(path: CloudPath(path), lockType: lockType)
 	}
 }

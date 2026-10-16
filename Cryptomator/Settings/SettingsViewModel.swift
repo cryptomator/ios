@@ -11,7 +11,6 @@ import CryptomatorCommonCore
 import CryptomatorFileProvider
 import Dependencies
 import Foundation
-import Promises
 import StoreKit
 
 enum SettingsButtonAction: String {
@@ -29,7 +28,7 @@ enum SettingsButtonAction: String {
 	case restorePurchase
 }
 
-enum SettingsSection: Int {
+nonisolated enum SettingsSection: Int {
 	case unlockFullVersionSection = 0
 	case cloudServiceSection
 	case cacheSection
@@ -137,31 +136,28 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		self.cryptomatorSettings = cryptomatorSettings
 	}
 
-	func refreshCacheSize() -> Promise<Void> {
-		var loading = true
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			if loading {
-				self.cacheSizeCellViewModel.isLoading.value = true
-				self.clearCacheButtonCellViewModel.isEnabled.value = false
-			}
+	func refreshCacheSize() async throws {
+		let showLoadingTask = Task {
+			try await Task.sleep(for: .seconds(0.5))
+			try Task.checkCancellation()
+			cacheSizeCellViewModel.isLoading.value = true
+			clearCacheButtonCellViewModel.isEnabled.value = false
 		}
-		return cacheController.getLocalCacheSizeInBytes().then { totalCacheSizeInBytes -> Void in
-			loading = false
-			self.cacheSizeCellViewModel.isLoading.value = false
-			self.clearCacheButtonCellViewModel.isEnabled.value = totalCacheSizeInBytes > 0
-			let formattedString = ByteCountFormatter().string(fromByteCount: Int64(totalCacheSizeInBytes))
-			self.cacheSizeCellViewModel.detailTitle.value = formattedString
-		}
+		let totalCacheSizeInBytes = try await cacheController.getLocalCacheSizeInBytes()
+		showLoadingTask.cancel()
+		cacheSizeCellViewModel.isLoading.value = false
+		clearCacheButtonCellViewModel.isEnabled.value = totalCacheSizeInBytes > 0
+		let formattedString = ByteCountFormatter().string(fromByteCount: Int64(totalCacheSizeInBytes))
+		cacheSizeCellViewModel.detailTitle.value = formattedString
 	}
 
-	func clearCache() -> Promise<Void> {
-		return cacheController.clearCache().then {
-			self.refreshCacheSize()
-		}
+	func clearCache() async throws {
+		try await cacheController.clearCache()
+		try await refreshCacheSize()
 	}
 
-	func restorePurchase() -> Promise<RestoreTransactionsResult> {
-		return StoreObserver.shared.restore()
+	func restorePurchase() async throws -> RestoreTransactionsResult {
+		return try await StoreObserver.shared.restore()
 	}
 
 	func enableDebugMode() {
@@ -190,11 +186,12 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	private func notifyFileProviderAboutLogLevelUpdate() {
-		let getXPCPromise: Promise<XPC<LogLevelUpdating>> = fileProviderConnector.getXPC(serviceName: .logLevelUpdating, domain: nil)
-		getXPCPromise.then { xpc in
+		Task {
+			guard let xpc: XPC<LogLevelUpdating> = try? await fileProviderConnector.getXPC(serviceName: .logLevelUpdating, domain: nil) else {
+				return
+			}
 			xpc.proxy.logLevelUpdated()
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+			fileProviderConnector.invalidateXPC(xpc)
 		}
 	}
 }

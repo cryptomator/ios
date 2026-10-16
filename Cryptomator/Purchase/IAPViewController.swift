@@ -9,16 +9,15 @@
 import Combine
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 import UIKit
 
 class IAPViewController: BaseUITableViewController {
-	enum Section {
+	nonisolated enum Section {
 		case main
 	}
 
-	enum Item: Hashable {
+	enum Item: nonisolated Hashable {
 		case retryButton
 		case showUpgradeOffer
 		case purchaseCell(PurchaseCellViewModel)
@@ -67,7 +66,8 @@ class IAPViewController: BaseUITableViewController {
 
 	func fetchProducts() {
 		let viewModel = viewModel
-		viewModel.fetchProducts().then { [weak self] in
+		Task { [weak self] in
+			await viewModel.fetchProducts()
 			self?.applySnapshot(viewModel.cells)
 		}
 	}
@@ -80,14 +80,14 @@ class IAPViewController: BaseUITableViewController {
 	}
 
 	func configureDataSource() {
-		dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { tableView, _, itemIdentifier in
+		dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView, cellProvider: { [weak self] tableView, _, itemIdentifier in
 			let cell: UITableViewCell
 			switch itemIdentifier {
 			case let .purchaseCell(purchaseCellViewModel):
 				let purchaseCell = PurchaseCell()
 				purchaseCell.configure(with: purchaseCellViewModel)
 				purchaseCell.configure(with: tableView.traitCollection)
-				purchaseCell.purchaseButton.primaryAction = { [weak self] in
+				purchaseCell.purchaseButton.primaryAction = {
 					self?.buyProduct(purchaseCellViewModel.productIdentifier)
 				}
 				cell = purchaseCell
@@ -167,9 +167,9 @@ class IAPViewController: BaseUITableViewController {
 
 	private func buyProduct(_ productIdentifier: ProductIdentifier) {
 		if [.fullVersion, .paidUpgrade, .freeUpgrade].contains(productIdentifier), CryptomatorUserDefaults.shared.hasRunningSubscription {
-			PurchaseAlert.showForSubscriptionWarning(on: self).then { shouldContinue in
-				if shouldContinue {
-					self.executePurchase(productIdentifier)
+			Task {
+				if await PurchaseAlert.showForSubscriptionWarning(on: self) {
+					executePurchase(productIdentifier)
 				}
 			}
 		} else {
@@ -178,10 +178,13 @@ class IAPViewController: BaseUITableViewController {
 	}
 
 	private func executePurchase(_ productIdentifier: ProductIdentifier) {
-		viewModel.buyProduct(productIdentifier).then { [weak self] transaction in
-			self?.successfulPurchase(transaction: transaction)
-		}.catch { [weak self] error in
-			self?.handleError(error)
+		Task { [weak self, viewModel] in
+			do {
+				let transaction = try await viewModel.buyProduct(productIdentifier)
+				self?.successfulPurchase(transaction: transaction)
+			} catch {
+				self?.handleError(error)
+			}
 		}
 	}
 
@@ -200,7 +203,7 @@ class IAPViewController: BaseUITableViewController {
 }
 
 protocol ProductFetching {
-	func fetchProducts() -> Promise<Void>
+	func fetchProducts() async
 }
 
 class BaseIAPViewModel {
@@ -235,25 +238,20 @@ class BaseIAPViewModel {
 		setupRunningTransactionSubscription()
 	}
 
-	func buyProduct(_ productIdentifier: ProductIdentifier) -> Promise<PurchaseTransaction> {
+	func buyProduct(_ productIdentifier: ProductIdentifier) async throws -> PurchaseTransaction {
 		guard let product = products[productIdentifier] else {
-			return Promise(PurchaseError.unavailableProduct)
+			throw PurchaseError.unavailableProduct
 		}
 		hasRunningTransactionPublisher.send(true)
 		setIsLoading(to: true, forCellWith: productIdentifier)
-		return iapManager.buy(product).recover { error -> PurchaseTransaction in
-			if (error as? SKError)?.code == .paymentCancelled {
-				throw PurchaseError.paymentCancelled
-			} else if (error as? SKError)?.code == .paymentNotAllowed {
-				throw PurchaseError.paymentNotAllowed
-			} else if (error as? SKError)?.code == .unknown {
-				throw PurchaseError.unknown
-			} else {
-				throw error
-			}
-		}.always {
-			self.hasRunningTransactionPublisher.send(false)
-			self.setIsLoading(to: false, forCellWith: productIdentifier)
+		defer {
+			hasRunningTransactionPublisher.send(false)
+			setIsLoading(to: false, forCellWith: productIdentifier)
+		}
+		do {
+			return try await iapManager.buy(product)
+		} catch {
+			throw mapPurchaseError(error)
 		}
 	}
 
@@ -262,22 +260,25 @@ class BaseIAPViewModel {
 		cells.append(.loadingCell)
 	}
 
-	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<Void> {
+	func fetchProducts(with identifiers: [ProductIdentifier]) async {
 		fetchProductsStart = CFAbsoluteTimeGetCurrent()
-		return storeManager.fetchProducts(with: identifiers).then { response in
-			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
+		let delay = getDelay()
+		do {
+			let response = try await storeManager.fetchProducts(with: identifiers)
+			products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
 				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
 					return
 				}
 				$0[productIdentifier] = $1
 			}
-		}.then { _ -> Void in
-			self.fetchProductsSuccess()
-		}.recover { _ -> Void in
-			self.fetchProductsRecover()
-		}.delay(getDelay()).always {
-			self.removeLoadingItem()
+			fetchProductsSuccess()
+		} catch {
+			fetchProductsRecover()
 		}
+		if delay > 0 {
+			try? await Task.sleep(for: .seconds(delay))
+		}
+		removeLoadingItem()
 	}
 
 	/**
@@ -311,20 +312,27 @@ class BaseIAPViewModel {
 		addRetryItem()
 	}
 
-	func restorePurchase() -> Promise<RestoreTransactionsResult> {
+	func restorePurchase() async throws -> RestoreTransactionsResult {
 		hasRunningTransactionPublisher.send(true)
-		return iapManager.restore().recover { error -> RestoreTransactionsResult in
-			if (error as? SKError)?.code == .paymentCancelled {
-				throw PurchaseError.paymentCancelled
-			} else if (error as? SKError)?.code == .paymentNotAllowed {
-				throw PurchaseError.paymentNotAllowed
-			} else if (error as? SKError)?.code == .unknown {
-				throw PurchaseError.unknown
-			} else {
-				throw error
-			}
-		}.always {
-			self.hasRunningTransactionPublisher.send(false)
+		defer {
+			hasRunningTransactionPublisher.send(false)
+		}
+		do {
+			return try await iapManager.restore()
+		} catch {
+			throw mapPurchaseError(error)
+		}
+	}
+
+	private func mapPurchaseError(_ error: Error) -> Error {
+		if (error as? SKError)?.code == .paymentCancelled {
+			return PurchaseError.paymentCancelled
+		} else if (error as? SKError)?.code == .paymentNotAllowed {
+			return PurchaseError.paymentNotAllowed
+		} else if (error as? SKError)?.code == .unknown {
+			return PurchaseError.unknown
+		} else {
+			return error
 		}
 	}
 

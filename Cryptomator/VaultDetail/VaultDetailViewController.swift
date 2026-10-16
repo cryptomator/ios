@@ -8,7 +8,6 @@
 
 import Combine
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class VaultDetailViewController: BaseUITableViewController {
@@ -36,7 +35,9 @@ class VaultDetailViewController: BaseUITableViewController {
 				self?.handleActionResult(result)
 			}).store(in: &subscriber)
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.refreshVaultLockStatus()
+			MainActor.assumeIsolated {
+				self?.refreshVaultLockStatus()
+			}
 		}
 	}
 
@@ -46,9 +47,12 @@ class VaultDetailViewController: BaseUITableViewController {
 	}
 
 	private func refreshVaultLockStatus() {
-		viewModel.refreshVaultStatus().catch { [weak self] error in
-			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
+		Task {
+			do {
+				try await viewModel.refreshVaultStatus()
+			} catch {
+				coordinator?.handleError(error, for: self)
+			}
 		}
 	}
 
@@ -124,17 +128,15 @@ class VaultDetailViewController: BaseUITableViewController {
 	// MARK: Internal
 
 	private func showUnlockScreen(for vault: VaultInfo, biometryTypeName: String) {
-		coordinator?.unlockVault(vault, biometryTypeName: biometryTypeName).recover { error -> Void in
-			guard case CocoaError.userCancelled = error else {
-				throw error
+		Task {
+			do {
+				try await coordinator?.unlockVault(vault, biometryTypeName: biometryTypeName)
+			} catch CocoaError.userCancelled {
+				// The user cancelled the unlock, which needs no alert.
+			} catch {
+				coordinator?.handleError(error, for: self)
 			}
-		}.catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
-			self.coordinator?.handleError(error, for: self)
-		}.always { [weak self] in
-			_ = self?.viewModel.refreshVaultStatus()
+			try? await viewModel.refreshVaultStatus()
 		}
 	}
 
@@ -154,11 +156,14 @@ class VaultDetailViewController: BaseUITableViewController {
 	}
 
 	private func lockVault() {
-		viewModel.lockVault().then {
-			let feedbackGenerator = UINotificationFeedbackGenerator()
-			feedbackGenerator.notificationOccurred(.success)
-		}.catch { error in
-			self.coordinator?.handleError(error, for: self)
+		Task {
+			do {
+				try await viewModel.lockVault()
+				let feedbackGenerator = UINotificationFeedbackGenerator()
+				feedbackGenerator.notificationOccurred(.success)
+			} catch {
+				coordinator?.handleError(error, for: self)
+			}
 		}
 	}
 }
