@@ -83,25 +83,34 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 	}
 
 	func getUsername(for credential: DropboxCredential) {
-		credential.getUsername().then { username in
-			let loggedInText = self.createLoggedInText(forUsername: username)
-			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+		Task {
+			guard let username = try? await credential.getUsername() else {
+				return
+			}
+			let loggedInText = createLoggedInText(forUsername: username)
+			let attributedText = createAttributedText(loggedInText: loggedInText)
 			self.attributedText.value = attributedText
 		}
 	}
 
 	func getUsername(for credential: PCloudCredential) {
-		credential.getUsername().then { username in
-			let loggedInText = self.createLoggedInText(forUsername: username)
-			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+		Task {
+			guard let username = try? await credential.getUsername() else {
+				return
+			}
+			let loggedInText = createLoggedInText(forUsername: username)
+			let attributedText = createAttributedText(loggedInText: loggedInText)
 			self.attributedText.value = attributedText
 		}
 	}
 
 	func getUsername(for credential: BoxCredential) {
-		credential.getUsername().then { username in
-			let loggedInText = self.createLoggedInText(forUsername: username)
-			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+		Task {
+			guard let username = try? await credential.getUsername() else {
+				return
+			}
+			let loggedInText = createLoggedInText(forUsername: username)
+			let attributedText = createAttributedText(loggedInText: loggedInText)
 			self.attributedText.value = attributedText
 		}
 	}

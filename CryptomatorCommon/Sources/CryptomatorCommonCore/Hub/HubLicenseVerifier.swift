@@ -27,13 +27,12 @@ public enum HubLicenseVerifier {
 	/// Static ES512 (P-521 / secp521r1) public key of Skymatic's License Server, base64-encoded SPKI (DER).
 	private static let licensePublicKeyBase64 = "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBLJOU8YgKkP19EPV6p3eDlnpljZxDc2BXK+RPAb3caj2EuEH9a5ORaLAY+PjIkDPIQdHaa44Cbrzmug97bTyXTzQB97C90Utw0bzNkE22YwKdqWwKebUCSP3Tifxgn8JzrWb/9oI2D3q4+ZPzHZkty0SSM8kTwJwgT0wOwB4dj1GBEFc="
 
-	private static let embeddedPublicKey: SecKey? = {
+	private static let embeddedPublicKeyX963Representation: Data? = {
 		do {
 			guard let derData = Data(base64Encoded: licensePublicKeyBase64) else {
 				throw HubLicenseVerificationError.malformed
 			}
-			let publicKey = try P521.Signing.PublicKey(derRepresentation: derData)
-			return try makeSecKey(x963Representation: publicKey.x963Representation, keyClass: kSecAttrKeyClassPublic)
+			return try P521.Signing.PublicKey(derRepresentation: derData).x963Representation
 		} catch {
 			DDLogError("Embedded License Server public key is invalid: \(error)")
 			return nil
@@ -41,9 +40,10 @@ public enum HubLicenseVerifier {
 	}()
 
 	public static func verify(token: String) throws -> HubLicenseVerificationResult {
-		guard let publicKey = embeddedPublicKey else {
+		guard let x963Representation = embeddedPublicKeyX963Representation else {
 			throw HubLicenseVerificationError.malformed
 		}
+		let publicKey = try makeSecKey(x963Representation: x963Representation, keyClass: kSecAttrKeyClassPublic)
 		return try verify(token: token, publicKey: publicKey)
 	}
 
@@ -54,7 +54,7 @@ public enum HubLicenseVerifier {
 		} catch {
 			throw HubLicenseVerificationError.malformed
 		}
-		guard let verifier = Verifier(verifyingAlgorithm: .ES512, key: publicKey) else {
+		guard let verifier = Verifier(signatureAlgorithm: .ES512, key: publicKey) else {
 			throw HubLicenseVerificationError.malformed
 		}
 		guard jws.isValid(for: verifier) else {
@@ -96,7 +96,7 @@ public enum HubLicenseVerifier {
 	}
 }
 
-public protocol HubLicenseVerifying {
+public protocol HubLicenseVerifying: Sendable {
 	func verify(token: String) throws -> HubLicenseVerificationResult
 }
 
@@ -129,7 +129,8 @@ final class UnimplementedHubLicenseVerifier: HubLicenseVerifying {
 
 // MARK: - HubLicenseVerifyingMock -
 
-final class HubLicenseVerifyingMock: HubLicenseVerifying {
+/// @unchecked Sendable: test double, never touched concurrently
+final class HubLicenseVerifyingMock: HubLicenseVerifying, @unchecked Sendable {
 	// MARK: - verify
 
 	var verifyTokenThrowableError: Error?

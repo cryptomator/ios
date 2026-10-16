@@ -10,7 +10,6 @@ import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 
 protocol PaymentQueuing {
@@ -25,8 +24,8 @@ extension SKPaymentQueue: PaymentQueuing {}
 
 protocol IAPManager {
 	var isAuthorizedForPayments: Bool { get }
-	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction>
-	func restore() -> Promise<RestoreTransactionsResult>
+	func buy(_ product: SKProduct) async throws -> PurchaseTransaction
+	func restore() async throws -> RestoreTransactionsResult
 }
 
 enum StoreObserverError: Error {
@@ -38,13 +37,13 @@ protocol StoreObserverDelegate: AnyObject {
 	func purchaseDidSucceed(transaction: PurchaseTransaction)
 }
 
-enum RestoreTransactionsResult: Equatable {
+enum RestoreTransactionsResult: Equatable, Sendable {
 	case restoredFullVersion
 	case restoredFreeTrial(expiresOn: Date)
 	case noRestorablePurchases
 }
 
-enum PurchaseTransaction: Equatable {
+enum PurchaseTransaction: Equatable, Sendable {
 	case fullVersion
 	case freeTrial(expiresOn: Date)
 	case yearlySubscription
@@ -60,8 +59,8 @@ class StoreObserver: NSObject, IAPManager {
 
 	weak var fallbackDelegate: StoreObserverDelegate?
 
-	private var runningPayments = [String: Promise<PurchaseTransaction>]()
-	private var runningRestore: Promise<RestoreTransactionsResult>?
+	private var runningPayments = [String: OneShotSignal<PurchaseTransaction>]()
+	private var runningRestore: OneShotSignal<RestoreTransactionsResult>?
 	private var cryptomatorSettings: CryptomatorSettings
 	private let premiumManager: PremiumManagerType
 	private let queue: PaymentQueuing
@@ -72,20 +71,20 @@ class StoreObserver: NSObject, IAPManager {
 		self.premiumManager = premiumManager
 	}
 
-	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction> {
+	func buy(_ product: SKProduct) async throws -> PurchaseTransaction {
 		DDLogInfo("Buy product: \(product.productIdentifier)")
 		let payment = SKMutablePayment(product: product)
-		let pendingPromise = Promise<PurchaseTransaction>.pending()
-		runningPayments[payment.productIdentifier] = pendingPromise
+		let transaction = OneShotSignal<PurchaseTransaction>()
+		runningPayments[payment.productIdentifier] = transaction
 		queue.add(payment)
-		return pendingPromise
+		return try await transaction.value
 	}
 
-	func restore() -> Promise<RestoreTransactionsResult> {
-		let pendingPromise = Promise<RestoreTransactionsResult>.pending()
-		runningRestore = pendingPromise
+	func restore() async throws -> RestoreTransactionsResult {
+		let result = OneShotSignal<RestoreTransactionsResult>()
+		runningRestore = result
 		queue.restoreCompletedTransactions()
-		return pendingPromise
+		return try await result.value
 	}
 
 	fileprivate func handlePurchased(_ transaction: SKPaymentTransaction) {
@@ -109,11 +108,11 @@ class StoreObserver: NSObject, IAPManager {
 			transactionType = .unknown
 		}
 		queue.finishTransaction(transaction)
-		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
+		guard let runningPayment = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
 			fallbackDelegate?.purchaseDidSucceed(transaction: transactionType)
 			return
 		}
-		promise.fulfill(transactionType)
+		runningPayment.fulfill(transactionType)
 	}
 
 	fileprivate func handleFailed(_ transaction: SKPaymentTransaction) {
@@ -123,10 +122,10 @@ class StoreObserver: NSObject, IAPManager {
 			DDLogError("Purchase of \(transaction.payment.productIdentifier) failed")
 		}
 		queue.finishTransaction(transaction)
-		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
+		guard let runningPayment = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
 			return
 		}
-		promise.reject(transaction.error ?? StoreObserverError.missingTransactionError)
+		runningPayment.reject(transaction.error ?? StoreObserverError.missingTransactionError)
 	}
 
 	fileprivate func handleRestored(_ transactions: [SKPaymentTransaction]) {
@@ -138,12 +137,12 @@ class StoreObserver: NSObject, IAPManager {
 
 	fileprivate func handleDeferred(_ transaction: SKPaymentTransaction) {
 		DDLogInfo("Deferred purchase of \(transaction.payment.productIdentifier)")
-		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
-			DDLogError("Missing running payment for rejecting SKPayment promise")
+		guard let runningPayment = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
+			DDLogError("Missing running payment for rejecting SKPayment")
 			return
 		}
 		// https://stackoverflow.com/q/26187148/1759462
-		promise.reject(StoreObserverError.deferredTransaction)
+		runningPayment.reject(StoreObserverError.deferredTransaction)
 	}
 
 	// MARK: - Store Logic
@@ -172,7 +171,44 @@ class StoreObserver: NSObject, IAPManager {
 // MARK: - SKPaymentTransactionObserver
 
 extension StoreObserver: SKPaymentTransactionObserver {
-	func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+	nonisolated func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+		DispatchQueue.main.async {
+			self.handleUpdatedTransactions(transactions)
+		}
+	}
+
+	nonisolated func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
+		for transaction in transactions {
+			DDLogInfo("Removed \(transaction.payment.productIdentifier) from the payment queue")
+		}
+	}
+
+	nonisolated func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+		DDLogError("Restoring completed transactions failed with error: \(error)")
+		DispatchQueue.main.async {
+			guard let runningRestore = self.runningRestore else {
+				DDLogError("Missing running restore to reject")
+				return
+			}
+			runningRestore.reject(error)
+		}
+	}
+
+	nonisolated func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+		DDLogInfo("Restoring completed transactions finished")
+		DispatchQueue.main.async {
+			self.handleRestoreCompletedTransactionsFinished()
+		}
+	}
+
+	nonisolated func paymentQueue(_ queue: SKPaymentQueue, didRevokeEntitlementsForProductIdentifiers productIdentifiers: [String]) {
+		DDLogInfo("Revoke entitlements for product identifiers: \(productIdentifiers)")
+		DispatchQueue.main.async {
+			self.premiumManager.refreshStatus()
+		}
+	}
+
+	private func handleUpdatedTransactions(_ transactions: [SKPaymentTransaction]) {
 		premiumManager.refreshStatus()
 		var restoredTransactions = [SKPaymentTransaction]()
 		for transaction in transactions {
@@ -196,23 +232,7 @@ extension StoreObserver: SKPaymentTransactionObserver {
 		}
 	}
 
-	func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
-		for transaction in transactions {
-			DDLogInfo("Removed \(transaction.payment.productIdentifier) from the payment queue")
-		}
-	}
-
-	func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-		DDLogError("Restoring completed transactions failed with error: \(error)")
-		guard let promise = runningRestore else {
-			DDLogError("Missing running restore for rejecting promise")
-			return
-		}
-		promise.reject(error)
-	}
-
-	func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-		DDLogInfo("Restoring completed transactions finished")
+	private func handleRestoreCompletedTransactionsFinished() {
 		premiumManager.refreshStatus()
 		if cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked {
 			runningRestore?.fulfill(.restoredFullVersion)
@@ -221,10 +241,5 @@ extension StoreObserver: SKPaymentTransactionObserver {
 		} else {
 			runningRestore?.fulfill(.noRestorablePurchases)
 		}
-	}
-
-	func paymentQueue(_ queue: SKPaymentQueue, didRevokeEntitlementsForProductIdentifiers productIdentifiers: [String]) {
-		DDLogInfo("Revoke entitlements for product identifiers: \(productIdentifiers)")
-		premiumManager.refreshStatus()
 	}
 }

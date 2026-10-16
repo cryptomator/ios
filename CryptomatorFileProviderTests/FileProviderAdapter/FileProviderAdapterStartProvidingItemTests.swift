@@ -7,7 +7,6 @@
 //
 
 import CryptomatorCloudAccessCore
-import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 
@@ -18,58 +17,42 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	private lazy var itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
 	private lazy var url = itemDirectory.appendingPathComponent("File 1")
 
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
 	}
 
-	func testStartProvidingItemNoLocalVersion() {
-		let expectation = XCTestExpectation()
+	func testStartProvidingItemNoLocalVersion() async throws {
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			self.assertMetadataUpdated()
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try await adapter.startProvidingItem(at: url)
+		assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+		assertMetadataUpdated()
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithUpToDateLocalVersion() {
-		simulateExistingLocalFileByDownloadingFile()
-		let expectation = XCTestExpectation()
+	func testStartProvidingItemWithUpToDateLocalVersion() async throws {
+		try await simulateExistingLocalFileByDownloadingFile()
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count, "Unexpected change of cached metadata.")
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try await adapter.startProvidingItem(at: url)
+		assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+		XCTAssertEqual(1, metadataManagerMock.updatedMetadata.count, "Unexpected change of cached metadata.")
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithOlderLocalVersion() {
-		simulateExistingLocalFileByDownloadingFile()
-		let expectation = XCTestExpectation()
+	func testStartProvidingItemWithOlderLocalVersion() async throws {
+		try await simulateExistingLocalFileByDownloadingFile()
 
 		simulateFileChangeInTheCloud()
 
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(2, self.metadataManagerMock.updatedMetadata.count)
-			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try await adapter.startProvidingItem(at: url)
+		assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+		XCTAssertEqual(2, metadataManagerMock.updatedMetadata.count)
+		XCTAssertEqual(ItemStatus.isUploaded, metadataManagerMock.updatedMetadata[0].statusCode)
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithConflictingLocalVersion() throws {
-		let expectation = XCTestExpectation()
+	func testStartProvidingItemWithConflictingLocalVersion() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -84,8 +67,9 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let localCachedFileInfo = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(timeIntervalSince1970: 0), localURL: url)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = localCachedFileInfo
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
+		let failedUploadItemID = itemID
 		uploadTaskManagerMock.getTaskRecordForClosure = {
-			guard self.itemID == $0 else {
+			guard failedUploadItemID == $0 else {
 				return nil
 			}
 			return uploadTaskRecord
@@ -93,40 +77,29 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 
 		simulateFileChangeInTheCloud()
 
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(1, uploadTaskManagerMock.createNewTaskRecordForCallsCount)
+		try await adapter.startProvidingItem(at: url)
+		assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+		XCTAssertEqual(1, uploadTaskManagerMock.createNewTaskRecordForCallsCount)
 
-			guard let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[3] else {
-				XCTFail("localCachedFileInfo is nil")
-				return
-			}
-			XCTAssertEqual(3, localCachedFileInfo.correspondingItem)
-			XCTAssert(localCachedFileInfo.localURL.path.hasPrefix(conflictingItemDirectory.path))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let conflictingLocalCachedFileInfo = try XCTUnwrap(cachedFileManagerMock.cachedLocalFileInfo[3])
+		XCTAssertEqual(3, conflictingLocalCachedFileInfo.correspondingItem)
+		XCTAssert(conflictingLocalCachedFileInfo.localURL.path.hasPrefix(conflictingItemDirectory.path))
 		assertItemRemovedFromWorkingSet()
 		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
+		await adapter.awaitWorkflows()
 	}
 
-	func testStartProvidingItemWithTagData() {
-		simulateExistingLocalFileByDownloadingFile()
-		let expectation = XCTestExpectation()
+	func testStartProvidingItemWithTagData() async throws {
+		try await simulateExistingLocalFileByDownloadingFile()
 
 		metadataManagerMock.cachedMetadata[2]?.tagData = Data()
 		simulateFileChangeInTheCloud()
 		resetFileProviderItemUpdateDelegateMockRemoveItem()
 
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(2, self.metadataManagerMock.updatedMetadata.count)
-			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try await adapter.startProvidingItem(at: url)
+		assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+		XCTAssertEqual(2, metadataManagerMock.updatedMetadata.count)
+		XCTAssertEqual(ItemStatus.isUploaded, metadataManagerMock.updatedMetadata[0].statusCode)
 		XCTAssertFalse(fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithCalled)
 	}
 
@@ -152,14 +125,9 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(["\(NSFileProviderDomainIdentifier.test.rawValue):\(itemID)"], fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations.map { $0.rawValue })
 	}
 
-	private func simulateExistingLocalFileByDownloadingFile() {
-		let expectation = XCTestExpectation()
-		adapter.startProvidingItem(at: url) { [self] error in
-			XCTAssertNil(error)
-			XCTAssert(FileManager.default.fileExists(atPath: url.path))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+	private func simulateExistingLocalFileByDownloadingFile() async throws {
+		try await adapter.startProvidingItem(at: url)
+		XCTAssert(FileManager.default.fileExists(atPath: url.path))
 		assertItemRemovedFromWorkingSet()
 		// Reset fileProviderItemUpdateDelegateMock
 		resetFileProviderItemUpdateDelegateMockRemoveItem()
@@ -179,39 +147,30 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 
 	// MARK: - localFileIsCurrent Offline Fallback
 
-	func testLocalFileIsCurrentReturnsTrueWhenOffline() {
+	func testLocalFileIsCurrentReturnsTrueWhenOffline() async throws {
 		cloudProviderMock.everyOperationShouldFailWithError = CloudProviderError.noInternetConnection
 		let identifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
-		let expectation = XCTestExpectation()
-		adapter.localFileIsCurrent(with: identifier).then { isCurrent in
-			XCTAssertTrue(isCurrent)
-		}.catch { error in
-			XCTFail("Promise rejected with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let isCurrent = try await adapter.localFileIsCurrent(with: identifier)
+		XCTAssertTrue(isCurrent)
 	}
 
-	func testLocalFileIsCurrentPropagatesNonConnectivityError() {
+	func testLocalFileIsCurrentPropagatesNonConnectivityError() async {
 		cloudProviderMock.everyOperationShouldFailWithError = CloudProviderError.unauthorized
 		let identifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
-		XCTAssertRejects(adapter.localFileIsCurrent(with: identifier), with: NSFileProviderError(.notAuthenticated))
+		await XCTAssertThrowsAsyncError(try await adapter.localFileIsCurrent(with: identifier)) { error in
+			XCTAssertEqual(NSFileProviderError(.notAuthenticated) as NSError, error as NSError)
+		}
 	}
 
 	// MARK: - Helpers
 
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {
-		init() {
-			super.init(maxParallelUploads: 1, maxParallelDownloads: 1)
-		}
-
-		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
+		override func schedule<T>(_ workflow: Workflow<T>) async throws -> T {
 			// Ignore UploadTasks to test the conflicting local version DB entries
 			if workflow.task is UploadTask {
-				return Promise(MockError.notMocked)
+				throw MockError.notMocked
 			}
-			return super.schedule(workflow)
+			return try await super.schedule(workflow)
 		}
 	}
 }

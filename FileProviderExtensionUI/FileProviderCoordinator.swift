@@ -143,16 +143,19 @@ class FileProviderCoordinator: Coordinator {
 	 A canceled or failed biometric authentication ends the request without a message. Every other error, e.g. an expired cloud session, is shown first, because the quick unlock leaves the user with nothing else on screen.
 	 */
 	func performQuickUnlock(viewModel: UnlockVaultViewModel) {
-		viewModel.biometricalUnlock().then { [weak self] in
-			self?.completeUnlock()
-		}.catch { [weak self] error in
-			switch QuickUnlockFailure(error: error) {
-			case .fallBackToPassword:
-				self?.showManualPasswordScreen(viewModel: viewModel)
-			case .dismiss:
-				self?.done()
-			case .report:
-				self?.reportQuickUnlockFailure(error)
+		Task {
+			do {
+				try await viewModel.biometricalUnlock()
+				completeUnlock()
+			} catch {
+				switch QuickUnlockFailure(error: error) {
+				case .fallBackToPassword:
+					showManualPasswordScreen(viewModel: viewModel)
+				case .dismiss:
+					done()
+				case .report:
+					reportQuickUnlockFailure(error)
+				}
 			}
 		}
 	}
@@ -169,35 +172,40 @@ class FileProviderCoordinator: Coordinator {
 			handleError(error)
 			return
 		}
-		vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
-			switch error {
-			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
-				break
-			default:
-				guard error.isTransientConnectivityError else {
-					throw error
+		Task {
+			do {
+				do {
+					try await vaultCache.refreshVaultCache(for: vaultAccount, with: provider)
+				} catch {
+					switch error {
+					case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
+						break
+					default:
+						guard error.isTransientConnectivityError else {
+							throw error
+						}
+						DDLogInfo("FileProviderCoordinator: refreshVaultCache unreachable, using cached masterkey (\(error))")
+					}
 				}
-				DDLogInfo("FileProviderCoordinator: refreshVaultCache unreachable, using cached masterkey (\(error))")
-			}
-		}.then {
-			let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-			if let vaultConfigToken = cachedVault.vaultConfigToken {
-				let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
-				switch VaultConfigHelper.getType(for: unverifiedVaultConfig) {
-				case .hub:
-					self.showHubLoginScreen(vaultConfig: unverifiedVaultConfig, domain: domain)
-				case .masterkeyFile:
+				let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+				if let vaultConfigToken = cachedVault.vaultConfigToken {
+					let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+					switch VaultConfigHelper.getType(for: unverifiedVaultConfig) {
+					case .hub:
+						showHubLoginScreen(vaultConfig: unverifiedVaultConfig, domain: domain)
+					case .masterkeyFile:
+						let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
+						showManualPasswordScreen(viewModel: viewModel)
+					case .unknown:
+						fatalError("TODO: throw error")
+					}
+				} else {
 					let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
-					self.showManualPasswordScreen(viewModel: viewModel)
-				case .unknown:
-					fatalError("TODO: throw error")
+					showManualPasswordScreen(viewModel: viewModel)
 				}
-			} else {
-				let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
-				self.showManualPasswordScreen(viewModel: viewModel)
+			} catch {
+				handleError(error)
 			}
-		}.catch {
-			self.handleError($0)
 		}
 	}
 
@@ -234,9 +242,9 @@ class FileProviderCoordinator: Coordinator {
 	 The user leaves the extension, thus a successful open cancels the request. A failed open keeps the user here, thus the caller decides how the request ends.
 	 */
 	private func open(_ url: URL, onFailure: @escaping () -> Void) {
-		extensionContext.open(url) { [weak self] success in
-			if success {
-				self?.userCancelled()
+		Task {
+			if await extensionContext.open(url) {
+				userCancelled()
 			} else {
 				DDLogError("Opening \(url) failed")
 				onFailure()

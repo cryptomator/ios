@@ -8,44 +8,44 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 
+@MainActor
 class ErrorMapperTests: XCTestCase {
-	func testMapCloudProviderErrors() {
-		compareCloudProviderErrorMapping(for: .itemNotFound, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
-		compareCloudProviderErrorMapping(for: .itemAlreadyExists, expectedMappedError: NSFileProviderError(.filenameCollision) as Error)
-		compareCloudProviderErrorMapping(for: .parentFolderDoesNotExist, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
-		compareCloudProviderErrorMapping(for: .pageTokenInvalid, expectedMappedError: NSFileProviderError(.syncAnchorExpired) as Error)
-		compareCloudProviderErrorMapping(for: .quotaInsufficient, expectedMappedError: NSFileProviderError(.insufficientQuota) as Error)
-		compareCloudProviderErrorMapping(for: .unauthorized, expectedMappedError: NSFileProviderError(.notAuthenticated) as Error)
-		compareCloudProviderErrorMapping(for: .noInternetConnection, expectedMappedError: NSFileProviderError(.serverUnreachable) as Error)
+	func testMapCloudProviderErrors() async {
+		await compareCloudProviderErrorMapping(for: .itemNotFound, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
+		await compareCloudProviderErrorMapping(for: .itemAlreadyExists, expectedMappedError: NSFileProviderError(.filenameCollision) as Error)
+		await compareCloudProviderErrorMapping(for: .parentFolderDoesNotExist, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
+		await compareCloudProviderErrorMapping(for: .pageTokenInvalid, expectedMappedError: NSFileProviderError(.syncAnchorExpired) as Error)
+		await compareCloudProviderErrorMapping(for: .quotaInsufficient, expectedMappedError: NSFileProviderError(.insufficientQuota) as Error)
+		await compareCloudProviderErrorMapping(for: .unauthorized, expectedMappedError: NSFileProviderError(.notAuthenticated) as Error)
+		await compareCloudProviderErrorMapping(for: .noInternetConnection, expectedMappedError: NSFileProviderError(.serverUnreachable) as Error)
 	}
 
-	func compareErrorMapping(for error: Error, expectedMappedError: Error) {
-		let expectation = XCTestExpectation()
-		executeWorkflow(with: error).then {
-			XCTFail("Promise fulfilled, although expected mapped error: \(expectedMappedError) for original error: \(error)")
-		}.catch { actualMappedError in
-			XCTAssertEqual(expectedMappedError as NSError, actualMappedError as NSError)
-		}.always {
-			expectation.fulfill()
+	func testCancellationErrorPassesThrough() async {
+		await XCTAssertThrowsAsyncError(try await executeWorkflow(with: CancellationError())) { error in
+			XCTAssert(error is CancellationError, "Expected CancellationError, got: \(error)")
 		}
-		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func compareCloudProviderErrorMapping(for error: CloudProviderError, expectedMappedError: Error) {
-		compareErrorMapping(for: error, expectedMappedError: expectedMappedError)
+	func compareErrorMapping(for error: Error, expectedMappedError: Error) async {
+		await XCTAssertThrowsAsyncError(try await executeWorkflow(with: error), "Workflow succeeded, although expected mapped error: \(expectedMappedError) for original error: \(error)") { actualMappedError in
+			XCTAssertEqual(expectedMappedError as NSError, actualMappedError as NSError)
+		}
 	}
 
-	func executeWorkflow(with error: Error) -> Promise<Void> {
+	func compareCloudProviderErrorMapping(for error: CloudProviderError, expectedMappedError: Error) async {
+		await compareErrorMapping(for: error, expectedMappedError: expectedMappedError)
+	}
+
+	func executeWorkflow(with error: Error) async throws {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
-			return Promise(error)
+			throw error
 		}
 		let errorMapper = ErrorMapper<Void>()
 		errorMapper.setNext(workflowMock.eraseToAnyWorkflowMiddleware())
-		return errorMapper.execute(task: DummyTask())
+		try await errorMapper.execute(task: DummyTask())
 	}
 
 	// MARK: - Helpers

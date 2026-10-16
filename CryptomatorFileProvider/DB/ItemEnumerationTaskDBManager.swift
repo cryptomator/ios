@@ -10,12 +10,12 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-protocol ItemEnumerationTaskManager {
+protocol ItemEnumerationTaskManager: Sendable {
 	func createTask(for item: ItemMetadata, pageToken: String?) throws -> ItemEnumerationTask
 	func removeTaskRecord(_ task: ItemEnumerationTaskRecord) throws
 }
 
-class ItemEnumerationTaskDBManager: ItemEnumerationTaskManager {
+final class ItemEnumerationTaskDBManager: ItemEnumerationTaskManager {
 	private let database: DatabaseWriter
 	private let itemMetadataManager: ItemMetadataManager
 

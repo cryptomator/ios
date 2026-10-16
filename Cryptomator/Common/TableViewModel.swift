@@ -8,7 +8,9 @@
 
 import Foundation
 
-class TableViewModel<SectionType: Hashable> {
+class TableViewModel<SectionType: Hashable & Sendable> {
+	init() {}
+
 	var title: String? {
 		return nil
 	}
@@ -41,6 +43,6 @@ class SingleSectionTableViewModel: TableViewModel<SingleSection> {
 	}
 }
 
-enum SingleSection {
+nonisolated enum SingleSection {
 	case main
 }

@@ -10,7 +10,7 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 
-public struct AccountInfo: Decodable, FetchableRecord {
+public nonisolated struct AccountInfo: Decodable, FetchableRecord {
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var accountListPosition: AccountListPosition
 

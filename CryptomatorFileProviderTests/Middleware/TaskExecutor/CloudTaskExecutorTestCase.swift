@@ -7,11 +7,12 @@
 //
 
 import CryptomatorCloudAccessCore
-import Promises
+import os
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
+@MainActor
 class CloudTaskExecutorTestCase: XCTestCase {
 	var cloudProviderMock: CustomCloudProviderMock!
 	var metadataManagerMock: MetadataManagerMock!
@@ -24,7 +25,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		cloudProviderMock = CustomCloudProviderMock()
 		metadataManagerMock = MetadataManagerMock()
 		cachedFileManagerMock = CachedFileManagerMock()
@@ -40,8 +42,9 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 	}
 
-	override func tearDownWithError() throws {
+	override func tearDown() async throws {
 		try FileManager.default.removeItem(at: tmpDirectory)
+		try await super.tearDown()
 	}
 
 	/// Asserts against the values written to the metadata store, not against the live object.
@@ -59,7 +62,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		let statusCode: ItemStatus
 	}
 
-	class MetadataManagerMock: ItemMetadataManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class MetadataManagerMock: ItemMetadataManager, @unchecked Sendable {
 		var cachedMetadata = [Int64: ItemMetadata]()
 		var removedMetadataID = [Int64]()
 		var updatedMetadata = [ItemMetadata]()
@@ -256,7 +260,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 	}
 
-	class CachedFileManagerMock: CachedFileManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class CachedFileManagerMock: CachedFileManager, @unchecked Sendable {
 		func clearCache() throws {}
 
 		var cachedLocalFileInfo = [Int64: LocalCachedFileInfo]()
@@ -300,55 +305,92 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		case notMocked
 	}
 
-	class CloudProviderErrorMock: CloudProvider {
-		var fetchItemMetadataResponse: ((CloudPath) -> Promise<CloudItemMetadata>)?
-		var fetchItemListResponse: ((CloudPath, String?) -> Promise<CloudItemList>)?
-		var downloadFileResponse: ((CloudPath, URL) -> Promise<Void>)?
-		var uploadFileResponse: ((URL, CloudPath, Bool) -> Promise<CloudItemMetadata>)?
-		var deleteFileResponse: ((CloudPath) -> Promise<Void>)?
-		var deleteFolderResponse: ((CloudPath) -> Promise<Void>)?
-		var moveFileResponse: ((CloudPath, CloudPath) -> Promise<Void>)?
-		var moveFolderResponse: ((CloudPath, CloudPath) -> Promise<Void>)?
-		var createFolderResponse: ((CloudPath) -> Promise<Void>)?
+	@dynamicMemberLookup
+	final class CloudProviderErrorMock: CloudProvider {
+		private let responses = OSAllocatedUnfairLock(initialState: CloudProviderErrorMockResponses())
 
-		func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-			fetchItemMetadataResponse?(cloudPath) ?? Promise(MockError.notMocked)
+		subscript<T>(dynamicMember keyPath: WritableKeyPath<CloudProviderErrorMockResponses, T>) -> T {
+			get { responses.withLockUnchecked { $0[keyPath: keyPath] } }
+			set { responses.withLockUnchecked { $0[keyPath: keyPath] = newValue } }
 		}
 
-		func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-			fetchItemListResponse?(cloudPath, pageToken) ?? Promise(MockError.notMocked)
+		@concurrent
+		func fetchItemMetadata(at cloudPath: CloudPath) async throws -> CloudItemMetadata {
+			guard let response = self.fetchItemMetadataResponse else {
+				throw MockError.notMocked
+			}
+			return try await response(cloudPath)
 		}
 
-		func downloadFile(from cloudPath: CryptomatorCloudAccessCore.CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promises.Promise<Void> {
-			downloadFileResponse?(cloudPath, localURL) ?? Promise(MockError.notMocked)
+		@concurrent
+		func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) async throws -> CloudItemList {
+			guard let response = self.fetchItemListResponse else {
+				throw MockError.notMocked
+			}
+			return try await response(cloudPath, pageToken)
 		}
 
-		func uploadFile(from localURL: URL, to cloudPath: CryptomatorCloudAccessCore.CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promises.Promise<CryptomatorCloudAccessCore.CloudItemMetadata> {
-			uploadFileResponse?(localURL, cloudPath, replaceExisting) ?? Promise(MockError.notMocked)
+		@concurrent
+		func downloadFile(from cloudPath: CloudPath, to localURL: URL, progress: Progress?, onTaskCreation: URLSessionDownloadTaskCreationHook?) async throws -> CloudItemMetadata {
+			guard let response = self.downloadFileResponse else {
+				throw MockError.notMocked
+			}
+			self.downloadFileReceivedOnTaskCreation = onTaskCreation
+			return try await response(cloudPath, localURL)
 		}
 
-		func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
-			createFolderResponse?(cloudPath) ?? Promise(MockError.notMocked)
+		@concurrent
+		func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, progress: Progress?, onTaskCreation: URLSessionUploadTaskCreationHook?) async throws -> CloudItemMetadata {
+			guard let response = self.uploadFileResponse else {
+				throw MockError.notMocked
+			}
+			self.uploadFileReceivedOnTaskCreation = onTaskCreation
+			return try await response(localURL, cloudPath, replaceExisting)
 		}
 
-		func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
-			deleteFileResponse?(cloudPath) ?? Promise(MockError.notMocked)
+		@concurrent
+		func createFolder(at cloudPath: CloudPath) async throws {
+			guard let response = self.createFolderResponse else {
+				throw MockError.notMocked
+			}
+			try await response(cloudPath)
 		}
 
-		func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
-			deleteFolderResponse?(cloudPath) ?? Promise(MockError.notMocked)
+		@concurrent
+		func deleteFile(at cloudPath: CloudPath) async throws {
+			guard let response = self.deleteFileResponse else {
+				throw MockError.notMocked
+			}
+			try await response(cloudPath)
 		}
 
-		func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-			moveFileResponse?(sourceCloudPath, targetCloudPath) ?? Promise(MockError.notMocked)
+		@concurrent
+		func deleteFolder(at cloudPath: CloudPath) async throws {
+			guard let response = self.deleteFolderResponse else {
+				throw MockError.notMocked
+			}
+			try await response(cloudPath)
 		}
 
-		func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-			moveFolderResponse?(sourceCloudPath, targetCloudPath) ?? Promise(MockError.notMocked)
+		@concurrent
+		func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
+			guard let response = self.moveFileResponse else {
+				throw MockError.notMocked
+			}
+			try await response(sourceCloudPath, targetCloudPath)
+		}
+
+		@concurrent
+		func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
+			guard let response = self.moveFolderResponse else {
+				throw MockError.notMocked
+			}
+			try await response(sourceCloudPath, targetCloudPath)
 		}
 	}
 
-	class DeletionTaskManagerMock: DeletionTaskManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class DeletionTaskManagerMock: DeletionTaskManager, @unchecked Sendable {
 		var deletionTasks = [Int64: DeletionTaskRecord]()
 		var associatedItemMetadata = [Int64: ItemMetadata]()
 
@@ -386,7 +428,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 	}
 
-	class ReparentTaskManagerMock: ReparentTaskManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class ReparentTaskManagerMock: ReparentTaskManager, @unchecked Sendable {
 		var associatedItemMetadata = [Int64: ItemMetadata]()
 		var reparentTasks = [Int64: ReparentTaskRecord]()
 		var removedReparentTasks = [ReparentTaskRecord]()
@@ -433,7 +476,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 	}
 
-	class ItemEnumerationTaskManagerMock: ItemEnumerationTaskManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class ItemEnumerationTaskManagerMock: ItemEnumerationTaskManager, @unchecked Sendable {
 		var removedTaskRecords = [ItemEnumerationTaskRecord]()
 		var createdTasks = [ItemEnumerationTask]()
 
@@ -453,14 +497,15 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 	}
 
-	class DownloadTaskManagerMock: DownloadTaskManager {
+	/// @unchecked Sendable: test double, never touched concurrently
+	class DownloadTaskManagerMock: DownloadTaskManager, @unchecked Sendable {
 		var removedTasks = [DownloadTaskRecord]()
-		var lastOnURLSessionTaskCreation: URLSessionTaskCreationClosure?
+		var lastOnURLSessionTaskCreation: URLSessionDownloadTaskCreationHook?
 
 		var itemMetadataManager: ItemMetadataManager?
 		var stubCloudPath: CloudPath?
 
-		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: CryptomatorFileProvider.URLSessionTaskCreationClosure?) throws -> DownloadTask {
+		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionDownloadTaskCreationHook?) throws -> DownloadTask {
 			lastOnURLSessionTaskCreation = onURLSessionTaskCreation
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
 			let cloudPath = try stubCloudPath ?? itemMetadataManager?.getCloudPath(for: item.id!) ?? CloudPath("/")
@@ -475,4 +520,18 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	enum CloudTaskTestError: Error {
 		case correctPassthrough
 	}
+}
+
+struct CloudProviderErrorMockResponses {
+	var fetchItemMetadataResponse: (@Sendable (CloudPath) async throws -> CloudItemMetadata)?
+	var fetchItemListResponse: (@Sendable (CloudPath, String?) async throws -> CloudItemList)?
+	var downloadFileResponse: (@Sendable (CloudPath, URL) async throws -> CloudItemMetadata)?
+	var uploadFileResponse: (@Sendable (URL, CloudPath, Bool) async throws -> CloudItemMetadata)?
+	var downloadFileReceivedOnTaskCreation: URLSessionDownloadTaskCreationHook?
+	var uploadFileReceivedOnTaskCreation: URLSessionUploadTaskCreationHook?
+	var deleteFileResponse: (@Sendable (CloudPath) async throws -> Void)?
+	var deleteFolderResponse: (@Sendable (CloudPath) async throws -> Void)?
+	var moveFileResponse: (@Sendable (CloudPath, CloudPath) async throws -> Void)?
+	var moveFolderResponse: (@Sendable (CloudPath, CloudPath) async throws -> Void)?
+	var createFolderResponse: (@Sendable (CloudPath) async throws -> Void)?
 }

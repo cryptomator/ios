@@ -10,9 +10,8 @@ import CryptomatorCommonCore
 import UIKit
 
 extension UIViewController {
-	func handleError(_ error: Error, coordinator: Coordinator?, progressHUD: ProgressHUD) {
-		progressHUD.dismiss(animated: true).then {
-			coordinator?.handleError(error, for: self)
-		}
+	func handleError(_ error: Error, coordinator: Coordinator?, progressHUD: ProgressHUD) async {
+		await progressHUD.dismiss(animated: true)
+		coordinator?.handleError(error, for: self)
 	}
 }

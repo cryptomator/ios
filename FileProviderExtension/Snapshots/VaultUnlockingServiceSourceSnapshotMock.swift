@@ -10,7 +10,8 @@
 import Foundation
 @testable import CryptomatorFileProvider
 
-class VaultUnlockingServiceSourceSnapshotMock: VaultUnlockingServiceSource {
+/// @unchecked Sendable: nothing is mutated after init
+class VaultUnlockingServiceSourceSnapshotMock: VaultUnlockingServiceSource, @unchecked Sendable {
 	override func unlockVault(kek: [UInt8], reply: @escaping (NSError?) -> Void) {
 		FileProviderEnumeratorSnapshotMock.isUnlocked = true
 		reply(nil)

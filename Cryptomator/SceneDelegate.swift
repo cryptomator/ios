@@ -11,7 +11,6 @@ import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import MSAL
-import ObjectiveDropboxOfficial
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -68,22 +67,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				coordinator?.showPurchase()
 			}
 		} else if url.scheme == CloudAccessSecrets.dropboxURLScheme {
-			DBClientsManager.handleRedirectURL(url) { authResult in
-				guard let authResult = authResult else {
-					return
-				}
-				if authResult.isSuccess() {
-					let tokenUid = authResult.accessToken.uid
-					let credential = DropboxCredential(tokenUID: tokenUid)
-					DropboxAuthenticator.pendingAuthentication?.fulfill(credential)
-				} else if authResult.isCancel() {
-					DropboxAuthenticator.pendingAuthentication?.reject(CocoaError(.userCancelled))
-				} else if authResult.isError() {
-					DropboxAuthenticator.pendingAuthentication?.reject(authResult.nsError)
-				}
-			}
+			_ = DropboxAuthenticator.handleRedirectURL(url)
 		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURLScheme {
-			GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
+			try? GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(url)
 		} else if url.scheme == CloudAccessSecrets.microsoftGraphRedirectURIScheme {
 			MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: sourceApplication)
 		}

@@ -17,7 +17,7 @@ protocol UnlockMonitorType {
 
 	 Every `enumerateItems(for:, startingAt:)` call should execute its work via this method.
 	 */
-	func execute(_ work: @escaping () -> Void)
+	func execute(_ work: @escaping @Sendable () -> Void)
 
 	/**
 	 Signals the start of a biometrical unlock for the vault with `vaultUID`.
@@ -67,7 +67,8 @@ protocol UnlockMonitorType {
 	func getUnlockError(forVaultUID vaultUID: String) -> UnlockMonitorError
 }
 
-class UnlockMonitor: UnlockMonitorType {
+/// @unchecked Sendable: `unlockStates` confined to `queue`
+class UnlockMonitor: UnlockMonitorType, @unchecked Sendable {
 	var enrolledBiometricsAuthenticationName: () -> String? = { LAContext().enrolledBiometricsAuthenticationName() }
 	private(set) lazy var unlockStates = [String: BiometricalUnlockState]()
 	private let queue = DispatchQueue(label: "BiometricalUnlockMonitor", attributes: .concurrent)
@@ -138,7 +139,7 @@ class UnlockMonitor: UnlockMonitorType {
 		}
 	}
 
-	func execute(_ work: @escaping () -> Void) {
+	func execute(_ work: @escaping @Sendable () -> Void) {
 		taskExecutor.execute {
 			work()
 		}
@@ -153,10 +154,11 @@ class UnlockMonitor: UnlockMonitorType {
 
 protocol UnlockMonitorTaskExecutorType: AnyObject {
 	var runningBiometricalUnlock: Bool { get set }
-	func execute(_ work: @escaping () -> Void)
+	func execute(_ work: @escaping @Sendable () -> Void)
 }
 
-class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType {
+/// @unchecked Sendable: cross-thread coordination goes through the `NSConditionLock`, but `runningBiometricalUnlock` itself is written unsynchronized from `UnlockMonitor`'s callers
+class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType, @unchecked Sendable {
 	var runningBiometricalUnlock: Bool = false {
 		didSet {
 			if runningBiometricalUnlock {
@@ -171,7 +173,7 @@ class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType {
 	private static let RUNNING_BIOMETRICAL_UNLOCK = 1
 	private static let NO_RUNNING_BIOMETRICAL_UNLOCK = 0
 	// swiftlint:enable identifier_name
-	private lazy var lock = NSConditionLock(condition: UnlockMonitorTaskExecutor.NO_RUNNING_BIOMETRICAL_UNLOCK)
+	private let lock = NSConditionLock(condition: UnlockMonitorTaskExecutor.NO_RUNNING_BIOMETRICAL_UNLOCK)
 	private let queue = DispatchQueue(label: "UnlockHelper")
 
 	private func wait() {
@@ -179,7 +181,7 @@ class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType {
 		lock.unlock(withCondition: UnlockMonitorTaskExecutor.NO_RUNNING_BIOMETRICAL_UNLOCK)
 	}
 
-	func execute(_ work: @escaping () -> Void) {
+	func execute(_ work: @escaping @Sendable () -> Void) {
 		queue.async { [weak self] in
 			self?.wait()
 			work()

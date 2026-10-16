@@ -7,21 +7,17 @@
 //
 
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class UploadProgressAlertController: UIAlertController {
-	/// Promise fulfills as soon as a alert action gets triggered
-	let alertActionTriggered = Promise<Void>.pending()
+	let alertActionTriggered = OneShotSignal<Void>()
 
 	var progress: Double? {
 		didSet {
-			DispatchQueue.main.async {
-				if let progress = self.progress {
-					self.setMessage(with: progress)
-				} else {
-					self.setMessageForMissingProgress()
-				}
+			if let progress = progress {
+				setMessage(with: progress)
+			} else {
+				setMessageForMissingProgress()
 			}
 		}
 	}
@@ -43,22 +39,21 @@ class UploadProgressAlertController: UIAlertController {
 		message = LocalizedString.getValue("fileProvider.uploadProgress.missing")
 	}
 
-	func observeProgress(itemIdentifier: NSFileProviderItemIdentifier, proxy: UploadRetrying) -> Promise<Void> {
-		return Promise<Void> { fulfill, _ in
-			Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-				let isVisible = self?.viewIfLoaded?.window != nil
-				if isVisible {
-					proxy.getCurrentFractionalUploadProgress(for: itemIdentifier) { number in
-						let currentProgress = number?.doubleValue
-						self?.progress = currentProgress
-						if let progress = currentProgress, progress >= 1.0 {
-							timer.invalidate()
-							fulfill(())
-						}
-					}
-				} else {
-					timer.invalidate()
-				}
+	/**
+	 Polls the upload progress every second until the upload finished or the alert is no longer visible.
+
+	 Throws `CancellationError` as soon as the task is cancelled, even while an XPC reply is outstanding.
+	 */
+	func observeProgress(itemIdentifier: NSFileProviderItemIdentifier, proxy: UploadRetrying) async throws {
+		while true {
+			try await Task.sleep(for: .seconds(1))
+			guard viewIfLoaded?.window != nil else {
+				return
+			}
+			let currentProgress = try await proxy.getCurrentFractionalUploadProgress(for: itemIdentifier)
+			progress = currentProgress
+			if let currentProgress, currentProgress >= 1.0 {
+				return
 			}
 		}
 	}

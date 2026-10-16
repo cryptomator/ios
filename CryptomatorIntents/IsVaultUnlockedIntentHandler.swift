@@ -11,7 +11,6 @@ import Dependencies
 import FileProvider
 import Foundation
 import Intents
-import Promises
 
 class IsVaultUnlockedIntentHandler: NSObject, IsVaultUnlockedIntentHandling {
 	let vaultOptionsProvider: VaultOptionsProvider
@@ -48,18 +47,11 @@ class IsVaultUnlockedIntentHandler: NSObject, IsVaultUnlockedIntentHandling {
 	// MARK: Internal
 
 	private func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) async throws -> Bool {
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return try await withCheckedThrowingContinuation({ continuation in
-			getXPCPromise.then { xpc in
-				xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
-			}.then {
-				continuation.resume(returning: $0)
-			}.catch {
-				continuation.resume(throwing: $0)
-			}.always { [fileProviderConnector] in
-				fileProviderConnector.invalidateXPC(getXPCPromise)
-			}
-		})
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
+		}
+		return await xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 	}
 }
 

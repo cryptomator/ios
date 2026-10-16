@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import UIKit
 
 protocol DefaultAccountSelectionBehavior: DefaultAccountReauthenticationBehavior {
@@ -36,26 +35,26 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 		hud.text = nil
 		hud.show(presentingViewController: navigationController)
 
-		let provider: CloudProvider
-		do {
-			provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		} catch {
-			hud.dismiss(animated: true) {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			let provider: CloudProvider
+			do {
+				provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			} catch {
+				await hud.dismiss(animated: true)
+				handleError(error, for: navigationController)
+				return
 			}
-			return
-		}
 
-		provider.fetchItemList(forFolderAt: CloudPath("/"), withPageToken: nil).then { _ in
-			hud.dismiss(animated: true) {
-				self.proceedWithValidatedAccount(provider: provider, account: account.cloudProviderAccount)
-			}
-		}.catch { error in
-			hud.dismiss(animated: true) {
+			do {
+				_ = try await provider.fetchItemList(forFolderAt: CloudPath("/"), withPageToken: nil)
+				await hud.dismiss(animated: true)
+				proceedWithValidatedAccount(provider: provider, account: account.cloudProviderAccount)
+			} catch {
+				await hud.dismiss(animated: true)
 				if error.isUnauthorizedError {
-					self.showReauthenticationAlert(for: account)
+					showReauthenticationAlert(for: account)
 				} else {
-					self.handleError(error, for: self.navigationController)
+					handleError(error, for: navigationController)
 				}
 			}
 		}
@@ -79,12 +78,15 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 	}
 
 	private func showReauthentication(for account: CloudProviderAccount, from viewController: UIViewController) {
-		reauthenticate(account, from: viewController).then { reAuthAccount in
+		Task {
+			guard let reAuthAccount = try? await reauthenticate(account, from: viewController) else {
+				return
+			}
 			do {
 				let provider = try CloudProviderDBManager.shared.getProvider(with: reAuthAccount.accountUID)
-				self.proceedWithValidatedAccount(provider: provider, account: reAuthAccount)
+				proceedWithValidatedAccount(provider: provider, account: reAuthAccount)
 			} catch {
-				self.handleError(error, for: self.navigationController)
+				handleError(error, for: navigationController)
 			}
 		}
 	}

@@ -12,7 +12,6 @@ import Dependencies
 import FileProvider
 import Foundation
 import LocalAuthentication
-import Promises
 import UIKit
 
 class SnapshotCoordinator: MainCoordinator {
@@ -56,40 +55,38 @@ class SnapshotCoordinator: MainCoordinator {
 	}
 }
 
-private enum FileProviderConnectorKey: DependencyKey {
-	static var liveValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
+private nonisolated enum FileProviderConnectorKey: DependencyKey {
+	static let liveValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
 	#if DEBUG
-	static var testValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
+	static let testValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
 	#endif
 }
 
-public extension DependencyValues {
+public nonisolated extension DependencyValues {
 	var fileProviderConnector: FileProviderConnector {
 		get { self[FileProviderConnectorKey.self] }
 		set { self[FileProviderConnectorKey.self] = newValue }
 	}
 }
 
-private class SnapshotFileProviderConnectorMock: FileProviderConnector {
-	let proxy = SnapshotVaultLockingMock()
-
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
-		return getCastedProxy()
+private final nonisolated class SnapshotFileProviderConnectorMock: FileProviderConnector {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
+		return try getCastedProxy()
 	}
 
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
-		return getCastedProxy()
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
+		return try getCastedProxy()
 	}
 
-	private func getCastedProxy<T>() -> Promise<XPC<T>> {
-		guard let castedProxy = proxy as? T else {
-			return Promise(FileProviderXPCConnectorError.typeMismatch)
+	private func getCastedProxy<T>() throws -> XPC<T> {
+		guard let castedProxy = SnapshotVaultLockingMock() as? T else {
+			throw FileProviderXPCConnectorError.typeMismatch
 		}
-		return Promise(XPC(proxy: castedProxy))
+		return XPC(proxy: castedProxy)
 	}
 }
 
-private class SnapshotVaultLockingMock: VaultLocking {
+private nonisolated class SnapshotVaultLockingMock: NSObject, VaultLocking {
 	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
 		reply(nil)
 	}

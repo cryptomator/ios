@@ -10,7 +10,8 @@ import CryptomatorFileProvider
 import FileProvider
 import Foundation
 
-final class PermissionProviderMock: PermissionProvider {
+/// @unchecked Sendable: test double, never touched concurrently
+final class PermissionProviderMock: PermissionProvider, @unchecked Sendable {
 	// MARK: - getPermissions
 
 	var getPermissionsForAtCallsCount = 0

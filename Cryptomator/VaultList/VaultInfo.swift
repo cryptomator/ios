@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 
-public class VaultInfo: Decodable, FetchableRecord {
+public nonisolated class VaultInfo: Decodable, FetchableRecord {
 	var vaultAccount: VaultAccount
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var vaultListPosition: VaultListPosition
@@ -69,13 +69,13 @@ public class VaultInfo: Decodable, FetchableRecord {
 	}
 }
 
-extension VaultInfo: Equatable {
+nonisolated extension VaultInfo: Equatable {
 	public static func == (lhs: VaultInfo, rhs: VaultInfo) -> Bool {
 		return lhs.vaultPath == rhs.vaultPath && lhs.vaultName == rhs.vaultName && lhs.vaultUID == rhs.vaultUID && lhs.cloudProviderType == rhs.cloudProviderType && lhs.delegateAccountUID == rhs.delegateAccountUID && lhs.listPosition == rhs.listPosition && lhs.vaultIsUnlocked == rhs.vaultIsUnlocked
 	}
 }
 
-extension VaultInfo: Hashable {
+nonisolated extension VaultInfo: Hashable {
 	public func hash(into hasher: inout Hasher) {
 		hasher.combine(vaultIsUnlocked)
 		hasher.combine(vaultPath.path)

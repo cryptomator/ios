@@ -13,7 +13,6 @@ import CryptomatorCommonCore
 import Dependencies
 import GRDB
 import LocalAuthentication
-import Promises
 import UIKit
 
 protocol VaultDetailViewModelProtocol {
@@ -29,8 +28,8 @@ protocol VaultDetailViewModelProtocol {
 	func didSelectRow(at indexPath: IndexPath)
 
 	func removeVault() throws
-	func lockVault() -> Promise<Void>
-	func refreshVaultStatus() -> Promise<Void>
+	func lockVault() async throws
+	func refreshVaultStatus() async throws
 }
 
 enum VaultDetailButtonAction {
@@ -218,27 +217,18 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		_ = try vaultManager.removeVault(withUID: vaultUID)
 	}
 
-	func lockVault() -> Promise<Void> {
+	func lockVault() async throws {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-
-		return getXPCPromise.then { xpc -> Void in
-			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
-			self.vaultInfo.vaultIsUnlocked.value = false
-		}
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
+		vaultInfo.vaultIsUnlocked.value = false
 	}
 
-	func refreshVaultStatus() -> Promise<Void> {
+	func refreshVaultStatus() async throws {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		switchCellViewModel?.isOn.value = biometricalUnlockEnabled
-		return getXPCPromise.then { xpc in
-			return wrap { handler in
-				xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: handler)
-			}
-		}.then { isUnlocked -> Void in
-			self.vaultInfo.vaultIsUnlocked.value = isUnlocked
-		}
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		vaultInfo.vaultIsUnlocked.value = await xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 	}
 
 	private func getSwitchCellViewModel(biometryTypeName: String) -> SwitchCellViewModel {

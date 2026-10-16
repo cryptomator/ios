@@ -15,7 +15,7 @@ import MSAL
 import StoreKit
 import UIKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Set up logger
@@ -27,8 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Set up database
 		DatabaseManager.shared = DatabaseManager()
 
-		VaultDBManager.shared.recoverMissingFileProviderDomains().catch { error in
-			DDLogError("Recover missing FileProvider domains failed with error: \(error)")
+		Task {
+			do {
+				try await VaultDBManager.shared.recoverMissingFileProviderDomains()
+			} catch {
+				DDLogError("Recover missing FileProvider domains failed with error: \(error)")
+			}
 		}
 		cleanup()
 
@@ -56,7 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	private func cleanup() {
-		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
+		Task {
+			try? await VaultDBManager.shared.removeAllUnusedFileProviderDomains()
+		}
 		do {
 			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
 			try WebDAVCredentialManager.shared.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
@@ -79,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  Define the liveValue in the main target since compilation flags do not work on Swift Package Manager level.
  Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
  */
-extension FullVersionCheckerKey: DependencyKey {
+nonisolated extension FullVersionCheckerKey: DependencyKey {
 	public static var liveValue: FullVersionChecker {
 		#if ALWAYS_PREMIUM
 		return AlwaysActivatedPremium.default

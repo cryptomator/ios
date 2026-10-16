@@ -11,7 +11,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 
 public enum LoggerSetup {
-	public static var oneTimeSetup: () -> Void = {
+	public static let oneTimeSetup: @Sendable () -> Void = {
 		let fileLogger = DDFileLogger.sharedInstance
 		fileLogger.rollingFrequency = 60 * 60 * 24 // 24 hour rolling
 		fileLogger.logFileManager.maximumNumberOfLogFiles = 7
@@ -30,7 +30,8 @@ public enum LoggerSetup {
 }
 
 public extension DDFileLogger {
-	static var sharedInstance: DDFileLogger = {
+	// nonisolated(unsafe): DDFileLogger synchronizes its state internally
+	nonisolated(unsafe) static let sharedInstance: DDFileLogger = {
 		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
 			print("containerURL is nil")
 			return DDFileLogger()

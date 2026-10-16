@@ -13,8 +13,6 @@ import CryptomatorCryptoLib
 import FileProvider
 import Foundation
 import JOSESwift
-import os.log
-import Promises
 
 public enum VaultManagerError: Error {
 	case vaultAlreadyExists
@@ -24,22 +22,23 @@ public enum VaultManagerError: Error {
 	case missingVaultConfigToken
 }
 
-public protocol VaultManager {
-	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
+public protocol VaultManager: Sendable {
+	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) async throws
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider
-	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
-	func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void>
-	func removeAllUnusedFileProviderDomains() -> Promise<Void>
-	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
-	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
-	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void>
+	@discardableResult func removeVault(withUID vaultUID: String) throws -> Task<Void, Never>
+	func removeVaults(withUIDs vaultUIDs: [String]) async throws
+	func removeAllUnusedFileProviderDomains() async throws
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) async throws
+	func addExistingHubVault(_ vault: ExistingHubVault) async throws
 	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider
 }
 
-public class VaultDBManager: VaultManager {
+/// @unchecked Sendable: all stored properties are immutable and Sendable; the class is only subclassed by test doubles
+public class VaultDBManager: VaultManager, @unchecked Sendable {
 	public static let shared = VaultDBManager(providerManager: CloudProviderDBManager.shared,
 	                                          vaultAccountManager: VaultAccountDBManager.shared,
 	                                          vaultCache: VaultDBCache(),
@@ -78,103 +77,83 @@ public class VaultDBManager: VaultManager {
 	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
 	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultPath` are stored as `VaultAccount` in the database.
 	 */
-	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) async throws {
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		let cipherCombo = CryptorScheme.sivGcm
 		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: cipherCombo, shorteningThreshold: 220)
-		let masterkey: Masterkey
-		let provider: LocalizedCloudProviderDecorator
-		let vaultConfigToken: Data
-		var cachedVault: CachedVault
-		do {
-			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-			masterkey = try Masterkey.createNew()
-			vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-			let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
-			cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
-		} catch {
-			return Promise(error)
-		}
+		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+		let masterkey = try Masterkey.createNew()
+		let vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
+		let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
+		var cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		let cryptor = Cryptor(masterkey: masterkey, scheme: cipherCombo)
-		return provider.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
-			try self.uploadMasterkey(masterkey, password: password, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
-		}.then { masterkeyFileMetadata -> Promise<CloudItemMetadata> in
+		do {
+			try await provider.createFolder(at: vaultPath)
+			let masterkeyFileMetadata = try await uploadMasterkey(masterkey, password: password, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 			cachedVault.masterkeyFileLastModifiedDate = masterkeyFileMetadata.lastModifiedDate
-			return try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
-		}.then { vaultConfigMetadata -> Promise<Void> in
+			let vaultConfigMetadata = try await uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 			cachedVault.vaultConfigLastModifiedDate = vaultConfigMetadata.lastModifiedDate
-			return try self.createVaultFolderStructure(cryptor: cryptor, vaultPath: vaultPath, provider: provider)
-		}.then {
-			return try self.uploadRootDirIdFile(cryptor: cryptor, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
-		}.then { _ -> Promise<Void> in
+			try await createVaultFolderStructure(cryptor: cryptor, vaultPath: vaultPath, provider: provider)
+			try await uploadRootDirIdFile(cryptor: cryptor, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 			_ = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
-			return self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultPath.lastPathComponent)
-		}.then {
+			try await addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultPath.lastPathComponent)
 			let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultPath.lastPathComponent)
-			try self.vaultAccountManager.saveNewAccount(account)
-			try self.postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
+			try vaultAccountManager.saveNewAccount(account)
+			try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
 			DDLogInfo("Created new vault \"\(vaultPath.lastPathComponent)\" (\(vaultUID))")
-		}.catch { error in
-			DDLogError("Creating new vault \"\(vaultPath.lastPathComponent)\" (\(vaultUID)) failed with error: \(error)")
-		}
-	}
-
-	private func uploadMasterkey(_ masterkey: Masterkey, password: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
-		let masterkeyData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
-		return uploadMasterkeyFileData(masterkeyData, vaultPath: vaultPath, replaceExisting: false, provider: provider, tmpDirURL: tmpDirURL)
-	}
-
-	private func uploadMasterkeyFileData(_ data: Data, vaultPath: CloudPath, replaceExisting: Bool, provider: CloudProvider, tmpDirURL: URL) -> Promise<CloudItemMetadata> {
-		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		do {
-			try data.write(to: localMasterkeyURL)
 		} catch {
-			return Promise(error)
+			DDLogError("Creating new vault \"\(vaultPath.lastPathComponent)\" (\(vaultUID)) failed with error: \(error)")
+			throw error
 		}
-		let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting).always {
+	}
+
+	private func uploadMasterkey(_ masterkey: Masterkey, password: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) async throws -> CloudItemMetadata {
+		let masterkeyData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
+		return try await uploadMasterkeyFileData(masterkeyData, vaultPath: vaultPath, replaceExisting: false, provider: provider, tmpDirURL: tmpDirURL)
+	}
+
+	private func uploadMasterkeyFileData(_ data: Data, vaultPath: CloudPath, replaceExisting: Bool, provider: CloudProvider, tmpDirURL: URL) async throws -> CloudItemMetadata {
+		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		try data.write(to: localMasterkeyURL)
+		defer {
 			try? FileManager.default.removeItem(at: localMasterkeyURL)
 		}
+		let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
+		return try await provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting)
 	}
 
-	private func uploadVaultConfigToken(_ token: Data, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
+	private func uploadVaultConfigToken(_ token: Data, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) async throws -> CloudItemMetadata {
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		try token.write(to: localVaultConfigURL)
-		let vaultConfigCloudPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false).always {
+		defer {
 			try? FileManager.default.removeItem(at: localVaultConfigURL)
 		}
+		let vaultConfigCloudPath = vaultPath.appendingPathComponent("vault.cryptomator")
+		return try await provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
 	}
 
-	private func createVaultFolderStructure(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
+	private func createVaultFolderStructure(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider) async throws {
 		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 		let dPath = vaultPath.appendingPathComponent("d")
-		return provider.createFolder(at: dPath).then { _ -> Promise<Void> in
-			let twoCharsPath = rootDirPath.deletingLastPathComponent()
-			return provider.createFolder(at: twoCharsPath)
-		}.then {
-			provider.createFolder(at: rootDirPath)
-		}
+		try await provider.createFolder(at: dPath)
+		let twoCharsPath = rootDirPath.deletingLastPathComponent()
+		try await provider.createFolder(at: twoCharsPath)
+		try await provider.createFolder(at: rootDirPath)
 	}
 
-	private func uploadRootDirIdFile(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<Void> {
+	private func uploadRootDirIdFile(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) async throws {
 		let cleartextDirIdFileURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		try Data().write(to: cleartextDirIdFileURL)
 		let ciphertextDirIdFileURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		try cryptor.encryptContent(from: cleartextDirIdFileURL, to: ciphertextDirIdFileURL)
+		try await cryptor.encryptContent(from: cleartextDirIdFileURL, to: ciphertextDirIdFileURL, progress: nil)
 		try? FileManager.default.removeItem(at: cleartextDirIdFileURL)
 
 		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 		let ciphertextDirIdFileCloudPath = rootDirPath.appendingPathComponent("dirid.c9r")
-		return provider.uploadFile(from: ciphertextDirIdFileURL, to: ciphertextDirIdFileCloudPath, replaceExisting: false).then { _ in
-			// ignore result
-		}.recover { _ in
-			// ignore error
-		}.always {
-			try? FileManager.default.removeItem(at: ciphertextDirIdFileURL)
-		}
+		_ = try? await provider.uploadFile(from: ciphertextDirIdFileURL, to: ciphertextDirIdFileCloudPath, replaceExisting: false)
+		try? FileManager.default.removeItem(at: ciphertextDirIdFileURL)
 	}
 
 	// MARK: - Open Existing Vault
@@ -190,117 +169,84 @@ public class VaultDBManager: VaultManager {
 	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
 	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
 	 */
-	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.downloadFileWithMetadata(from: vaultConfigPath, to: localVaultConfigURL).then { vaultConfigMetadata in
-			all(provider.downloadFileWithMetadata(from: masterkeyPath, to: localMasterkeyURL), Promise(vaultConfigMetadata))
-		}.then { masterkeyFileMetadata, vaultConfigMetadata -> CachedVault in
+		do {
+			let vaultConfigMetadata = try await provider.downloadFile(from: vaultConfigPath, to: localVaultConfigURL)
+			let masterkeyFileMetadata = try await provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
 			let vaultConfigToken = try Data(contentsOf: localVaultConfigURL)
 			let masterkeyFileData = try Data(contentsOf: localMasterkeyURL)
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
 			_ = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
-			return CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: masterkeyFileMetadata.lastModifiedDate, vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
-		}.then { cachedVault -> Promise<(CachedVault, Void)> in
-			all(Promise(cachedVault), self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name))
-		}.then { cachedVault, _ -> Void in
+			let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: masterkeyFileMetadata.lastModifiedDate, vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
+			try await addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
-			try self.vaultAccountManager.saveNewAccount(vaultAccount)
-			try self.postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
+			try vaultAccountManager.saveNewAccount(vaultAccount)
+			try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
 			DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
-		}.catch { error in
+		} catch {
 			DDLogError("Opening existing vault \"\(vaultItem.name)\" (\(vaultUID)) failed with error: \(error)")
+			throw error
 		}
 	}
 
 	// swiftlint:disable:next function_parameter_count
-	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, downloadedVaultConfig: DownloadedVaultConfig, downloadedMasterkey: DownloadedMasterkeyFile, vaultItem: VaultItem, password: String) -> Promise<Void> {
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, downloadedVaultConfig: DownloadedVaultConfig, downloadedMasterkey: DownloadedMasterkeyFile, vaultItem: VaultItem, password: String) async throws {
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigMetadata = downloadedVaultConfig.metadata
 		let vaultConfigToken = downloadedVaultConfig.token
 		let masterkeyFile = downloadedMasterkey.masterkeyFile
 		let masterkeyFileData = downloadedMasterkey.masterkeyFileData
 		let masterkeyFileMetadata = downloadedMasterkey.metadata
-		do {
-			let masterkey = try masterkeyFile.unlock(passphrase: password)
-			_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
-		} catch {
-			return Promise(error)
-		}
+		let masterkey = try masterkeyFile.unlock(passphrase: password)
+		_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
 		let vaultConfigLastModifiedDate = vaultConfigMetadata.lastModifiedDate
 		let masterkeyFileLastModifiedDate = masterkeyFileMetadata.lastModifiedDate
 		let lastUpToDateCheck: Date = (vaultConfigLastModifiedDate ?? .distantPast) < (masterkeyFileLastModifiedDate ?? .distantPast) ? masterkeyFileLastModifiedDate! : vaultConfigLastModifiedDate ?? Date()
 		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: lastUpToDateCheck, masterkeyFileLastModifiedDate: masterkeyFileMetadata.lastModifiedDate, vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
-		return addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name).then {
-			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
-			try self.vaultAccountManager.saveNewAccount(vaultAccount)
-			try self.postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: false)
-			DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
-		}
+		try await addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
+		try vaultAccountManager.saveNewAccount(vaultAccount)
+		try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: false)
+		DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
 	}
 
-	public func getUnverifiedVaultConfig(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedVaultConfig> {
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+	public func getUnverifiedVaultConfig(delegateAccountUID: String, vaultItem: VaultItem) async throws -> DownloadedVaultConfig {
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return provider.downloadFileWithMetadata(from: vaultConfigPath, to: localVaultConfigURL).then { vaultConfigMetadata -> DownloadedVaultConfig in
-			let vaultConfigToken = try Data(contentsOf: localVaultConfigURL)
-			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
-			return DownloadedVaultConfig(vaultConfig: unverifiedVaultConfig, token: vaultConfigToken, metadata: vaultConfigMetadata)
-		}
+		let vaultConfigMetadata = try await provider.downloadFile(from: vaultConfigPath, to: localVaultConfigURL)
+		let vaultConfigToken = try Data(contentsOf: localVaultConfigURL)
+		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+		return DownloadedVaultConfig(vaultConfig: unverifiedVaultConfig, token: vaultConfigToken, metadata: vaultConfigMetadata)
 	}
 
-	public func downloadMasterkeyFile(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedMasterkeyFile> {
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+	public func downloadMasterkeyFile(delegateAccountUID: String, vaultItem: VaultItem) async throws -> DownloadedMasterkeyFile {
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let vaultPath = vaultItem.vaultPath
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.downloadFileWithMetadata(from: masterkeyPath, to: localMasterkeyURL).then { masterkeyFileMetadata -> DownloadedMasterkeyFile in
-			let masterkeyFileData = try Data(contentsOf: localMasterkeyURL)
-			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
-			return DownloadedMasterkeyFile(masterkeyFile: masterkeyFile, metadata: masterkeyFileMetadata, masterkeyFileData: masterkeyFileData)
-		}
+		let masterkeyFileMetadata = try await provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
+		let masterkeyFileData = try Data(contentsOf: localMasterkeyURL)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+		return DownloadedMasterkeyFile(masterkeyFile: masterkeyFile, metadata: masterkeyFileMetadata, masterkeyFileData: masterkeyFileData)
 	}
 
-	public func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+	public func addExistingHubVault(_ vault: ExistingHubVault) async throws {
 		let delegateAccountUID = vault.delegateAccountUID
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let vaultItem = vault.vaultItem
 		let downloadedVaultConfig = vault.downloadedVaultConfig
 		let jweData = vault.jweData
@@ -308,18 +254,9 @@ public class VaultDBManager: VaultManager {
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigMetadata = downloadedVaultConfig.metadata
 		let vaultConfigToken = downloadedVaultConfig.token
-		let masterkey: Masterkey
-		do {
-			let jwe = try JWE(compactSerialization: jweData)
-			masterkey = try JWEHelper.decryptVaultKey(jwe: jwe, with: vault.privateKey)
-		} catch {
-			return Promise(error)
-		}
-		do {
-			_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
-		} catch {
-			return Promise(error)
-		}
+		let jwe = try JWE(compactSerialization: jweData)
+		let masterkey = try JWEHelper.decryptVaultKey(jwe: jwe, with: vault.privateKey)
+		_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
 		let vaultUID = vault.vaultUID
 		let cachedVault = CachedVault(vaultUID: vaultUID,
 		                              masterkeyFileData: jweData,
@@ -327,18 +264,19 @@ public class VaultDBManager: VaultManager {
 		                              lastUpToDateCheck: Date(),
 		                              masterkeyFileLastModifiedDate: nil,
 		                              vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
-		return addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name).then {
-			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
-			try self.vaultAccountManager.saveNewAccount(vaultAccount)
-			do {
-				try self.postProcessVaultCreation(cachedVault: cachedVault, password: nil)
-			} catch {
-				try self.vaultAccountManager.removeAccount(with: vaultUID)
-				_ = self.removeFileProviderDomain(withVaultUID: vaultUID)
-				throw error
+		try await addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
+		try vaultAccountManager.saveNewAccount(vaultAccount)
+		do {
+			try postProcessVaultCreation(cachedVault: cachedVault, password: nil)
+		} catch {
+			try vaultAccountManager.removeAccount(with: vaultUID)
+			Task {
+				try? await removeFileProviderDomain(withVaultUID: vaultUID)
 			}
-			DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
+			throw error
 		}
+		DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
 	}
 
 	/**
@@ -353,31 +291,27 @@ public class VaultDBManager: VaultManager {
 	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
 	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
 	 */
-	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let provider: LocalizedCloudProviderDecorator
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
+	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let vaultPath = vaultItem.vaultPath
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.downloadFileWithMetadata(from: masterkeyPath, to: localMasterkeyURL).then { masterkeyFileMetadata -> Promise<(CachedVault, Void)>in
+		do {
+			let masterkeyFileMetadata = try await provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
 			let masterkeyFileData = try Data(contentsOf: localMasterkeyURL)
 			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
 			_ = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: masterkeyFile.version, vaultPath: vaultPath, with: provider.delegate)
 			let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: masterkeyFileMetadata.lastModifiedDate, vaultConfigLastModifiedDate: nil)
-			return all(Promise(cachedVault), self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name))
-		}.then { cachedVault, _ -> Void in
+			try await addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
-			try self.vaultAccountManager.saveNewAccount(vaultAccount)
-			try self.postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
+			try vaultAccountManager.saveNewAccount(vaultAccount)
+			try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
 			DDLogInfo("Opened existing legacy vault \"\(vaultItem.name)\" (\(vaultUID))")
-		}.catch { error in
+		} catch {
 			DDLogError("Opening existing legacy vault \"\(vaultItem.name)\" (\(vaultUID)) failed with error: \(error)")
+			throw error
 		}
 	}
 
@@ -389,21 +323,25 @@ public class VaultDBManager: VaultManager {
 	 - Postcondition: The `VaultAccount` for the `vaultUID` was removed in the database.
 	 - Postcondition: The password for the `vaultUID` was removed.
 	 - Postcondition: There is no longer a masterkey cached in the keychain for the `vaultUID`.
-	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the `NSFileProvider`.
+	 - Postcondition: The returned task removes the `NSFileProviderDomain` with the `vaultUID` as `identifier` from the `NSFileProvider`.
 	 */
-	public func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
+	@discardableResult
+	public func removeVault(withUID vaultUID: String) throws -> Task<Void, Never> {
 		do {
 			try passwordManager.removePassword(forVaultUID: vaultUID)
 			try vaultAccountManager.removeAccount(with: vaultUID)
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-			return removeFileProviderDomain(withVaultUID: vaultUID).then { _ in
-				DDLogInfo("Removed vault \(vaultUID)")
-			}.catch { error in
-				DDLogError("Removing vault \(vaultUID) failed with error: \(error)")
-			}
 		} catch {
 			DDLogError("Removing vault \(vaultUID) failed with error: \(error)")
 			throw error
+		}
+		return Task {
+			do {
+				try await removeFileProviderDomain(withVaultUID: vaultUID)
+				DDLogInfo("Removed vault \(vaultUID)")
+			} catch {
+				DDLogError("Removing vault \(vaultUID) failed with error: \(error)")
+			}
 		}
 	}
 
@@ -412,41 +350,37 @@ public class VaultDBManager: VaultManager {
 	 - Precondition: `VaultAccount`s for the `vaultUIDs` exist in the database.
 	 - Postcondition: All specified vaults are removed from the database, keychain, and FileProvider.
 	 */
-	public func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void> {
+	@concurrent
+	public func removeVaults(withUIDs vaultUIDs: [String]) async throws {
 		guard !vaultUIDs.isEmpty else {
-			return Promise(())
+			return
 		}
-
-		return Promise<Void>(on: .global()) { fulfill, reject in
-			do {
-				// Remove passwords and cached masterkeys for all vaults
-				for vaultUID in vaultUIDs {
-					do {
-						try self.passwordManager.removePassword(forVaultUID: vaultUID)
-						try self.masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-					} catch {
-						DDLogError("Failed to remove password/masterkey for vault \(vaultUID): \(error)")
-					}
+		do {
+			// Remove passwords and cached masterkeys for all vaults
+			for vaultUID in vaultUIDs {
+				do {
+					try passwordManager.removePassword(forVaultUID: vaultUID)
+					try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
+				} catch {
+					DDLogError("Failed to remove password/masterkey for vault \(vaultUID): \(error)")
 				}
-
-				// Remove all FileProvider domains
-				for vaultUID in vaultUIDs {
-					do {
-						try awaitPromise(self.removeFileProviderDomain(withVaultUID: vaultUID))
-					} catch {
-						DDLogError("Failed to remove FileProvider domain for vault \(vaultUID): \(error)")
-					}
-				}
-
-				// Remove all vault accounts in a single transaction
-				try self.vaultAccountManager.removeAccounts(with: vaultUIDs)
-				DDLogInfo("Removed \(vaultUIDs.count) vaults")
-
-				fulfill(())
-			} catch {
-				DDLogError("Removing vaults failed with error: \(error)")
-				reject(error)
 			}
+
+			// Remove all FileProvider domains
+			for vaultUID in vaultUIDs {
+				do {
+					try await removeFileProviderDomain(withVaultUID: vaultUID)
+				} catch {
+					DDLogError("Failed to remove FileProvider domain for vault \(vaultUID): \(error)")
+				}
+			}
+
+			// Remove all vault accounts in a single transaction
+			try vaultAccountManager.removeAccounts(with: vaultUIDs)
+			DDLogInfo("Removed \(vaultUIDs.count) vaults")
+		} catch {
+			DDLogError("Removing vaults failed with error: \(error)")
+			throw error
 		}
 	}
 
@@ -456,31 +390,23 @@ public class VaultDBManager: VaultManager {
 	 An unused FileProviderDomain is a domain that has no associated vault in the database.
 	 An unused domain can be caused, for example, when the user reinstalls the app.
 	 */
-	public func removeAllUnusedFileProviderDomains() -> Promise<Void> {
-		let vaultUIDs: [String]
-		do {
-			let vaults = try vaultAccountManager.getAllAccounts()
-			vaultUIDs = vaults.map { $0.vaultUID }
-		} catch {
-			return Promise(error)
-		}
-		return NSFileProviderManager.getDomains().then { domains -> Promise<Void> in
-			let unusedDomains = domains.filter { !vaultUIDs.contains($0.identifier.rawValue) }
-			return self.removeUnusedDomainsFromFileProvider(unusedDomains)
-		}
+	public func removeAllUnusedFileProviderDomains() async throws {
+		let vaults = try vaultAccountManager.getAllAccounts()
+		let vaultUIDs = vaults.map { $0.vaultUID }
+		let domains = try await NSFileProviderManager.domains()
+		let unusedDomains = domains.filter { !vaultUIDs.contains($0.identifier.rawValue) }
+		await removeUnusedDomainsFromFileProvider(unusedDomains)
 	}
 
-	private func removeUnusedDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
-		return Promise(on: .global()) { fulfill, _ in
-			for domain in domains {
-				do {
-					try awaitPromise(self.removeFileProviderDomain(domain))
-					DDLogInfo("Successfully removed the unused FileProvider domain: \(domain)")
-				} catch {
-					DDLogError("Remove unused FileProvider domain: \(domain) failed with error: \(error)")
-				}
+	@concurrent
+	private func removeUnusedDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) async {
+		for domain in domains {
+			do {
+				try await removeFileProviderDomain(domain)
+				DDLogInfo("Successfully removed the unused FileProvider domain: \(domain)")
+			} catch {
+				DDLogError("Remove unused FileProvider domain: \(domain) failed with error: \(error)")
 			}
-			fulfill(())
 		}
 	}
 
@@ -544,61 +470,39 @@ public class VaultDBManager: VaultManager {
 
 	// MARK: - Move Vault
 
-	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws {
 		guard !targetVaultPath.contains(account.vaultPath) else {
-			return Promise(VaultManagerError.moveVaultInsideItself)
+			throw VaultManagerError.moveVaultInsideItself
 		}
-		let provider: CloudProvider
-		do {
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: account.delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
-		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then { _ -> VaultAccount in
-			let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
-			                                       delegateAccountUID: account.delegateAccountUID,
-			                                       vaultPath: targetVaultPath,
-			                                       vaultName: targetVaultPath.lastPathComponent)
-			try self.vaultAccountManager.updateAccount(updatedVaultAccount)
-			return updatedVaultAccount
-		}.then { updatedVaultAccount in
-			self.addFileProviderDomain(forVaultUID: updatedVaultAccount.vaultUID, displayName: updatedVaultAccount.vaultName)
-		}
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: account.delegateAccountUID))
+		try await provider.moveFolder(from: account.vaultPath, to: targetVaultPath)
+		let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
+		                                       delegateAccountUID: account.delegateAccountUID,
+		                                       vaultPath: targetVaultPath,
+		                                       vaultName: targetVaultPath.lastPathComponent)
+		try vaultAccountManager.updateAccount(updatedVaultAccount)
+		try await addFileProviderDomain(forVaultUID: updatedVaultAccount.vaultUID, displayName: updatedVaultAccount.vaultName)
 	}
 
 	// MARK: - Change Passphrase
 
-	public func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
+	public func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) async throws {
 		let tmpDirURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		let provider: LocalizedCloudProviderDecorator
-		let vaultAccount: VaultAccount
-		let masterkeyFileData: Data
-		do {
-			let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-			masterkeyFileData = try changePassphrase(masterkeyFileData: cachedVault.masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
-			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
-		} catch {
-			return Promise(error)
-		}
-		return uploadMasterkeyFileData(masterkeyFileData, vaultPath: vaultAccount.vaultPath, replaceExisting: true, provider: provider, tmpDirURL: tmpDirURL).then { metadata -> Void in
-			try self.postProcessChangePassphrase(masterkeyFileData: masterkeyFileData, masterkeyFileDataLastModifiedDate: metadata.lastModifiedDate, forVaultUID: vaultUID, newPassphrase: newPassphrase)
-		}
+		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+		let masterkeyFileData = try changePassphrase(masterkeyFileData: cachedVault.masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
+		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
+		let metadata = try await uploadMasterkeyFileData(masterkeyFileData, vaultPath: vaultAccount.vaultPath, replaceExisting: true, provider: provider, tmpDirURL: tmpDirURL)
+		try postProcessChangePassphrase(masterkeyFileData: masterkeyFileData, masterkeyFileDataLastModifiedDate: metadata.lastModifiedDate, forVaultUID: vaultUID, newPassphrase: newPassphrase)
 	}
 
-	public func recoverMissingFileProviderDomains() -> Promise<Void> {
-		let vaults: [VaultAccount]
-		do {
-			vaults = try vaultAccountManager.getAllAccounts()
-		} catch {
-			return Promise(error)
-		}
-		return NSFileProviderManager.getDomains().then { domains -> Promise<Void> in
-			let domainIdentifiers = domains.map { $0.identifier.rawValue }
-			let vaultsWithMissingDomains = vaults.filter { !domainIdentifiers.contains($0.vaultUID) }
-			return self.recoverFileProviderDomains(for: vaultsWithMissingDomains)
-		}
+	public func recoverMissingFileProviderDomains() async throws {
+		let vaults = try vaultAccountManager.getAllAccounts()
+		let domains = try await NSFileProviderManager.domains()
+		let domainIdentifiers = domains.map { $0.identifier.rawValue }
+		let vaultsWithMissingDomains = vaults.filter { !domainIdentifiers.contains($0.vaultUID) }
+		await recoverFileProviderDomains(for: vaultsWithMissingDomains)
 	}
 
 	// MARK: - Internal
@@ -641,97 +545,39 @@ public class VaultDBManager: VaultManager {
 		return try MasterkeyFile.changePassphrase(masterkeyFileData: masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
 	}
 
-	func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
-		return getFileProviderDomain(forVaultUID: vaultUID).then { domainForVault in
-			self.removeFileProviderDomain(domainForVault)
-		}
+	func removeFileProviderDomain(withVaultUID vaultUID: String) async throws {
+		let domainForVault = try await getFileProviderDomain(forVaultUID: vaultUID)
+		try await removeFileProviderDomain(domainForVault)
 	}
 
-	private func removeFileProviderDomain(_ domain: NSFileProviderDomain) -> Promise<Void> {
-		return NSFileProviderManager.remove(domain).then {
-			let documentStorageURL = NSFileProviderManager.default.documentStorageURL
-			let domainDocumentStorageURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
-			try FileManager.default.removeItem(at: domainDocumentStorageURL)
-		}
+	private func removeFileProviderDomain(_ domain: NSFileProviderDomain) async throws {
+		try await NSFileProviderManager.remove(domain)
+		let documentStorageURL = NSFileProviderManager.default.documentStorageURL
+		let domainDocumentStorageURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
+		try FileManager.default.removeItem(at: domainDocumentStorageURL)
 	}
 
-	private func getFileProviderDomain(forVaultUID vaultUID: String) -> Promise<NSFileProviderDomain> {
-		return NSFileProviderManager.getDomains().then { domains -> NSFileProviderDomain in
-			let domain = domains.first { $0.identifier.rawValue == vaultUID }
-			guard let domainForVault = domain else {
-				throw VaultManagerError.fileProviderDomainNotFound
-			}
-			return domainForVault
+	private func getFileProviderDomain(forVaultUID vaultUID: String) async throws -> NSFileProviderDomain {
+		let domains = try await NSFileProviderManager.domains()
+		guard let domainForVault = domains.first(where: { $0.identifier.rawValue == vaultUID }) else {
+			throw VaultManagerError.fileProviderDomainNotFound
 		}
+		return domainForVault
 	}
 
-	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) -> Promise<Void> {
+	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) async throws {
 		let domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: displayName)
-		return NSFileProviderManager.add(domain)
+		try await NSFileProviderManager.add(domain)
 	}
 
-	private func recoverFileProviderDomains(for vaults: [VaultAccount]) -> Promise<Void> {
-		return Promise(on: .global()) { fulfill, _ in
-			for vault in vaults {
-				do {
-					try awaitPromise(self.addFileProviderDomain(forVaultUID: vault.vaultUID, displayName: vault.vaultName))
-					DDLogInfo("Successfully recovered FileProvider domain for vault: \(vault.vaultName) - \(vault.vaultUID)")
-				} catch {
-					DDLogError("Recover FileProvider domain for vault: \(vault.vaultName) - \(vault.vaultUID) failed with error: \(error)")
-				}
-			}
-			fulfill(())
-		}
-	}
-}
-
-extension CloudProvider {
-	func downloadFileWithMetadata(from cloudPath: CloudPath, to localURL: URL) -> Promise<CloudItemMetadata> {
-		let fetchItemMetadataPromise = fetchItemMetadata(at: cloudPath)
-		return fetchItemMetadataPromise.then { _ in
-			self.downloadFile(from: cloudPath, to: localURL)
-		}.then {
-			return fetchItemMetadataPromise
-		}
-	}
-}
-
-public extension NSFileProviderManager {
-	static func getDomains() -> Promise<[NSFileProviderDomain]> {
-		return Promise<[NSFileProviderDomain]> { fulfill, reject in
-			NSFileProviderManager.getDomainsWithCompletionHandler { domains, error in
-				if let error = error {
-					os_log("NSFileProviderManager.getDomains() Error: %@", log: .default, type: .error, String(describing: error))
-					reject(error)
-				} else {
-					fulfill(domains)
-				}
-			}
-		}
-	}
-
-	static func remove(_ domain: NSFileProviderDomain) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			NSFileProviderManager.remove(domain) { error in
-				if let error = error {
-					os_log("NSFileProviderManager.remove() \"%@\" Error: %@", log: .default, type: .error, domain.identifier.rawValue, String(describing: error))
-					reject(error)
-				} else {
-					fulfill(())
-				}
-			}
-		}
-	}
-
-	class func add(_ domain: NSFileProviderDomain) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			NSFileProviderManager.add(domain) { error in
-				if let error = error {
-					os_log("NSFileProviderManager.add() \"%@\" Error: %@", log: .default, type: .error, domain.identifier.rawValue, String(describing: error))
-					reject(error)
-				} else {
-					fulfill(())
-				}
+	@concurrent
+	private func recoverFileProviderDomains(for vaults: [VaultAccount]) async {
+		for vault in vaults {
+			do {
+				try await addFileProviderDomain(forVaultUID: vault.vaultUID, displayName: vault.vaultName)
+				DDLogInfo("Successfully recovered FileProvider domain for vault: \(vault.vaultName) - \(vault.vaultUID)")
+			} catch {
+				DDLogError("Recover FileProvider domain for vault: \(vault.vaultName) - \(vault.vaultUID) failed with error: \(error)")
 			}
 		}
 	}

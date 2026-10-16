@@ -13,11 +13,11 @@ struct DownloadTask: CloudTask {
 	let taskRecord: DownloadTaskRecord
 	let itemMetadata: ItemMetadata
 	let cloudPath: CloudPath
-	let onURLSessionTaskCreation: URLSessionTaskCreationClosure?
+	let onURLSessionTaskCreation: URLSessionDownloadTaskCreationHook?
 
 	func with(cloudPath: CloudPath) -> DownloadTask {
 		return DownloadTask(taskRecord: taskRecord, itemMetadata: itemMetadata, cloudPath: cloudPath, onURLSessionTaskCreation: onURLSessionTaskCreation)
 	}
 }
 
-typealias URLSessionTaskCreationClosure = (URLSessionTask) -> Void
+typealias URLSessionDownloadTaskCreationHook = @concurrent @Sendable (URLSessionDownloadTask) async -> Void

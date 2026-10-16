@@ -9,7 +9,7 @@
 import Dependencies
 import Foundation
 
-public struct SalePromo {
+public struct SalePromo: Sendable {
 	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
 
 	public static let shared = SalePromo()

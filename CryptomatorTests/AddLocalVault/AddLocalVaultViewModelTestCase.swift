@@ -12,17 +12,20 @@ import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCryptoLib
 
+@MainActor
 class AddLocalVaultViewModelTestCase: XCTestCase {
 	var tmpDirURL: URL!
 	var accountManagerMock: CloudProviderAccountManagerMock!
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: false)
 		accountManagerMock = CloudProviderAccountManagerMock()
 	}
 
-	override func tearDownWithError() throws {
+	override func tearDown() async throws {
 		try FileManager.default.removeItem(at: tmpDirURL)
+		try await super.tearDown()
 	}
 
 	func createVault(at url: URL) throws {
@@ -76,7 +79,7 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 	}
 }
 
-extension LocalFileSystemCredential: Equatable {
+extension LocalFileSystemCredential: @MainActor Equatable {
 	public static func == (lhs: LocalFileSystemCredential, rhs: LocalFileSystemCredential) -> Bool {
 		lhs.identifier == rhs.identifier && lhs.rootURL == rhs.rootURL
 	}

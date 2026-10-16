@@ -6,9 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Promises
 import UIKit
 
+@MainActor
 public class ProgressHUD {
 	public var minimumDisplayTime: TimeInterval
 	public var text: String? {
@@ -42,23 +42,30 @@ public class ProgressHUD {
 		hud.showLoadingIndicator()
 	}
 
-	public func showSuccess() -> Promise<Void> {
-		return hud.showSuccess()
+	public func showSuccess() async {
+		await hud.showSuccess()
 	}
 
-	public func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + getDelay()) {
-			self.hud.dismiss(animated: animated, completion: completion)
+	public func dismiss(animated: Bool) async {
+		await waitForMinimumDisplayTime()
+		await withCheckedContinuation { continuation in
+			hud.dismiss(animated: animated) {
+				continuation.resume()
+			}
 		}
 	}
 
-	public func transformToSelfDismissingSuccess(completion: (() -> Void)? = nil) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + getDelay()) {
-			self.hud.showSuccess().delay(0.5).then {
-				self.dismiss(animated: true)
-			}.then {
-				completion?()
-			}
+	public func transformToSelfDismissingSuccess() async {
+		await waitForMinimumDisplayTime()
+		await hud.showSuccess()
+		try? await Task.sleep(for: .seconds(0.5))
+		await dismiss(animated: true)
+	}
+
+	private func waitForMinimumDisplayTime() async {
+		let delay = getDelay()
+		if delay > 0 {
+			try? await Task.sleep(for: .seconds(delay))
 		}
 	}
 
@@ -67,24 +74,6 @@ public class ProgressHUD {
 			return displayTimestamp - CFAbsoluteTimeGetCurrent() + minimumDisplayTime
 		} else {
 			return 0
-		}
-	}
-}
-
-public extension ProgressHUD {
-	func dismiss(animated: Bool) -> Promise<Void> {
-		return wrap { handler in
-			self.dismiss(animated: animated, completion: handler)
-		}.then { _ in
-			// no-op
-		}
-	}
-
-	func transformToSelfDismissingSuccess() -> Promise<Void> {
-		return wrap { handler in
-			self.transformToSelfDismissingSuccess(completion: handler)
-		}.then { _ in
-			// no-op
 		}
 	}
 }
@@ -193,23 +182,18 @@ private class HUDController: UIViewController {
 		])
 	}
 
-	func showSuccess(completion: (() -> Void)? = nil) {
-		UIView.animate(withDuration: 0.5, animations: ({
-			self.text = nil
-			self.stackView.layoutIfNeeded()
-		}), completion: ({ _ in
-			self.hideAllIndicators()
-			self.successIndicator.isHidden = false
-			self.successIndicator.startAnimation(completion: completion)
-		}))
-	}
-
-	func showSuccess() -> Promise<Void> {
-		return wrap { handler in
-			self.showSuccess(completion: handler)
-		}.then { _ in
-			// no-op
+	func showSuccess() async {
+		await withCheckedContinuation { continuation in
+			UIView.animate(withDuration: 0.5, animations: {
+				self.text = nil
+				self.stackView.layoutIfNeeded()
+			}, completion: { _ in
+				continuation.resume()
+			})
 		}
+		hideAllIndicators()
+		successIndicator.isHidden = false
+		await successIndicator.startAnimation()
 	}
 
 	func showLoadingIndicator() {
@@ -288,7 +272,15 @@ private class CheckmarkSymbol: UIView {
 		shapeLayer.path = getPath().cgPath
 	}
 
-	func startAnimation(completion: (() -> Void)? = nil) {
+	func startAnimation() async {
+		await withCheckedContinuation { continuation in
+			startAnimation {
+				continuation.resume()
+			}
+		}
+	}
+
+	private func startAnimation(completion: @escaping () -> Void) {
 		CATransaction.begin()
 		CATransaction.setCompletionBlock(completion)
 		let pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -300,13 +292,5 @@ private class CheckmarkSymbol: UIView {
 		pathAnimation.isRemovedOnCompletion = false
 		shapeLayer.add(pathAnimation, forKey: "strokeEnd")
 		CATransaction.commit()
-	}
-
-	func startAnimation() -> Promise<Void> {
-		return wrap { handler in
-			self.startAnimation(completion: handler)
-		}.then { _ in
-			// no-op
-		}
 	}
 }

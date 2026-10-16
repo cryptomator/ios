@@ -10,7 +10,7 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 
-public protocol MaintenanceManager {
+public protocol MaintenanceManager: Sendable {
 	/**
 	 Enables the maintenance mode for the FileProviderAdapter.
 
@@ -27,7 +27,7 @@ public protocol MaintenanceManager {
 	func disableMaintenanceMode() throws
 }
 
-public class MaintenanceDBManager: MaintenanceManager {
+public final class MaintenanceDBManager: MaintenanceManager {
 	private let database: DatabaseWriter
 
 	public init(database: DatabaseWriter) {

@@ -10,11 +10,11 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import Foundation
-import Promises
 
 // swiftlint: disable all
 
-final class VaultManagerMock: VaultManager {
+/// @unchecked Sendable: test double, never touched concurrently
+final class VaultManagerMock: VaultManager, @unchecked Sendable {
 	// MARK: - createNewVault
 
 	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainThrowableError: Error?
@@ -25,17 +25,16 @@ final class VaultManagerMock: VaultManager {
 
 	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReceivedArguments: (vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool)?
 	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReceivedInvocations: [(vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool)] = []
-	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReturnValue: Promise<Void>!
-	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainClosure: ((String, String, CloudPath, String, Bool) -> Promise<Void>)?
+	var createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainClosure: ((String, String, CloudPath, String, Bool) async throws -> Void)?
 
-	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) async throws {
 		if let error = createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainThrowableError {
-			return Promise(error)
+			throw error
 		}
 		createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainCallsCount += 1
 		createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReceivedArguments = (vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: storePasswordInKeychain)
 		createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReceivedInvocations.append((vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: storePasswordInKeychain))
-		return createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainClosure.map({ $0(vaultUID, delegateAccountUID, vaultPath, password, storePasswordInKeychain) }) ?? createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainReturnValue
+		try await createNewVaultWithVaultUIDDelegateAccountUIDVaultPathPasswordStorePasswordInKeychainClosure?(vaultUID, delegateAccountUID, vaultPath, password, storePasswordInKeychain)
 	}
 
 	// MARK: - createFromExisting
@@ -48,17 +47,16 @@ final class VaultManagerMock: VaultManager {
 
 	var createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedArguments: (vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool)?
 	var createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedInvocations: [(vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool)] = []
-	var createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReturnValue: Promise<Void>!
-	var createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure: ((String, String, VaultItem, String, Bool) -> Promise<Void>)?
+	var createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure: ((String, String, VaultItem, String, Bool) async throws -> Void)?
 
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
 		if let error = createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainThrowableError {
-			return Promise(error)
+			throw error
 		}
 		createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainCallsCount += 1
 		createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedArguments = (vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultItem, password: password, storePasswordInKeychain: storePasswordInKeychain)
 		createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedInvocations.append((vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultItem, password: password, storePasswordInKeychain: storePasswordInKeychain))
-		return createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure.map({ $0(vaultUID, delegateAccountUID, vaultItem, password, storePasswordInKeychain) }) ?? createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReturnValue
+		try await createFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure?(vaultUID, delegateAccountUID, vaultItem, password, storePasswordInKeychain)
 	}
 
 	// MARK: - createLegacyFromExisting
@@ -71,17 +69,16 @@ final class VaultManagerMock: VaultManager {
 
 	var createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedArguments: (vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool)?
 	var createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedInvocations: [(vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool)] = []
-	var createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReturnValue: Promise<Void>!
-	var createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure: ((String, String, VaultItem, String, Bool) -> Promise<Void>)?
+	var createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure: ((String, String, VaultItem, String, Bool) async throws -> Void)?
 
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
 		if let error = createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainThrowableError {
-			return Promise(error)
+			throw error
 		}
 		createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainCallsCount += 1
 		createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedArguments = (vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultItem, password: password, storePasswordInKeychain: storePasswordInKeychain)
 		createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReceivedInvocations.append((vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultItem, password: password, storePasswordInKeychain: storePasswordInKeychain))
-		return createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure.map({ $0(vaultUID, delegateAccountUID, vaultItem, password, storePasswordInKeychain) }) ?? createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainReturnValue
+		try await createLegacyFromExistingWithVaultUIDDelegateAccountUIDVaultItemPasswordStorePasswordInKeychainClosure?(vaultUID, delegateAccountUID, vaultItem, password, storePasswordInKeychain)
 	}
 
 	// MARK: - manualUnlockVault
@@ -140,15 +137,12 @@ final class VaultManagerMock: VaultManager {
 
 	var removeVaultWithUIDReceivedVaultUID: String?
 	var removeVaultWithUIDReceivedInvocations: [String] = []
-	var removeVaultWithUIDReturnValue: Promise<Void>!
-	var removeVaultWithUIDClosure: ((String) throws -> Promise<Void>)?
+	var removeVaultWithUIDReturnValue: Task<Void, Never>!
+	var removeVaultWithUIDClosure: ((String) throws -> Task<Void, Never>)?
 
-	func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
+	func removeVault(withUID vaultUID: String) throws -> Task<Void, Never> {
 		if let error = removeVaultWithUIDThrowableError {
 			throw error
-		}
-		if let error = removeVaultWithUIDThrowableError {
-			return Promise(error)
 		}
 		removeVaultWithUIDCallsCount += 1
 		removeVaultWithUIDReceivedVaultUID = vaultUID
@@ -166,17 +160,16 @@ final class VaultManagerMock: VaultManager {
 
 	var removeVaultsWithUIDsReceivedVaultUIDs: [String]?
 	var removeVaultsWithUIDsReceivedInvocations: [[String]] = []
-	var removeVaultsWithUIDsReturnValue: Promise<Void>!
-	var removeVaultsWithUIDsClosure: (([String]) throws -> Promise<Void>)?
+	var removeVaultsWithUIDsClosure: (([String]) async throws -> Void)?
 
-	func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void> {
+	func removeVaults(withUIDs vaultUIDs: [String]) async throws {
 		if let error = removeVaultsWithUIDsThrowableError {
 			throw error
 		}
 		removeVaultsWithUIDsCallsCount += 1
 		removeVaultsWithUIDsReceivedVaultUIDs = vaultUIDs
 		removeVaultsWithUIDsReceivedInvocations.append(vaultUIDs)
-		return try removeVaultsWithUIDsClosure.map({ try $0(vaultUIDs) }) ?? removeVaultsWithUIDsReturnValue
+		try await removeVaultsWithUIDsClosure?(vaultUIDs)
 	}
 
 	// MARK: - removeAllUnusedFileProviderDomains
@@ -187,15 +180,14 @@ final class VaultManagerMock: VaultManager {
 		removeAllUnusedFileProviderDomainsCallsCount > 0
 	}
 
-	var removeAllUnusedFileProviderDomainsReturnValue: Promise<Void>!
-	var removeAllUnusedFileProviderDomainsClosure: (() -> Promise<Void>)?
+	var removeAllUnusedFileProviderDomainsClosure: (() async throws -> Void)?
 
-	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
+	func removeAllUnusedFileProviderDomains() async throws {
 		if let error = removeAllUnusedFileProviderDomainsThrowableError {
-			return Promise(error)
+			throw error
 		}
 		removeAllUnusedFileProviderDomainsCallsCount += 1
-		return removeAllUnusedFileProviderDomainsClosure.map({ $0() }) ?? removeAllUnusedFileProviderDomainsReturnValue
+		try await removeAllUnusedFileProviderDomainsClosure?()
 	}
 
 	// MARK: - moveVault
@@ -208,17 +200,16 @@ final class VaultManagerMock: VaultManager {
 
 	var moveVaultAccountToReceivedArguments: (account: VaultAccount, targetVaultPath: CloudPath)?
 	var moveVaultAccountToReceivedInvocations: [(account: VaultAccount, targetVaultPath: CloudPath)] = []
-	var moveVaultAccountToReturnValue: Promise<Void>!
-	var moveVaultAccountToClosure: ((VaultAccount, CloudPath) -> Promise<Void>)?
+	var moveVaultAccountToClosure: ((VaultAccount, CloudPath) async throws -> Void)?
 
-	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws {
 		if let error = moveVaultAccountToThrowableError {
-			return Promise(error)
+			throw error
 		}
 		moveVaultAccountToCallsCount += 1
 		moveVaultAccountToReceivedArguments = (account: account, targetVaultPath: targetVaultPath)
 		moveVaultAccountToReceivedInvocations.append((account: account, targetVaultPath: targetVaultPath))
-		return moveVaultAccountToClosure.map({ $0(account, targetVaultPath) }) ?? moveVaultAccountToReturnValue
+		try await moveVaultAccountToClosure?(account, targetVaultPath)
 	}
 
 	// MARK: - changePassphrase
@@ -231,17 +222,16 @@ final class VaultManagerMock: VaultManager {
 
 	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments: (oldPassphrase: String, newPassphrase: String, vaultUID: String)?
 	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedInvocations: [(oldPassphrase: String, newPassphrase: String, vaultUID: String)] = []
-	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue: Promise<Void>!
-	var changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure: ((String, String, String) -> Promise<Void>)?
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure: ((String, String, String) async throws -> Void)?
 
-	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) async throws {
 		if let error = changePassphraseOldPassphraseNewPassphraseForVaultUIDThrowableError {
-			return Promise(error)
+			throw error
 		}
 		changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount += 1
 		changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments = (oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, vaultUID: vaultUID)
 		changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedInvocations.append((oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, vaultUID: vaultUID))
-		return changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure.map({ $0(oldPassphrase, newPassphrase, vaultUID) }) ?? changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue
+		try await changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure?(oldPassphrase, newPassphrase, vaultUID)
 	}
 
 	// MARK: - addExistingHubVault
@@ -254,17 +244,16 @@ final class VaultManagerMock: VaultManager {
 
 	var addExistingHubVaultReceivedVault: ExistingHubVault?
 	var addExistingHubVaultReceivedInvocations: [ExistingHubVault] = []
-	var addExistingHubVaultReturnValue: Promise<Void>!
-	var addExistingHubVaultClosure: ((ExistingHubVault) -> Promise<Void>)?
+	var addExistingHubVaultClosure: ((ExistingHubVault) async throws -> Void)?
 
-	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+	func addExistingHubVault(_ vault: ExistingHubVault) async throws {
 		if let error = addExistingHubVaultThrowableError {
-			return Promise(error)
+			throw error
 		}
 		addExistingHubVaultCallsCount += 1
 		addExistingHubVaultReceivedVault = vault
 		addExistingHubVaultReceivedInvocations.append(vault)
-		return addExistingHubVaultClosure.map({ $0(vault) }) ?? addExistingHubVaultReturnValue
+		try await addExistingHubVaultClosure?(vault)
 	}
 
 	// MARK: - manualUnlockVault

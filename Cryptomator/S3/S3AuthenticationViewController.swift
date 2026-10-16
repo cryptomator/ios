@@ -45,12 +45,15 @@ class S3AuthenticationViewController: UIViewController {
 		viewModel.$loginState.sink { [weak self] state in
 			switch state {
 			case let .error(error):
-				self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+				Task {
+					await self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+				}
 			case .verifyingCredentials:
 				guard let self = self else { return }
 				hud.show(presentingViewController: self)
 			case let .loggedIn(credential):
-				hud.dismiss(animated: true).then {
+				Task {
+					await hud.dismiss(animated: true)
 					self?.coordinator?.authenticated(with: credential)
 				}
 			case .notLoggedIn:

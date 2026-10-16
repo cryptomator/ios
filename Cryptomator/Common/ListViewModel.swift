@@ -9,7 +9,6 @@
 import Combine
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 protocol ListViewModel {
 	var headerTitle: String { get }
@@ -27,7 +26,7 @@ struct ListViewModelAlertContent {
 }
 
 protocol VaultListViewModelProtocol: ListViewModel {
-	func refreshVaultLockStates() -> Promise<Void>
+	func refreshVaultLockStates() async throws
 }
 
 protocol AccountListViewModelProtocol: ListViewModel {

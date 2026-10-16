@@ -46,7 +46,8 @@ public protocol VaultKeepUnlockedHelper {
 	func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool
 }
 
-public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
+/// @unchecked Sendable: all stored properties are immutable and Sendable; the class is only subclassed by test doubles
+public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper, @unchecked Sendable {
 	public static let shared = VaultKeepUnlockedManager(keychain: CryptomatorKeychain.keepUnlocked)
 	private let keychain: CryptomatorKeychainType
 

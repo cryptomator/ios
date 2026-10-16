@@ -32,7 +32,7 @@ public struct AddHubVaultUnlockHandler: HubVaultUnlockHandler {
 		                                vaultItem: vaultItem,
 		                                downloadedVaultConfig: downloadedVaultConfig)
 		do {
-			try await vaultManager.addExistingHubVault(hubVault).getValue()
+			try await vaultManager.addExistingHubVault(hubVault)
 			await delegate?.successfullyProcessedUnlockedVault()
 		} catch {
 			await delegate?.failedToProcessUnlockedVault(error: error)

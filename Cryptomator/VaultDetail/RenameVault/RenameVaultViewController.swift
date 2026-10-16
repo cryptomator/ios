@@ -40,11 +40,10 @@ class RenameVaultViewController: SetVaultNameViewController {
 		hud.showLoadingIndicator()
 		do {
 			try await viewModel.renameVault()
-			hud.transformToSelfDismissingSuccess {
-				self.coordinator?.setVaultName(self.viewModel.trimmedVaultName)
-			}
+			await hud.transformToSelfDismissingSuccess()
+			coordinator?.setVaultName(viewModel.trimmedVaultName)
 		} catch {
-			handleError(error, coordinator: coordinator, progressHUD: hud)
+			await handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }

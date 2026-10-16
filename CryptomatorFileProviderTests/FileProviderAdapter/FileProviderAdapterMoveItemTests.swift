@@ -9,7 +9,7 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
+import os
 import XCTest
 @testable import CryptomatorFileProvider
 
@@ -206,9 +206,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(CloudPath("/Target/B/C/D.txt"), try metadataManagerMock.getCloudPath(for: deepFileID))
 	}
 
-	func testRenameItem() throws {
-		let expectation = XCTestExpectation()
-
+	func testRenameItem() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -219,42 +217,30 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
 		let newName = "RenamedTest.txt"
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
-		adapter.renameItem(withIdentifier: itemIdentifier, toName: newName) { item, error in
-			XCTAssertNil(error)
-			guard let fileProviderItem = item as? FileProviderItem else {
-				XCTFail("FileProviderItem is nil")
-				return
-			}
+		let item = try await adapter.renameItem(withIdentifier: itemIdentifier, toName: newName)
+		let fileProviderItem = try XCTUnwrap(item)
 
-			XCTAssertEqual(newName, fileProviderItem.filename)
-			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, fileProviderItem.parentItemIdentifier)
-			XCTAssertEqual(itemIdentifier, fileProviderItem.itemIdentifier)
-			XCTAssertEqual(ItemStatus.isUploading, fileProviderItem.metadata.statusCode)
-			XCTAssertEqual(targetCloudPath.lastPathComponent, fileProviderItem.metadata.name)
+		XCTAssertEqual(newName, fileProviderItem.filename)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, fileProviderItem.parentItemIdentifier)
+		XCTAssertEqual(itemIdentifier, fileProviderItem.itemIdentifier)
+		XCTAssertEqual(ItemStatus.isUploading, fileProviderItem.metadata.statusCode)
+		XCTAssertEqual(targetCloudPath.lastPathComponent, fileProviderItem.metadata.name)
 
-			XCTAssertEqual(2, self.metadataManagerMock.cachedMetadata.count)
-			XCTAssertEqual(itemMetadata, self.metadataManagerMock.cachedMetadata[itemID])
+		XCTAssertEqual(2, metadataManagerMock.cachedMetadata.count)
+		XCTAssertEqual(itemMetadata, metadataManagerMock.cachedMetadata[itemID])
 
-			XCTAssertEqual(newName, itemMetadata.name)
-			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, itemMetadata.parentID)
-			XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
-			XCTAssertEqual(targetCloudPath.lastPathComponent, itemMetadata.name)
+		XCTAssertEqual(newName, itemMetadata.name)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, itemMetadata.parentID)
+		XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
+		XCTAssertEqual(targetCloudPath.lastPathComponent, itemMetadata.name)
 
-			guard let reparentTaskRecord = self.reparentTaskManagerMock.reparentTasks[itemID] else {
-				XCTFail("reparentTaskRecord is nil")
-				return
-			}
-			XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
-			XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
-			XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let reparentTaskRecord = try XCTUnwrap(reparentTaskManagerMock.reparentTasks[itemID])
+		XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
+		XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 	}
 
-	func testReparentItem() throws {
-		let expectation = XCTestExpectation()
-
+	func testReparentItem() async throws {
 		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -270,38 +256,103 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: parentItemID)
-		adapter.reparentItem(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: nil) { item, error in
-			XCTAssertNil(error)
-			guard let fileProviderItem = item as? FileProviderItem else {
-				XCTFail("FileProviderItem is nil")
-				return
+		let item = try await adapter.reparentItem(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier)
+		let fileProviderItem = try XCTUnwrap(item)
+		XCTAssertEqual("Test.txt", fileProviderItem.filename)
+		XCTAssertEqual(parentItemIdentifier, fileProviderItem.parentItemIdentifier)
+		XCTAssertEqual(itemIdentifier, fileProviderItem.itemIdentifier)
+		XCTAssertEqual(ItemStatus.isUploading, fileProviderItem.metadata.statusCode)
+		XCTAssertEqual(targetCloudPath.lastPathComponent, fileProviderItem.metadata.name)
+
+		XCTAssertEqual(3, metadataManagerMock.cachedMetadata.count)
+		XCTAssertEqual(itemMetadata, metadataManagerMock.cachedMetadata[itemID])
+
+		XCTAssertEqual("Test.txt", itemMetadata.name)
+		XCTAssertEqual(parentItemID, itemMetadata.parentID)
+		XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
+		XCTAssertEqual(targetCloudPath.lastPathComponent, itemMetadata.name)
+
+		let reparentTaskRecord = try XCTUnwrap(reparentTaskManagerMock.reparentTasks[itemID])
+		XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, reparentTaskRecord.oldParentID)
+		XCTAssertEqual(parentItemID, reparentTaskRecord.newParentID)
+		XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
+	}
+
+	func testMovesSubmittedFromBackgroundThreadReachProviderInSubmissionOrder() async throws {
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+		let itemID: Int64 = 2
+		metadataManagerMock.cachedMetadata[itemID] = ItemMetadata(id: itemID, name: "a", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let movedPaths = OSAllocatedUnfairLock(initialState: [[String]]())
+		let provider = CloudProviderErrorMock()
+		provider.moveFileResponse = { sourceCloudPath, targetCloudPath in
+			if sourceCloudPath == CloudPath("/a") {
+				try await Task.sleep(for: .milliseconds(200))
 			}
-			XCTAssertEqual("Test.txt", fileProviderItem.filename)
-			XCTAssertEqual(parentItemIdentifier, fileProviderItem.parentItemIdentifier)
-			XCTAssertEqual(itemIdentifier, fileProviderItem.itemIdentifier)
-			XCTAssertEqual(ItemStatus.isUploading, fileProviderItem.metadata.statusCode)
-			XCTAssertEqual(targetCloudPath.lastPathComponent, fileProviderItem.metadata.name)
-
-			XCTAssertEqual(3, self.metadataManagerMock.cachedMetadata.count)
-			XCTAssertEqual(itemMetadata, self.metadataManagerMock.cachedMetadata[itemID])
-
-			XCTAssertEqual("Test.txt", itemMetadata.name)
-			XCTAssertEqual(parentItemID, itemMetadata.parentID)
-			XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
-			XCTAssertEqual(targetCloudPath.lastPathComponent, itemMetadata.name)
-
-			guard let reparentTaskRecord = self.reparentTaskManagerMock.reparentTasks[itemID] else {
-				XCTFail("reparentTaskRecord is nil")
-				return
-			}
-			XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
-			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, reparentTaskRecord.oldParentID)
-			XCTAssertEqual(parentItemID, reparentTaskRecord.newParentID)
-			XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
-			XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
-			expectation.fulfill()
+			movedPaths.withLock { $0.append([sourceCloudPath.path, targetCloudPath.path]) }
 		}
-		wait(for: [expectation], timeout: 5.0)
+		let adapter = createAdapter(provider: provider)
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+
+		await withCheckedContinuation { continuation in
+			DispatchQueue.global().async {
+				adapter.renameItem(withIdentifier: itemIdentifier, toName: "b") { _, _ in }
+				adapter.renameItem(withIdentifier: itemIdentifier, toName: "c") { _, _ in }
+				continuation.resume()
+			}
+		}
+		await adapter.awaitWorkflows()
+
+		XCTAssertEqual([["/a", "/b"], ["/b", "/c"]], movedPaths.withLock { $0 })
+	}
+
+	func testDownloadSubmittedBeforeRenameFromBackgroundThreadUsesOriginalPath() async throws {
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+		let itemID: Int64 = 2
+		metadataManagerMock.cachedMetadata[itemID] = ItemMetadata(id: itemID, name: "a", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		let itemDirectory = tmpDirectory.appendingPathComponent("\(itemID)")
+		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
+		let url = itemDirectory.appendingPathComponent("a")
+		let providerCalls = OSAllocatedUnfairLock(initialState: [String]())
+		let downloadStarted = XCTestExpectation(description: "Download started")
+		let downloadRelease = OneShotSignal<Void>()
+		let moveStarted = OneShotSignal<Void>()
+		let provider = CloudProviderErrorMock()
+		provider.downloadFileResponse = { cloudPath, localURL in
+			providerCalls.withLock { $0.append("download \(cloudPath.path)") }
+			downloadStarted.fulfill()
+			try await downloadRelease.value
+			try Data("Content".utf8).write(to: localURL)
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: 7)
+		}
+		provider.moveFileResponse = { sourceCloudPath, targetCloudPath in
+			providerCalls.withLock { $0.append("move \(sourceCloudPath.path) \(targetCloudPath.path)") }
+			moveStarted.fulfill(())
+		}
+		let adapter = createAdapter(provider: provider)
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		let downloadCompleted = XCTestExpectation(description: "Download completed")
+
+		await withCheckedContinuation { continuation in
+			DispatchQueue.global().async {
+				adapter.startProvidingItem(at: url) { error in
+					XCTAssertNil(error)
+					downloadCompleted.fulfill()
+				}
+				adapter.renameItem(withIdentifier: itemIdentifier, toName: "b") { _, _ in }
+				continuation.resume()
+			}
+		}
+		await fulfillment(of: [downloadStarted], timeout: 5.0)
+		await assertStaysBlocked({ try await moveStarted.value }, for: 0.5)
+		downloadRelease.fulfill(())
+		await fulfillment(of: [downloadCompleted], timeout: 5.0)
+		await adapter.awaitWorkflows()
+
+		XCTAssertEqual(["download /a", "move /a /b"], providerCalls.withLock { $0 })
 	}
 
 	func testValidateItemName() throws {

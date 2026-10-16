@@ -19,11 +19,11 @@ final class EnumerationSignalingMock: EnumerationSignaling {
 		signalEnumeratorForCompletionHandlerCallsCount > 0
 	}
 
-	var signalEnumeratorForCompletionHandlerReceivedArguments: (containerItemIdentifier: NSFileProviderItemIdentifier, completion: (Error?) -> Void)?
-	var signalEnumeratorForCompletionHandlerReceivedInvocations: [(containerItemIdentifier: NSFileProviderItemIdentifier, completion: (Error?) -> Void)] = []
-	var signalEnumeratorForCompletionHandlerClosure: ((NSFileProviderItemIdentifier, @escaping (Error?) -> Void) -> Void)?
+	var signalEnumeratorForCompletionHandlerReceivedArguments: (containerItemIdentifier: NSFileProviderItemIdentifier, completion: @Sendable (Error?) -> Void)?
+	var signalEnumeratorForCompletionHandlerReceivedInvocations: [(containerItemIdentifier: NSFileProviderItemIdentifier, completion: @Sendable (Error?) -> Void)] = []
+	var signalEnumeratorForCompletionHandlerClosure: ((NSFileProviderItemIdentifier, @escaping @Sendable (Error?) -> Void) -> Void)?
 
-	func signalEnumerator(for containerItemIdentifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void) {
+	func signalEnumerator(for containerItemIdentifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping @Sendable (Error?) -> Void) {
 		signalEnumeratorForCompletionHandlerCallsCount += 1
 		signalEnumeratorForCompletionHandlerReceivedArguments = (containerItemIdentifier: containerItemIdentifier, completion: completion)
 		signalEnumeratorForCompletionHandlerReceivedInvocations.append((containerItemIdentifier: containerItemIdentifier, completion: completion))

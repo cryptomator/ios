@@ -6,42 +6,45 @@
 //  Copyright © 2026 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import Foundation
-import Promises
 
-/// Queues work beyond the limit instead of blocking a thread, because the workflows run on the main queue. That queue also
-/// serializes every access, so the state needs no lock.
-class ConcurrencyLimiter {
-	private var availablePermits: Int
-	private var waitingAcquisitions = [Promise<Void>]()
+/// Queues work beyond the limit in FIFO order instead of blocking a thread.
+@MainActor
+final class ConcurrencyLimiter {
+	private let label: String
+	private let maxConcurrentOperations: Int
+	private var inFlightOperations = 0
+	private var waitingAcquisitions = [CheckedContinuation<Void, Never>]()
 
-	init(maxConcurrentOperations: Int) {
-		self.availablePermits = maxConcurrentOperations
+	nonisolated init(label: String, maxConcurrentOperations: Int) {
+		self.label = label
+		self.maxConcurrentOperations = maxConcurrentOperations
 	}
 
-	func withPermit<Value>(_ work: @escaping () -> Promise<Value>) -> Promise<Value> {
-		return acquire().then {
-			work()
-		}.always {
-			self.release()
-		}
+	func withPermit<Value>(_ work: @MainActor () async throws -> Value) async throws -> Value {
+		await acquire()
+		defer { release() }
+		return try await work()
 	}
 
-	private func acquire() -> Promise<Void> {
-		if availablePermits > 0 {
-			availablePermits -= 1
-			return Promise(())
+	private func acquire() async {
+		if inFlightOperations < maxConcurrentOperations {
+			inFlightOperations += 1
+		} else {
+			await withCheckedContinuation { continuation in
+				waitingAcquisitions.append(continuation)
+			}
 		}
-		let acquisition = Promise<Void>.pending()
-		waitingAcquisitions.append(acquisition)
-		return acquisition
+		DDLogDebug("\(label): acquired permit, \(inFlightOperations) in flight")
 	}
 
 	private func release() {
-		guard !waitingAcquisitions.isEmpty else {
-			availablePermits += 1
-			return
+		if waitingAcquisitions.isEmpty {
+			inFlightOperations -= 1
+		} else {
+			waitingAcquisitions.removeFirst().resume()
 		}
-		waitingAcquisitions.removeFirst().fulfill(())
+		DDLogDebug("\(label): released permit, \(inFlightOperations) in flight")
 	}
 }

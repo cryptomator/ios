@@ -12,7 +12,8 @@ import XCTest
 class Snapshots: XCTestCase {
 	var app: XCUIApplication!
 	var filesApp: XCUIApplication!
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		app = XCUIApplication()
 		filesApp = XCUIApplication(bundleIdentifier: "com.apple.DocumentsApp")
 

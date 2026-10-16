@@ -1,12 +1,13 @@
 {
+  "originHash" : "205c40ec78f3ee0356d654a158b315076322795167613411b93c4ba6f44bbd39",
   "pins" : [
     {
       "identity" : "appauth-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "145104f5ea9d58ae21b60add007c33c1cc0c948e",
-        "version" : "2.0.0"
+        "revision" : "a972daac82d449d58ab119e91c68153e29ddac33",
+        "version" : "3.0.0"
       }
     },
     {
@@ -55,12 +56,12 @@
       }
     },
     {
-      "identity" : "box-swift-sdk-gen",
+      "identity" : "box-ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tobihagemann/box-swift-sdk-gen.git",
+      "location" : "https://github.com/box/box-ios-sdk.git",
       "state" : {
-        "revision" : "b2bb9db3b4fc5e86807f3c5043bedcab9fdf48f7",
-        "version" : "0.5.0-cryptomator"
+        "revision" : "0808e324bcda35d1dc86eb4b28f06629a0c9610c",
+        "version" : "10.17.0"
       }
     },
     {
@@ -68,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "8b91d068403a34213928bff19ed8709091a11367",
-        "version" : "3.0.1"
+        "revision" : "77f165a5ba468092ae2d7d2c17241befab2a293c",
+        "version" : "4.0.0"
       }
     },
     {
@@ -77,8 +78,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
       "state" : {
-        "revision" : "a9ed4b6f9bdedce7d77046f43adfb8ce1fd54114",
-        "version" : "3.9.0"
+        "revision" : "b75d3c3198a2930b4491b04fd47cb504b359c750",
+        "version" : "3.10.0"
       }
     },
     {
@@ -95,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cryptolib-swift.git",
       "state" : {
-        "revision" : "6e5dbea6e05742ad82a074bf7ee8c3305d92fbae",
-        "version" : "1.1.0"
+        "revision" : "b339c9ba84f7737377ef187a78900f9cc384cb12",
+        "version" : "2.0.0"
       }
     },
     {
@@ -109,21 +110,12 @@
       }
     },
     {
-      "identity" : "dropbox-sdk-obj-c-spm",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/phil1995/dropbox-sdk-obj-c-spm.git",
-      "state" : {
-        "revision" : "87c1fcf96622ab90a956bdf89331ddb4164f4855",
-        "version" : "7.2.0"
-      }
-    },
-    {
       "identity" : "google-api-objectivec-client-for-rest",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/google-api-objectivec-client-for-rest.git",
       "state" : {
-        "revision" : "499087368ae106b7e00cd8cbb82fdd78257dfbc7",
-        "version" : "5.2.0"
+        "revision" : "07cd7c8ca9119dc08afd4bad52280bd3b763196c",
+        "version" : "5.4.0"
       }
     },
     {
@@ -131,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "36e30a6f1ef10e4194f6af0cff90888526f0c115",
-        "version" : "7.10.0"
+        "revision" : "b83108d10f42680d78f23fe4d4d80fc88dab3212",
+        "version" : "7.11.1"
       }
     },
     {
@@ -140,8 +132,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "a2ab612cb980066ee56d90d60d8462992c07f24b",
-        "version" : "3.5.0"
+        "revision" : "724a52eea6329b7e12d3ad8300d76ca9f3895fcc",
+        "version" : "5.3.1"
       }
     },
     {
@@ -149,17 +141,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GTMAppAuth.git",
       "state" : {
-        "revision" : "56e0ccf09a6dd29dc7e68bdf729598240ca8aa16",
-        "version" : "5.0.0"
+        "revision" : "57094cd46bc8700d3a887e2a429f42b6e8ea3f0b",
+        "version" : "6.0.0"
       }
     },
     {
       "identity" : "joseswift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tobihagemann/JOSESwift.git",
+      "location" : "https://github.com/cryptomator/JOSESwift.git",
       "state" : {
-        "revision" : "3544f8117908ef12ea13b1c0927e0e3c0d30ee01",
-        "version" : "2.4.1-cryptomator"
+        "revision" : "01929b53ede10cb20997c91348fcdbcee2223449",
+        "version" : "3.0.0-cryptomator.2"
       }
     },
     {
@@ -167,26 +159,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
       "state" : {
-        "revision" : "dca588d8715cf668beb6057989147ed6df737cc6",
-        "version" : "2.9.0"
-      }
-    },
-    {
-      "identity" : "msgraph-sdk-objc-models-spm",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/phil1995/msgraph-sdk-objc-models-spm.git",
-      "state" : {
-        "revision" : "172b07fe8a7da6072149e2fd92051a510b25035e",
-        "version" : "1.3.0"
-      }
-    },
-    {
-      "identity" : "msgraph-sdk-objc-spm",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/phil1995/msgraph-sdk-objc-spm.git",
-      "state" : {
-        "revision" : "0320c6a99207b53288970382afcf5054852f9724",
-        "version" : "1.0.0"
+        "revision" : "8dfe5bf41fe10e6d2afed62a72c4232adbef20f4",
+        "version" : "2.16.0"
       }
     },
     {
@@ -196,15 +170,6 @@
       "state" : {
         "revision" : "cc81e0250a9f378019470c78ce9a8bb501dcaeda",
         "version" : "3.2.3"
-      }
-    },
-    {
-      "identity" : "promises",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/promises.git",
-      "state" : {
-        "revision" : "e70e889c0196c76d22759eb50d6a0270ca9f1d9e",
-        "version" : "2.3.1"
       }
     },
     {
@@ -239,8 +204,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "bbd81b6725ae874c69e9b8c8804d462356b55523",
-        "version" : "1.10.1"
+        "revision" : "4038b6a4f74a1426f47eb1dd5b4bb5628a15d597",
+        "version" : "1.16.1"
       }
     },
     {
@@ -262,6 +227,15 @@
       }
     },
     {
+      "identity" : "swiftydropbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dropbox/SwiftyDropbox.git",
+      "state" : {
+        "revision" : "e315e0b14edb83f022134aef389deb4e8bee6bbf",
+        "version" : "10.2.4"
+      }
+    },
+    {
       "identity" : "tpinappreceipt",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tikhop/TPInAppReceipt.git",
@@ -280,5 +254,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

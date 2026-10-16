@@ -10,7 +10,7 @@ import CryptoKit
 import Dependencies
 import Foundation
 
-protocol CryptomatorHubKeyProvider {
+protocol CryptomatorHubKeyProvider: Sendable {
 	func getPublicKey() throws -> P384.KeyAgreement.PublicKey
 
 	func getPrivateKey() throws -> P384.KeyAgreement.PrivateKey
@@ -30,7 +30,7 @@ extension DependencyValues {
 	}
 }
 
-public struct CryptomatorHubKeyProviderImpl: CryptomatorHubKeyProvider {
+public struct CryptomatorHubKeyProviderImpl: CryptomatorHubKeyProvider, Sendable {
 	public static let shared: CryptomatorHubKeyProviderImpl = .init(keychain: CryptomatorKeychain.hub)
 	let keychain: CryptomatorKeychainType
 	private let keychainKey = "privateKey"
@@ -65,7 +65,8 @@ public struct CryptomatorHubKeyProviderImpl: CryptomatorHubKeyProvider {
 // MARK: - CryptomatorHubKeyProviderMock -
 
 // swiftlint: disable all
-final class CryptomatorHubKeyProviderMock: CryptomatorHubKeyProvider {
+/// @unchecked Sendable: test double, never touched concurrently
+final class CryptomatorHubKeyProviderMock: CryptomatorHubKeyProvider, @unchecked Sendable {
 	// MARK: - getPublicKey
 
 	var getPublicKeyThrowableError: Error?

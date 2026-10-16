@@ -34,7 +34,7 @@ class BindableTableViewCellViewModel: TableViewCellViewModel {
 	}
 }
 
-class TableViewCellViewModel: Hashable {
+class TableViewCellViewModel: nonisolated Hashable {
 	var type: ConfigurableTableViewCell.Type {
 		fatalError("not implemented")
 	}
@@ -45,11 +45,13 @@ class TableViewCellViewModel: Hashable {
 
 	private let identifier = UUID()
 
-	static func == (lhs: TableViewCellViewModel, rhs: TableViewCellViewModel) -> Bool {
+	init() {}
+
+	nonisolated static func == (lhs: TableViewCellViewModel, rhs: TableViewCellViewModel) -> Bool {
 		return lhs.identifier == rhs.identifier
 	}
 
-	func hash(into hasher: inout Hasher) {
+	nonisolated func hash(into hasher: inout Hasher) {
 		hasher.combine(identifier)
 	}
 }

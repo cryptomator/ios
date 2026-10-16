@@ -8,7 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
+import os
 
 /**
  ```
@@ -22,173 +22,182 @@ import Promises
  └─ File 4
  ```
  */
-class CustomCloudProviderMock: CloudProvider {
+/// @unchecked Sendable: mutable state guarded by `state`; not final because test doubles subclass it
+@dynamicMemberLookup
+class CustomCloudProviderMock: CloudProvider, @unchecked Sendable {
+	struct State {
+		var files: [String: Data?] = [
+			"/File 1": Data("File 1 content".utf8),
+			"/File 2": Data("File 2 content".utf8),
+			"/File 3": Data("File 3 content".utf8),
+			"/File 4": Data("File 4 content".utf8),
+			"/Directory 1/File 5": Data("File 5 content".utf8)
+		]
+		var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
+		                                         "/Directory 1/Directory 2": nil,
+		                                         "/File 1": Date(timeIntervalSince1970: 0),
+		                                         "/File 2": Date(timeIntervalSince1970: 0),
+		                                         "/File 3": Date(timeIntervalSince1970: 0),
+		                                         "/File 4": Date(timeIntervalSince1970: 0),
+		                                         "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
+
+		var createdFolders: [String] = []
+		var createdFiles: [String: Data] = [:]
+		var deletedFiles: [String] = []
+		var deletedFolders: [String] = []
+		var movedFiles: [String: String] = [:]
+		var movedFolders: [String: String] = [:]
+
+		var everyOperationShouldFailWithError: Error?
+	}
+
 	let folders: Set = [
 		"/Directory 1",
 		"/Directory 1/Directory 2"
 	]
-	var files: [String: Data?] = [
-		"/File 1": Data("File 1 content".utf8),
-		"/File 2": Data("File 2 content".utf8),
-		"/File 3": Data("File 3 content".utf8),
-		"/File 4": Data("File 4 content".utf8),
-		"/Directory 1/File 5": Data("File 5 content".utf8)
-	]
-	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
-	                                         "/Directory 1/Directory 2": nil,
-	                                         "/File 1": Date(timeIntervalSince1970: 0),
-	                                         "/File 2": Date(timeIntervalSince1970: 0),
-	                                         "/File 3": Date(timeIntervalSince1970: 0),
-	                                         "/File 4": Date(timeIntervalSince1970: 0),
-	                                         "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
+	private let state = OSAllocatedUnfairLock(initialState: State())
 
-	var createdFolders: [String] = []
-	var createdFiles: [String: Data] = [:]
-	var deletedFiles: [String] = []
-	var deletedFolders: [String] = []
-	var movedFiles: [String: String] = [:]
-	var movedFolders: [String: String] = [:]
+	subscript<T>(dynamicMember keyPath: WritableKeyPath<State, T>) -> T {
+		get { state.withLockUnchecked { $0[keyPath: keyPath] } }
+		set { state.withLockUnchecked { $0[keyPath: keyPath] = newValue } }
+	}
 
-	var everyOperationShouldFailWithError: Error?
+	@concurrent
+	func fetchItemMetadata(at cloudPath: CloudPath) async throws -> CloudItemMetadata {
+		return try metadata(at: cloudPath)
+	}
 
-	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-		if let error = everyOperationShouldFailWithError {
-			return Promise(error)
+	private func metadata(at cloudPath: CloudPath) throws -> CloudItemMetadata {
+		if let error = self.everyOperationShouldFailWithError {
+			throw error
 		}
+		let lastModifiedDate = self.lastModifiedDate[cloudPath.path] ?? nil
 		if folders.contains(cloudPath.path) {
-			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: 0))
-		} else if let data = files[cloudPath.path] {
-			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: data!.count))
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: lastModifiedDate, size: 0)
+		} else if let data = self.files[cloudPath.path] {
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: lastModifiedDate, size: data!.count)
 		} else {
-			return Promise(CloudProviderError.itemNotFound)
+			throw CloudProviderError.itemNotFound
 		}
 	}
 
-	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+	@concurrent
+	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) async throws -> CloudItemList {
 		switch cloudPath {
 		case CloudPath("/itemNotFound"):
-			return Promise(CloudProviderError.itemNotFound)
+			throw CloudProviderError.itemNotFound
 		case CloudPath("/itemTypeMismatch"):
-			return Promise(CloudProviderError.itemTypeMismatch)
+			throw CloudProviderError.itemTypeMismatch
 		case CloudPath("/pageTokenInvalid"):
-			return Promise(CloudProviderError.pageTokenInvalid)
+			throw CloudProviderError.pageTokenInvalid
 		case CloudPath("/unauthorized"):
-			return Promise(CloudProviderError.unauthorized)
+			throw CloudProviderError.unauthorized
 		case CloudPath("/noInternetConnection"):
-			return Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		default:
-			return normalFetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
+			return try normalFetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
 		}
 	}
 
-	func normalFetchItemList(forFolderAt cloudPath: CloudPath, withPageToken _: String?) -> Promise<CloudItemList> {
+	func normalFetchItemList(forFolderAt cloudPath: CloudPath, withPageToken _: String?) throws -> CloudItemList {
 		let parentPath = cloudPath.path
 		let parentPathLvl = parentPath.components(separatedBy: "/").count - (parentPath.hasSuffix("/") ? 1 : 0)
 		let childDirs = folders.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
-		let childFiles = files.keys.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
+		let childFiles = self.files.keys.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
 		let children = childDirs + childFiles
-		let metadataPromises = children.map { self.fetchItemMetadata(at: CloudPath($0)) }
-		return all(metadataPromises).then { metadata -> CloudItemList in
-			let sortedMetadata = metadata.sorted {
-				$0.name < $1.name
-			}
-			return CloudItemList(items: sortedMetadata)
+		let metadata = try children.map { try self.metadata(at: CloudPath($0)) }
+		let sortedMetadata = metadata.sorted {
+			$0.name < $1.name
 		}
+		return CloudItemList(items: sortedMetadata)
 	}
 
-	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
+	@concurrent
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, progress: Progress?, onTaskCreation: (@concurrent @Sendable (URLSessionDownloadTask) async -> Void)?) async throws -> CloudItemMetadata {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		if let data = files[cloudPath.path] {
-			do {
-				try data!.write(to: localURL, options: .withoutOverwriting)
-			} catch {
-				return Promise(error)
-			}
-			return Promise(())
-		} else {
-			return Promise(CloudProviderError.itemNotFound)
+		guard let data = self.files[cloudPath.path] else {
+			throw CloudProviderError.itemNotFound
 		}
+		try data!.write(to: localURL, options: .withoutOverwriting)
+		return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.lastModifiedDate[cloudPath.path] ?? nil, size: data!.count)
 	}
 
-	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
+	@concurrent
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, progress: Progress?, onTaskCreation: (@concurrent @Sendable (URLSessionUploadTask) async -> Void)?) async throws -> CloudItemMetadata {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
 		switch cloudPath {
 		case CloudPath("/itemNotFound.txt"):
-			return Promise(CloudProviderError.itemNotFound)
+			throw CloudProviderError.itemNotFound
 		case CloudPath("/itemAlreadyExists.txt"):
-			return Promise(CloudProviderError.itemAlreadyExists)
+			throw CloudProviderError.itemAlreadyExists
 		case CloudPath("/quotaInsufficient.txt"):
-			return Promise(CloudProviderError.quotaInsufficient)
+			throw CloudProviderError.quotaInsufficient
 		case CloudPath("/noInternetConnection.txt"):
-			return Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		case CloudPath("/unauthorized.txt"):
-			return Promise(CloudProviderError.unauthorized)
+			throw CloudProviderError.unauthorized
 		default:
-			return normalUpload(from: localURL, to: cloudPath)
+			return try normalUpload(from: localURL, to: cloudPath)
 		}
 	}
 
-	private func normalUpload(from localURL: URL, to cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+	private func normalUpload(from localURL: URL, to cloudPath: CloudPath) throws -> CloudItemMetadata {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		do {
-			let data = try Data(contentsOf: localURL)
-			createdFiles[cloudPath.path] = data
-			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: data.count))
-		} catch {
-			return Promise(error)
-		}
+		let data = try Data(contentsOf: localURL)
+		self.createdFiles[cloudPath.path] = data
+		return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.lastModifiedDate[cloudPath.path] ?? nil, size: data.count)
 	}
 
-	func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
+	@concurrent
+	func createFolder(at cloudPath: CloudPath) async throws {
 		switch cloudPath {
 		case CloudPath("/FolderAlreadyExists/"):
-			return Promise(CloudProviderError.itemAlreadyExists)
+			throw CloudProviderError.itemAlreadyExists
 		case CloudPath("/quotaInsufficient/"):
-			return Promise(CloudProviderError.quotaInsufficient)
+			throw CloudProviderError.quotaInsufficient
 		default:
-			createdFolders.append(cloudPath.path)
-			return Promise(())
+			self.createdFolders.append(cloudPath.path)
 		}
 	}
 
-	func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
-		deletedFiles.append(cloudPath.path)
-		return Promise(())
+	@concurrent
+	func deleteFile(at cloudPath: CloudPath) async throws {
+		self.deletedFiles.append(cloudPath.path)
 	}
 
-	func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
-		deletedFolders.append(cloudPath.path)
-		return Promise(())
+	@concurrent
+	func deleteFolder(at cloudPath: CloudPath) async throws {
+		self.deletedFolders.append(cloudPath.path)
 	}
 
-	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+	@concurrent
+	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
 		switch targetCloudPath {
 		case CloudPath("/FileAlreadyExists.txt"):
-			return Promise(CloudProviderError.itemAlreadyExists)
+			throw CloudProviderError.itemAlreadyExists
 		case CloudPath("/quotaInsufficient.txt"):
-			return Promise(CloudProviderError.quotaInsufficient)
+			throw CloudProviderError.quotaInsufficient
 		default:
-			movedFiles[sourceCloudPath.path] = targetCloudPath.path
-			return Promise(())
+			self.movedFiles[sourceCloudPath.path] = targetCloudPath.path
 		}
 	}
 
-	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+	@concurrent
+	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
 		switch targetCloudPath {
 		case CloudPath("/FolderAlreadyExists/"):
-			return Promise(CloudProviderError.itemAlreadyExists)
+			throw CloudProviderError.itemAlreadyExists
 		case CloudPath("/quotaInsufficient/"):
-			return Promise(CloudProviderError.quotaInsufficient)
+			throw CloudProviderError.quotaInsufficient
 		default:
-			movedFolders[sourceCloudPath.path] = targetCloudPath.path
-			return Promise(())
+			self.movedFolders[sourceCloudPath.path] = targetCloudPath.path
 		}
 	}
 
 	func setLastModifiedDate(_ date: Date?, for remoteURL: CloudPath) {
-		lastModifiedDate[remoteURL.path] = date
+		self.lastModifiedDate[remoteURL.path] = date
 	}
 }

@@ -8,26 +8,26 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 extension S3Authenticator {
-	private static var coordinator: S3AuthenticationCoordinator?
+	@MainActor private static var coordinator: S3AuthenticationCoordinator?
 
-	static func authenticate(from viewController: UIViewController) -> Promise<S3Credential> {
+	static func authenticate(from viewController: UIViewController) async throws -> S3Credential {
 		let navigationController = BaseNavigationController()
 		let s3Coordinator = S3AuthenticationCoordinator(navigationController: navigationController)
 		coordinator = s3Coordinator
+		defer {
+			coordinator = nil
+		}
 		viewController.present(navigationController, animated: true)
 		s3Coordinator.start()
-		return s3Coordinator.pendingAuthentication.always {
-			self.coordinator = nil
-		}
+		return try await s3Coordinator.pendingAuthentication.value
 	}
 }
 
 class S3AuthenticationCoordinator: Coordinator, S3Authenticating {
-	let pendingAuthentication = Promise<S3Credential>.pending()
+	let pendingAuthentication = OneShotSignal<S3Credential>()
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?

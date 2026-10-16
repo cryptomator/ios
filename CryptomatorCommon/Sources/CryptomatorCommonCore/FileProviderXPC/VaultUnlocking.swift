@@ -8,7 +8,6 @@
 
 import FileProvider
 import Foundation
-import Promises
 
 @objc public protocol VaultUnlocking: NSFileProviderServiceSource {
 	// "Because communication over XPC is asynchronous, all methods in the protocol must have a return type of void. If you need to return data, you can define a reply block [...]" see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html
@@ -20,27 +19,27 @@ import Promises
 }
 
 public extension VaultUnlocking {
-	func unlockVault(kek: [UInt8]) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			self.unlockVault(kek: kek) { error in
+	func unlockVault(kek: [UInt8]) async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.unlockVault(kek: kek, reply: { error in
 				if let error = error {
-					reject(error)
+					continuation.resume(throwing: error)
 				} else {
-					fulfill(())
+					continuation.resume()
 				}
-			}
+			})
 		}
 	}
 
-	func unlockVault(rawKey: [UInt8]) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			self.unlockVault(rawKey: rawKey) { error in
+	func unlockVault(rawKey: [UInt8]) async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.unlockVault(rawKey: rawKey, reply: { error in
 				if let error = error {
-					reject(error)
+					continuation.resume(throwing: error)
 				} else {
-					fulfill(())
+					continuation.resume()
 				}
-			}
+			})
 		}
 	}
 }

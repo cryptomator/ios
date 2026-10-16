@@ -11,13 +11,10 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 	@Published var showMockVaults = false
-	func refreshVaultLockStates() -> Promise<Void> {
-		return Promise(())
-	}
+	func refreshVaultLockStates() async throws {}
 
 	let headerTitle = LocalizedString.getValue("vaultList.header.title")
 	let emptyListMessage = LocalizedString.getValue("vaultList.emptyList.message")

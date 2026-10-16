@@ -10,7 +10,6 @@ import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
 import Dependencies
 import GRDB
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
@@ -21,7 +20,8 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	private var maintenanceHelperMock: MaintenanceModeHelperMock!
 	private var vaultLockingMock: VaultLockingMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		setupMocks()
 		withDependencies({
 			$0.fileProviderConnector = fileProviderConnectorMock
@@ -45,7 +45,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				return self.vaultLockingMock!
 			default:
 				XCTFail("Get XPC called for unexpected serviceName: \(serviceName)")
-				return Promise(MockError.notMocked)
+				return MockError.notMocked
 			}
 		}
 	}
@@ -104,8 +104,6 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				$0(nil)
 			}
 
-			self.vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
-
 			XCTAssertEqual("Bar", viewModel.title)
 			let newVaultName = "Baz"
 			self.setVaultName(newVaultName, viewModel: viewModel)
@@ -138,8 +136,6 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				maintenanceModeDisabled.fulfill()
 				$0(nil)
 			}
-
-			self.vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
 
 			let newVaultName = "Bar1"
 			self.setVaultName(newVaultName, viewModel: viewModel)

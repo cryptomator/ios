@@ -10,14 +10,17 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 
-struct AccountListPosition: Codable {
+nonisolated struct AccountListPosition: Codable {
 	var id: Int64?
 	var position: Int?
 	let accountUID: String
 }
 
-extension AccountListPosition: FetchableRecord, MutablePersistableRecord {
-	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
+nonisolated extension AccountListPosition: FetchableRecord, MutablePersistableRecord {
+	static var databaseSelection: [SQLSelectable] {
+		[AllColumns(), Column.rowID]
+	}
+
 	static let account = belongsTo(CloudProviderAccount.self)
 
 	mutating func didInsert(_ inserted: InsertionSuccess) {

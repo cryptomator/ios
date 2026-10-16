@@ -11,7 +11,8 @@ import FileProvider
 import Foundation
 
 // swiftlint:disable all
-final class LocalURLProviderMock: LocalURLProviderType {
+/// @unchecked Sendable: test double, never touched concurrently
+final class LocalURLProviderMock: LocalURLProviderType, @unchecked Sendable {
 	// MARK: - domainIdentifier
 
 	var domainIdentifier: NSFileProviderDomainIdentifier {

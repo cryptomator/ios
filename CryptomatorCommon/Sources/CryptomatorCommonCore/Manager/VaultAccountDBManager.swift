@@ -12,7 +12,7 @@ import Dependencies
 import Foundation
 import GRDB
 
-public struct VaultAccount: Decodable, FetchableRecord, TableRecord, Equatable {
+public struct VaultAccount: Decodable, FetchableRecord, TableRecord, Equatable, Sendable {
 	public static let databaseTableName = "vaultAccounts"
 	static let vaultUIDKey = "vaultUID"
 	static let delegateAccountUIDKey = "delegateAccountUID"
@@ -57,9 +57,12 @@ public enum VaultAccountManagerError: Error {
 	case vaultAccountAlreadyExists
 }
 
-public class VaultAccountDBManager: VaultAccountManager {
+public final class VaultAccountDBManager: VaultAccountManager, Sendable {
 	public static let shared = VaultAccountDBManager()
-	@Dependency(\.database) private var database
+	private let databaseDependency = Dependency(\.database)
+	private var database: DatabaseWriter {
+		databaseDependency.wrappedValue
+	}
 
 	public func saveNewAccount(_ account: VaultAccount) throws {
 		do {

@@ -17,7 +17,7 @@ class AccountCellContent: TableViewCellViewModel {
 		self.detailLabelText = detailLabelText
 	}
 
-	override func hash(into hasher: inout Hasher) {
+	override nonisolated func hash(into hasher: inout Hasher) {
 		hasher.combine(mainLabelText)
 		hasher.combine(detailLabelText)
 	}

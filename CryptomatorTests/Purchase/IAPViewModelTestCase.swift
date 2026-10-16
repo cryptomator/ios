@@ -9,8 +9,8 @@
 import StoreKit
 import XCTest
 @testable import Cryptomator
-@testable import Promises
 
+@MainActor
 class IAPViewModelTestCase: XCTestCase {
 	typealias Item = BaseIAPViewModel.Item
 	var iapManagerMock: IAPManagerMock!
@@ -19,16 +19,17 @@ class IAPViewModelTestCase: XCTestCase {
 		return .retryButton
 	}
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		iapManagerMock = IAPManagerMock()
 		iapStoreMock = IAPStoreMock()
-		iapStoreMock.fetchProductsWithReturnValue = Promise(makeSKProductsResponse(products: [
+		iapStoreMock.fetchProductsWithReturnValue = makeSKProductsResponse(products: [
 			makeSKProduct(identifier: .thirtyDayTrial, price: 0),
 			makeSKProduct(identifier: .fullVersion, price: 11.99),
 			makeSKProduct(identifier: .yearlySubscription, price: 5.99),
 			makeSKProduct(identifier: .paidUpgrade, price: 1.99),
 			makeSKProduct(identifier: .freeUpgrade, price: 0)
-		]))
+		])
 	}
 
 	func makeSKProduct(identifier: ProductIdentifier, price: NSDecimalNumber, locale: Locale = Locale(identifier: "en_US")) -> SKProduct {
@@ -51,15 +52,13 @@ class IAPViewModelTestCase: XCTestCase {
 		XCTAssertEqual(identifier.rawValue, buyReceivedProduct?.productIdentifier)
 	}
 
-	func assertBuyProductWorks(viewModel: BaseIAPViewModel & ProductFetching, productIdentifier: ProductIdentifier, expectedPurchaseTransaction: PurchaseTransaction) throws {
+	func assertBuyProductWorks(viewModel: BaseIAPViewModel & ProductFetching, productIdentifier: ProductIdentifier, expectedPurchaseTransaction: PurchaseTransaction) async throws {
 		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
 		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
 
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		let isLoadingRecorder = try XCTUnwrap(getIsLoadingRecorder(for: viewModel, productIdentifier: productIdentifier))
-		let buyProductPromise = viewModel.buyProduct(productIdentifier)
-		wait(for: buyProductPromise)
-		let purchaseResult = try XCTUnwrap(buyProductPromise.value)
+		let purchaseResult = try await viewModel.buyProduct(productIdentifier)
 
 		XCTAssertEqual(expectedPurchaseTransaction, purchaseResult)
 		assertCalledBuyProduct(with: productIdentifier)
@@ -67,27 +66,27 @@ class IAPViewModelTestCase: XCTestCase {
 		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
-	func assertCancelledBuyProduct(viewModel: BaseIAPViewModel & ProductFetching, productIdentifier: ProductIdentifier) throws {
+	func assertCancelledBuyProduct(viewModel: BaseIAPViewModel & ProductFetching, productIdentifier: ProductIdentifier) async throws {
 		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
 		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
 
-		wait(for: viewModel.fetchProducts())
+		await viewModel.fetchProducts()
 		let isLoadingRecorder = try XCTUnwrap(getIsLoadingRecorder(for: viewModel, productIdentifier: productIdentifier))
-		XCTAssertRejects(viewModel.buyProduct(productIdentifier), with: PurchaseError.paymentCancelled)
+		await XCTAssertThrowsAsyncError(try await viewModel.buyProduct(productIdentifier)) { error in
+			XCTAssertEqual(PurchaseError.paymentCancelled as NSError, error as NSError)
+		}
 		assertCalledBuyProduct(with: productIdentifier)
 
 		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
 		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
-	func assertRestoredPurchase(viewModel: BaseIAPViewModel & ProductFetching, expectedResult: RestoreTransactionsResult) throws {
+	func assertRestoredPurchase(viewModel: BaseIAPViewModel & ProductFetching, expectedResult: RestoreTransactionsResult) async throws {
 		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
 		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
 
-		wait(for: viewModel.fetchProducts())
-		let restorePurchasePromise = viewModel.restorePurchase()
-		wait(for: restorePurchasePromise)
-		let purchaseResult = try XCTUnwrap(restorePurchasePromise.value)
+		await viewModel.fetchProducts()
+		let purchaseResult = try await viewModel.restorePurchase()
 
 		XCTAssertEqual(expectedResult, purchaseResult)
 		XCTAssertEqual(1, iapManagerMock.restoreCallsCount)

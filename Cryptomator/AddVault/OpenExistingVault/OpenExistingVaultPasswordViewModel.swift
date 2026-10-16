@@ -10,13 +10,12 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 protocol OpenExistingVaultPasswordViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
 	var vaultName: String { get }
 	var vaultUID: String { get }
 	var enableVerifyButton: AnyPublisher<Bool, Never> { get }
-	func addVault() -> Promise<Void>
+	func addVault() async throws
 }
 
 class OpenExistingVaultPasswordViewModel: OpenExistingLegacyVaultPasswordViewModel {
@@ -31,7 +30,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingLegacyVaultPasswordViewMod
 		           downloadedMasterkeyFile: downloadedMasterkeyFile)
 	}
 
-	override func addVault() -> Promise<Void> {
-		return VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, downloadedVaultConfig: downloadedVaultConfig, downloadedMasterkey: downloadedMasterkeyFile, vaultItem: vault, password: password)
+	override func addVault() async throws {
+		try await VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, downloadedVaultConfig: downloadedVaultConfig, downloadedMasterkey: downloadedMasterkeyFile, vaultItem: vault, password: password)
 	}
 }

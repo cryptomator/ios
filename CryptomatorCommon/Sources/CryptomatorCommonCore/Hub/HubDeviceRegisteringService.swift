@@ -10,16 +10,15 @@ import AppAuthCore
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
-import XCTestDynamicOverlay
 
-public protocol HubDeviceRegistering {
+public protocol HubDeviceRegistering: Sendable {
 	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws
 }
 
 private enum HubDeviceRegisteringKey: DependencyKey {
-	static var liveValue: HubDeviceRegistering = CryptomatorHubAuthenticator()
+	static let liveValue: HubDeviceRegistering = CryptomatorHubAuthenticator()
 	#if DEBUG
-	static var testValue: HubDeviceRegistering = UnimplementedHubDeviceRegisteringService()
+	static let testValue: HubDeviceRegistering = UnimplementedHubDeviceRegisteringService()
 	#endif
 }
 
@@ -33,14 +32,15 @@ extension DependencyValues {
 #if DEBUG
 final class UnimplementedHubDeviceRegisteringService: HubDeviceRegistering {
 	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
-		XCTFail("\(Self.self).registerDevice is unimplemented.")
+		reportIssue("\(Self.self).registerDevice is unimplemented.")
 	}
 }
 
 // MARK: - HubDeviceRegisteringMock -
 
 // swiftlint: disable all
-final class HubDeviceRegisteringMock: HubDeviceRegistering {
+/// @unchecked Sendable: test double, never touched concurrently
+final class HubDeviceRegisteringMock: HubDeviceRegistering, @unchecked Sendable {
 	// MARK: - registerDevice
 
 	var registerDeviceWithNameHubConfigAuthStateSetupCodeThrowableError: Error?

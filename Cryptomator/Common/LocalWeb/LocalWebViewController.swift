@@ -49,7 +49,7 @@ class LocalWebViewController: UIViewController, WKNavigationDelegate {
 
 	// MARK: - WKNavigationDelegate
 
-	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor @Sendable (WKNavigationActionPolicy) -> Void) {
 		if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
 			UIApplication.shared.open(url)
 			decisionHandler(.cancel)

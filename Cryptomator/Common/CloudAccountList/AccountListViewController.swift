@@ -11,7 +11,6 @@ import CocoaLumberjackSwift
 import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import UIKit
 
 class AccountListViewController: ListViewController<AccountCellContent>, ASWebAuthenticationPresentationContextProviding {
@@ -60,9 +59,10 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
 		let removeAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in
-			self.presentUserConfirmationForLogout().then {
-				self.handleLogout(sender)
-			}.always {
+			Task {
+				if await self.presentUserConfirmationForLogout() {
+					self.handleLogout(sender)
+				}
 				sender.setSelected(false)
 			}
 		})
@@ -121,15 +121,15 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 		sender.setSelected(false)
 	}
 
-	private func presentUserConfirmationForLogout() -> Promise<Void> {
-		let pendingPromise = Promise<Void>.pending()
+	private func presentUserConfirmationForLogout() async -> Bool {
+		let userConfirmation = OneShotSignal<Bool>()
 		let alertController = UIAlertController(title: viewModel.removeAlert.title, message: viewModel.removeAlert.message, preferredStyle: .alert)
-		let logoutAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in pendingPromise.fulfill(()) })
-		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in pendingPromise.reject(CocoaError(.userCancelled)) })
+		let logoutAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in userConfirmation.fulfill(true) })
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in userConfirmation.fulfill(false) })
 		alertController.addAction(logoutAction)
 		alertController.addAction(cancelAction)
 		present(alertController, animated: true)
-		return pendingPromise
+		return (try? await userConfirmation.value) ?? false
 	}
 
 	private func supportsEditing(_ cloudProviderType: CloudProviderType) -> Bool {
@@ -141,7 +141,6 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 
 import Combine
 import CryptomatorCommonCore
-import Promises
 import SwiftUI
 
 private class AccountListViewModelMock: AccountListViewModelProtocol {
@@ -161,9 +160,7 @@ private class AccountListViewModelMock: AccountListViewModelProtocol {
 	let accountInfos = [AccountInfo]()
 	let title = "Google Drive"
 
-	func refreshItems() -> Promise<Void> {
-		return Promise(())
-	}
+	func refreshItems() {}
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {}
 	func removeRow(at index: Int) throws {}

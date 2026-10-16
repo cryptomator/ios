@@ -10,11 +10,11 @@ import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
 import FileProvider
 import Foundation
-import Promises
 
 // swiftlint:disable all
 
-final class FileProviderAdapterTypeMock: FileProviderAdapterType {
+/// @unchecked Sendable: test double, never touched concurrently
+final class FileProviderAdapterTypeMock: FileProviderAdapterType, @unchecked Sendable {
 	// MARK: - lastUnlockedDate
 
 	var lastUnlockedDate: Date {
@@ -75,14 +75,21 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 
 	var enumerateItemsForWithPageTokenReceivedArguments: (identifier: NSFileProviderItemIdentifier, pageToken: String?)?
 	var enumerateItemsForWithPageTokenReceivedInvocations: [(identifier: NSFileProviderItemIdentifier, pageToken: String?)] = []
-	var enumerateItemsForWithPageTokenReturnValue: Promise<FileProviderItemList>!
-	var enumerateItemsForWithPageTokenClosure: ((NSFileProviderItemIdentifier, String?) -> Promise<FileProviderItemList>)?
+	var enumerateItemsForWithPageTokenThrowableError: Error?
+	var enumerateItemsForWithPageTokenReturnValue: FileProviderItemList!
+	var enumerateItemsForWithPageTokenClosure: ((NSFileProviderItemIdentifier, String?) async throws -> FileProviderItemList)?
 
-	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
+	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) async throws -> FileProviderItemList {
+		if let error = enumerateItemsForWithPageTokenThrowableError {
+			throw error
+		}
 		enumerateItemsForWithPageTokenCallsCount += 1
 		enumerateItemsForWithPageTokenReceivedArguments = (identifier: identifier, pageToken: pageToken)
 		enumerateItemsForWithPageTokenReceivedInvocations.append((identifier: identifier, pageToken: pageToken))
-		return enumerateItemsForWithPageTokenClosure.map({ $0(identifier, pageToken) }) ?? enumerateItemsForWithPageTokenReturnValue
+		if let enumerateItemsForWithPageTokenClosure {
+			return try await enumerateItemsForWithPageTokenClosure(identifier, pageToken)
+		}
+		return enumerateItemsForWithPageTokenReturnValue
 	}
 
 	// MARK: - importDocument
@@ -92,11 +99,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		importDocumentAtToParentItemIdentifierCompletionHandlerCallsCount > 0
 	}
 
-	var importDocumentAtToParentItemIdentifierCompletionHandlerReceivedArguments: (fileURL: URL, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var importDocumentAtToParentItemIdentifierCompletionHandlerReceivedInvocations: [(fileURL: URL, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var importDocumentAtToParentItemIdentifierCompletionHandlerClosure: ((URL, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var importDocumentAtToParentItemIdentifierCompletionHandlerReceivedArguments: (fileURL: URL, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)?
+	var importDocumentAtToParentItemIdentifierCompletionHandlerReceivedInvocations: [(fileURL: URL, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)] = []
+	var importDocumentAtToParentItemIdentifierCompletionHandlerClosure: ((URL, NSFileProviderItemIdentifier, @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
 		importDocumentAtToParentItemIdentifierCompletionHandlerCallsCount += 1
 		importDocumentAtToParentItemIdentifierCompletionHandlerReceivedArguments = (fileURL: fileURL, parentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
 		importDocumentAtToParentItemIdentifierCompletionHandlerReceivedInvocations.append((fileURL: fileURL, parentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler))
@@ -128,11 +135,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		createDirectoryWithNameInParentItemIdentifierCompletionHandlerCallsCount > 0
 	}
 
-	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedArguments: (directoryName: String, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedInvocations: [(directoryName: String, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerClosure: ((String, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedArguments: (directoryName: String, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)?
+	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedInvocations: [(directoryName: String, parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)] = []
+	var createDirectoryWithNameInParentItemIdentifierCompletionHandlerClosure: ((String, NSFileProviderItemIdentifier, @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
 		createDirectoryWithNameInParentItemIdentifierCompletionHandlerCallsCount += 1
 		createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedArguments = (directoryName: directoryName, parentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
 		createDirectoryWithNameInParentItemIdentifierCompletionHandlerReceivedInvocations.append((directoryName: directoryName, parentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler))
@@ -164,11 +171,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		renameItemWithIdentifierToNameCompletionHandlerCallsCount > 0
 	}
 
-	var renameItemWithIdentifierToNameCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, itemName: String, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var renameItemWithIdentifierToNameCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, itemName: String, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var renameItemWithIdentifierToNameCompletionHandlerClosure: ((NSFileProviderItemIdentifier, String, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var renameItemWithIdentifierToNameCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, itemName: String, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)?
+	var renameItemWithIdentifierToNameCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, itemName: String, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)] = []
+	var renameItemWithIdentifierToNameCompletionHandlerClosure: ((NSFileProviderItemIdentifier, String, @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
 		renameItemWithIdentifierToNameCompletionHandlerCallsCount += 1
 		renameItemWithIdentifierToNameCompletionHandlerReceivedArguments = (itemIdentifier: itemIdentifier, itemName: itemName, completionHandler: completionHandler)
 		renameItemWithIdentifierToNameCompletionHandlerReceivedInvocations.append((itemIdentifier: itemIdentifier, itemName: itemName, completionHandler: completionHandler))
@@ -182,11 +189,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerCallsCount > 0
 	}
 
-	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerClosure: ((NSFileProviderItemIdentifier, NSFileProviderItemIdentifier, String?, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)?
+	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @Sendable (NSFileProviderItem?, Error?) -> Void)] = []
+	var reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerClosure: ((NSFileProviderItemIdentifier, NSFileProviderItemIdentifier, String?, @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
 		reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerCallsCount += 1
 		reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedArguments = (itemIdentifier: itemIdentifier, parentItemIdentifier: parentItemIdentifier, newName: newName, completionHandler: completionHandler)
 		reparentItemWithIdentifierToParentItemWithIdentifierNewNameCompletionHandlerReceivedInvocations.append((itemIdentifier: itemIdentifier, parentItemIdentifier: parentItemIdentifier, newName: newName, completionHandler: completionHandler))
@@ -200,11 +207,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		deleteItemWithIdentifierCompletionHandlerCallsCount > 0
 	}
 
-	var deleteItemWithIdentifierCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (Error?) -> Void)?
-	var deleteItemWithIdentifierCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (Error?) -> Void)] = []
-	var deleteItemWithIdentifierCompletionHandlerClosure: ((NSFileProviderItemIdentifier, @escaping (Error?) -> Void) -> Void)?
+	var deleteItemWithIdentifierCompletionHandlerReceivedArguments: (itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (Error?) -> Void)?
+	var deleteItemWithIdentifierCompletionHandlerReceivedInvocations: [(itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @Sendable (Error?) -> Void)] = []
+	var deleteItemWithIdentifierCompletionHandlerClosure: ((NSFileProviderItemIdentifier, @escaping @Sendable (Error?) -> Void) -> Void)?
 
-	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
+	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (Error?) -> Void) {
 		deleteItemWithIdentifierCompletionHandlerCallsCount += 1
 		deleteItemWithIdentifierCompletionHandlerReceivedArguments = (itemIdentifier: itemIdentifier, completionHandler: completionHandler)
 		deleteItemWithIdentifierCompletionHandlerReceivedInvocations.append((itemIdentifier: itemIdentifier, completionHandler: completionHandler))
@@ -218,11 +225,11 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		startProvidingItemAtCompletionHandlerCallsCount > 0
 	}
 
-	var startProvidingItemAtCompletionHandlerReceivedArguments: (url: URL, completionHandler: (_ error: Error?) -> Void)?
-	var startProvidingItemAtCompletionHandlerReceivedInvocations: [(url: URL, completionHandler: (_ error: Error?) -> Void)] = []
-	var startProvidingItemAtCompletionHandlerClosure: ((URL, @escaping (_ error: Error?) -> Void) -> Void)?
+	var startProvidingItemAtCompletionHandlerReceivedArguments: (url: URL, completionHandler: @Sendable (_ error: Error?) -> Void)?
+	var startProvidingItemAtCompletionHandlerReceivedInvocations: [(url: URL, completionHandler: @Sendable (_ error: Error?) -> Void)] = []
+	var startProvidingItemAtCompletionHandlerClosure: ((URL, @escaping @Sendable (_ error: Error?) -> Void) -> Void)?
 
-	func startProvidingItem(at url: URL, completionHandler: @escaping (_ error: Error?) -> Void) {
+	func startProvidingItem(at url: URL, completionHandler: @escaping @Sendable (_ error: Error?) -> Void) {
 		startProvidingItemAtCompletionHandlerCallsCount += 1
 		startProvidingItemAtCompletionHandlerReceivedArguments = (url: url, completionHandler: completionHandler)
 		startProvidingItemAtCompletionHandlerReceivedInvocations.append((url: url, completionHandler: completionHandler))
@@ -236,14 +243,14 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		setFavoriteRankForItemIdentifierCompletionHandlerCallsCount > 0
 	}
 
-	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments: (favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations: [(favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var setFavoriteRankForItemIdentifierCompletionHandlerClosure: ((NSNumber?, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments: (favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier)?
+	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations: [(favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier)] = []
+	var setFavoriteRankForItemIdentifierCompletionHandlerClosure: ((NSNumber?, NSFileProviderItemIdentifier, (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
 		setFavoriteRankForItemIdentifierCompletionHandlerCallsCount += 1
-		setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments = (favoriteRank: favoriteRank, itemIdentifier: itemIdentifier, completionHandler: completionHandler)
-		setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations.append((favoriteRank: favoriteRank, itemIdentifier: itemIdentifier, completionHandler: completionHandler))
+		setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments = (favoriteRank: favoriteRank, itemIdentifier: itemIdentifier)
+		setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations.append((favoriteRank: favoriteRank, itemIdentifier: itemIdentifier))
 		setFavoriteRankForItemIdentifierCompletionHandlerClosure?(favoriteRank, itemIdentifier, completionHandler)
 	}
 
@@ -254,14 +261,14 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		setTagDataForItemIdentifierCompletionHandlerCallsCount > 0
 	}
 
-	var setTagDataForItemIdentifierCompletionHandlerReceivedArguments: (tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
-	var setTagDataForItemIdentifierCompletionHandlerReceivedInvocations: [(tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
-	var setTagDataForItemIdentifierCompletionHandlerClosure: ((Data?, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+	var setTagDataForItemIdentifierCompletionHandlerReceivedArguments: (tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier)?
+	var setTagDataForItemIdentifierCompletionHandlerReceivedInvocations: [(tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier)] = []
+	var setTagDataForItemIdentifierCompletionHandlerClosure: ((Data?, NSFileProviderItemIdentifier, (NSFileProviderItem?, Error?) -> Void) -> Void)?
 
-	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
 		setTagDataForItemIdentifierCompletionHandlerCallsCount += 1
-		setTagDataForItemIdentifierCompletionHandlerReceivedArguments = (tagData: tagData, itemIdentifier: itemIdentifier, completionHandler: completionHandler)
-		setTagDataForItemIdentifierCompletionHandlerReceivedInvocations.append((tagData: tagData, itemIdentifier: itemIdentifier, completionHandler: completionHandler))
+		setTagDataForItemIdentifierCompletionHandlerReceivedArguments = (tagData: tagData, itemIdentifier: itemIdentifier)
+		setTagDataForItemIdentifierCompletionHandlerReceivedInvocations.append((tagData: tagData, itemIdentifier: itemIdentifier))
 		setTagDataForItemIdentifierCompletionHandlerClosure?(tagData, itemIdentifier, completionHandler)
 	}
 
@@ -306,14 +313,21 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 
 	var getItemIdentifierForReceivedArguments: CloudPath?
 	var getItemIdentifierForReceivedInvocations: [CloudPath] = []
-	var getItemIdentifierForReturnValue: Promise<NSFileProviderItemIdentifier>!
-	var getItemIdentifierForClosure: ((CloudPath) -> Promise<NSFileProviderItemIdentifier>)?
+	var getItemIdentifierForThrowableError: Error?
+	var getItemIdentifierForReturnValue: NSFileProviderItemIdentifier!
+	var getItemIdentifierForClosure: ((CloudPath) async throws -> NSFileProviderItemIdentifier)?
 
-	func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier> {
+	func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier {
+		if let error = getItemIdentifierForThrowableError {
+			throw error
+		}
 		getItemIdentifierForCallsCount += 1
 		getItemIdentifierForReceivedArguments = cloudPath
 		getItemIdentifierForReceivedInvocations.append(cloudPath)
-		return getItemIdentifierForClosure.map({ $0(cloudPath) }) ?? getItemIdentifierForReturnValue
+		if let getItemIdentifierForClosure {
+			return try await getItemIdentifierForClosure(cloudPath)
+		}
+		return getItemIdentifierForReturnValue
 	}
 }
 

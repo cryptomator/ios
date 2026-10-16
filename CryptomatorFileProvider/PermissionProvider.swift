@@ -12,7 +12,7 @@ import Dependencies
 import FileProvider
 import Foundation
 
-public protocol PermissionProvider {
+public protocol PermissionProvider: Sendable {
 	/**
 	 Returns the permission for a given `item` at a given `domain`.
 

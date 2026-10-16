@@ -2,7 +2,7 @@ import Dependencies
 import Foundation
 import GRDB
 
-public protocol HubRepository {
+public protocol HubRepository: Sendable {
 	func save(_ vault: HubVault) throws
 	func getHubVault(vaultID: String) throws -> HubVault?
 }
@@ -47,14 +47,17 @@ public extension DependencyValues {
 }
 
 private enum HubRepositoryKey: DependencyKey {
-	static var liveValue: HubRepository = HubDBRepository()
+	static let liveValue: HubRepository = HubDBRepository()
 	#if DEBUG
-	static var testValue: HubRepository = HubRepositoryMock()
+	static let testValue: HubRepository = HubRepositoryMock()
 	#endif
 }
 
-public class HubDBRepository: HubRepository {
-	@Dependency(\.database) private var database
+public final class HubDBRepository: HubRepository {
+	private let databaseDependency = Dependency(\.database)
+	private var database: DatabaseWriter {
+		databaseDependency.wrappedValue
+	}
 
 	public func save(_ vault: HubVault) throws {
 		let row = HubVaultRow(from: vault)

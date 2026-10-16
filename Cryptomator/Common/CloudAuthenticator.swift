@@ -11,7 +11,6 @@ import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import UIKit
 
 class CloudAuthenticator {
@@ -27,99 +26,90 @@ class CloudAuthenticator {
 		self.microsoftGraphAccountManager = microsoftGraphAccountManager
 	}
 
-	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) async throws -> CloudProviderAccount {
 		switch cloudProviderType {
 		case .box:
-			return authenticateBox(from: viewController)
+			return try await authenticateBox(from: viewController)
 		case .dropbox:
-			return authenticateDropbox(from: viewController)
+			return try await authenticateDropbox(from: viewController)
 		case .googleDrive:
-			return authenticateGoogleDrive(from: viewController)
+			return try await authenticateGoogleDrive(from: viewController)
 		case .localFileSystem:
-			return Promise(CloudAuthenticatorError.functionNotYetSupported)
+			throw CloudAuthenticatorError.functionNotYetSupported
 		case .microsoftGraph(type: .oneDrive):
-			return authenticateOneDrive(from: viewController)
+			return try await authenticateOneDrive(from: viewController)
 		case .microsoftGraph(type: .sharePoint):
-			return authenticateSharePoint(from: viewController)
+			return try await authenticateSharePoint(from: viewController)
 		case .pCloud:
-			return authenticatePCloud(from: viewController)
+			return try await authenticatePCloud(from: viewController)
 		case .s3:
-			return authenticateS3(from: viewController)
+			return try await authenticateS3(from: viewController)
 		case .webDAV:
-			return authenticateWebDAV(from: viewController)
+			return try await authenticateWebDAV(from: viewController)
 		}
 	}
 
-	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+	func authenticateDropbox(from viewController: UIViewController) async throws -> CloudProviderAccount {
 		let authenticator = DropboxAuthenticator()
-		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+		let credential = try await authenticator.authenticate(from: viewController)
+		let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
-	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+	func authenticateGoogleDrive(from viewController: UIViewController) async throws -> CloudProviderAccount {
 		let credential = GoogleDriveCredential()
-		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
-			let account = try CloudProviderAccount(accountUID: credential.getAccountID(), cloudProviderType: .googleDrive)
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+		try await GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController)
+		let account = try CloudProviderAccount(accountUID: credential.getAccountID(), cloudProviderType: .googleDrive)
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
-	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
+	func authenticateOneDrive(from viewController: UIViewController) async throws -> CloudProviderAccount {
+		return try await OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
 	}
 
-	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
+	func authenticateSharePoint(from viewController: UIViewController) async throws -> CloudProviderAccount {
+		return try await SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
 	}
 
-	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return PCloudAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			try credential.saveToKeychain()
-			let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+	func authenticatePCloud(from viewController: UIViewController) async throws -> CloudProviderAccount {
+		let credential = try await PCloudAuthenticator.authenticate(from: viewController)
+		try credential.saveToKeychain()
+		let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
-	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+	func authenticateBox(from viewController: UIViewController) async throws -> CloudProviderAccount {
 		let tokenStorage = BoxTokenStorage()
 		let credential = BoxCredential(tokenStorage: tokenStorage)
-		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).then { _ -> Promise<CloudProviderAccount> in
-			return credential.getUserID().then { userID in
-				tokenStorage.userID = userID // this will actually save the access token to the keychain
-				let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
-				try self.accountManager.saveNewAccount(account)
-				return account
-			}
-		}
+		_ = try await BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage)
+		let userID = try await credential.getUserID()
+		tokenStorage.userID = userID // this will actually save the access token to the keychain
+		let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
-	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+	func authenticateWebDAV(from viewController: UIViewController) async throws -> CloudProviderAccount {
+		let credential = try await WebDAVAuthenticator.authenticate(from: viewController)
+		let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
-	func authenticateS3(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return S3Authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+	func authenticateS3(from viewController: UIViewController) async throws -> CloudProviderAccount {
+		let credential = try await S3Authenticator.authenticate(from: viewController)
+		let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
+		try accountManager.saveNewAccount(account)
+		return account
 	}
 
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
-			let tokenStorage = BoxTokenStorage(userID: account.accountUID)
-			let credential = BoxCredential(tokenStorage: tokenStorage)
-			_ = credential.deauthenticate()
+			deauthenticateBox(account: account)
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()
@@ -141,20 +131,28 @@ class CloudAuthenticator {
 		let correspondingVaults = try vaultAccountManager.getAllAccounts().filter { $0.delegateAccountUID == account.accountUID }
 		let vaultUIDs = correspondingVaults.map { $0.vaultUID }
 
-		_ = Promise<Void>(on: .global()) { fulfill, reject in
+		Task {
 			do {
 				if !vaultUIDs.isEmpty {
-					try awaitPromise(self.vaultManager.removeVaults(withUIDs: vaultUIDs))
+					try await self.vaultManager.removeVaults(withUIDs: vaultUIDs)
 					DDLogInfo("Removed \(vaultUIDs.count) vaults for deauthenticated account: \(account)")
 				}
-				fulfill(())
+				try self.accountManager.removeAccount(with: account.accountUID)
 			} catch {
-				reject(error)
+				DDLogError("Deauthenticate account: \(account) failed with error: \(error)")
 			}
-		}.then {
-			try self.accountManager.removeAccount(with: account.accountUID)
-		}.catch { error in
-			DDLogError("Deauthenticate account: \(account) failed with error: \(error)")
+		}
+	}
+
+	func deauthenticateBox(account: CloudProviderAccount) {
+		let tokenStorage = BoxTokenStorage(userID: account.accountUID)
+		let credential = BoxCredential(tokenStorage: tokenStorage)
+		Task {
+			do {
+				try await credential.deauthenticate()
+			} catch {
+				DDLogError("Revoking the Box token of account: \(account) failed with error: \(error)")
+			}
 		}
 	}
 

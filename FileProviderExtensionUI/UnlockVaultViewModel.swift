@@ -16,7 +16,6 @@ import FileProvider
 import FileProviderUI
 import Foundation
 import LocalAuthentication
-import Promises
 
 enum AuthenticationError: Error {
 	case authenticationFailedWithoutError
@@ -41,6 +40,7 @@ enum UnlockSection: Int {
 	case enableBiometricalSection
 }
 
+@MainActor
 class UnlockVaultViewModel {
 	var title: String {
 		vaultName
@@ -191,18 +191,11 @@ class UnlockVaultViewModel {
 
 	// MARK: Unlock Vault
 
-	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
-		return getXPCPromise.then { xpc -> Promise<Void> in
-			self.unlockVault(with: password, proxy: xpc.proxy)
-		}.then {
-			if storePasswordInKeychain {
-				do {
-					try self.passwordManager.setPassword(password, forVaultUID: self.vaultUID)
-				} catch {
-					throw error
-				}
-			}
+	func unlock(withPassword password: String, storePasswordInKeychain: Bool) async throws {
+		let xpc: XPC<VaultUnlocking> = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
+		try await unlockVault(with: password, proxy: xpc.proxy)
+		if storePasswordInKeychain {
+			try passwordManager.setPassword(password, forVaultUID: vaultUID)
 		}
 	}
 
@@ -214,32 +207,20 @@ class UnlockVaultViewModel {
 	 These include that if successful, a subsequent `enumerateItems` call is executed too quickly and the `FileProviderAdapter` is not yet available. Therefore, we need to artificially delay the item enumeration until we have successfully completed our actual vault unlock.
 	 This means we have to notify the proxy about the start (to enable the artificial delay) and the end of a biometric unlock (to disable the artificial delay again - otherwise the user will not see an authenticate dialog in the Files app).
 	 */
-	func biometricalUnlock() -> Promise<Void> {
+	func biometricalUnlock() async throws {
 		let reason = LocalizedString.getValue("unlockVault.evaluatePolicy.reason")
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
-		return getXPCPromise.then { xpc in
-			xpc.proxy.startBiometricalUnlock()
-		}.then { _ -> Void in
-			var error: NSError?
-			guard self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
-				if let error = error {
-					throw error
-				} else {
-					throw AuthenticationError.authenticationFailedWithoutError
-				}
-			}
-		}.then {
-			self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
-		}.then {
-			getXPCPromise
-		}.then(on: .main) { xpc in
-			self.unlockWithSavedPassword(proxy: xpc.proxy)
-		}.always {
-			getXPCPromise.then { xpc in
-				xpc.proxy.endBiometricalUnlock()
-				self.fileProviderConnector.invalidateXPC(xpc)
-			}
+		let xpc: XPC<VaultUnlocking> = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
+		defer {
+			xpc.proxy.endBiometricalUnlock()
+			fileProviderConnector.invalidateXPC(xpc)
 		}
+		xpc.proxy.startBiometricalUnlock()
+		var error: NSError?
+		guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
+			throw error ?? AuthenticationError.authenticationFailedWithoutError
+		}
+		try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
+		try await unlockWithSavedPassword(proxy: xpc.proxy)
 	}
 
 	// MARK: Internal
@@ -269,52 +250,29 @@ class UnlockVaultViewModel {
 		}
 	}
 
-	private func unlockWithSavedPassword(proxy: VaultUnlocking) -> Promise<Void> {
-		let password: String
-		do {
-			password = try passwordManager.getPassword(forVaultUID: vaultUID, context: context)
-		} catch {
-			return Promise(error)
-		}
-		return unlockVault(with: password, proxy: proxy)
+	private func unlockWithSavedPassword(proxy: VaultUnlocking) async throws {
+		let password = try passwordManager.getPassword(forVaultUID: vaultUID, context: context)
+		try await unlockVault(with: password, proxy: proxy)
 	}
 
-	private func proxyUnlockVault(_ proxy: VaultUnlocking, kek: [UInt8]) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			proxy.unlockVault(kek: kek, reply: { error in
-				if let error = error {
-					reject(error)
-				} else {
-					fulfill(())
-				}
-			})
-		}
-	}
-
-	private func unlockVault(with password: String, proxy: VaultUnlocking) -> Promise<Void> {
-		return refreshVaultCache().then(on: .global(qos: .userInitiated)) {
-			try self.getKEK(password: password)
-		}.then { kek in
-			self.proxyUnlockVault(proxy, kek: kek)
-		}
-	}
-
-	private func getKEK(password: String) throws -> [UInt8] {
+	private func unlockVault(with password: String, proxy: VaultUnlocking) async throws {
+		try await refreshVaultCache()
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+		let kek = try await UnlockVaultViewModel.getKEK(password: password, masterkeyFileData: cachedVault.masterkeyFileData)
+		try await proxy.unlockVault(kek: kek)
+	}
+
+	@concurrent private nonisolated static func getKEK(password: String, masterkeyFileData: Data) async throws -> [UInt8] {
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
 		return try masterkeyFile.deriveKey(passphrase: password)
 	}
 
-	private func refreshVaultCache() -> Promise<Void> {
-		let vaultAccount: VaultAccount
-		let provider: CloudProvider
+	private func refreshVaultCache() async throws {
+		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+		let provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
 		do {
-			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
+			try await vaultCache.refreshVaultCache(for: vaultAccount, with: provider)
 		} catch {
-			return Promise(error)
-		}
-		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
 			switch error {
 			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
 				break
@@ -323,32 +281,6 @@ class UnlockVaultViewModel {
 					throw error
 				}
 				DDLogInfo("UnlockVaultViewModel: refreshVaultCache unreachable, using cached masterkey (\(error))")
-			}
-		}
-	}
-}
-
-extension NSFileProviderService {
-	func getFileProviderConnection() -> Promise<NSXPCConnection?> {
-		wrap { handler in
-			self.getFileProviderConnection(completionHandler: handler)
-		}
-	}
-}
-
-extension LAContext {
-	func evaluatePolicy(_ policy: LAPolicy, localizedReason: String) -> Promise<Void> {
-		return Promise<Void> { fulfill, reject in
-			self.evaluatePolicy(policy, localizedReason: localizedReason) { success, error in
-				if success {
-					fulfill(())
-				} else {
-					if let error = error {
-						reject(error)
-					} else {
-						reject(AuthenticationError.authenticationFailedWithoutError)
-					}
-				}
 			}
 		}
 	}

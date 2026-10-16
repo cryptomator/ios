@@ -5,18 +5,19 @@
 
 import Dependencies
 import FileProvider
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class XPCCacheControllerTests: XCTestCase {
 	private static let serviceError = NSError(domain: "TestError", code: -42)
 
 	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	private var xpcCacheManagingMock: CacheManagingMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		xpcCacheManagingMock = CacheManagingMock()
 		xpcCacheManagingMock.clearCacheReplyClosure = { reply in
@@ -24,10 +25,10 @@ class XPCCacheControllerTests: XCTestCase {
 		}
 	}
 
-	func testClearCacheUsesXPCServiceAndInvalidatesConnection() {
+	func testClearCacheUsesXPCServiceAndInvalidatesConnection() async throws {
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		_ = runExpectingSuccess { $0.clearCache() }
+		try await makeXPCCacheController().clearCache()
 
 		XCTAssertEqual(1, xpcCacheManagingMock.clearCacheReplyCallsCount)
 		XCTAssertEqual(NSFileProviderServiceName.cacheManaging, fileProviderConnectorMock.passedServiceName)
@@ -35,35 +36,37 @@ class XPCCacheControllerTests: XCTestCase {
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testClearCacheRejectsWhenGetXPCFails() {
-		// Leave fileProviderConnectorMock.proxy unset so getCastedProxy rejects with typeMismatch.
-		let receivedError = runExpectingFailure { $0.clearCache() }
+	func testClearCacheRejectsWhenGetXPCFails() async {
+		// Leave fileProviderConnectorMock.proxy unset so getCastedProxy throws typeMismatch.
+		await XCTAssertThrowsAsyncError(try await makeXPCCacheController().clearCache()) { error in
+			XCTAssertEqual(FileProviderXPCConnectorError.typeMismatch, error as? FileProviderXPCConnectorError)
+		}
 
-		XCTAssertEqual(FileProviderXPCConnectorError.typeMismatch, receivedError as? FileProviderXPCConnectorError)
 		XCTAssertEqual(0, xpcCacheManagingMock.clearCacheReplyCallsCount)
 		XCTAssertEqual(0, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testClearCacheRejectsWhenServiceRepliesWithError() {
+	func testClearCacheRejectsWhenServiceRepliesWithError() async {
 		xpcCacheManagingMock.clearCacheReplyClosure = { reply in
 			reply(Self.serviceError)
 		}
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		let receivedError = runExpectingFailure { $0.clearCache() }
+		await XCTAssertThrowsAsyncError(try await makeXPCCacheController().clearCache()) { error in
+			XCTAssertEqual(Self.serviceError, error as NSError)
+		}
 
-		XCTAssertEqual(Self.serviceError, receivedError as NSError?)
 		XCTAssertEqual(1, xpcCacheManagingMock.clearCacheReplyCallsCount)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testGetLocalCacheSizeInBytesUsesXPCServiceAndInvalidatesConnection() {
+	func testGetLocalCacheSizeInBytesUsesXPCServiceAndInvalidatesConnection() async throws {
 		xpcCacheManagingMock.getLocalCacheSizeInBytesReplyClosure = { reply in
 			reply(512 as NSNumber, nil)
 		}
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		let value = runExpectingSuccess { $0.getLocalCacheSizeInBytes() }
+		let value = try await makeXPCCacheController().getLocalCacheSizeInBytes()
 
 		XCTAssertEqual(512, value)
 		XCTAssertEqual(1, xpcCacheManagingMock.getLocalCacheSizeInBytesReplyCallsCount)
@@ -72,35 +75,37 @@ class XPCCacheControllerTests: XCTestCase {
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testGetLocalCacheSizeInBytesRejectsWhenGetXPCFails() {
-		// Leave fileProviderConnectorMock.proxy unset so getCastedProxy rejects with typeMismatch.
-		let receivedError = runExpectingFailure { $0.getLocalCacheSizeInBytes() }
+	func testGetLocalCacheSizeInBytesRejectsWhenGetXPCFails() async {
+		// Leave fileProviderConnectorMock.proxy unset so getCastedProxy throws typeMismatch.
+		await XCTAssertThrowsAsyncError(try await makeXPCCacheController().getLocalCacheSizeInBytes()) { error in
+			XCTAssertEqual(FileProviderXPCConnectorError.typeMismatch, error as? FileProviderXPCConnectorError)
+		}
 
-		XCTAssertEqual(FileProviderXPCConnectorError.typeMismatch, receivedError as? FileProviderXPCConnectorError)
 		XCTAssertEqual(0, xpcCacheManagingMock.getLocalCacheSizeInBytesReplyCallsCount)
 		XCTAssertEqual(0, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testGetLocalCacheSizeInBytesRejectsWhenServiceRepliesWithError() {
+	func testGetLocalCacheSizeInBytesRejectsWhenServiceRepliesWithError() async {
 		xpcCacheManagingMock.getLocalCacheSizeInBytesReplyClosure = { reply in
 			reply(nil, Self.serviceError)
 		}
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		let receivedError = runExpectingFailure { $0.getLocalCacheSizeInBytes() }
+		await XCTAssertThrowsAsyncError(try await makeXPCCacheController().getLocalCacheSizeInBytes()) { error in
+			XCTAssertEqual(Self.serviceError, error as NSError)
+		}
 
-		XCTAssertEqual(Self.serviceError, receivedError as NSError?)
 		XCTAssertEqual(1, xpcCacheManagingMock.getLocalCacheSizeInBytesReplyCallsCount)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testGetLocalCacheSizeInBytesReturnsZeroWhenReplyIsNil() {
+	func testGetLocalCacheSizeInBytesReturnsZeroWhenReplyIsNil() async throws {
 		xpcCacheManagingMock.getLocalCacheSizeInBytesReplyClosure = { reply in
 			reply(nil, nil)
 		}
 		fileProviderConnectorMock.proxy = xpcCacheManagingMock
 
-		let value = runExpectingSuccess { $0.getLocalCacheSizeInBytes() }
+		let value = try await makeXPCCacheController().getLocalCacheSizeInBytes()
 
 		XCTAssertEqual(0, value)
 		XCTAssertEqual(1, xpcCacheManagingMock.getLocalCacheSizeInBytesReplyCallsCount)
@@ -109,39 +114,11 @@ class XPCCacheControllerTests: XCTestCase {
 
 	// MARK: Helpers
 
-	private func runExpectingSuccess<T>(_ operation: @escaping (XPCCacheController) -> Promise<T>) -> T? {
-		let expectation = XCTestExpectation()
-		var value: T?
+	private func makeXPCCacheController() -> XPCCacheController {
 		withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 		} operation: {
-			operation(XPCCacheController()).then { v in
-				value = v
-			}.catch { error in
-				XCTFail("Unexpected error: \(error)")
-			}.always {
-				expectation.fulfill()
-			}
+			XPCCacheController()
 		}
-		wait(for: [expectation], timeout: 5.0)
-		return value
-	}
-
-	private func runExpectingFailure<T>(_ operation: @escaping (XPCCacheController) -> Promise<T>) -> Error? {
-		let expectation = XCTestExpectation()
-		var receivedError: Error?
-		withDependencies {
-			$0.fileProviderConnector = fileProviderConnectorMock
-		} operation: {
-			operation(XPCCacheController()).then { _ in
-				XCTFail("Expected failure")
-			}.catch { error in
-				receivedError = error
-			}.always {
-				expectation.fulfill()
-			}
-		}
-		wait(for: [expectation], timeout: 5.0)
-		return receivedError
 	}
 }

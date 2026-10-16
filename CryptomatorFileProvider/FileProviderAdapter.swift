@@ -12,53 +12,43 @@ import CryptomatorCommonCore
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 import UniformTypeIdentifiers
 
-public protocol FileProviderAdapterType: AnyObject {
+public protocol FileProviderAdapterType: AnyObject, Sendable {
 	var lastUnlockedDate: Date { get }
 	func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem
-	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList>
-	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) async throws -> FileProviderItemList
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void)
 	func itemChanged(at url: URL)
-	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void)
 	func stopProvidingItem(at url: URL)
-	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
-	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
-	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void)
-	func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void))
-	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
-	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void)
+	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void)
+	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (Error?) -> Void)
+	func startProvidingItem(at url: URL, completionHandler: @escaping @Sendable (_ error: Error?) -> Void)
+	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)
+	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)
 	func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier)
 	func recoverStuckUploads()
-	func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier>
+	func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier
 }
 
 extension FileProviderAdapterType {
-	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) async throws -> NSFileProviderItem {
-		return try await withCheckedThrowingContinuation({ continuation in
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) async throws -> FileProviderItem? {
+		return try await withCheckedThrowingContinuation { continuation in
 			importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier) { item, error in
 				if let error = error {
 					continuation.resume(throwing: error)
 				} else {
-					continuation.resume(returning: item!)
+					continuation.resume(returning: item as? FileProviderItem)
 				}
 			}
-		})
-	}
-
-	func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier {
-		return try await withCheckedThrowingContinuation({ continuation in
-			getItemIdentifier(for: cloudPath).then {
-				continuation.resume(returning: $0)
-			}.catch {
-				continuation.resume(throwing: $0)
-			}
-		})
+		}
 	}
 }
 
-public class FileProviderAdapter: FileProviderAdapterType {
+@MainActor
+public final class FileProviderAdapter: FileProviderAdapterType {
 	public let lastUnlockedDate: Date
 	private let uploadTaskManager: UploadTaskManager
 	private let cachedFileManager: CachedFileManager
@@ -72,27 +62,30 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let localURLProvider: LocalURLProviderType
 	private let notificator: FileProviderItemUpdateDelegate?
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
-	private let workflowFactory: WorkflowFactoryLocking
+	private let workflowFactory: WorkflowFactory
 	private let domainIdentifier: NSFileProviderDomainIdentifier
-	private let fileCoordinator: NSFileCoordinator
+	private let fileCoordinatorPurposeIdentifier: String
 	private let taskRegistrator: SessionTaskRegistrator
 	private let deleteItemHelper: DeleteItemHelper
 	@Dependency(\.permissionProvider) private var permissionProvider
+	private var workflows = [UUID: (identifier: NSFileProviderItemIdentifier?, task: Task<Void, Never>)]()
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier,
-	     uploadTaskManager: UploadTaskManager,
-	     cachedFileManager: CachedFileManager,
-	     itemMetadataManager: ItemMetadataManager,
-	     reparentTaskManager: ReparentTaskManager,
-	     deletionTaskManager: DeletionTaskManager,
-	     itemEnumerationTaskManager: ItemEnumerationTaskManager,
-	     downloadTaskManager: DownloadTaskManager,
-	     scheduler: WorkflowScheduler,
-	     provider: CloudProvider,
-	     coordinator: NSFileCoordinator,
-	     notificator: FileProviderItemUpdateDelegate? = nil,
-	     localURLProvider: LocalURLProviderType,
-	     taskRegistrator: SessionTaskRegistrator) {
+	nonisolated init(domainIdentifier: NSFileProviderDomainIdentifier,
+	                 uploadTaskManager: UploadTaskManager,
+	                 cachedFileManager: CachedFileManager,
+	                 itemMetadataManager: ItemMetadataManager,
+	                 reparentTaskManager: ReparentTaskManager,
+	                 deletionTaskManager: DeletionTaskManager,
+	                 itemEnumerationTaskManager: ItemEnumerationTaskManager,
+	                 downloadTaskManager: DownloadTaskManager,
+	                 scheduler: WorkflowScheduler,
+	                 maxParallelUploads: Int,
+	                 maxParallelDownloads: Int,
+	                 provider: CloudProvider,
+	                 fileCoordinatorPurposeIdentifier: String,
+	                 notificator: FileProviderItemUpdateDelegate? = nil,
+	                 localURLProvider: LocalURLProviderType,
+	                 taskRegistrator: SessionTaskRegistrator) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager
@@ -103,21 +96,22 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.itemEnumerationTaskManager = itemEnumerationTaskManager
 		self.downloadTaskManager = downloadTaskManager
 		self.deleteItemHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		let factory = WorkflowFactory(provider: provider,
-		                              uploadTaskManager: uploadTaskManager,
-		                              cachedFileManager: cachedFileManager,
-		                              itemMetadataManager: itemMetadataManager,
-		                              reparentTaskManager: reparentTaskManager,
-		                              deletionTaskManager: deletionTaskManager,
-		                              itemEnumerationTaskManager: itemEnumerationTaskManager,
-		                              downloadTaskManager: downloadTaskManager,
-		                              domainIdentifier: domainIdentifier)
-		self.workflowFactory = WorkflowFactoryLocking(lockManager: LockManager(), workflowFactory: factory)
+		self.workflowFactory = WorkflowFactory(provider: provider,
+		                                       uploadTaskManager: uploadTaskManager,
+		                                       cachedFileManager: cachedFileManager,
+		                                       itemMetadataManager: itemMetadataManager,
+		                                       reparentTaskManager: reparentTaskManager,
+		                                       deletionTaskManager: deletionTaskManager,
+		                                       itemEnumerationTaskManager: itemEnumerationTaskManager,
+		                                       downloadTaskManager: downloadTaskManager,
+		                                       maxParallelUploads: maxParallelUploads,
+		                                       maxParallelDownloads: maxParallelDownloads,
+		                                       domainIdentifier: domainIdentifier)
 		self.scheduler = scheduler
 		self.provider = provider
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
-		self.fileCoordinator = coordinator
+		self.fileCoordinatorPurposeIdentifier = fileCoordinatorPurposeIdentifier
 		self.taskRegistrator = taskRegistrator
 	}
 
@@ -129,7 +123,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 - Postcondition: If there was information about the associated local file, it was added to the returned `FileProviderItem`.
 	 - Returns: `FileProviderItem` with the locally stored metadata for the passed `identifier`.
 	 */
-	public func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
+	public nonisolated func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
 		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
@@ -159,40 +153,29 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	   - If the `identifier` belongs to a folder: `FileProviderItemList` with children of the folder and if it was not a complete enumeration, i.e. there are more items in the folder, also a `nextPageToken`.
 	   - If the `identifier` belongs to a file: `FileProviderItemList` with exactly one `FileProviderItem`, which corresponds to the `identifier`.
 	 */
-	public func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
+	@MainActor public func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) async throws -> FileProviderItemList {
 		// TODO: Check for internet connection here
 		if identifier == .workingSet {
-			return enumerateWorkingSet()
+			return try enumerateWorkingSet()
 		}
-		let enumerationTask: ItemEnumerationTask
-		do {
-			let id = try convertFileProviderItemIdentifierToInt64(identifier)
-			guard let cachedItemMetadata = try itemMetadataManager.getCachedMetadata(for: id) else {
-				return Promise(CloudProviderError.itemNotFound)
-			}
-			let itemMetadata = cachedItemMetadata
-			enumerationTask = try itemEnumerationTaskManager.createTask(for: itemMetadata, pageToken: pageToken)
-		} catch {
-			return Promise(error)
+		let id = try convertFileProviderItemIdentifierToInt64(identifier)
+		guard let cachedItemMetadata = try itemMetadataManager.getCachedMetadata(for: id) else {
+			throw CloudProviderError.itemNotFound
 		}
-		return workflowFactory.createWorkflow(for: enumerationTask).then(scheduler.schedule)
+		let enumerationTask = try itemEnumerationTaskManager.createTask(for: cachedItemMetadata, pageToken: pageToken)
+		return try await run(workflowFactory.createWorkflow(for: enumerationTask), for: identifier)
 	}
 
-	private func enumerateWorkingSet() -> Promise<FileProviderItemList> {
-		let items: [FileProviderItem]
-		do {
-			let metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
-			items = try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
-		} catch {
-			return Promise(error)
-		}
-		return Promise(FileProviderItemList(items: items, nextPageToken: nil))
+	private func enumerateWorkingSet() throws -> FileProviderItemList {
+		let metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
+		let items = try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+		return FileProviderItemList(items: items, nextPageToken: nil)
 	}
 
 	// MARK: UploadFile
 
-	public func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		DispatchQueue.main.async {
+	public nonisolated func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
+		submit {
 			autoreleasepool {
 				if self.isPackage(at: fileURL) {
 					self.importPackage(at: fileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
@@ -214,13 +197,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 				// Network Stuff
 				self.uploadFile(taskRecord: localItemImportResult.uploadTaskRecord,
 				                completionHandler: localImportHandler,
-				                itemIdentifier: localItemImportResult.item.itemIdentifier).then { item in
-					self.notificator?.signalUpdate(for: item)
-				}.catch { error in
-					// Domain and code only, because a `FileManager` error names the path it failed on.
-					let error = error as NSError
-					DDLogError("importDocument uploadFile failed with \(error.domain) \(error.code)")
-				}.always {}
+				                itemIdentifier: localItemImportResult.item.itemIdentifier)
 			}
 		}
 	}
@@ -235,12 +212,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		// Returning the underlying error instead makes the Files app render "Couldn't communicate with a helper
 		// application", which says even less than `noSuchItem`.
 		completionHandler(nil, NSFileProviderError(.noSuchItem))
-	}
-
-	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) -> Promise<NSFileProviderItem?> {
-		return wrap { handler in
-			self.importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: handler)
-		}
 	}
 
 	/**
@@ -289,7 +260,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	func copyItem(from sourceURL: URL, to targetURL: URL, itemMetadata: ItemMetadata) throws {
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
-		fileCoordinator.coordinate(readingItemAt: sourceURL, options: .withoutChanges, error: &fileCoordinatorError) { _ in
+		makeFileCoordinator().coordinate(readingItemAt: sourceURL, options: .withoutChanges, error: &fileCoordinatorError) { _ in
 			do {
 				try FileManager.default.createDirectory(at: targetURL.deletingLastPathComponent(), withIntermediateDirectories: true)
 				try FileManager.default.copyItem(at: sourceURL, to: targetURL)
@@ -328,23 +299,32 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	 The package keeps its name, including the extension, so copying it back out to a regular file system reconstitutes a
 	 working package.
-
-	 - Returns: A promise that settles once the whole subtree has been scheduled — for tests only, because the completion
-	 handler fires with the root placeholder long before that.
 	 */
-	@discardableResult
-	func importPackage(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) -> Promise<Void> {
+	func importPackage(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
 		let result: LocalPackageImportResult
 		do {
 			result = try localPackageImport(fileURL: fileURL, parentIdentifier: parentItemIdentifier)
 		} catch let error as NSError {
 			reportLocalImportFailure(error, importing: fileURL, completionHandler: completionHandler)
-			return Promise(())
+			return
 		}
 		completionHandler(result.item, nil)
-		return schedulePackageFolder(result.rootNode, isRoot: true).recover { error in
+		let rootNode = result.rootNode
+		// Created before the run starts, so the root registers its dependencies ahead of anything submitted after this import.
+		let workflow: Workflow<FileProviderItem>
+		do {
+			workflow = try createPackageFolderWorkflow(for: rootNode, isRoot: true)
+		} catch {
 			// The item exists in the vault by now, so log its id rather than its cleartext name.
-			DDLogError("importPackage failed for item \(result.rootNode.itemMetadata.id ?? -1) with error: \(error)")
+			DDLogError("importPackage failed for item \(rootNode.itemMetadata.id ?? -1) with error: \(error)")
+			return
+		}
+		start(for: result.item.itemIdentifier) {
+			do {
+				try await self.runPackageFolder(workflow, for: rootNode)
+			} catch {
+				DDLogError("importPackage failed for item \(rootNode.itemMetadata.id ?? -1) with error: \(error)")
+			}
 		}
 	}
 
@@ -373,8 +353,10 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 		let rootItem = try createPlaceholderItemForFolder(withName: name, in: parentIdentifier)
 		do {
-			let children = try coordinatedPackageContents(of: fileURL, into: convertIDToItemIdentifier(rootItem.metadata.id!))
-			let rootNode = ImportedPackageNode(itemMetadata: rootItem.metadata, localURL: nil, children: children)
+			let rootIdentifier = convertIDToItemIdentifier(rootItem.metadata.id!)
+			let children = try coordinatedPackageContents(of: fileURL, into: rootIdentifier)
+			// A fresh instance, because the folder creation mutates it while fileproviderd may still read the returned item.
+			let rootNode = try ImportedPackageNode(itemMetadata: getCachedMetadata(for: rootIdentifier), localURL: nil, children: children)
 			return LocalPackageImportResult(item: rootItem, rootNode: rootNode)
 		} catch {
 			rollBackPackageImport(rootMetadata: rootItem.metadata)
@@ -392,7 +374,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		var children: [ImportedPackageNode]?
 		var walkError: Error?
 		var fileCoordinatorError: NSError?
-		fileCoordinator.coordinate(readingItemAt: packageURL, options: .withoutChanges, error: &fileCoordinatorError) { url in
+		makeFileCoordinator().coordinate(readingItemAt: packageURL, options: .withoutChanges, error: &fileCoordinatorError) { url in
 			do {
 				try rejectSymbolicLink(itemType(at: url))
 				children = try importPackageContents(of: url, into: parentIdentifier)
@@ -496,46 +478,54 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	/**
-	 Creates a package folder in the cloud and only then constructs and schedules everything below it.
+	func schedulePackageFolder(_ node: ImportedPackageNode, isRoot: Bool) async throws {
+		try await runPackageFolder(createPackageFolderWorkflow(for: node, isRoot: isRoot), for: node)
+	}
 
-	 Chaining on the scheduled workflow rather than on `createWorkflow` is what keeps a failed folder from ever releasing its
-	 descendants: `createWorkflow` resolves with the workflow object, before it ran, and the workflow dependency graph settles
-	 dependents regardless of whether the parent succeeded.
-	 */
-	func schedulePackageFolder(_ node: ImportedPackageNode, isRoot: Bool) -> Promise<Void> {
-		let task: FolderCreationTask
+	private func createPackageFolderWorkflow(for node: ImportedPackageNode, isRoot: Bool) throws -> Workflow<FileProviderItem> {
 		do {
 			let cloudPath = try itemMetadataManager.getCloudPath(for: node.itemMetadata.id!)
-			task = FolderCreationTask(itemMetadata: node.itemMetadata, cloudPath: cloudPath, onlineCollisionDisposition: isRoot ? .renameAndRetry : .fail)
+			let task = FolderCreationTask(itemMetadata: node.itemMetadata, cloudPath: cloudPath, onlineCollisionDisposition: isRoot ? .renameAndRetry : .fail)
+			return workflowFactory.createWorkflow(for: task)
 		} catch {
-			// Marked here too, because this returns before the `recover` below is attached.
 			DDLogError("Package import: building the task for folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
 			markPackageSubtreeAsUploadError(node, error: error)
-			return Promise(error)
-		}
-		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Promise<Void> in
-			self.notificator?.signalUpdate(for: item)
-			return self.schedulePackageChildren(of: node)
-		}.recover { error -> Promise<Void> in
-			DDLogError("Package import: creating folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
-			self.markPackageSubtreeAsUploadError(node, error: error)
-			return Promise(error)
+			throw error
 		}
 	}
 
-	/// Sibling subtrees are independent, so one failing child neither cancels nor fails the others.
-	private func schedulePackageChildren(of node: ImportedPackageNode) -> Promise<Void> {
-		let settledChildren = node.children.map { child -> Promise<Void> in
-			let scheduled: Promise<Void>
-			if child.itemMetadata.type == .folder {
-				scheduled = schedulePackageFolder(child, isRoot: false)
-			} else {
-				scheduled = schedulePackageFileUpload(child)
-			}
-			return scheduled.recover { _ in }
+	/**
+	 Creates a package folder in the cloud and only then constructs and schedules everything below it.
+
+	 The dependency graph alone would not hold them back, because it releases dependents even when the parent failed.
+	 */
+	private func runPackageFolder(_ workflow: Workflow<FileProviderItem>, for node: ImportedPackageNode) async throws {
+		let item: FileProviderItem
+		do {
+			item = try await run(workflow, for: convertIDToItemIdentifier(node.itemMetadata.id!))
+		} catch {
+			DDLogError("Package import: creating folder \(node.itemMetadata.id ?? -1) failed with error: \(error)")
+			markPackageSubtreeAsUploadError(node, error: error)
+			throw error
 		}
-		return all(settledChildren).then { _ in }
+		notificator?.signalUpdate(for: item)
+		await schedulePackageChildren(of: node)
+	}
+
+	/// Sibling subtrees are independent, so one failing child neither cancels nor fails the others.
+	private func schedulePackageChildren(of node: ImportedPackageNode) async {
+		let scheduledChildren = node.children.map { child in
+			Task { @MainActor in
+				if child.itemMetadata.type == .folder {
+					try? await self.schedulePackageFolder(child, isRoot: false)
+				} else {
+					try? await self.schedulePackageFileUpload(child)
+				}
+			}
+		}
+		for scheduledChild in scheduledChildren {
+			await scheduledChild.value
+		}
 	}
 
 	/// Marks the descendants too, because nothing schedules them once their folder failed.
@@ -570,7 +560,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	private func schedulePackageFileUpload(_ node: ImportedPackageNode) -> Promise<Void> {
+	private func schedulePackageFileUpload(_ node: ImportedPackageNode) async throws {
 		let itemIdentifier = convertIDToItemIdentifier(node.itemMetadata.id!)
 		let taskRecord: UploadTaskRecord
 		do {
@@ -581,33 +571,35 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		} catch {
 			DDLogError("Package import: registering item \(node.itemMetadata.id ?? -1) for upload failed with error: \(error)")
 			markPackageFileAsUploadError(node.itemMetadata)
-			return Promise(error)
+			throw error
 		}
-		return uploadFile(taskRecord: taskRecord, itemIdentifier: itemIdentifier).recover { error -> Promise<FileProviderItem> in
-			// The upload executor records every failure it recovers from and fulfills, so a rejection is one nothing has recorded.
+		let item: FileProviderItem
+		do {
+			item = try await run(createUploadWorkflow(taskRecord: taskRecord, itemIdentifier: itemIdentifier), for: itemIdentifier)
+		} catch {
+			// The upload executor records every failure it catches and returns an error-bearing item instead, so a thrown error is one nothing has recorded.
 			// Domain and code only, because a `FileManager` error names the path it failed on.
 			let error = error as NSError
 			DDLogError("Package import: uploading item \(node.itemMetadata.id ?? -1) failed with \(error.domain) \(error.code)")
-			self.markPackageFileAsUploadError(node.itemMetadata)
-			return Promise(error)
-		}.then { item -> Void in
-			self.notificator?.signalUpdate(for: item)
-			// The upload executor recovers provider errors internally and fulfills with an error-bearing item, so a collision
-			// only becomes visible here. Nothing was renamed, which is why inspecting it after the fact is still in time.
-			guard let error = item.uploadingError as NSError?, error.domain == NSFileProviderErrorDomain,
-			      error.code == NSFileProviderError.filenameCollision.rawValue else {
-				return
-			}
-			DDLogError("Package import: item \(node.itemMetadata.id ?? -1) collided with an existing item, not retrying")
+			markPackageFileAsUploadError(node.itemMetadata)
 			throw error
 		}
+		notificator?.signalUpdate(for: item)
+		// The upload executor catches provider errors internally and returns an error-bearing item, so a collision only
+		// becomes visible here. Nothing was renamed, which is why inspecting it after the fact is still in time.
+		guard let error = item.uploadingError as NSError?, error.domain == NSFileProviderErrorDomain,
+		      error.code == NSFileProviderError.filenameCollision.rawValue else {
+			return
+		}
+		DDLogError("Package import: item \(node.itemMetadata.id ?? -1) collided with an existing item, not retrying")
+		throw error
 	}
 
 	/**
 	 Tells the File Provider adapter that a document has changed.
 
 	 */
-	public func itemChanged(at url: URL) {
+	public nonisolated func itemChanged(at url: URL) {
 		guard let itemIdentifier = localURLProvider.persistentIdentifierForItem(at: url) else {
 			DDLogError("itemChanged - no persistentIdentifier for item")
 			return
@@ -620,12 +612,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogError("itemChanged - register file in upload queue for identifier: \(itemIdentifier) failed with error: \(error)")
 			return
 		}
-		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
-			self.notificator?.signalUpdate(for: item)
+		submit {
+			self.uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier)
 		}
 	}
 
-	public func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier) {
+	public nonisolated func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier) {
 		let itemMetadata: ItemMetadata
 		let localCachedFileInfo: LocalCachedFileInfo
 		let uploadTaskRecord: UploadTaskRecord
@@ -643,17 +635,17 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 		notificator?.signalUpdate(for: item)
-		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
-			self.notificator?.signalUpdate(for: item)
+		submit {
+			self.uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier)
 		}
 	}
 
-	public func recoverStuckUploads() {
+	public nonisolated func recoverStuckUploads() {
 		recoverActiveUploads()
 		retryConnectivityFailedUploads()
 	}
 
-	private func recoverActiveUploads() {
+	private nonisolated func recoverActiveUploads() {
 		let activeTaskRecords: [UploadTaskRecord]
 		do {
 			activeTaskRecords = try uploadTaskManager.getActiveUploadTaskRecords()
@@ -670,7 +662,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	private func retryConnectivityFailedUploads() {
+	private nonisolated func retryConnectivityFailedUploads() {
 		let retryableTaskRecords: [UploadTaskRecord]
 		do {
 			retryableTaskRecords = try uploadTaskManager.getRetryableUploadTaskRecords()
@@ -687,7 +679,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	private func rescheduleUpload(for taskRecord: UploadTaskRecord) {
+	private nonisolated func rescheduleUpload(for taskRecord: UploadTaskRecord) {
 		let itemID = taskRecord.correspondingItem
 		do {
 			guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: itemID) else {
@@ -708,8 +700,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogInfo("rescheduleUpload - re-scheduling upload for item \(itemID)")
 			let newTaskRecord = try registerFileInUploadQueue(with: localCachedFileInfo.localURL, itemMetadata: itemMetadata)
 			let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
-			uploadFile(taskRecord: newTaskRecord, itemIdentifier: itemIdentifier).then { item in
-				self.notificator?.signalUpdate(for: item)
+			submit {
+				self.uploadFile(taskRecord: newTaskRecord, itemIdentifier: itemIdentifier)
 			}
 		} catch {
 			DDLogError("rescheduleUpload - failed for item \(itemID): \(error)")
@@ -717,7 +709,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	/// Creates the task record if the upload failed before it existed, because re-enumeration rebuilds the error from the record alone.
-	private func markUploadAsError(_ itemMetadata: ItemMetadata) throws {
+	private nonisolated func markUploadAsError(_ itemMetadata: ItemMetadata) throws {
 		let error = NSFileProviderError(.noSuchItem) as NSError
 		if try uploadTaskManager.getTaskRecord(for: itemMetadata) == nil {
 			_ = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
@@ -729,30 +721,25 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		notificator?.signalUpdate(for: item)
 	}
 
-	func uploadFile(taskRecord: UploadTaskRecord, completionHandler: ((Error?) -> Void)? = nil, itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
-		let task: UploadTask
+	/// Reports to `completionHandler` once the workflow is created and before it runs, so the upload's outcome never reaches it.
+	func uploadFile(taskRecord: UploadTaskRecord, completionHandler: ((Error?) -> Void)? = nil, itemIdentifier: NSFileProviderItemIdentifier) {
+		let workflow: Workflow<FileProviderItem>
 		do {
-			task = try uploadTaskManager.getTask(for: taskRecord, onURLSessionTaskCreation: { [weak self] urlSessionTask in
-				self?.taskRegistrator.register(urlSessionTask, forItemWithIdentifier: itemIdentifier, completionHandler: { error in
-					if let error {
-						DDLogError("Register URLSessionUploadTask for identifier: \(itemIdentifier) failed with error: \(error)")
-					} else {
-						DDLogInfo("Successfully registered URLSessionUploadTask for identifier: \(itemIdentifier)")
-					}
-					urlSessionTask.resume()
-				})
-			})
+			workflow = try createUploadWorkflow(taskRecord: taskRecord, itemIdentifier: itemIdentifier)
 		} catch {
 			completionHandler?(error)
-			return Promise(error)
+			return
 		}
-		return workflowFactory.createWorkflow(for: task).then { workflow -> Workflow<FileProviderItem> in
-			completionHandler?(nil)
-			return workflow
-		}.then(scheduler.schedule)
+		completionHandler?(nil)
+		startWorkflow(workflow, for: itemIdentifier)
 	}
 
-	func registerFileInUploadQueue(with localURL: URL, itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
+	private func createUploadWorkflow(taskRecord: UploadTaskRecord, itemIdentifier: NSFileProviderItemIdentifier) throws -> Workflow<FileProviderItem> {
+		let task = try uploadTaskManager.getTask(for: taskRecord, onURLSessionTaskCreation: makeTaskRegistrationHook(for: itemIdentifier, taskName: "URLSessionUploadTask"))
+		return workflowFactory.createWorkflow(for: task)
+	}
+
+	nonisolated func registerFileInUploadQueue(with localURL: URL, itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
 		precondition(localURL.isFileURL)
 		precondition(itemMetadata.type == .file)
 
@@ -772,11 +759,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return uploadTaskRecord
 	}
 
-	private func lastModifiedDateOfItem(at url: URL) throws -> Date? {
+	private nonisolated func lastModifiedDateOfItem(at url: URL) throws -> Date? {
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
 		var lastModifiedDate: Date?
-		fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &fileCoordinatorError) { _ in
+		makeFileCoordinator().coordinate(readingItemAt: url, options: .withoutChanges, error: &fileCoordinatorError) { _ in
 			do {
 				let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
 				lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
@@ -792,77 +779,72 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	// MARK: Create Directory
 
-	public func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		let placeholderItem: FileProviderItem
-		do {
-			placeholderItem = try createPlaceholderItemForFolder(withName: directoryName, in: parentItemIdentifier)
-		} catch {
-			DDLogError("Create directory: createPlaceholderItemForFolder failed with error: \(error) ")
-			return completionHandler(nil, error)
-		}
-
-		let task: FolderCreationTask
-		do {
-			let cloudPath = try itemMetadataManager.getCloudPath(for: placeholderItem.metadata.id!)
-			task = FolderCreationTask(itemMetadata: placeholderItem.metadata, cloudPath: cloudPath)
-		} catch {
-			DDLogError("Create directory: getCloudPath failed with error: \(error)")
-			return completionHandler(nil, error)
-		}
-		workflowFactory.createWorkflow(for: task).then { workflow -> Workflow<FileProviderItem> in
-			completionHandler(placeholderItem, nil)
-			return workflow
-		}.then(scheduler.schedule)
-			.then { item in
-				self.notificator?.signalUpdate(for: item)
+	public nonisolated func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
+		submit {
+			let placeholderItem: FileProviderItem
+			do {
+				placeholderItem = try self.createPlaceholderItemForFolder(withName: directoryName, in: parentItemIdentifier)
+			} catch {
+				DDLogError("Create directory: createPlaceholderItemForFolder failed with error: \(error) ")
+				return completionHandler(nil, error)
 			}
+
+			let task: FolderCreationTask
+			do {
+				let cloudPath = try self.itemMetadataManager.getCloudPath(for: placeholderItem.metadata.id!)
+				// A fresh instance, because the folder creation mutates it while fileproviderd may still read the placeholder item.
+				task = try FolderCreationTask(itemMetadata: self.getCachedMetadata(for: placeholderItem.itemIdentifier), cloudPath: cloudPath)
+			} catch {
+				DDLogError("Create directory: getCloudPath failed with error: \(error)")
+				return completionHandler(nil, error)
+			}
+			let workflow = self.workflowFactory.createWorkflow(for: task)
+			completionHandler(placeholderItem, nil)
+			self.startWorkflow(workflow, for: placeholderItem.itemIdentifier)
+		}
 	}
 
 	// MARK: Move Item
 
-	public func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		let result: MoveItemLocallyResult
-		do {
-			result = try moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: nil, newName: itemName)
-		} catch {
-			return completionHandler(nil, error)
-		}
-
-		let reparentTask: ReparentTask
-		do {
-			reparentTask = try reparentTaskManager.getTask(for: result.reparentTaskRecord)
-		} catch {
-			return completionHandler(nil, error)
-		}
-		workflowFactory.createWorkflow(for: reparentTask).then { workflow -> Workflow<FileProviderItem> in
-			completionHandler(result.item, nil)
-			return workflow
-		}.then(scheduler.schedule)
-			.then { item in
-				self.notificator?.signalUpdate(for: item)
+	public nonisolated func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
+		submit {
+			let result: MoveItemLocallyResult
+			do {
+				result = try self.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: nil, newName: itemName)
+			} catch {
+				return completionHandler(nil, error)
 			}
+
+			let reparentTask: ReparentTask
+			do {
+				reparentTask = try self.reparentTaskManager.getTask(for: result.reparentTaskRecord)
+			} catch {
+				return completionHandler(nil, error)
+			}
+			let workflow = self.workflowFactory.createWorkflow(for: reparentTask)
+			completionHandler(result.item, nil)
+			self.startWorkflow(workflow, for: itemIdentifier)
+		}
 	}
 
-	public func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		let result: MoveItemLocallyResult
-		do {
-			result = try moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName)
-		} catch {
-			return completionHandler(nil, error)
-		}
-
-		let reparentTask: ReparentTask
-		do {
-			reparentTask = try reparentTaskManager.getTask(for: result.reparentTaskRecord)
-		} catch {
-			return completionHandler(nil, error)
-		}
-		completionHandler(result.item, nil)
-		workflowFactory.createWorkflow(for: reparentTask)
-			.then(scheduler.schedule)
-			.then { item in
-				self.notificator?.signalUpdate(for: item)
+	public nonisolated func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping @Sendable (NSFileProviderItem?, Error?) -> Void) {
+		submit {
+			let result: MoveItemLocallyResult
+			do {
+				result = try self.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName)
+			} catch {
+				return completionHandler(nil, error)
 			}
+
+			let reparentTask: ReparentTask
+			do {
+				reparentTask = try self.reparentTaskManager.getTask(for: result.reparentTaskRecord)
+			} catch {
+				return completionHandler(nil, error)
+			}
+			completionHandler(result.item, nil)
+			self.startWorkflow(self.workflowFactory.createWorkflow(for: reparentTask), for: itemIdentifier)
+		}
 	}
 
 	/**
@@ -923,33 +905,39 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	// MARK: Delete Item
 
-	public func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
-		let taskRecord: DeletionTaskRecord
-		do {
-			taskRecord = try deleteItemLocally(withIdentifier: itemIdentifier)
-		} catch let error as NSError {
-			if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.noSuchItem.rawValue {
-				DDLogInfo("Delete Item called for nonexistent item")
-				completionHandler(nil)
+	public nonisolated func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping @Sendable (Error?) -> Void) {
+		submit {
+			let taskRecord: DeletionTaskRecord
+			do {
+				taskRecord = try self.deleteItemLocally(withIdentifier: itemIdentifier)
+			} catch let error as NSError {
+				if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.noSuchItem.rawValue {
+					DDLogInfo("Delete Item called for nonexistent item")
+					completionHandler(nil)
+					return
+				}
+				completionHandler(error)
 				return
 			}
-			completionHandler(error)
-			return
-		}
-		let deletionTask: DeletionTask
-		do {
-			deletionTask = try deletionTaskManager.getTask(for: taskRecord)
-		} catch {
-			completionHandler(error)
-			return
-		}
-		workflowFactory.createWorkflow(for: deletionTask).then { workflow -> Workflow<Void> in
-			completionHandler(nil)
-			return workflow
-		}.then(scheduler.schedule)
-			.then {
-				DDLogVerbose("DeleteItem success")
+			let deletionTask: DeletionTask
+			do {
+				deletionTask = try self.deletionTaskManager.getTask(for: taskRecord)
+			} catch {
+				completionHandler(error)
+				return
 			}
+			let workflow = self.workflowFactory.createWorkflow(for: deletionTask)
+			completionHandler(nil)
+			self.start(for: itemIdentifier) {
+				do {
+					try await self.scheduler.schedule(workflow)
+					DDLogVerbose("DeleteItem success")
+				} catch {
+					let error = error as NSError
+					DDLogError("DeleteItem failed with \(error.domain) \(error.code)")
+				}
+			}
+		}
 	}
 
 	/**
@@ -979,67 +967,65 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	 The file is immutable unless the full version of Cryptomator has been unlocked. Otherwise, it would still be possible to edit the file locally with a third-party app.
 	 */
-	public func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
-		startProvidingItem(at: url).then {
-			try self.postProcessStartProvidingItem(at: url)
-		}.then {
-			completionHandler(nil)
-		}.catch { error in
-			completionHandler(error)
-		}
-	}
-
-	func startProvidingItem(at url: URL) -> Promise<Void> {
-		guard let identifier = localURLProvider.persistentIdentifierForItem(at: url) else {
-			return Promise(NSFileProviderError(.noSuchItem))
-		}
-		if FileManager.default.fileExists(atPath: url.path) {
-			return localFileIsCurrent(with: identifier).then { isCurrent in
-				if isCurrent {
-					return Promise(())
-				} else {
-					return self.startProvidingItemWithOutdatedLocalFile(identifier: identifier, url: url)
+	public nonisolated func startProvidingItem(at url: URL, completionHandler: @escaping @Sendable (_ error: Error?) -> Void) {
+		submit {
+			let identifier: NSFileProviderItemIdentifier
+			let downloadWorkflow: Workflow<FileProviderItem>?
+			do {
+				guard let persistentIdentifier = self.localURLProvider.persistentIdentifierForItem(at: url) else {
+					throw NSFileProviderError(.noSuchItem)
+				}
+				identifier = persistentIdentifier
+				// Created before the run starts, so the download captures the cloud path and registers its dependencies ahead of anything submitted after it.
+				downloadWorkflow = FileManager.default.fileExists(atPath: url.path) ? nil : try self.createDownloadWorkflow(with: identifier, to: url)
+			} catch {
+				completionHandler(error)
+				return
+			}
+			self.start(for: identifier) {
+				do {
+					if let downloadWorkflow = downloadWorkflow {
+						try await self.runDownload(downloadWorkflow, for: identifier)
+					} else {
+						try await self.startProvidingItemWithLocalFile(identifier: identifier, url: url)
+					}
+					try self.postProcessStartProvidingItem(at: url)
+					completionHandler(nil)
+				} catch {
+					completionHandler(error)
 				}
 			}
-		} else {
-			return downloadFile(with: identifier, to: url)
 		}
 	}
 
-	func startProvidingItemWithOutdatedLocalFile(identifier: NSFileProviderItemIdentifier, url: URL) -> Promise<Void> {
-		let hasVersioningConflict: Bool
-		do {
-			hasVersioningConflict = try hasPossibleVersioningConflictForItem(withIdentifier: identifier)
-			try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
-		} catch {
-			return Promise(error)
+	func startProvidingItemWithLocalFile(identifier: NSFileProviderItemIdentifier, url: URL) async throws {
+		let isCurrent = try await localFileIsCurrent(with: identifier)
+		if !isCurrent {
+			try await startProvidingItemWithOutdatedLocalFile(identifier: identifier, url: url)
 		}
+	}
+
+	func startProvidingItemWithOutdatedLocalFile(identifier: NSFileProviderItemIdentifier, url: URL) async throws {
+		let hasVersioningConflict = try hasPossibleVersioningConflictForItem(withIdentifier: identifier)
+		try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
 		if hasVersioningConflict {
-			return startProvidingItemWithVersioningConflict(identifier: identifier, url: url)
+			try await startProvidingItemWithVersioningConflict(identifier: identifier, url: url)
 		} else {
-			return downloadFile(with: identifier, to: url, replaceExisting: true)
+			try await downloadFile(with: identifier, to: url, replaceExisting: true)
 		}
 	}
 
-	func startProvidingItemWithVersioningConflict(identifier: NSFileProviderItemIdentifier, url: URL) -> Promise<Void> {
+	func startProvidingItemWithVersioningConflict(identifier: NSFileProviderItemIdentifier, url: URL) async throws {
 		let tmpDirectory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let tmpFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent).createCollisionURL()
-		let parentItemIdentifier: NSFileProviderItemIdentifier
-		do {
-			try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
-			try FileManager.default.moveItem(at: url, to: tmpFileURL)
-			parentItemIdentifier = try item(for: identifier).parentItemIdentifier
-		} catch {
-			return Promise(error)
-		}
-		return wrap { handler in
-			self.importDocument(at: tmpFileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: handler)
-		}.then { _ in
-			try FileManager.default.removeItem(at: tmpDirectory)
-			let itemID = try self.convertFileProviderItemIdentifierToInt64(identifier)
-			try self.uploadTaskManager.removeTaskRecord(for: itemID)
-			return self.downloadFile(with: identifier, to: url, replaceExisting: false)
-		}
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		try FileManager.default.moveItem(at: url, to: tmpFileURL)
+		let parentItemIdentifier = try item(for: identifier).parentItemIdentifier
+		_ = try await importDocument(at: tmpFileURL, toParentItemIdentifier: parentItemIdentifier)
+		try FileManager.default.removeItem(at: tmpDirectory)
+		let itemID = try convertFileProviderItemIdentifierToInt64(identifier)
+		try uploadTaskManager.removeTaskRecord(for: itemID)
+		try await downloadFile(with: identifier, to: url, replaceExisting: false)
 	}
 
 	/**
@@ -1080,17 +1066,13 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	   - `true` if the local file is still guaranteed to be the current one or we have no internet connection.
 	   - `false` if the file in the cloud is a newer version or the cloud did not return a `lastModifiedDate` or there is no `localCachedFileInfo` for the passed `identifier`.
 	 */
-	func localFileIsCurrent(with identifier: NSFileProviderItemIdentifier) -> Promise<Bool> {
-		let itemMetadata: ItemMetadata
-		do {
-			itemMetadata = try getCachedMetadata(for: identifier)
-		} catch {
-			return Promise(error)
-		}
+	func localFileIsCurrent(with identifier: NSFileProviderItemIdentifier) async throws -> Bool {
+		let itemMetadata = try getCachedMetadata(for: identifier)
 		if itemMetadata.statusCode == .isUploading || itemMetadata.statusCode == .uploadError {
-			return Promise(true)
+			return true
 		}
-		return enumerateItems(for: identifier, withPageToken: nil).then { itemList -> Bool in
+		do {
+			let itemList = try await enumerateItems(for: identifier, withPageToken: nil)
 			guard let item = itemList.items.first else {
 				throw NSFileProviderError(.noSuchItem)
 			}
@@ -1098,9 +1080,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			guard let lastModifiedDateInCloud = itemMetadata.lastModifiedDate else {
 				return false
 			}
-			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
+			let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			return localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: lastModifiedDateInCloud) ?? false
-		}.recover { error -> Bool in
+		} catch {
 			guard error.isNoInternetConnectionError else {
 				throw error
 			}
@@ -1108,26 +1090,19 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) -> Promise<Void> {
-		let task: DownloadTask
-		do {
-			let itemMetadata = try getCachedMetadata(for: identifier)
-			task = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: replaceExisting, localURL: localURL, onURLSessionTaskCreation: { [weak self] urlSessionTask in
-				self?.taskRegistrator.register(urlSessionTask, forItemWithIdentifier: identifier, completionHandler: { error in
-					if let error {
-						DDLogError("Register URLSessionTask for identifier: \(identifier) failed with error: \(error)")
-					} else {
-						DDLogInfo("Successfully registered URLSessionTask for identifier: \(identifier)")
-					}
-					urlSessionTask.resume()
-				})
-			})
-		} catch {
-			return Promise(error)
-		}
-		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Void in
-			self.notificator?.signalUpdate(for: item)
-		}
+	func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) async throws {
+		try await runDownload(createDownloadWorkflow(with: identifier, to: localURL, replaceExisting: replaceExisting), for: identifier)
+	}
+
+	private func createDownloadWorkflow(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) throws -> Workflow<FileProviderItem> {
+		let itemMetadata = try getCachedMetadata(for: identifier)
+		let task = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: replaceExisting, localURL: localURL, onURLSessionTaskCreation: makeTaskRegistrationHook(for: identifier, taskName: "URLSessionTask"))
+		return workflowFactory.createWorkflow(for: task)
+	}
+
+	private func runDownload(_ workflow: Workflow<FileProviderItem>, for identifier: NSFileProviderItemIdentifier) async throws {
+		let item = try await run(workflow, for: identifier)
+		notificator?.signalUpdate(for: item)
 	}
 
 	/**
@@ -1151,7 +1126,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	// MARK: Stop Providing Item
 
-	public func stopProvidingItem(at url: URL) {
+	public nonisolated func stopProvidingItem(at url: URL) {
 		#warning("TODO: Implement stopProvidingItem logic")
 	}
 
@@ -1235,7 +1210,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	// MARK: Favorite Rank
 
-	public func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	public nonisolated func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
 		let fileProviderItem: NSFileProviderItem
 		do {
 			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
@@ -1250,7 +1225,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	// MARK: Tag Data
 
-	public func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+	public nonisolated func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void) {
 		let fileProviderItem: NSFileProviderItem
 		do {
 			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
@@ -1264,42 +1239,31 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		completionHandler(fileProviderItem, nil)
 	}
 
-	public func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier> {
+	/// Isolated explicitly, because a witness of the nonisolated protocol is otherwise inferred nonisolated, as is `enumerateItems`.
+	@MainActor public func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier {
 		if cloudPath == CloudPath("/") {
-			return Promise(.rootContainer)
+			return .rootContainer
 		}
 		let parentCloudPath = cloudPath.deletingLastPathComponent()
-		let parentItemMetadata: ItemMetadata?
-		do {
-			parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentCloudPath)
-		} catch {
-			return Promise(error)
-		}
-		let parentItemIdentifier: Promise<NSFileProviderItemIdentifier>
-
-		if let parentItemMetadata = parentItemMetadata {
-			parentItemIdentifier = Promise(NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: parentItemMetadata.id!))
+		let parentItemIdentifier: NSFileProviderItemIdentifier
+		if let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentCloudPath) {
+			parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: parentItemMetadata.id!)
 		} else {
-			parentItemIdentifier = getItemIdentifier(for: parentCloudPath)
+			parentItemIdentifier = try await getItemIdentifier(for: parentCloudPath)
 		}
-
-		return parentItemIdentifier.then {
-			self.enumerateItemsExtensively(for: $0)
-		}.then { _ -> NSFileProviderItemIdentifier in
-			guard let metadata = try self.itemMetadataManager.getCachedMetadata(for: cloudPath) else {
-				throw NSFileProviderError(.noSuchItem)
-			}
-			return NSFileProviderItemIdentifier(domainIdentifier: self.domainIdentifier, itemID: metadata.id!)
+		_ = try await enumerateItemsExtensively(for: parentItemIdentifier)
+		guard let metadata = try itemMetadataManager.getCachedMetadata(for: cloudPath) else {
+			throw NSFileProviderError(.noSuchItem)
 		}
+		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: metadata.id!)
 	}
 
-	func enumerateItemsExtensively(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String? = nil) -> Promise<FileProviderItemList> {
-		return enumerateItems(for: identifier, withPageToken: pageToken).then { itemList -> Promise<FileProviderItemList> in
-			if let pageToken = pageToken {
-				return self.enumerateItemsExtensively(for: identifier, withPageToken: pageToken)
-			}
-			return Promise(itemList)
+	func enumerateItemsExtensively(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String? = nil) async throws -> FileProviderItemList {
+		let itemList = try await enumerateItems(for: identifier, withPageToken: pageToken)
+		if let pageToken = pageToken {
+			return try await enumerateItemsExtensively(for: identifier, withPageToken: pageToken)
 		}
+		return itemList
 	}
 
 	// MARK: Internal
@@ -1310,7 +1274,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 Helper function for `setTagData(_: forItemIdentifier:, completionHandler:)`.
 	 Sets `tagData` to nil as according to the documentation the Files app should pass`nil` as tagData argument for `setTagData(_: forItemIdentifier:, completionHandler:)` if the tag gets removed, but actually passes empty data.
 	 */
-	func cleanTagData(_ tagData: Data?) -> Data? {
+	nonisolated func cleanTagData(_ tagData: Data?) -> Data? {
 		var maybeTagData = tagData
 		if let tagData = tagData, tagData.isEmpty {
 			maybeTagData = nil
@@ -1318,7 +1282,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return maybeTagData
 	}
 
-	func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
+	nonisolated func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
 		let id = try convertFileProviderItemIdentifierToInt64(identifier)
 		guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: id) else {
 			throw NSFileProviderError(.noSuchItem)
@@ -1326,7 +1290,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return itemMetadata
 	}
 
-	func convertFileProviderItemIdentifierToInt64(_ identifier: NSFileProviderItemIdentifier) throws -> Int64 {
+	nonisolated func convertFileProviderItemIdentifierToInt64(_ identifier: NSFileProviderItemIdentifier) throws -> Int64 {
 		guard let id = identifier.databaseValue else {
 			throw FileProviderAdapterError.unsupportedItemIdentifier
 		}
@@ -1340,6 +1304,84 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: id)
 	}
 
+	private nonisolated func makeFileCoordinator() -> NSFileCoordinator {
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = fileCoordinatorPurposeIdentifier
+		return fileCoordinator
+	}
+
+	/// The provider awaits the returned hook before it resumes the task, which is what makes registration precede the transfer.
+	private nonisolated func makeTaskRegistrationHook<T: URLSessionTask>(for identifier: NSFileProviderItemIdentifier, taskName: String) -> @concurrent @Sendable (T) async -> Void {
+		let taskRegistrator = taskRegistrator
+		return { urlSessionTask in
+			do {
+				try await taskRegistrator.register(urlSessionTask, forItemWithIdentifier: identifier)
+				DDLogInfo("Successfully registered \(taskName) for identifier: \(identifier)")
+			} catch {
+				DDLogError("Register \(taskName) for identifier: \(identifier) failed with error: \(error)")
+			}
+		}
+	}
+
+	// MARK: Workflow Registry
+
+	/// Runs `operation` on the main actor in submission order, which independent `Task`s would not guarantee.
+	private nonisolated func submit(_ operation: @escaping @MainActor @Sendable () -> Void) {
+		DispatchQueue.main.async {
+			operation()
+		}
+	}
+
+	/// Registers the task in the same synchronous stretch that creates it, so its cleanup cannot run before it is registered.
+	private func start(for identifier: NSFileProviderItemIdentifier?, _ body: @escaping @MainActor () async -> Void) {
+		let id = UUID()
+		let task = Task { @MainActor in
+			defer {
+				workflows[id] = nil
+			}
+			await body()
+		}
+		workflows[id] = (identifier, task)
+	}
+
+	private func run<T: Sendable>(_ workflow: Workflow<T>, for identifier: NSFileProviderItemIdentifier?) async throws -> T {
+		return try await withCheckedThrowingContinuation { continuation in
+			start(for: identifier) {
+				do {
+					let value = try await self.scheduler.schedule(workflow)
+					continuation.resume(returning: value)
+				} catch {
+					continuation.resume(throwing: error)
+				}
+			}
+		}
+	}
+
+	private func startWorkflow(_ workflow: Workflow<FileProviderItem>, for identifier: NSFileProviderItemIdentifier) {
+		start(for: identifier) {
+			do {
+				let item = try await self.scheduler.schedule(workflow)
+				self.notificator?.signalUpdate(for: item)
+			} catch {
+				// Domain and code only, because a `FileManager` error names the path it failed on.
+				let error = error as NSError
+				DDLogError("Workflow for identifier: \(identifier) failed with \(error.domain) \(error.code)")
+			}
+		}
+	}
+
+	/// Lets pending submissions run first, then waits until no workflow is registered anymore.
+	func awaitWorkflows() async {
+		await withCheckedContinuation { continuation in
+			DispatchQueue.main.async {
+				continuation.resume()
+			}
+		}
+		while let entry = workflows.first?.value {
+			await entry.task.value
+		}
+	}
+
 	struct LocalItemImportResult {
 		let item: FileProviderItem
 		let uploadTaskRecord: UploadTaskRecord
@@ -1351,7 +1393,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	/**
-	 Keyed by parent rather than flattened, because each node's task is constructed inside its parent's scheduling continuation.
+	 Keyed by parent rather than flattened, because each node's workflow is created only after its parent folder was created in the cloud.
 	 Carries the `localURL` of a file, because `registerFileInUploadQueue` needs it later and nothing else recomputes it.
 	 */
 	struct ImportedPackageNode {

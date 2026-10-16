@@ -10,7 +10,7 @@ import Dependencies
 import Foundation
 import GRDB
 
-public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord, Equatable {
+public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord, Equatable, Sendable {
 	public static let databaseTableName = "cloudProviderAccounts"
 	static let accountUIDKey = "accountUID"
 	static let cloudProviderTypeKey = "cloudProviderType"
@@ -41,8 +41,12 @@ public protocol CloudProviderAccountManager {
 	func removeAccount(with accountUID: String) throws
 }
 
-public class CloudProviderAccountDBManager: CloudProviderAccountManager {
-	@Dependency(\.database) var database
+public final class CloudProviderAccountDBManager: CloudProviderAccountManager, Sendable {
+	private let databaseDependency = Dependency(\.database)
+	private var database: DatabaseWriter {
+		databaseDependency.wrappedValue
+	}
+
 	public static let shared = CloudProviderAccountDBManager()
 
 	public func getAccount(for accountUID: String) throws -> CloudProviderAccount {

@@ -10,10 +10,9 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 protocol CreateNewFolderViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
-	func createFolder() -> Promise<CloudPath>
+	func createFolder() async throws -> CloudPath
 }
 
 class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
@@ -43,14 +42,13 @@ class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderView
 		self.provider = LocalizedCloudProviderDecorator(delegate: provider)
 	}
 
-	func createFolder() -> Promise<CloudPath> {
+	func createFolder() async throws -> CloudPath {
 		guard !folderName.isEmpty else {
-			return Promise(CreateNewFolderViewModelError.emptyFolderName)
+			throw CreateNewFolderViewModelError.emptyFolderName
 		}
 		let folderPath = parentPath.appendingPathComponent(folderName)
-		return provider.createFolder(at: folderPath).then {
-			folderPath
-		}
+		try await provider.createFolder(at: folderPath)
+		return folderPath
 	}
 
 	override func getHeaderTitle(for section: Int) -> String? {

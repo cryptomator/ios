@@ -12,7 +12,7 @@ import Intents
 
 class IntentHandler: INExtension {
 	override func handler(for intent: INIntent) -> Any {
-		IntentHandler.oneTimeSetup()
+		LoggerSetup.oneTimeSetup()
 		if intent is SaveFileIntent {
 			return SaveFileIntentHandler()
 		}
@@ -29,10 +29,5 @@ class IntentHandler: INExtension {
 			return IsVaultUnlockedIntentHandler(vaultOptionsProvider: .shared)
 		}
 		return self
-	}
-
-	private static var oneTimeSetup: () -> Void = {
-		// Set up logger
-		LoggerSetup.oneTimeSetup()
 	}
 }

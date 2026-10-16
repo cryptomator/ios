@@ -4,7 +4,8 @@ import Foundation
 
 // MARK: - HubRepositoryMock -
 
-final class HubRepositoryMock: HubRepository {
+/// @unchecked Sendable: test double, never touched concurrently
+final class HubRepositoryMock: HubRepository, @unchecked Sendable {
 	// MARK: - save
 
 	var saveThrowableError: Error?

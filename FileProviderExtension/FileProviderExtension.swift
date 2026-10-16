@@ -19,36 +19,18 @@ class FileProviderExtension: NSFileProviderExtension {
 	var dbPath: URL?
 	var notificator: FileProviderNotificatorType?
 	var localURLProvider: LocalURLProviderType?
-	static var databaseError: Error?
-	static var sharedDatabaseInitialized = false
 	override init() {
 		super.init()
 		LoggerSetup.oneTimeSetup()
 		FileProviderExtension.setupIAP()
-		if !FileProviderExtension.sharedDatabaseInitialized {
-			FileProviderExtension.sharedDatabaseInitialized = true
-			DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
-			GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-			do {
-				let microsoftGraphRedirectURI = "msauth.\(Bundle.main.bundleIdentifier!)://auth"
-				let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: microsoftGraphRedirectURI, authority: nil)
-				microsoftGraphConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
-				let microsoftGraphClientApplication = try MSALPublicClientApplication(configuration: microsoftGraphConfiguration)
-				MicrosoftGraphSetup.constants = MicrosoftGraphSetup(clientApplication: microsoftGraphClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-			} catch {
-				DDLogError("Setting up Microsoft Graph failed with error: \(error)")
-			}
-			PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-			BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		}
-
+		FileProviderExtension.setUpCloudAccess()
 		self.observation = observe(
 			\.domain,
 			options: [.old, .new]
-		) { [weak self] _, change in
+		) { fileProviderExtension, change in
 			DDLogInfo("domain changed from: \(String(describing: change.oldValue)) to: \(String(describing: change.newValue))")
 			do {
-				try self?.setUp()
+				try fileProviderExtension.setUp()
 			} catch {
 				DDLogError("setUp decorator from kvo failed: \(error)")
 			}
@@ -143,7 +125,9 @@ class FileProviderExtension: NSFileProviderExtension {
 			completionHandler(error)
 			return
 		}
-		adapter.startProvidingItem(at: url, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.startProvidingItem(at: url, completionHandler: { completionHandler($0) })
 	}
 
 	override func itemChanged(at url: URL) {
@@ -217,7 +201,7 @@ class FileProviderExtension: NSFileProviderExtension {
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: localURLProvider, taskRegistrator: manager)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: localURLProvider, taskRegistrator: FileProviderManagerTaskRegistrator(manager: manager))
 		#endif
 	}
 
@@ -249,13 +233,14 @@ class FileProviderExtension: NSFileProviderExtension {
 		let snapshotVaultPath = CloudPath(LocalizedString.getValue("snapshots.main.vault1"))
 		let snapshotDomain = NSFileProviderDomain(vaultUID: "12345", displayName: snapshotVaultPath.lastPathComponent)
 		if let manager = NSFileProviderManager(for: snapshotDomain) {
-			serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(domain: snapshotDomain, notificator: notificator, dbPath: dbPath, delegate: LocalURLProvider(domain: snapshotDomain), taskRegistrator: manager))
+			serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(domain: snapshotDomain, notificator: notificator, dbPath: dbPath, delegate: LocalURLProvider(domain: snapshotDomain), taskRegistrator: FileProviderManagerTaskRegistrator(manager: manager)))
 		}
 		#else
 		if let domain = domain, let localURLProvider = localURLProvider, let dbPath = dbPath, let notificator = notificator, let manager = NSFileProviderManager(for: domain) {
-			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
-			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
-			serviceSources.append(FileImportingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
+			let taskRegistrator = FileProviderManagerTaskRegistrator(manager: manager)
+			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: taskRegistrator))
+			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: taskRegistrator))
+			serviceSources.append(FileImportingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: taskRegistrator))
 		}
 		#endif
 		let cacheManagingServiceSource = CacheManagingServiceSource(notificator: notificator)
@@ -294,7 +279,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		                                                        dbPath: dbPath,
 		                                                        delegate: localURLProvider,
 		                                                        notificator: notificator,
-		                                                        taskRegistrator: manager)
+		                                                        taskRegistrator: FileProviderManagerTaskRegistrator(manager: manager))
 	}
 
 	func getAdapterWithWrappedError() throws -> FileProviderAdapterType {
@@ -305,7 +290,24 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
-	static var setupIAP: () -> Void = {
+	private static let setUpCloudAccess: @Sendable () -> Void = {
+		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
+		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		do {
+			let microsoftGraphRedirectURI = "msauth.\(Bundle.main.bundleIdentifier!)://auth"
+			let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: microsoftGraphRedirectURI, authority: nil)
+			microsoftGraphConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+			let microsoftGraphClientApplication = try MSALPublicClientApplication(configuration: microsoftGraphConfiguration)
+			MicrosoftGraphSetup.constants = MicrosoftGraphSetup(clientApplication: microsoftGraphClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		} catch {
+			DDLogError("Setting up Microsoft Graph failed with error: \(error)")
+		}
+		PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		return {}
+	}()
+
+	static let setupIAP: @Sendable () -> Void = {
 		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
 		CryptomatorUserDefaults.shared.fullVersionUnlocked = true

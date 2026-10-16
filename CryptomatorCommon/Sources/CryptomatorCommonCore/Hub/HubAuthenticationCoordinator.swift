@@ -170,16 +170,11 @@ public final class HubAuthenticationCoordinator: Coordinator {
 	}
 
 	private func hideProgressHUD() async {
-		await withCheckedContinuation { continuation in
-			guard let progressHUD else {
-				continuation.resume()
-				return
-			}
-			progressHUD.dismiss(animated: true, completion: { [weak self] in
-				continuation.resume()
-				self?.progressHUD = nil
-			})
+		guard let progressHUD else {
+			return
 		}
+		await progressHUD.dismiss(animated: true)
+		self.progressHUD = nil
 	}
 }
 

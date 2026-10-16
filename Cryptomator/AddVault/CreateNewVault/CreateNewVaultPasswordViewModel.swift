@@ -10,16 +10,15 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 protocol CreateNewVaultPasswordViewModelProtocol: TableViewModel<CreateNewVaultPasswordSection>, ReturnButtonSupport {
 	var vaultUID: String { get }
 	var vaultName: String { get }
 	func validatePassword() throws
-	func createNewVault() -> Promise<Void>
+	func createNewVault() async throws
 }
 
-enum CreateNewVaultPasswordSection: Int {
+nonisolated enum CreateNewVaultPasswordSection: Int {
 	case password = 0
 	case confirmPassword
 }
@@ -48,6 +47,7 @@ class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSect
 
 	private let vaultPath: CloudPath
 	private let account: CloudProviderAccount
+	private let vaultManager: VaultManager
 	private static let minimumPasswordLength = 8
 	private lazy var passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private lazy var confirmPasswordCellViewModel = TextFieldCellViewModel(type: .password)
@@ -61,10 +61,11 @@ class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSect
 		return confirmPasswordCellViewModel.input.value
 	}
 
-	init(vaultPath: CloudPath, account: CloudProviderAccount, vaultUID: String) {
+	init(vaultPath: CloudPath, account: CloudProviderAccount, vaultUID: String, vaultManager: VaultManager = VaultDBManager.shared) {
 		self.vaultPath = vaultPath
 		self.account = account
 		self.vaultUID = vaultUID
+		self.vaultManager = vaultManager
 	}
 
 	func validatePassword() throws {
@@ -79,13 +80,9 @@ class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSect
 		}
 	}
 
-	func createNewVault() -> Promise<Void> {
-		do {
-			try validatePassword()
-		} catch {
-			return Promise(error)
-		}
-		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: false)
+	func createNewVault() async throws {
+		try validatePassword()
+		try await vaultManager.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: false)
 	}
 
 	override func getHeaderTitle(for section: Int) -> String? {

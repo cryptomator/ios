@@ -33,7 +33,8 @@ public protocol WebDAVCredentialManaging {
 	func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws
 }
 
-public struct WebDAVCredentialManager: WebDAVCredentialManaging {
+/// @unchecked Sendable: `PassthroughSubject` synchronizes sending and subscribing internally
+public struct WebDAVCredentialManager: WebDAVCredentialManaging, @unchecked Sendable {
 	public static let shared = WebDAVCredentialManager(keychain: CryptomatorKeychain.webDAV)
 
 	public var didUpdate: AnyPublisher<Void, Never> {

@@ -12,8 +12,8 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
 			return $0.map { _ in nil }
 		}
@@ -21,15 +21,16 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 
 	// MARK: Error Handling
 
-	func testEnumerateItemsFailedWithNoInternetConnection() throws {
+	func testEnumerateItemsFailedWithNoInternetConnection() async throws {
 		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data())
 		try metadataManagerMock.cacheMetadata(metadata)
 		itemEnumerationTaskManagerMock.stubCloudPath = CloudPath("/noInternetConnection")
-		XCTAssertRejects(adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil), with: NSFileProviderError(.serverUnreachable))
+		await XCTAssertThrowsAsyncError(try await adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil)) { error in
+			XCTAssertEqual(NSFileProviderError(.serverUnreachable) as NSError, error as NSError)
+		}
 	}
 
-	func testEnumerateItemsOfflineFallbackToCache() throws {
-		let expectation = XCTestExpectation()
+	func testEnumerateItemsOfflineFallbackToCache() async throws {
 		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data(), lastEnumeratedAt: Date())
 		try metadataManagerMock.cacheMetadata(metadata)
 
@@ -38,73 +39,45 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		itemEnumerationTaskManagerMock.stubCloudPath = CloudPath("/noInternetConnection")
 
 		let permissionProviderMock = PermissionProviderMock()
-		withDependencies {
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		let itemList = try await withDependencies {
 			$0.permissionProvider = permissionProviderMock
 		} operation: {
-			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-
-			adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil).then { itemList in
-				XCTAssertEqual(1, itemList.items.count)
-				XCTAssertEqual("CachedFile", itemList.items[0].metadata.name)
-				XCTAssertNil(itemList.nextPageToken)
-			}.catch { error in
-				XCTFail("Error in promise: \(error)")
-			}.always {
-				expectation.fulfill()
-			}
+			try await adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil)
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(1, itemList.items.count)
+		XCTAssertEqual("CachedFile", itemList.items[0].metadata.name)
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
 	// MARK: Enumerate Working Set
 
-	func testWorkingSet() {
+	func testWorkingSet() async throws {
 		let mockMetadata = [
 			ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data()),
 			ItemMetadata(id: 3, name: "TestFolder", type: .file, size: nil, parentID: 4, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: 1, tagData: nil)
 		]
 		metadataManagerMock.workingSetMetadata = mockMetadata
 		let permissionProviderMock = PermissionProviderMock()
-		let expectation = XCTestExpectation()
-		withDependencies {
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+		let itemList = try await withDependencies {
 			$0.permissionProvider = permissionProviderMock
 		} operation: {
-			permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
-			adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
-				XCTAssertEqual(mockMetadata, itemList.items.map(\.metadata))
-				XCTAssertNil(itemList.nextPageToken)
-			}.catch { error in
-				XCTFail("Error in promise: \(error)")
-			}.always {
-				expectation.fulfill()
-			}
+			try await adapter.enumerateItems(for: .workingSet, withPageToken: nil)
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(mockMetadata, itemList.items.map(\.metadata))
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
-	func testEmptyWorkingSet() {
-		let expectation = XCTestExpectation()
-		adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
-			XCTAssert(itemList.items.isEmpty)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+	func testEmptyWorkingSet() async throws {
+		let itemList = try await adapter.enumerateItems(for: .workingSet, withPageToken: nil)
+		XCTAssert(itemList.items.isEmpty)
+		XCTAssertNil(itemList.nextPageToken)
 	}
 
-	func testWorkingSetReturnsEmptyItemListWithPageTokenSet() {
-		let expectation = XCTestExpectation()
-		adapter.enumerateItems(for: .workingSet, withPageToken: "PageToken").then { itemList in
-			XCTAssert(itemList.items.isEmpty)
-			XCTAssertNil(itemList.nextPageToken)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+	func testWorkingSetReturnsEmptyItemListWithPageTokenSet() async throws {
+		let itemList = try await adapter.enumerateItems(for: .workingSet, withPageToken: "PageToken")
+		XCTAssert(itemList.items.isEmpty)
+		XCTAssertNil(itemList.nextPageToken)
 	}
 }

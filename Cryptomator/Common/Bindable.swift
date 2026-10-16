@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-class Bindable<Value> {
+nonisolated class Bindable<Value> {
 	@Published var value: Value
 
 	init(_ value: Value) {
@@ -17,13 +17,13 @@ class Bindable<Value> {
 	}
 }
 
-extension Bindable: Equatable where Value: Equatable {
+nonisolated extension Bindable: Equatable where Value: Equatable {
 	static func == (lhs: Bindable<Value>, rhs: Bindable<Value>) -> Bool {
 		return lhs.value == rhs.value
 	}
 }
 
-extension Bindable: Hashable where Value: Hashable {
+nonisolated extension Bindable: Hashable where Value: Hashable {
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(value)
 	}

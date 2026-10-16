@@ -7,7 +7,6 @@
 //
 
 import FileProvider
-import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
@@ -229,13 +228,17 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyClosure = { _, _ in pausedVaultProvider() }
 		vaultManagerMock.manualUnlockVaultWithUIDKekClosure = { _, _ in pausedVaultProvider() }
 		vaultManagerMock.manualUnlockVaultWithUIDRawKeyClosure = { _, _ in pausedVaultProvider() }
+		// nonisolated(unsafe): each runs once on the global queue while this thread waits on the semaphores
+		nonisolated(unsafe) let unlock = unlock
+		nonisolated(unsafe) let operation = operation
 		DispatchQueue.global().async {
 			try? unlock()
 		}
 		XCTAssertEqual(.success, unlockReachedVaultManager.wait(timeout: .now() + 5))
 		let operationStarted = DispatchSemaphore(value: 0)
 		let operationFinished = DispatchSemaphore(value: 0)
-		var operationError: Error?
+		// nonisolated(unsafe): written before `operationFinished` is signaled, read after waiting on it
+		nonisolated(unsafe) var operationError: Error?
 		DispatchQueue.global().async {
 			operationStarted.signal()
 			do {

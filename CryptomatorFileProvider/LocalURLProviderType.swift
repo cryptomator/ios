@@ -10,7 +10,7 @@ import CocoaLumberjackSwift
 import FileProvider
 import Foundation
 
-public protocol LocalURLProviderType: AnyObject {
+public protocol LocalURLProviderType: AnyObject, Sendable {
 	/**
 	 The identifier for the corresponding domain of the item identifiers.
 	 */
@@ -62,17 +62,15 @@ public extension LocalURLProviderType {
 	}
 }
 
-public class LocalURLProvider: LocalURLProviderType {
-	public var domainIdentifier: NSFileProviderDomainIdentifier {
-		domain.identifier
-	}
-
-	private let domain: NSFileProviderDomain
-	private let documentStorageURLProvider: DocumentStorageURLProvider
+public final class LocalURLProvider: LocalURLProviderType {
+	public let domainIdentifier: NSFileProviderDomainIdentifier
+	private let pathRelativeToDocumentStorage: String
+	private let documentStorageURL: URL
 
 	public init(domain: NSFileProviderDomain, documentStorageURLProvider: DocumentStorageURLProvider = NSFileProviderManager.default) {
-		self.domain = domain
-		self.documentStorageURLProvider = documentStorageURLProvider
+		self.domainIdentifier = domain.identifier
+		self.pathRelativeToDocumentStorage = domain.pathRelativeToDocumentStorage
+		self.documentStorageURL = documentStorageURLProvider.documentStorageURL
 	}
 
 	public func itemIdentifierDirectoryURLForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
@@ -88,20 +86,19 @@ public class LocalURLProvider: LocalURLProviderType {
 	}
 
 	private func getBaseStorageDirectory() -> URL? {
-		let domainDocumentStorage = domain.pathRelativeToDocumentStorage
 		do {
 			try excludeFileProviderDocumentStorageFromiCloudBackup()
 		} catch {
 			DDLogError("Exclude FileProviderDocumentStorage from iCloud backup failed with error: \(error)")
 			return nil
 		}
-		return documentStorageURLProvider.documentStorageURL.appendingPathComponent(domainDocumentStorage)
+		return documentStorageURL.appendingPathComponent(pathRelativeToDocumentStorage)
 	}
 
 	private func excludeFileProviderDocumentStorageFromiCloudBackup() throws {
 		var values = URLResourceValues()
 		values.isExcludedFromBackup = true
-		var documentStorageURL = documentStorageURLProvider.documentStorageURL
+		var documentStorageURL = documentStorageURL
 		try documentStorageURL.setResourceValues(values)
 	}
 }

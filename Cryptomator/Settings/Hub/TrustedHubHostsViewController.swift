@@ -10,12 +10,12 @@ import CryptomatorCommonCore
 import UIKit
 
 class TrustedHubHostsViewController: BaseUITableViewController {
-	private enum Section {
+	private nonisolated enum Section {
 		case hosts
 		case clearAll
 	}
 
-	private enum Item: Hashable {
+	private nonisolated enum Item: Hashable {
 		case host(String)
 		case clearAll
 	}

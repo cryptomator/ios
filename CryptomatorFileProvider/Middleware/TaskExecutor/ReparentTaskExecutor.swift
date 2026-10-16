@@ -10,7 +10,6 @@ import CryptomatorCloudAccessCore
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 
 class ReparentTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItem>?
@@ -55,28 +54,27 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploaded`.
 	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploaded`.
 	 */
-	func execute(task: CloudTask) -> Promise<FileProviderItem> {
+	func execute(task: CloudTask) async throws -> FileProviderItem {
 		guard let reparentTask = task as? ReparentTask else {
-			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
+			throw WorkflowMiddlewareError.incompatibleCloudTask
 		}
-		return moveItemInCloud(reparentTask: reparentTask).then { _ -> FileProviderItem in
-			let itemMetadata = reparentTask.itemMetadata
-			itemMetadata.statusCode = .isUploaded
-			try self.itemMetadataManager.updateMetadata(itemMetadata)
-			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
-			try self.reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)
-			return FileProviderItem(metadata: itemMetadata, domainIdentifier: self.domainIdentifier, localCachedFileInfo: localCachedFileInfo)
-		}
+		try await moveItemInCloud(reparentTask: reparentTask)
+		let itemMetadata = reparentTask.itemMetadata
+		itemMetadata.statusCode = .isUploaded
+		try itemMetadataManager.updateMetadata(itemMetadata)
+		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
+		try reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)
+		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo)
 	}
 
-	private func moveItemInCloud(reparentTask: ReparentTask) -> Promise<Void> {
+	private func moveItemInCloud(reparentTask: ReparentTask) async throws {
 		switch reparentTask.itemMetadata.type {
 		case .file:
-			return provider.moveFile(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
+			try await provider.moveFile(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		case .folder:
-			return provider.moveFolder(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
+			try await provider.moveFolder(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		default:
-			return Promise(FileProviderAdapterError.unsupportedItemType)
+			throw FileProviderAdapterError.unsupportedItemType
 		}
 	}
 }

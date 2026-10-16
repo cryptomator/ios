@@ -50,17 +50,20 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	}
 
 	func refreshItems() {
-		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
-			if let vaultItem = VaultDetector.getVaultItem(items: itemList.items, parentCloudPath: self.cloudPath) {
-				self.foundMasterkey = true
-				self.vaultListener?(vaultItem)
-			} else {
-				self.foundMasterkey = false
-				self.items = itemList.items.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-				self.changeListener?()
+		Task {
+			do {
+				let itemList = try await provider.fetchItemListExhaustively(forFolderAt: cloudPath)
+				if let vaultItem = VaultDetector.getVaultItem(items: itemList.items, parentCloudPath: cloudPath) {
+					foundMasterkey = true
+					vaultListener?(vaultItem)
+				} else {
+					foundMasterkey = false
+					items = itemList.items.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+					changeListener?()
+				}
+			} catch {
+				errorListener?(error)
 			}
-		}.catch { error in
-			self.errorListener?(error)
 		}
 	}
 

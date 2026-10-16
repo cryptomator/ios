@@ -11,6 +11,7 @@ struct HubUserAuthenticator: HubUserLogin {
 		self.viewController = viewController
 	}
 
+	@MainActor
 	func authenticate(with hubConfig: HubConfig) async throws -> OIDAuthState {
 		try await hubAuthenticator.authenticate(with: hubConfig, from: viewController)
 	}

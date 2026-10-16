@@ -8,7 +8,6 @@
 
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class LifetimeUpgradeViewModel: BaseIAPViewModel, ProductFetching {
 	override var title: String? {
@@ -26,8 +25,8 @@ class LifetimeUpgradeViewModel: BaseIAPViewModel, ProductFetching {
 		}
 	}
 
-	func fetchProducts() -> Promise<Void> {
-		return fetchProducts(with: [.fullVersion])
+	func fetchProducts() async {
+		await fetchProducts(with: [.fullVersion])
 	}
 
 	override func fetchProductsSuccess() {

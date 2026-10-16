@@ -9,11 +9,11 @@
 #if DEBUG
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
 // swiftlint:disable all
 
-final class VaultCacheMock: VaultCache {
+/// @unchecked Sendable: test double, never touched concurrently
+final class VaultCacheMock: VaultCache, @unchecked Sendable {
 	// MARK: - cache
 
 	var cacheThrowableError: Error?
@@ -69,17 +69,16 @@ final class VaultCacheMock: VaultCache {
 
 	var refreshVaultCacheForWithReceivedArguments: (vault: VaultAccount, provider: CloudProvider)?
 	var refreshVaultCacheForWithReceivedInvocations: [(vault: VaultAccount, provider: CloudProvider)] = []
-	var refreshVaultCacheForWithReturnValue: Promise<Void>!
-	var refreshVaultCacheForWithClosure: ((VaultAccount, CloudProvider) -> Promise<Void>)?
+	var refreshVaultCacheForWithClosure: ((VaultAccount, CloudProvider) async throws -> Void)?
 
-	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
+	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) async throws {
 		if let error = refreshVaultCacheForWithThrowableError {
-			return Promise(error)
+			throw error
 		}
 		refreshVaultCacheForWithCallsCount += 1
 		refreshVaultCacheForWithReceivedArguments = (vault: vault, provider: provider)
 		refreshVaultCacheForWithReceivedInvocations.append((vault: vault, provider: provider))
-		return refreshVaultCacheForWithClosure.map({ $0(vault, provider) }) ?? refreshVaultCacheForWithReturnValue
+		try await refreshVaultCacheForWithClosure?(vault, provider)
 	}
 
 	// MARK: - setMasterkeyFileData

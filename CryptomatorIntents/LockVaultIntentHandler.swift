@@ -11,7 +11,6 @@ import CryptomatorCommonCore
 import Dependencies
 import Foundation
 import Intents
-import Promises
 
 class LockVaultIntentHandler: NSObject, LockVaultIntentHandling {
 	let vaultOptionsProvider: VaultOptionsProvider
@@ -47,18 +46,11 @@ class LockVaultIntentHandler: NSObject, LockVaultIntentHandling {
 	// MARK: Internal
 
 	private func lockVault(with domainIdentifier: NSFileProviderDomainIdentifier) async throws {
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return try await withCheckedThrowingContinuation({ continuation in
-			getXPCPromise.then { xpc in
-				xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
-			}.then {
-				continuation.resume(returning: ())
-			}.catch {
-				continuation.resume(throwing: $0)
-			}.always { [fileProviderConnector] in
-				fileProviderConnector.invalidateXPC(getXPCPromise)
-			}
-		})
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
+		}
+		try await xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
 	}
 }
 

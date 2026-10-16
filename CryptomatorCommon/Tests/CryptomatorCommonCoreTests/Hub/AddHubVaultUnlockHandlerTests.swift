@@ -6,19 +6,19 @@
 //  Copyright © 2023 Skymatic GmbH. All rights reserved.
 
 import JOSESwift
-import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
+@MainActor
 final class AddHubVaultUnlockHandlerTests: XCTestCase {
 	private let vaultUID = "vault-123456789"
 	private let accountUID = "account-123456789"
 	private var vaultManagerMock: VaultManagerMock!
 	private var unlockHandlerDelegateMock: HubVaultUnlockHandlerDelegateMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
 		vaultManagerMock = VaultManagerMock()
 		unlockHandlerDelegateMock = HubVaultUnlockHandlerDelegateMock()
 	}
@@ -45,8 +45,6 @@ final class AddHubVaultUnlockHandlerTests: XCTestCase {
 		                                             accountUID: accountUID, vaultItem: VaultItemStub(), downloadedVaultConfig: downloadedVaultConfig,
 		                                             vaultManager: vaultManagerMock,
 		                                             delegate: unlockHandlerDelegateMock)
-		vaultManagerMock.addExistingHubVaultReturnValue = Promise(())
-
 		// WHEN
 		// calling didSuccessfullyRemoteUnlock
 		try await unlockHandler.didSuccessfullyRemoteUnlock(.init(jwe: jwe, privateKey: .init(pemRepresentation: privateKeyPemRepresentation), subscriptionState: .active))
@@ -88,7 +86,7 @@ final class AddHubVaultUnlockHandlerTests: XCTestCase {
 		                                             delegate: unlockHandlerDelegateMock)
 		// GIVEN
 		// the existing hub vault can't be added due to an error
-		vaultManagerMock.addExistingHubVaultReturnValue = Promise(TestError())
+		vaultManagerMock.addExistingHubVaultThrowableError = TestError()
 
 		// WHEN
 		// calling didSuccessfullyRemoteUnlock

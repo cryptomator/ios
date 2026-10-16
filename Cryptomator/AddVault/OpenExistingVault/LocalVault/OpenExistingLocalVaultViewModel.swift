@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let validator: OpenExistingLocalVaultValidationLogic
@@ -26,14 +25,13 @@ class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, L
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: validator, accountManager: accountManager)
 	}
 
-	func addVault(for credential: LocalFileSystemCredential) -> Promise<LocalFileSystemAuthenticationResult> {
-		return validateAndSave(credential: credential).then { account -> LocalFileSystemAuthenticationResult in
-			guard let detectedVaultItem = self.validator.vaultItem else {
-				throw OpenExistingLocalVaultViewModelError.noVaultFound
-			}
-			let vaultItem = VaultDetailItem(name: credential.rootURL.lastPathComponent, vaultPath: detectedVaultItem.vaultPath, isLegacyVault: detectedVaultItem.isLegacyVault)
-			return LocalFileSystemAuthenticationResult(credential: credential, account: account, item: vaultItem)
+	func addVault(for credential: LocalFileSystemCredential) async throws -> LocalFileSystemAuthenticationResult {
+		let account = try await validateAndSave(credential: credential)
+		guard let detectedVaultItem = validator.vaultItem else {
+			throw OpenExistingLocalVaultViewModelError.noVaultFound
 		}
+		let vaultItem = VaultDetailItem(name: credential.rootURL.lastPathComponent, vaultPath: detectedVaultItem.vaultPath, isLegacyVault: detectedVaultItem.isLegacyVault)
+		return LocalFileSystemAuthenticationResult(credential: credential, account: account, item: vaultItem)
 	}
 }
 

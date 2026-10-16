@@ -26,10 +26,13 @@ class AddLocalVaultViewController: LocalFileSystemAuthenticationViewController {
 			return
 		}
 		coordinator?.authenticated(credential: credential)
-		viewModel.addVault(for: credential).then { result in
-			self.coordinator?.showPasswordScreen(for: result)
-		}.catch { error in
-			self.coordinator?.validationFailed(with: error, at: self)
+		Task {
+			do {
+				let result = try await viewModel.addVault(for: credential)
+				coordinator?.showPasswordScreen(for: result)
+			} catch {
+				coordinator?.validationFailed(with: error, at: self)
+			}
 		}
 	}
 }

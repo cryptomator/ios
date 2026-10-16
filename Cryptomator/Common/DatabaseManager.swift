@@ -44,14 +44,14 @@ class DatabaseManager {
 		}
 	}
 
-	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> DatabaseCancellable {
+	func observeVaultAccounts(onError: @escaping @MainActor (Error) -> Void, onChange: @escaping @MainActor ([VaultAccount]) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation
 			.tracking { try VaultAccount.fetchAll($0) }
 			.removeDuplicates()
 		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
-	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping (Error) -> Void, onChange: @escaping (VaultAccount?) -> Void) -> DatabaseCancellable {
+	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping @MainActor (Error) -> Void, onChange: @escaping @MainActor (VaultAccount?) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation.tracking { db in
 			try VaultAccount.fetchOne(db, key: vaultUID)
 		}
@@ -92,12 +92,11 @@ class DatabaseManager {
 	 At the beginning all entries of the `cloudProviderAccounts` table are returned immediately.
 	 Note: additionally the table `s3DisplayNames` is monitored, so that onChange is triggered also in case of changes within this table.
 	 */
-	func observeCloudProviderAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([CloudProviderAccount]) -> Void) -> DatabaseCancellable {
+	func observeCloudProviderAccounts(onError: @escaping @MainActor (Error) -> Void, onChange: @escaping @MainActor ([CloudProviderAccount]) -> Void) -> DatabaseCancellable {
 		let request = CloudProviderAccount.including(optional: CloudProviderAccount.s3DisplayName)
 		let observation = ValueObservation
-			.tracking { db in try Row.fetchAll(db, request) }
+			.tracking { db in try AccountWithDisplayName.fetchAll(db, request) }
 			.removeDuplicates()
-			.map { rows in try rows.map(AccountWithDisplayName.init(row:)) }
 			.map { annotatedAccounts in annotatedAccounts.map(\.account) }
 		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
@@ -107,7 +106,7 @@ extension VaultAccount {
 	static let vaultListPosition = hasOne(VaultListPosition.self)
 }
 
-private struct AccountWithDisplayName: Equatable, Decodable, FetchableRecord {
+private nonisolated struct AccountWithDisplayName: Equatable, Decodable, FetchableRecord, Sendable {
 	let account: CloudProviderAccount
-	let displayName: String?
+	let s3DisplayName: S3DisplayName?
 }

@@ -9,7 +9,7 @@
 import FileProvider
 import Foundation
 
-protocol ProgressManager {
+protocol ProgressManager: Sendable {
 	/**
 	 Returns the progress for the given `itemIdentifier` - `nil` if no progress could be found for the given `itemIdentifier`.
 	 */
@@ -23,7 +23,8 @@ protocol ProgressManager {
 	func saveProgress(_ progress: Progress, for itemIdentifier: NSFileProviderItemIdentifier)
 }
 
-class InMemoryProgressManager: ProgressManager {
+/// @unchecked Sendable: state confined to `queue`
+final class InMemoryProgressManager: ProgressManager, @unchecked Sendable {
 	static let shared = InMemoryProgressManager()
 
 	private let queue = DispatchQueue(label: "InMemoryProgressManager", attributes: .concurrent)
