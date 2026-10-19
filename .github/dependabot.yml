@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/" # even for `.github/workflows`
+    schedule:
+      interval: "monthly"
+    # Let a release sit for a few days before proposing it, so a compromised or
+    # immediately-yanked version is not picked up automatically.
+    cooldown:
+      default-days: 3
+    groups:
+      github-actions:
+        patterns:
+          - "*"
