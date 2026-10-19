@@ -9,26 +9,39 @@ permissions:
 jobs:
   build:
     name: Build and test
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: xcode-27
     env:
       DERIVED_DATA_PATH: 'DerivedData'
-      DEVICE: 'iPhone 17 Pro'
+      DEVICE: 'iPhone 17'
     strategy:
       matrix:
         config: ['freemium', 'premium']
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Disable shallow clone for SonarCloud analysis
           # https://docs.sonarsource.com/sonarqube-cloud/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud
           fetch-depth: 0
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: .build
+          path: |
+            ${{ env.DERIVED_DATA_PATH }}/SourcePackages/checkouts
+            ${{ env.DERIVED_DATA_PATH }}/SourcePackages/artifacts
+            ${{ env.DERIVED_DATA_PATH }}/SourcePackages/workspace-state.json
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s "/Applications/Xcode_$(cat .xcode-version).app"
+          xcodebuild -version
+      - name: Install SwiftFormat and SwiftLint
+        if: ${{ matrix.config == 'freemium' }}
+        run: |
+          brew update
+          brew install swiftformat swiftlint
       - name: Run process.sh script
+        if: ${{ matrix.config == 'freemium' }}
         run: |
           ./Scripts/process.sh
           exit $?
@@ -47,7 +60,7 @@ jobs:
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH ${{ env.BUILD_CMD }} | xcbeautify
       - name: Test
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcbeautify
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -test-timeouts-enabled YES | xcbeautify
       - name: Generate coverage report
         if: ${{ matrix.config == 'freemium' }}
         run: |
@@ -55,7 +68,7 @@ jobs:
           bash Scripts/xccov-to-sonarqube-generic.sh "$xcresult_path" > sonarqube-generic-coverage.xml
       - name: SonarCloud Scan
         if: ${{ matrix.config == 'freemium' }}
-        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6.0.0
+        uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
