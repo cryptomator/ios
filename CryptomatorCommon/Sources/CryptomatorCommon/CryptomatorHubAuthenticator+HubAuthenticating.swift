@@ -6,7 +6,6 @@
 //
 
 import AppAuth
-import Base32
 import CryptoKit
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore

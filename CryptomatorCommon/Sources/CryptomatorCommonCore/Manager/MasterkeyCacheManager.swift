@@ -39,7 +39,7 @@ public final class MasterkeyCacheKeychainManager: MasterkeyCacheManager, Sendabl
 		}
 		let jsonDecoder = JSONDecoder()
 		let cachedMasterkey = try jsonDecoder.decode(CachedMasterkey.self, from: data)
-		return Masterkey.createFromRaw(rawKey: cachedMasterkey.rawKey)
+		return try Masterkey.createFromRaw(rawKey: cachedMasterkey.rawKey)
 	}
 
 	public func removeCachedMasterkey(forVaultUID vaultUID: String) throws {

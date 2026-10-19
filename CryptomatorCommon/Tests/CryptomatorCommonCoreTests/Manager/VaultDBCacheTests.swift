@@ -23,8 +23,8 @@ class VaultDBCacheTests: XCTestCase {
 	private let cloudProviderMock = CloudProviderMock()
 	private var masterkeyFileData: Data!
 	private var updatedMasterkeyFileData: Data!
-	private let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-	private let updatedMasterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x56, count: 32), macMasterKey: [UInt8](repeating: 0x78, count: 32))
+	private var masterkey: Masterkey!
+	private var updatedMasterkey: Masterkey!
 	private var vaultConfigData: Data!
 	private var updatedVaultConfigData: Data!
 	private let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
@@ -33,6 +33,8 @@ class VaultDBCacheTests: XCTestCase {
 	private let updatedVaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)
 
 	override func setUpWithError() throws {
+		masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
+		updatedMasterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x56, count: 32) + [UInt8](repeating: 0x78, count: 32))
 		let password = "PW"
 		masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: password, scryptCostParam: 2)
 		updatedMasterkeyFileData = try MasterkeyFile.lock(masterkey: updatedMasterkey, vaultVersion: 999, passphrase: password, scryptCostParam: 2)

@@ -71,7 +71,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testGetAdapterNotCachedAutoUnlock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyReturnValue = CustomCloudProviderMock()
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
 		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
@@ -90,7 +90,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testGetAdapterNotCachedAutoUnlockVaultManagerFailed() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyThrowableError = ErrorMock.test
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.test, error as? ErrorMock)
@@ -186,16 +186,16 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual(1, fileProviderNotificatorMock.refreshWorkingSetCallsCount)
 	}
 
-	func testGracefulLockVaultWaitsForRunningAutoUnlock() {
-		let cache = assertWaitsForRunningAutoUnlock {
+	func testGracefulLockVaultWaitsForRunningAutoUnlock() throws {
+		let cache = try assertWaitsForRunningAutoUnlock {
 			try self.fileProviderAdapterManager.gracefulLockVault(with: self.domain.identifier)
 		}
 		XCTAssert(cache.isEmpty)
 		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 	}
 
-	func testForceLockVaultWaitsForRunningAutoUnlock() {
-		let cache = assertWaitsForRunningAutoUnlock {
+	func testForceLockVaultWaitsForRunningAutoUnlock() throws {
+		let cache = try assertWaitsForRunningAutoUnlock {
 			self.fileProviderAdapterManager.forceLockVault(with: self.domain.identifier)
 		}
 		XCTAssert(cache.isEmpty)
@@ -203,9 +203,9 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func assertWaitsForRunningAutoUnlock(_ operation: @escaping () throws -> Void) -> [NSFileProviderDomainIdentifier: AdapterCacheItem] {
+	private func assertWaitsForRunningAutoUnlock(_ operation: @escaping () throws -> Void) throws -> [NSFileProviderDomainIdentifier: AdapterCacheItem] {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
-		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		return assertWaitsForRunningUnlock({
 			_ = try self.fileProviderAdapterManager.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProviderMock, notificator: self.fileProviderNotificatorMock, taskRegistrator: self.taskRegistratorMock)
 		}, operation: operation)
@@ -327,10 +327,10 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
 	}
 
-	func testVaultIsUnlockedWaitsForRunningAutoUnlock() {
+	func testVaultIsUnlockedWaitsForRunningAutoUnlock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		var vaultIsUnlocked = false
-		assertWaitsForRunningAutoUnlock {
+		try assertWaitsForRunningAutoUnlock {
 			vaultIsUnlocked = self.fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: self.domain.identifier)
 		}
 		XCTAssert(vaultIsUnlocked)

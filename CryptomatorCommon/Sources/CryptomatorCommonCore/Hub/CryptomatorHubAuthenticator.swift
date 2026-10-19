@@ -222,7 +222,8 @@ public final class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyRece
 	private func getDeviceID() throws -> String {
 		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
 		let digest = SHA256.hash(data: publicKey.derRepresentation)
-		return digest.data.base16EncodedString
+		// Must stay uppercase hex, the format Hub has registered existing devices under.
+		return digest.map { String(format: "%02X", $0) }.joined()
 	}
 
 	/**
@@ -341,16 +342,6 @@ public final class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyRece
 
 	private struct DeviceDto: Codable {
 		let userPrivateKey: String
-	}
-}
-
-extension Digest {
-	var bytes: [UInt8] {
-		Array(makeIterator())
-	}
-
-	var data: Data {
-		Data(bytes)
 	}
 }
 

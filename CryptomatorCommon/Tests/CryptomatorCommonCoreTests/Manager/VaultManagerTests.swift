@@ -65,11 +65,12 @@ class VaultManagerTests: XCTestCase {
 	let delegateAccountUID = UUID().uuidString
 	let vaultPath = CloudPath("/Vault/")
 	lazy var vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
-	let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+	var masterkey: Masterkey!
 	let masterkeyFileLastModifiedDate = Date(timeIntervalSince1970: 100)
 	let vaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)
 
 	override func setUpWithError() throws {
+		masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		cloudProviderMock = CloudProviderMock()
 
 		providerAccountManager = CloudProviderAccountDBManager()
@@ -536,8 +537,7 @@ class VaultManagerTests: XCTestCase {
 		XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
 			XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
 		}
-		XCTAssertEqual(masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
-		XCTAssertEqual(masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
+		XCTAssertEqual(masterkey.rawKey, uploadedMasterkey.rawKey)
 		try assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
 	}
 
@@ -565,7 +565,7 @@ struct VaultDetails: VaultItem {
 
 extension Masterkey: Equatable {
 	public static func == (lhs: Masterkey, rhs: Masterkey) -> Bool {
-		return lhs.aesMasterKey == rhs.aesMasterKey && lhs.macMasterKey == rhs.macMasterKey
+		return lhs.rawKey == rhs.rawKey
 	}
 }
 

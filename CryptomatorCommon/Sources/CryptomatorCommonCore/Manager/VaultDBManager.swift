@@ -433,7 +433,7 @@ public class VaultDBManager: VaultManager, @unchecked Sendable {
 		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
 		let provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
-		let masterkey = Masterkey.createFromRaw(rawKey: rawKey)
+		let masterkey = try Masterkey.createFromRaw(rawKey: rawKey)
 		let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig,
 		                                                             masterkey: masterkey,
 		                                                             vaultPath: vaultAccount.vaultPath,

@@ -33,7 +33,7 @@ class UnlockVaultViewModelTests: XCTestCase {
 		domain = NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: "Unlock Test Vault", pathRelativeToDocumentStorage: vaultUID)
 		vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: "delegate-\(vaultUID)", vaultPath: CloudPath("/Vault"), vaultName: "Unlock Test Vault")
 
-		let masterkey = Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 64))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 64))
 		masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 8, passphrase: passphrase, pepper: [UInt8](), scryptCostParam: 2)
 
 		vaultCacheMock = CryptomatorCommonCore.VaultCacheMock()
