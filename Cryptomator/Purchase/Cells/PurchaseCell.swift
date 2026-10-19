@@ -8,6 +8,7 @@
 
 import Combine
 import CryptomatorCommonCore
+import SwiftUI
 import UIKit
 
 nonisolated struct PurchaseCellViewModel: Hashable {
@@ -175,8 +176,6 @@ private class PurchaseCellAccessory: UIStackView {
 		loadingIndicator.removeFromSuperview()
 	}
 }
-
-import SwiftUI
 
 struct PurchaseButton_Previews: PreviewProvider {
 	static var previews: some View {

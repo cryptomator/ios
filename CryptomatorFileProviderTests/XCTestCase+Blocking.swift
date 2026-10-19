@@ -9,9 +9,9 @@
 import Foundation
 import XCTest
 
+@MainActor
 extension XCTestCase {
 	/// Cancels `operation` once `duration` has passed.
-	@MainActor
 	func assertStaysBlocked(_ operation: @escaping @MainActor () async throws -> Void, for duration: TimeInterval = 1.0) async {
 		let finished = XCTestExpectation(description: "Operation finished")
 		finished.isInverted = true
@@ -25,7 +25,6 @@ extension XCTestCase {
 		task.cancel()
 	}
 
-	@MainActor
 	func assertFinishes(_ operation: @escaping @MainActor () async throws -> Void, within duration: TimeInterval = 5.0) async {
 		let finished = XCTestExpectation(description: "Operation finished")
 		let task = Task { @MainActor in

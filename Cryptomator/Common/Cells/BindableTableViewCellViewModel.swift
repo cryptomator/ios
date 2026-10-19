@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import UIKit
 
 class BindableTableViewCellViewModel: TableViewCellViewModel {
@@ -59,8 +60,6 @@ class TableViewCellViewModel: nonisolated Hashable {
 protocol ConfigurableTableViewCell: UITableViewCell {
 	func configure(with viewModel: TableViewCellViewModel)
 }
-
-import Combine
 
 protocol ViewModel {
 	var error: AnyPublisher<Error, Never> { get }

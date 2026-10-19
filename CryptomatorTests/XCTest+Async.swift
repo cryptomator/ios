@@ -9,8 +9,8 @@
 import Foundation
 import XCTest
 
+@MainActor
 extension XCTest {
-	@MainActor
 	func XCTAssertThrowsAsyncError<T>(
 		_ expression: @autoclosure @MainActor () async throws -> T,
 		_ message: @autoclosure () -> String = "",
