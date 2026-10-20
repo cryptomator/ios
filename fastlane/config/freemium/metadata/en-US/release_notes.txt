@@ -1,3 +1,4 @@
-- Fixed the unlock screen in the Files app closing without a message when unlocking fails.
-- Fixed Hub vaults opening read-only when Hub is reached through an HTTP/1.1 proxy (#466).
-- Fixed files and folders inside a moved folder pointing to their old location (#450, #459).
+- Added support for copying packages such as RTFD documents and Pages, Numbers, or Keynote files into vaults, where they are stored as folders (#471).
+- Fixed the app showing a vault as unlocked after the Files app required unlocking it again (#475, #477).
+- Fixed failed uploads appearing as still uploading in the Files app (#478).
+- Raised minimum iOS version to 17 (#480).
