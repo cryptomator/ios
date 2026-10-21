@@ -9,7 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 
-public struct SharePointCredential {
+public struct SharePointCredential: Sendable {
 	public let siteURL: URL
 	public let credential: MicrosoftGraphCredential
 	public let driveID: String

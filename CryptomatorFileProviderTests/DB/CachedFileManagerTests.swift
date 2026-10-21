@@ -21,7 +21,7 @@ class CachedFileManagerTests: CacheTestCase {
 		try super.setUpWithError()
 		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
-		manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: .init(fileCoordinator: .init()))
+		manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: .init(fileCoordinatorPurposeIdentifier: "CachedFileManagerTests"))
 		metadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
@@ -163,6 +163,20 @@ class CachedFileManagerTests: CacheTestCase {
 		XCTAssertEqual(256, try manager.getLocalCacheSizeInBytes())
 	}
 
+	func testGetLocalCacheSizeInBytesFiltersOutPlaceholders() throws {
+		let urls = [tmpDirURL.appendingPathComponent("foo"),
+		            tmpDirURL.appendingPathComponent("bar")]
+		let metadata = [ItemMetadata(id: 2, name: "foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true),
+		                ItemMetadata(id: 3, name: "bar", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)]
+		let data = getRandomData(sizeInBytes: 256)
+
+		for (index, url) in urls.enumerated() {
+			try createTestData(localURL: url, data: data, metadata: metadata[index])
+		}
+
+		XCTAssertEqual(256, try manager.getLocalCacheSizeInBytes())
+	}
+
 	func testClearCache() throws {
 		let urls = [tmpDirURL.appendingPathComponent("foo"),
 		            tmpDirURL.appendingPathComponent("bar")]
@@ -179,6 +193,18 @@ class CachedFileManagerTests: CacheTestCase {
 			XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata[index].id)))
 			XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 		}
+	}
+
+	/// A package child that has no upload task record yet still holds the only copy of its bytes.
+	func testClearCacheKeepsPlaceholders() throws {
+		let url = tmpDirURL.appendingPathComponent("foo")
+		let metadata = ItemMetadata(id: 2, name: "foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, isPlaceholderItem: true)
+		try createTestData(localURL: url, data: getRandomData(sizeInBytes: 256), metadata: metadata)
+
+		try manager.clearCache()
+
+		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata.id)))
+		XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
 	}
 
 	func testClearCacheRollback() throws {
@@ -273,11 +299,12 @@ class CacheTestCase: XCTestCase {
 	}
 }
 
-private class CachedFileManagerHelperMock: CachedFileManagerHelper {
+/// @unchecked Sendable: test double, never touched concurrently
+private class CachedFileManagerHelperMock: CachedFileManagerHelper, @unchecked Sendable {
 	var removeItemClosure: ((URL) throws -> Void)?
 
 	init() {
-		super.init(fileCoordinator: .init())
+		super.init(fileCoordinatorPurposeIdentifier: "CachedFileManagerTests")
 	}
 
 	override func removeItem(at url: URL) throws {

@@ -11,12 +11,11 @@ import CryptomatorCryptoLib
 import Dependencies
 import Foundation
 import GRDB
-import Promises
 
-public protocol VaultCache {
+public protocol VaultCache: Sendable {
 	func cache(_ entry: CachedVault) throws
 	func getCachedVault(withVaultUID vaultUID: String) throws -> CachedVault
-	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void>
+	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) async throws
 	func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws
 }
 
@@ -49,8 +48,11 @@ public enum VaultCacheError: Error {
 	case vaultNotFound
 }
 
-public class VaultDBCache: VaultCache {
-	@Dependency(\.database) var database
+public final class VaultDBCache: VaultCache {
+	private let databaseDependency = Dependency(\.database)
+	private var database: DatabaseWriter {
+		databaseDependency.wrappedValue
+	}
 
 	public init() {}
 
@@ -69,16 +71,10 @@ public class VaultDBCache: VaultCache {
 		})
 	}
 
-	public func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
-		let currentCachedVault: CachedVault
-		do {
-			currentCachedVault = try getCachedVault(withVaultUID: vault.vaultUID)
-		} catch {
-			return Promise(error)
-		}
-		return refreshVaultConfig(for: vault, provider: provider).then {
-			self.refreshMasterkeyFileCache(for: vault, currentCachedVault: currentCachedVault, provider: provider)
-		}
+	public func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) async throws {
+		let currentCachedVault = try getCachedVault(withVaultUID: vault.vaultUID)
+		try await refreshVaultConfig(for: vault, provider: provider)
+		try await refreshMasterkeyFileCache(for: vault, currentCachedVault: currentCachedVault, provider: provider)
 	}
 
 	public func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
@@ -89,66 +85,50 @@ public class VaultDBCache: VaultCache {
 		}
 	}
 
-	private func refreshMasterkeyFileCache(for vault: VaultAccount, currentCachedVault: CachedVault, provider: CloudProvider) -> Promise<Void> {
-		return fetchMasterkeyMetadataForVault(at: vault.vaultPath, provider: provider).then { metadata in
-			if currentCachedVault.masterkeyFileLastModifiedDate != metadata.lastModifiedDate || metadata.lastModifiedDate == nil {
-				return self.updateMasterkeyFileCacheForVault(at: vault.vaultPath, vaultUID: currentCachedVault.vaultUID, provider: provider, lastModifiedDate: metadata.lastModifiedDate)
-			} else {
-				return Promise(())
-			}
+	private func refreshMasterkeyFileCache(for vault: VaultAccount, currentCachedVault: CachedVault, provider: CloudProvider) async throws {
+		let metadata = try await fetchMasterkeyMetadataForVault(at: vault.vaultPath, provider: provider)
+		if currentCachedVault.masterkeyFileLastModifiedDate != metadata.lastModifiedDate || metadata.lastModifiedDate == nil {
+			try await updateMasterkeyFileCacheForVault(at: vault.vaultPath, vaultUID: currentCachedVault.vaultUID, provider: provider, lastModifiedDate: metadata.lastModifiedDate)
 		}
 	}
 
-	private func updateMasterkeyFileCacheForVault(at vaultPath: CloudPath, vaultUID: String, provider: CloudProvider, lastModifiedDate: Date?) -> Promise<Void> {
+	private func updateMasterkeyFileCacheForVault(at vaultPath: CloudPath, vaultUID: String, provider: CloudProvider, lastModifiedDate: Date?) async throws {
 		let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.downloadFile(from: masterkeyPath, to: tmpURL).then {
-			let masterkeyFileData = try Data(contentsOf: tmpURL)
-			try self.setMasterkeyFileData(masterkeyFileData, forVaultUID: vaultUID, lastModifiedDate: lastModifiedDate)
-		}
+		_ = try await provider.downloadFile(from: masterkeyPath, to: tmpURL)
+		let masterkeyFileData = try Data(contentsOf: tmpURL)
+		try setMasterkeyFileData(masterkeyFileData, forVaultUID: vaultUID, lastModifiedDate: lastModifiedDate)
 	}
 
-	private func fetchMasterkeyMetadataForVault(at vaultPath: CloudPath, provider: CloudProvider) -> Promise<CloudItemMetadata> {
+	private func fetchMasterkeyMetadataForVault(at vaultPath: CloudPath, provider: CloudProvider) async throws -> CloudItemMetadata {
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.fetchItemMetadata(at: masterkeyPath)
+		return try await provider.fetchItemMetadata(at: masterkeyPath)
 	}
 
-	private func refreshVaultConfig(for vault: VaultAccount, provider: CloudProvider) -> Promise<Void> {
-		let vaultConfigLastModifiedDate: Date?
+	private func refreshVaultConfig(for vault: VaultAccount, provider: CloudProvider) async throws {
+		let cachedVault = try getCachedVault(withVaultUID: vault.vaultUID)
+		let vaultConfigLastModifiedDate = cachedVault.vaultConfigLastModifiedDate
 		do {
-			let cachedVault = try getCachedVault(withVaultUID: vault.vaultUID)
-			vaultConfigLastModifiedDate = cachedVault.vaultConfigLastModifiedDate
-		} catch {
-			return Promise(error)
-		}
-		return fetchVaultConfigMetadataForVault(at: vault.vaultPath, provider: provider).then { metadata in
+			let metadata = try await fetchVaultConfigMetadataForVault(at: vault.vaultPath, provider: provider)
 			if vaultConfigLastModifiedDate != metadata.lastModifiedDate || metadata.lastModifiedDate == nil {
-				return self.updateVaultConfigCacheForVault(at: vault.vaultPath, vaultUID: vault.vaultUID, provider: provider, lastModifiedDate: metadata.lastModifiedDate)
-			} else {
-				return Promise(())
+				try await updateVaultConfigCacheForVault(at: vault.vaultPath, vaultUID: vault.vaultUID, provider: provider, lastModifiedDate: metadata.lastModifiedDate)
 			}
-		}.recover { error -> Void in
-			switch error {
-			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
-				try self.setVaultConfigData(nil, forVaultUID: vault.vaultUID, lastModifiedDate: nil)
-			default:
-				throw error
-			}
+		} catch CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound {
+			try setVaultConfigData(nil, forVaultUID: vault.vaultUID, lastModifiedDate: nil)
 		}
 	}
 
-	private func updateVaultConfigCacheForVault(at vaultPath: CloudPath, vaultUID: String, provider: CloudProvider, lastModifiedDate: Date?) -> Promise<Void> {
+	private func updateVaultConfigCacheForVault(at vaultPath: CloudPath, vaultUID: String, provider: CloudProvider, lastModifiedDate: Date?) async throws {
 		let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return provider.downloadFile(from: vaultConfigPath, to: tmpURL).then {
-			let vaultConfigData = try Data(contentsOf: tmpURL)
-			try self.setVaultConfigData(vaultConfigData, forVaultUID: vaultUID, lastModifiedDate: lastModifiedDate)
-		}
+		_ = try await provider.downloadFile(from: vaultConfigPath, to: tmpURL)
+		let vaultConfigData = try Data(contentsOf: tmpURL)
+		try setVaultConfigData(vaultConfigData, forVaultUID: vaultUID, lastModifiedDate: lastModifiedDate)
 	}
 
-	private func fetchVaultConfigMetadataForVault(at vaultPath: CloudPath, provider: CloudProvider) -> Promise<CloudItemMetadata> {
+	private func fetchVaultConfigMetadataForVault(at vaultPath: CloudPath, provider: CloudProvider) async throws -> CloudItemMetadata {
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return provider.fetchItemMetadata(at: vaultConfigPath)
+		return try await provider.fetchItemMetadata(at: vaultConfigPath)
 	}
 
 	private func setVaultConfigData(_ data: Data?, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {

@@ -8,10 +8,10 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
-class CloudProviderPaginationMock: CustomCloudProviderMock {
-	var pages = [
+/// @unchecked Sendable: adds only immutable state to `CustomCloudProviderMock`
+class CloudProviderPaginationMock: CustomCloudProviderMock, @unchecked Sendable {
+	let pages = [
 		"0": [
 			CloudItemMetadata(name: "a", cloudPath: CloudPath("/a"), itemType: .file, lastModifiedDate: nil, size: nil),
 			CloudItemMetadata(name: "b", cloudPath: CloudPath("/b"), itemType: .file, lastModifiedDate: nil, size: nil)
@@ -23,7 +23,7 @@ class CloudProviderPaginationMock: CustomCloudProviderMock {
 			CloudItemMetadata(name: "Folder", cloudPath: CloudPath("/Folder/"), itemType: .folder, lastModifiedDate: nil, size: nil)
 		]
 	]
-	var nextPageToken = [
+	let nextPageToken = [
 		"0": "1"
 	]
 
@@ -31,17 +31,18 @@ class CloudProviderPaginationMock: CustomCloudProviderMock {
 		CloudItemMetadata(name: "a", cloudPath: CloudPath("/Folder/a"), itemType: .file, lastModifiedDate: nil, size: nil),
 		CloudItemMetadata(name: "b", cloudPath: CloudPath("/Folder/b/"), itemType: .folder, lastModifiedDate: nil, size: nil)
 	]
-	override func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+	@concurrent
+	override func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) async throws -> CloudItemList {
 		if cloudPath == CloudPath("/Folder/") {
-			return Promise(CloudItemList(items: folderItems, nextPageToken: nil))
+			return CloudItemList(items: folderItems, nextPageToken: nil)
 		}
 		switch pageToken {
 		case nil:
-			return Promise(CloudItemList(items: pages["0"]!, nextPageToken: nextPageToken["0"]))
+			return CloudItemList(items: pages["0"]!, nextPageToken: nextPageToken["0"])
 		case "1":
-			return Promise(CloudItemList(items: pages["1"]!, nextPageToken: nil))
+			return CloudItemList(items: pages["1"]!, nextPageToken: nil)
 		default:
-			return Promise(CloudProviderError.noInternetConnection)
+			throw CloudProviderError.noInternetConnection
 		}
 	}
 }

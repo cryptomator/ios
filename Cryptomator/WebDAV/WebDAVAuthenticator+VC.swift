@@ -7,20 +7,20 @@
 //
 
 import CryptomatorCloudAccessCore
-import Promises
 import UIKit
 
 extension WebDAVAuthenticator {
-	private static var coordinator: WebDAVAuthenticationCoordinator?
+	@MainActor private static var coordinator: WebDAVAuthenticationCoordinator?
 
-	static func authenticate(from viewController: UIViewController) -> Promise<WebDAVCredential> {
+	static func authenticate(from viewController: UIViewController) async throws -> WebDAVCredential {
 		let navigationController = BaseNavigationController()
 		let webDAVCoordinator = WebDAVAuthenticationCoordinator(navigationController: navigationController)
 		coordinator = webDAVCoordinator
+		defer {
+			coordinator = nil
+		}
 		viewController.present(navigationController, animated: true)
 		webDAVCoordinator.start()
-		return webDAVCoordinator.pendingAuthentication.always {
-			self.coordinator = nil
-		}
+		return try await webDAVCoordinator.pendingAuthentication.value
 	}
 }

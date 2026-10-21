@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewController {
+class StaticUITableViewController<SectionType: Hashable & Sendable>: BaseUITableViewController {
 	var dataSource: BaseDiffableDataSource<SectionType, TableViewCellViewModel>?
 	private let viewModel: TableViewModel<SectionType>
 	private var isVisible = false
@@ -65,7 +65,7 @@ class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewControl
 
 class SingleSectionStaticUITableViewController: StaticUITableViewController<SingleSection> {}
 
-class BaseDiffableDataSource<SectionType: Hashable, ItemType: Hashable>: UITableViewDiffableDataSource<SectionType, ItemType> {
+class BaseDiffableDataSource<SectionType: Hashable & Sendable, ItemType: Hashable & Sendable>: UITableViewDiffableDataSource<SectionType, ItemType> {
 	private weak var viewModel: TableViewModel<SectionType>?
 
 	init(viewModel: TableViewModel<SectionType>, tableView: UITableView, cellProvider: @escaping UITableViewDiffableDataSource<SectionType, ItemType>.CellProvider) {

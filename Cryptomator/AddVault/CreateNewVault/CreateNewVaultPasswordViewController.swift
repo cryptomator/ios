@@ -52,13 +52,14 @@ class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNe
 		hud.text = LocalizedString.getValue("addVault.createNewVault.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.createNewVault().then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			guard let self = self else { return }
-			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
-		}.catch { [weak self] error in
-			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+		Task {
+			do {
+				try await viewModel.createNewVault()
+				await hud.transformToSelfDismissingSuccess()
+				coordinator?.showSuccessfullyAddedVault(withName: viewModel.vaultName, vaultUID: viewModel.vaultUID)
+			} catch {
+				await handleError(error, coordinator: coordinator, progressHUD: hud)
+			}
 		}
 	}
 }

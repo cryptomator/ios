@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticating, UIAdaptivePresentationControllerDelegate {
@@ -16,11 +15,10 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
 
-	private(set) var pendingAuthentication: Promise<WebDAVCredential>
+	let pendingAuthentication = OneShotSignal<WebDAVCredential>()
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
-		self.pendingAuthentication = Promise<WebDAVCredential>.pending()
 		super.init()
 		navigationController.presentationController?.delegate = self
 	}

@@ -12,7 +12,6 @@ import CryptomatorCommonCore
 import Dependencies
 import Foundation
 import Intents
-import Promises
 
 class GetFolderIntentHandler: NSObject, GetFolderIntentHandling {
 	let vaultOptionsProvider: VaultOptionsProvider
@@ -71,18 +70,11 @@ class GetFolderIntentHandler: NSObject, GetFolderIntentHandling {
 	// MARK: Internal
 
 	private func getIdentifierForFolder(at cloudPath: CloudPath, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> String {
-		let getXPCPromise: Promise<XPC<FileImporting>> = fileProviderConnector.getXPC(serviceName: .fileImporting, domainIdentifier: domainIdentifier)
-		return try await withCheckedThrowingContinuation({ continuation in
-			getXPCPromise.then { xpc in
-				xpc.proxy.getIdentifierForItem(at: cloudPath.path)
-			}.then {
-				continuation.resume(returning: $0 as String)
-			}.catch {
-				continuation.resume(throwing: $0)
-			}.always { [fileProviderConnector] in
-				fileProviderConnector.invalidateXPC(getXPCPromise)
-			}
-		})
+		let xpc: XPC<FileImporting> = try await fileProviderConnector.getXPC(serviceName: .fileImporting, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
+		}
+		return try await xpc.proxy.getIdentifierForItem(at: cloudPath.path)
 	}
 }
 

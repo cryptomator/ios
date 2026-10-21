@@ -10,12 +10,12 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-protocol DownloadTaskManager {
-	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> DownloadTask
+protocol DownloadTaskManager: Sendable {
+	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionDownloadTaskCreationHook?) throws -> DownloadTask
 	func removeTaskRecord(_ task: DownloadTaskRecord) throws
 }
 
-class DownloadTaskDBManager: DownloadTaskManager {
+final class DownloadTaskDBManager: DownloadTaskManager {
 	private let database: DatabaseWriter
 	private let itemMetadataManager: ItemMetadataManager
 
@@ -27,7 +27,7 @@ class DownloadTaskDBManager: DownloadTaskManager {
 		}
 	}
 
-	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> DownloadTask {
+	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionDownloadTaskCreationHook?) throws -> DownloadTask {
 		guard let id = item.id else {
 			throw DBManagerError.nonSavedItemMetadata
 		}

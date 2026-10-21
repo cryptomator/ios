@@ -10,7 +10,8 @@ import Foundation
 @testable import CryptomatorFileProvider
 
 // swiftlint:disable all
-final class UploadTaskManagerMock: UploadTaskManager {
+/// @unchecked Sendable: test double, never touched concurrently
+final class UploadTaskManagerMock: UploadTaskManager, @unchecked Sendable {
 	// MARK: - createNewTaskRecord
 
 	var createNewTaskRecordForThrowableError: Error?
@@ -192,12 +193,12 @@ final class UploadTaskManagerMock: UploadTaskManager {
 		getTaskForOnURLSessionTaskCreationCallsCount > 0
 	}
 
-	var getTaskForOnURLSessionTaskCreationReceivedArguments: (uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?)?
-	var getTaskForOnURLSessionTaskCreationReceivedInvocations: [(uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?)] = []
+	var getTaskForOnURLSessionTaskCreationReceivedArguments: (uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?)?
+	var getTaskForOnURLSessionTaskCreationReceivedInvocations: [(uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?)] = []
 	var getTaskForOnURLSessionTaskCreationReturnValue: UploadTask!
-	var getTaskForOnURLSessionTaskCreationClosure: ((UploadTaskRecord, URLSessionTaskCreationClosure?) throws -> UploadTask)?
+	var getTaskForOnURLSessionTaskCreationClosure: ((UploadTaskRecord, URLSessionUploadTaskCreationHook?) throws -> UploadTask)?
 
-	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionUploadTaskCreationHook?) throws -> UploadTask {
 		if let error = getTaskForOnURLSessionTaskCreationThrowableError {
 			throw error
 		}

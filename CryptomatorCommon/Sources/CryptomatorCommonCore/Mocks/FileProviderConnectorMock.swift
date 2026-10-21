@@ -9,11 +9,11 @@
 #if DEBUG
 import FileProvider
 import Foundation
-import Promises
 
 // swiftlint:disable all
 
-final class FileProviderConnectorMock: FileProviderConnector {
+/// @unchecked Sendable: test double, never touched concurrently
+final class FileProviderConnectorMock: FileProviderConnector, @unchecked Sendable {
 	// MARK: - getXPC<T>
 
 	var getXPCServiceNameDomainCallsCount = 0
@@ -27,7 +27,7 @@ final class FileProviderConnectorMock: FileProviderConnector {
 	var getXPCServiceNameDomainClosure: ((NSFileProviderServiceName, NSFileProviderDomain?) -> Any)?
 	var getXPCServiceNameDomainXPCDoneHandlerCalledFor: [Any] = []
 
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
 		getXPCServiceNameDomainCallsCount += 1
 		getXPCServiceNameDomainReceivedArguments = (serviceName: serviceName, domain: domain)
 		getXPCServiceNameDomainReceivedInvocations.append((serviceName: serviceName, domain: domain))
@@ -36,7 +36,7 @@ final class FileProviderConnectorMock: FileProviderConnector {
 			return XPC(proxy: proxy, doneHandler: { self.getXPCServiceNameDomainXPCDoneHandlerCalledFor.append(proxy) })
 
 		})
-		return Promise(xpc ?? getXPCServiceNameDomainReturnValue as! XPC<T>)
+		return xpc ?? getXPCServiceNameDomainReturnValue as! XPC<T>
 	}
 
 	// MARK: - getXPC<T>
@@ -52,7 +52,7 @@ final class FileProviderConnectorMock: FileProviderConnector {
 	var getXPCServiceNameDomainIdentifierClosure: ((NSFileProviderServiceName, NSFileProviderDomainIdentifier) -> Any)?
 	var getXPCServiceNameDomainIdentifierXPCDoneHandlerCalledFor: [Any] = []
 
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
 		getXPCServiceNameDomainIdentifierCallsCount += 1
 		getXPCServiceNameDomainIdentifierReceivedArguments = (serviceName: serviceName, domainIdentifier: domainIdentifier)
 		getXPCServiceNameDomainIdentifierReceivedInvocations.append((serviceName: serviceName, domainIdentifier: domainIdentifier))
@@ -61,7 +61,7 @@ final class FileProviderConnectorMock: FileProviderConnector {
 			return XPC(proxy: proxy, doneHandler: { self.getXPCServiceNameDomainIdentifierXPCDoneHandlerCalledFor.append(proxy) })
 
 		})
-		return Promise(xpc ?? getXPCServiceNameDomainIdentifierReturnValue as! XPC<T>)
+		return xpc ?? getXPCServiceNameDomainIdentifierReturnValue as! XPC<T>
 	}
 }
 

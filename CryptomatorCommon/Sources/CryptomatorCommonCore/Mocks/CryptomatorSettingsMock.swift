@@ -9,7 +9,8 @@
 #if DEBUG
 import Foundation
 
-class CryptomatorSettingsMock: CryptomatorSettings {
+/// @unchecked Sendable: test double, never touched concurrently
+class CryptomatorSettingsMock: CryptomatorSettings, @unchecked Sendable {
 	var trialExpirationDate: Date?
 	var debugModeEnabled: Bool = false
 	var fullVersionUnlocked: Bool = false

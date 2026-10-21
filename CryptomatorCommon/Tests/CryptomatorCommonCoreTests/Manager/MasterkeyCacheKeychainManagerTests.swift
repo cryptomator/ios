@@ -24,7 +24,7 @@ class MasterkeyCacheKeychainManagerTests: XCTestCase {
 	func testCacheMasterkey() throws {
 		let aesMasterkey = [UInt8](repeating: 0x55, count: 32)
 		let macMasterkey = [UInt8](repeating: 0x77, count: 32)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: aesMasterkey, macMasterKey: macMasterkey)
+		let masterkey = try Masterkey.createFromRaw(rawKey: aesMasterkey + macMasterkey)
 
 		try masterkeyCacheManager.cacheMasterkey(masterkey, forVaultUID: vaultUID)
 
@@ -52,7 +52,7 @@ class MasterkeyCacheKeychainManagerTests: XCTestCase {
 	func testGetCachedMasterkey() throws {
 		let aesMasterkey = [UInt8](repeating: 0x55, count: 32)
 		let macMasterkey = [UInt8](repeating: 0x77, count: 32)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: aesMasterkey, macMasterKey: macMasterkey)
+		let masterkey = try Masterkey.createFromRaw(rawKey: aesMasterkey + macMasterkey)
 		let cachedMasterkey = CachedMasterkey(rawKey: masterkey.rawKey)
 		let encodedCachedMasterkey = try JSONEncoder().encode(cachedMasterkey)
 
@@ -61,8 +61,7 @@ class MasterkeyCacheKeychainManagerTests: XCTestCase {
 		}
 
 		let retrievedCachedMasterkey = try masterkeyCacheManager.getMasterkey(forVaultUID: vaultUID)
-		XCTAssertEqual(masterkey.aesMasterKey, retrievedCachedMasterkey?.aesMasterKey)
-		XCTAssertEqual(masterkey.macMasterKey, retrievedCachedMasterkey?.macMasterKey)
+		XCTAssertEqual(masterkey.rawKey, retrievedCachedMasterkey?.rawKey)
 	}
 
 	func testGetCachedMasterkeyNoEntryInKeychain() throws {

@@ -10,40 +10,15 @@ import CocoaLumberjackSwift
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 
-public protocol FileProviderConnector {
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>>
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>>
+public protocol FileProviderConnector: Sendable {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T>
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T>
 }
 
 public extension FileProviderConnector {
 	func invalidateXPC<T>(_ xpc: XPC<T>) {
 		xpc.doneHandler()
-	}
-
-	func invalidateXPC<T>(_ xpcPromise: Promise<XPC<T>>) {
-		xpcPromise.then(invalidateXPC)
-	}
-
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
-		try await withCheckedThrowingContinuation({ continuation in
-			getXPC(serviceName: serviceName, domain: domain).then {
-				continuation.resume(returning: $0)
-			}.catch {
-				continuation.resume(throwing: $0)
-			}
-		})
-	}
-
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
-		try await withCheckedThrowingContinuation({ continuation in
-			getXPC(serviceName: serviceName, domainIdentifier: domainIdentifier).then {
-				continuation.resume(returning: $0)
-			}.catch {
-				continuation.resume(throwing: $0)
-			}
-		})
 	}
 }
 
@@ -53,7 +28,7 @@ private enum FileProviderConnectorKey: DependencyKey {
 	}
 
 	#if DEBUG
-	static var testValue: FileProviderConnector = UnimplementedFileProviderConnector()
+	static let testValue: FileProviderConnector = UnimplementedFileProviderConnector()
 	#endif
 }
 
@@ -71,62 +46,44 @@ public struct XPC<T> {
 
 public enum FileProviderXPCConnectorError: Error {
 	case serviceNotSupported
-	case connectionIsNil
 	case rawProxyCastingFailed
 	case typeMismatch
 	case domainNotFound
 }
 
-public class FileProviderXPCConnector: FileProviderConnector {
-	public func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
-		return NSFileProviderManager.getDomains().then { domains in
-			guard let domain = domains.first(where: { $0.identifier == domainIdentifier }) else {
-				throw FileProviderXPCConnectorError.domainNotFound
-			}
-			return self.getXPC(serviceName: serviceName, domain: domain)
+public final class FileProviderXPCConnector: FileProviderConnector {
+	public func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
+		let domains = try await NSFileProviderManager.domains()
+		guard let domain = domains.first(where: { $0.identifier == domainIdentifier }) else {
+			throw FileProviderXPCConnectorError.domainNotFound
 		}
+		return try await getXPC(serviceName: serviceName, domain: domain)
 	}
 
-	public func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
+	public func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
 		var url = NSFileProviderManager.default.documentStorageURL
 		if let domain = domain {
 			url.appendPathComponent(domain.pathRelativeToDocumentStorage)
 		}
-		return wrap { handler in
-			FileManager.default.getFileProviderServicesForItem(at: url, completionHandler: handler)
-		}.then { services -> Promise<NSXPCConnection?> in
-			if let desiredService = services?[serviceName] {
-				return desiredService.getFileProviderConnection()
-			} else {
-				return Promise(FileProviderXPCConnectorError.serviceNotSupported)
-			}
-		}.then { connection -> XPC<T> in
-			guard let connection = connection else {
-				throw FileProviderXPCConnectorError.connectionIsNil
-			}
-			guard let type = T.self as AnyObject as? Protocol else {
-				throw FileProviderXPCConnectorError.typeMismatch
-			}
-			connection.remoteObjectInterface = NSXPCInterface(with: type)
-			connection.resume()
-			let rawProxy = connection.remoteObjectProxyWithErrorHandler { errorAccessingRemoteObject in
-				DDLogError("remoteObjectProxy failed with error: \(errorAccessingRemoteObject)")
-			}
-			guard let proxy = rawProxy as? T else {
-				throw FileProviderXPCConnectorError.rawProxyCastingFailed
-			}
-			return XPC(proxy: proxy, doneHandler: {
-				connection.invalidate()
-			})
+		let services = try await FileManager.default.fileProviderServicesForItem(at: url)
+		guard let desiredService = services[serviceName] else {
+			throw FileProviderXPCConnectorError.serviceNotSupported
 		}
-	}
-}
-
-extension NSFileProviderService {
-	func getFileProviderConnection() -> Promise<NSXPCConnection?> {
-		return wrap { handler in
-			self.getFileProviderConnection(completionHandler: handler)
+		let connection = try await desiredService.fileProviderConnection()
+		guard let type = T.self as AnyObject as? Protocol else {
+			throw FileProviderXPCConnectorError.typeMismatch
 		}
+		connection.remoteObjectInterface = NSXPCInterface(with: type)
+		connection.resume()
+		let rawProxy = connection.remoteObjectProxyWithErrorHandler { errorAccessingRemoteObject in
+			DDLogError("remoteObjectProxy failed with error: \(errorAccessingRemoteObject)")
+		}
+		guard let proxy = rawProxy as? T else {
+			throw FileProviderXPCConnectorError.rawProxyCastingFailed
+		}
+		return XPC(proxy: proxy, doneHandler: {
+			connection.invalidate()
+		})
 	}
 }
 
@@ -138,12 +95,14 @@ public extension XPC {
 
 #if DEBUG
 private struct UnimplementedFileProviderConnector: FileProviderConnector {
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
-		unimplemented("\(Self.self).getXPC(serviceName:domain:) not implemented", placeholder: Promise(UnimplementedError()))
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
+		reportIssue("\(Self.self).getXPC(serviceName:domain:) not implemented")
+		throw UnimplementedError()
 	}
 
-	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
-		unimplemented("\(Self.self).getXPC(serviceName:domainIdentifier:) not implemented", placeholder: Promise(UnimplementedError()))
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
+		reportIssue("\(Self.self).getXPC(serviceName:domainIdentifier:) not implemented")
+		throw UnimplementedError()
 	}
 
 	private struct UnimplementedError: Error {}

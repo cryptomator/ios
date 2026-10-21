@@ -10,7 +10,6 @@ import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 enum WebDAVAuthenticationError: Error {
 	case invalidInput
@@ -67,7 +66,7 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		}
 	}
 
-	var verifyClient: (WebDAVClient) -> Promise<Void> = WebDAVAuthenticator.verifyClient(client:)
+	var verifyClient: @Sendable (WebDAVClient) async throws -> Void = WebDAVAuthenticator.verifyClient(client:)
 
 	private var allowedCertificate: Data?
 	private var allowHTTPConnection: Bool
@@ -134,15 +133,15 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 			return
 		}
 		state = .authenticating
-		addAccount(credential: credential).then {
-			self.state = .authenticated($0)
-			self.cloudProviderUpdating.providerShouldUpdate(with: self.identifier)
-		}.catch { error in
-			switch error {
-			case let WebDAVAuthenticationError.untrustedCertificate(certificate, url):
-				self.state = .untrustedCertificate(certificate: certificate, url: url)
-			default:
-				self.state = .error(error)
+		Task {
+			do {
+				let savedCredential = try await addAccount(credential: credential)
+				state = .authenticated(savedCredential)
+				cloudProviderUpdating.providerShouldUpdate(with: identifier)
+			} catch let WebDAVAuthenticationError.untrustedCertificate(certificate, url) {
+				state = .untrustedCertificate(certificate: certificate, url: url)
+			} catch {
+				state = .error(error)
 			}
 		}
 	}
@@ -190,31 +189,24 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		return WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate, identifier: identifier)
 	}
 
-	private func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
-		let checkTLSCertificatePromise: Promise<Void>
-		if credential.baseURL.scheme == "http" {
-			checkTLSCertificatePromise = Promise(())
-		} else {
-			checkTLSCertificatePromise = checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate)
-		}
-		return checkTLSCertificatePromise.then { _ -> Promise<Void> in
+	private func addAccount(credential: WebDAVCredential) async throws -> WebDAVCredential {
+		do {
+			if credential.baseURL.scheme != "http" {
+				try await checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate)
+			}
 			let client = WebDAVClient(credential: credential)
 			self.client = client
-			return self.verifyClient(client)
-		}.then { _ -> WebDAVCredential in
+			try await verifyClient(client)
 			self.client = nil
-			try self.credentialManager.saveCredentialToKeychain(credential)
+			try credentialManager.saveCredentialToKeychain(credential)
 			return credential
-		}.recover { error -> WebDAVCredential in
-			guard case let WebDAVAuthenticatorKeychainError.credentialDuplicate(identifier) = error else {
-				throw error
-			}
+		} catch let WebDAVAuthenticatorKeychainError.credentialDuplicate(identifier) {
 			let updatedCredential = WebDAVCredential(baseURL: credential.baseURL,
 			                                         username: credential.username,
 			                                         password: credential.password,
 			                                         allowedCertificate: credential.allowedCertificate,
 			                                         identifier: identifier)
-			try self.credentialManager.saveCredentialToKeychain(updatedCredential)
+			try credentialManager.saveCredentialToKeychain(updatedCredential)
 			return updatedCredential
 		}
 	}
@@ -228,14 +220,13 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		url = transformedURL
 	}
 
-	private func checkTLSCertificate(for url: URL, allowedCertificate: Data?) -> Promise<Void> {
+	private func checkTLSCertificate(for url: URL, allowedCertificate: Data?) async throws {
 		guard allowedCertificate == nil else {
-			return Promise(())
+			return
 		}
-		return validationHelper.validate(url: url).then { certificate -> Void in
-			guard certificate.isTrusted else {
-				throw WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url)
-			}
+		let certificate = try await validationHelper.validate(url: url)
+		guard certificate.isTrusted else {
+			throw WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url)
 		}
 	}
 

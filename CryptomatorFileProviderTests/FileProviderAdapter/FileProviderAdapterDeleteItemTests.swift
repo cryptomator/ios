@@ -11,31 +11,25 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
-	func testDeleteItemWithFile() throws {
-		let expectation = XCTestExpectation()
+	func testDeleteItemWithFile() async throws {
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/test.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let adapter = createFullyMockedAdapter()
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
-		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
-			XCTAssertNil(error)
+		try await adapter.deleteItem(withIdentifier: itemIdentifier)
 
-			guard let deletionTask = self.deletionTaskManagerMock.deletionTasks[itemID] else {
-				XCTFail("deletionTask is nil")
-				return
-			}
-			XCTAssertEqual(cloudPath, deletionTask.cloudPath)
-			XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
-			expectation.fulfill()
+		guard let deletionTask = deletionTaskManagerMock.deletionTasks[itemID] else {
+			XCTFail("deletionTask is nil")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
+		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
+		XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
 	}
 
-	func testDeleteItemWithFolder() throws {
-		let expectation = XCTestExpectation()
+	func testDeleteItemWithFolder() async throws {
 		let folderItemID: Int64 = 2
 		let fileItemID: Int64 = 3
 		let folderCloudPath = CloudPath("/Folder/")
@@ -50,23 +44,18 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		try cachedFileManagerMock.cacheLocalFileInfo(for: fileItemID, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
 		let adapter = createFullyMockedAdapter()
-		adapter.deleteItem(withIdentifier: folderItemIdentifier) { error in
-			XCTAssertNil(error)
+		try await adapter.deleteItem(withIdentifier: folderItemIdentifier)
 
-			guard let deletionTask = self.deletionTaskManagerMock.deletionTasks[folderItemID] else {
-				XCTFail("deletionTask is nil")
-				return
-			}
-			XCTAssertEqual(folderCloudPath, deletionTask.cloudPath)
-			XCTAssertEqual(folderItemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(folderItemMetadata.parentID, deletionTask.parentID)
-			expectation.fulfill()
+		guard let deletionTask = deletionTaskManagerMock.deletionTasks[folderItemID] else {
+			XCTFail("deletionTask is nil")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(folderCloudPath, deletionTask.cloudPath)
+		XCTAssertEqual(folderItemMetadata.id, deletionTask.correspondingItem)
+		XCTAssertEqual(folderItemMetadata.parentID, deletionTask.parentID)
 	}
 
-	func testDeleteItemWithLocallyCachedFile() throws {
-		let expectation = XCTestExpectation()
+	func testDeleteItemWithLocallyCachedFile() async throws {
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/test.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
@@ -77,40 +66,31 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let localURLForItem = tmpDirectory.appendingPathComponent("/\(itemIdentifier)/test.txt")
 		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
-		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
-			XCTAssertNil(error)
+		try await adapter.deleteItem(withIdentifier: itemIdentifier)
 
-			guard let deletionTask = self.deletionTaskManagerMock.deletionTasks[itemID] else {
-				XCTFail("deletionTask is nil")
-				return
-			}
-			XCTAssertEqual(cloudPath, deletionTask.cloudPath)
-			XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
-
-			XCTAssertEqual(1, self.cachedFileManagerMock.removeCachedFile.count)
-			XCTAssertEqual(itemID, self.cachedFileManagerMock.removeCachedFile[0])
-			expectation.fulfill()
+		guard let deletionTask = deletionTaskManagerMock.deletionTasks[itemID] else {
+			XCTFail("deletionTask is nil")
+			return
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
+		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
+		XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
+
+		XCTAssertEqual(1, cachedFileManagerMock.removeCachedFile.count)
+		XCTAssertEqual(itemID, cachedFileManagerMock.removeCachedFile[0])
 	}
 
-	func testDeleteItemWithNonExistentFile() {
-		let expectation = XCTestExpectation()
+	func testDeleteItemWithNonExistentFile() async throws {
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 
 		let adapter = createFullyMockedAdapter()
 
-		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
-			XCTAssertNil(error)
-			XCTAssert(self.metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
-			XCTAssert(self.metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
-			XCTAssert(self.metadataManagerMock.removedMetadataID.isEmpty, "Unexpected change of cached metadata.")
+		try await adapter.deleteItem(withIdentifier: itemIdentifier)
+		XCTAssert(metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
+		XCTAssert(metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
+		XCTAssert(metadataManagerMock.removedMetadataID.isEmpty, "Unexpected change of cached metadata.")
 
-			XCTAssert(self.deletionTaskManagerMock.deletionTasks.isEmpty, "Unexpected creation of a deletion task.")
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssert(deletionTaskManagerMock.deletionTasks.isEmpty, "Unexpected creation of a deletion task.")
 	}
 }

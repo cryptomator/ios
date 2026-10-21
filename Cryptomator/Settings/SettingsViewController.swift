@@ -30,7 +30,9 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		navigationItem.rightBarButtonItem = doneButton
 		refreshCacheSize()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.refreshCacheSize()
+			MainActor.assumeIsolated {
+				self?.refreshCacheSize()
+			}
 		}
 		subscriber = viewModel.showDebugModeWarning.sink { [weak self] in
 			self?.showDebugModeAlert()
@@ -60,14 +62,22 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 	}
 
 	func clearCache() {
-		viewModel.clearCache().catch { error in
-			DDLogError("Settings: clear cache failed with error: \(error)")
+		Task {
+			do {
+				try await viewModel.clearCache()
+			} catch {
+				DDLogError("Settings: clear cache failed with error: \(error)")
+			}
 		}
 	}
 
 	func refreshCacheSize() {
-		viewModel.refreshCacheSize().catch { error in
-			DDLogError("Settings: refresh cache size failed with error: \(error)")
+		Task {
+			do {
+				try await viewModel.refreshCacheSize()
+			} catch {
+				DDLogError("Settings: refresh cache size failed with error: \(error)")
+			}
 		}
 	}
 
@@ -130,8 +140,11 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		case .showManageSubscriptions:
 			coordinator?.showManageSubscriptions()
 		case .restorePurchase:
-			viewModel.restorePurchase().then { [weak self] _ in
-				self?.refreshRows()
+			Task {
+				guard (try? await viewModel.restorePurchase()) != nil else {
+					return
+				}
+				refreshRows()
 			}
 		case .showShortcutsGuide:
 			coordinator?.openShortcutsGuide()

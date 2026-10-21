@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 
 //
 //  Package.swift
@@ -10,10 +10,14 @@
 
 import PackageDescription
 
+let swiftSettings: [SwiftSetting] = [
+	.enableUpcomingFeature("NonisolatedNonsendingByDefault")
+]
+
 let package = Package(
 	name: "CryptomatorCommon",
 	platforms: [
-		.iOS(.v16)
+		.iOS(.v17)
 	],
 	products: [
 		.library(
@@ -26,8 +30,8 @@ let package = Package(
 		)
 	],
 	dependencies: [
-		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "3.0.0")),
-		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.9.0")),
+		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "4.0.0")),
+		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.10.0")),
 		.package(url: "https://github.com/pointfreeco/swift-dependencies.git", .upToNextMajor(from: "1.12.0")),
 		.package(url: "https://github.com/leif-ibsen/SwiftECC", .upToNextMinor(from: "5.5.0"))
 	],
@@ -37,7 +41,8 @@ let package = Package(
 			dependencies: [
 				"CryptomatorCommonCore",
 				.product(name: "CryptomatorCloudAccess", package: "cloud-access-swift")
-			]
+			],
+			swiftSettings: swiftSettings
 		),
 		.target(
 			name: "CryptomatorCommonCore",
@@ -46,11 +51,14 @@ let package = Package(
 				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift"),
 				.product(name: "Dependencies", package: "swift-dependencies"),
 				.product(name: "SwiftECC", package: "SwiftECC")
-			]
+			],
+			swiftSettings: swiftSettings
 		),
 		.testTarget(
 			name: "CryptomatorCommonCoreTests",
-			dependencies: ["CryptomatorCommonCore"]
+			dependencies: ["CryptomatorCommonCore"],
+			swiftSettings: swiftSettings
 		)
-	]
+	],
+	swiftLanguageModes: [.v6]
 )

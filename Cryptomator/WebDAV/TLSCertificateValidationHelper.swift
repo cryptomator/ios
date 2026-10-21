@@ -8,15 +8,14 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
 protocol TLSCertificateValidationHelping {
-	func validate(url: URL) -> Promise<TLSCertificate>
+	func validate(url: URL) async throws -> TLSCertificate
 }
 
 struct TLSCertificateValidationHelper: TLSCertificateValidationHelping {
-	func validate(url: URL) -> Promise<TLSCertificate> {
+	func validate(url: URL) async throws -> TLSCertificate {
 		let validator = TLSCertificateValidator(baseURL: url)
-		return validator.validate()
+		return try await validator.validate()
 	}
 }

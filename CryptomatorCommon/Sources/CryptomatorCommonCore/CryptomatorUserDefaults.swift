@@ -10,7 +10,7 @@ import CocoaLumberjackSwift
 import Dependencies
 import Foundation
 
-public protocol CryptomatorSettings {
+public protocol CryptomatorSettings: Sendable {
 	var debugModeEnabled: Bool { get set }
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
@@ -41,11 +41,12 @@ public extension DependencyValues {
 	}
 }
 
-public class CryptomatorUserDefaults {
+/// @unchecked Sendable: `UserDefaults` is documented as thread-safe
+public final class CryptomatorUserDefaults: @unchecked Sendable {
 	public static let shared = CryptomatorUserDefaults()
 
 	public static let isTestFlightEnvironment = detectTestFlightEnvironment()
-	private var defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
+	private let defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
 
 	#if DEBUG
 	private static let debugModeEnabledDefaultValue = true

@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import UIKit
 import XCTest
 @testable import Cryptomator
@@ -16,24 +15,27 @@ import XCTest
 /**
  Pins which outcome reaches `CloudAuthenticator.deauthenticate`, because that call removes the account and every vault that belongs to it.
  */
+@MainActor
 class DefaultAccountReauthenticationBehaviorTests: XCTestCase {
 	private let expectedAccount = CloudProviderAccount(accountUID: "account-1", cloudProviderType: .dropbox)
 	private var coordinator: ReauthenticatingCoordinatorMock!
 	private var viewController: UIViewController!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		coordinator = ReauthenticatingCoordinatorMock()
 		viewController = UIViewController()
 	}
 
 	// MARK: - Discards
 
-	func testDiscardsAccountAddedBySignIn() {
+	func testDiscardsAccountAddedBySignIn() async {
 		let addedAccount = CloudProviderAccount(accountUID: "account-2", cloudProviderType: .dropbox)
 		let authenticator = CloudAuthenticatorMock(reAuthAccount: addedAccount, accountUIDs: ["account-1"])
 
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: AccountReauthenticationError.accountMismatch)
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(AccountReauthenticationError.accountMismatch as NSError, error as NSError)
+		}
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertEqual([addedAccount.accountUID], authenticator.deauthenticatedAccountUIDs)
@@ -41,36 +43,34 @@ class DefaultAccountReauthenticationBehaviorTests: XCTestCase {
 
 	// MARK: - Keeps
 
-	func testKeepsAccountTheUserAlreadyHad() {
+	func testKeepsAccountTheUserAlreadyHad() async {
 		let otherAccount = CloudProviderAccount(accountUID: "account-2", cloudProviderType: .dropbox)
 		let authenticator = CloudAuthenticatorMock(reAuthAccount: otherAccount, accountUIDs: ["account-1", "account-2"])
 
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: AccountReauthenticationError.accountMismatch)
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(AccountReauthenticationError.accountMismatch as NSError, error as NSError)
+		}
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
 	}
 
-	func testKeepsAccountWhenKnownAccountsCannotBeRead() {
+	func testKeepsAccountWhenKnownAccountsCannotBeRead() async {
 		let otherAccount = CloudProviderAccount(accountUID: "account-2", cloudProviderType: .dropbox)
 		let authenticator = CloudAuthenticatorMock(reAuthAccount: otherAccount, accountUIDs: nil)
 
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: AccountReauthenticationError.accountMismatch)
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(AccountReauthenticationError.accountMismatch as NSError, error as NSError)
+		}
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
 	}
 
-	func testKeepsAccountOnMatch() {
+	func testKeepsAccountOnMatch() async throws {
 		let authenticator = CloudAuthenticatorMock(reAuthAccount: expectedAccount, accountUIDs: ["account-1"])
 
-		var reAuthAccount: CloudProviderAccount?
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator).then { account in
-			reAuthAccount = account
-		}
-		wait(for: promise)
+		let reAuthAccount = try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
@@ -82,21 +82,23 @@ class DefaultAccountReauthenticationBehaviorTests: XCTestCase {
 	/**
 	 The user closed the sign-in screen on purpose, thus the rejection passes through unchanged.
 	 */
-	func testKeepsAccountOnCancellation() {
+	func testKeepsAccountOnCancellation() async {
 		let authenticator = CloudAuthenticatorMock(authenticateError: CocoaError(.userCancelled), accountUIDs: ["account-1"])
 
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: CocoaError(.userCancelled))
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(CocoaError(.userCancelled) as NSError, error as NSError)
+		}
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
 	}
 
-	func testKeepsAccountOnFailedSignIn() {
+	func testKeepsAccountOnFailedSignIn() async {
 		let authenticator = CloudAuthenticatorMock(authenticateError: CloudProviderError.unauthorized, accountUIDs: ["account-1"])
 
-		let promise = coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: CloudProviderError.unauthorized)
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(expectedAccount, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(CloudProviderError.unauthorized as NSError, error as NSError)
+		}
 
 		XCTAssertTrue(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
@@ -107,12 +109,13 @@ class DefaultAccountReauthenticationBehaviorTests: XCTestCase {
 	/**
 	 Signing in again mints a new identifier for these providers, so it must not run at all.
 	 */
-	func testRejectsProviderThatCannotKeepItsAccount() {
+	func testRejectsProviderThatCannotKeepItsAccount() async {
 		let s3Account = CloudProviderAccount(accountUID: "account-1", cloudProviderType: .s3(type: .custom))
 		let authenticator = CloudAuthenticatorMock(reAuthAccount: s3Account, accountUIDs: ["account-1"])
 
-		let promise = coordinator.reauthenticate(s3Account, from: viewController, authenticator: authenticator)
-		XCTAssertRejects(promise, with: AccountReauthenticationError.unsupportedCloudProviderType)
+		await XCTAssertThrowsAsyncError(try await coordinator.reauthenticate(s3Account, from: viewController, authenticator: authenticator)) { error in
+			XCTAssertEqual(AccountReauthenticationError.unsupportedCloudProviderType as NSError, error as NSError)
+		}
 
 		XCTAssertFalse(authenticator.authenticateCalled)
 		XCTAssertTrue(authenticator.deauthenticatedAccountUIDs.isEmpty)
@@ -145,15 +148,15 @@ private class CloudAuthenticatorMock: CloudAuthenticator {
 		super.init(accountManager: CloudProviderAccountManagerMock(accountUIDs: accountUIDs))
 	}
 
-	override func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+	override func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) async throws -> CloudProviderAccount {
 		authenticateCalled = true
 		if let authenticateError = authenticateError {
-			return Promise(authenticateError)
+			throw authenticateError
 		}
 		guard let reAuthAccount = reAuthAccount else {
-			return Promise(MockError.notMocked)
+			throw MockError.notMocked
 		}
-		return Promise(reAuthAccount)
+		return reAuthAccount
 	}
 
 	override func deauthenticate(account: CloudProviderAccount) throws {

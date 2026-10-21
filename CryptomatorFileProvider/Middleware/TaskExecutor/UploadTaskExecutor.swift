@@ -12,7 +12,6 @@ import CryptomatorCommonCore
 import Dependencies
 import FileProvider
 import Foundation
-import Promises
 
 class UploadTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItem>?
@@ -34,6 +33,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	let uploadTaskManager: UploadTaskManager
 	let domainIdentifier: NSFileProviderDomainIdentifier
 	let progressManager: ProgressManager
+	private let limiter: ConcurrencyLimiter
 	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
@@ -41,58 +41,55 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	     cachedFileManager: CachedFileManager,
 	     itemMetadataManager: ItemMetadataManager,
 	     uploadTaskManager: UploadTaskManager,
+	     limiter: ConcurrencyLimiter,
 	     progressManager: ProgressManager = InMemoryProgressManager.shared) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
 		self.uploadTaskManager = uploadTaskManager
+		self.limiter = limiter
 		self.progressManager = progressManager
 	}
 
-	func execute(task: CloudTask) -> Promise<FileProviderItem> {
+	func execute(task: CloudTask) async throws -> FileProviderItem {
 		guard let uploadTask = task as? UploadTask else {
-			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
+			throw WorkflowMiddlewareError.incompatibleCloudTask
 		}
-		let itemMetadata = task.itemMetadata
-		let localCachedFile: LocalCachedFileInfo?
 		do {
-			localCachedFile = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
+			return try await upload(uploadTask)
 		} catch {
-			return Promise(error)
+			return try handleUploadError(error, taskItemMetadata: task.itemMetadata)
 		}
-		guard let localURL = localCachedFile?.localURL else {
-			return Promise(NSFileProviderError(.noSuchItem))
-		}
+	}
 
-		let localFileSize: Int?
-		do {
-			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
-			localFileSize = attributes[FileAttributeKey.size] as? Int
-		} catch {
-			return Promise(error)
+	private func upload(_ uploadTask: UploadTask) async throws -> FileProviderItem {
+		let itemMetadata = uploadTask.itemMetadata
+		let localCachedFile = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
+		guard let localURL = localCachedFile?.localURL else {
+			throw NSFileProviderError(.noSuchItem)
 		}
 
 		let progress = Progress(totalUnitCount: 1)
 		if let itemID = itemMetadata.id {
 			progressManager.saveProgress(progress, for: NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID))
 		}
-		progress.becomeCurrent(withPendingUnitCount: 1)
-		let uploadPromise = provider.uploadFile(from: localURL,
-		                                        to: task.cloudPath,
-		                                        replaceExisting: !itemMetadata.isPlaceholderItem,
-		                                        onTaskCreation: { task in
-		                                        	guard let task else {
-		                                        		return
-		                                        	}
-		                                        	uploadTask.onURLSessionTaskCreation?(task)
-		                                        })
-		progress.resignCurrent()
-		return uploadPromise.then { cloudItemMetadata in
-			try self.uploadPostProcessing(taskItemMetadata: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)
-		}.recover { error -> FileProviderItem in
-			try self.handleUploadError(error, taskItemMetadata: itemMetadata)
+		let (cloudItemMetadata, localFileSize) = try await limiter.withPermit {
+			let localFileSize: Int?
+			do {
+				let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
+				localFileSize = attributes[FileAttributeKey.size] as? Int
+			} catch CocoaError.fileReadNoSuchFile {
+				throw NSFileProviderError(.noSuchItem)
+			}
+			let cloudItemMetadata = try await provider.uploadFile(from: localURL,
+			                                                      to: uploadTask.cloudPath,
+			                                                      replaceExisting: !itemMetadata.isPlaceholderItem,
+			                                                      progress: progress,
+			                                                      onTaskCreation: uploadTask.onURLSessionTaskCreation)
+			return (cloudItemMetadata, localFileSize)
 		}
+		return try uploadPostProcessing(taskItemMetadata: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)
 	}
 
 	/**
@@ -133,7 +130,13 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		try uploadTaskManager.updateTaskRecord(for: taskItemMetadata, with: convertedError as NSError)
 		taskItemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(taskItemMetadata)
-		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
+		let localCachedFileInfo: LocalCachedFileInfo?
+		do {
+			localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
+		} catch {
+			DDLogError("Get local cached file info for failed upload failed with error: \(error)")
+			localCachedFileInfo = nil
+		}
 		return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, localCachedFileInfo: localCachedFileInfo, error: convertedError)
 	}
 }

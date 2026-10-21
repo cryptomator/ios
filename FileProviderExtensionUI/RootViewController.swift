@@ -13,7 +13,6 @@ import CryptomatorFileProvider
 import Dependencies
 import FileProviderUI
 import MSAL
-import Promises
 import UIKit
 
 class RootViewController: FPUIActionExtensionViewController {
@@ -79,21 +78,18 @@ class RootViewController: FPUIActionExtensionViewController {
 	}()
 
 	func retryUpload(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<UploadRetrying>> = fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
-		getXPCPromise.then { xpc in
-			return wrap {
-				xpc.proxy.retryUpload(for: itemIdentifiers, reply: $0)
+		Task {
+			do {
+				let xpc: XPC<UploadRetrying> = try await fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+				defer {
+					fileProviderConnector.invalidateXPC(xpc)
+				}
+				try await xpc.proxy.retryUpload(for: itemIdentifiers)
+				extensionContext.completeRequest()
+			} catch {
+				DDLogError("Retry upload failed with error: \(error)")
+				extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.failed.rawValue), userInfo: nil))
 			}
-		}.then {
-			if let error = $0 {
-				throw error
-			}
-			self.extensionContext.completeRequest()
-		}.catch { error in
-			DDLogError("Retry upload failed with error: \(error)")
-			self.extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.failed.rawValue), userInfo: nil))
-		}.always { [fileProviderConnector] in
-			fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 
@@ -105,21 +101,34 @@ class RootViewController: FPUIActionExtensionViewController {
 	}
 
 	func showUploadProgressAlert(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<UploadRetrying>> = fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
 		let progressAlert = RetryUploadAlertControllerFactory.createUploadProgressAlert(dismissAction: { [weak self] in
 			self?.cancel()
 		}, retryAction: { [weak self] in
 			self?.retryUpload(for: itemIdentifiers, domainIdentifier: domainIdentifier)
 		})
-		getXPCPromise.then { xpc -> Promise<Void> in
-			let observeProgressPromise = progressAlert.observeProgress(itemIdentifier: itemIdentifiers[0], proxy: xpc.proxy)
-			let alertActionPromise = progressAlert.alertActionTriggered
-			return race([observeProgressPromise, alertActionPromise])
-		}.always { [fileProviderConnector] in
-			self.extensionContext.completeRequest()
-			fileProviderConnector.invalidateXPC(getXPCPromise)
+		let alertActionTriggered = progressAlert.alertActionTriggered
+		Task {
+			await withTaskGroup(of: Void.self) { group in
+				group.addTask {
+					try? await self.observeUploadProgress(of: progressAlert, itemIdentifier: itemIdentifiers[0], domainIdentifier: domainIdentifier)
+				}
+				group.addTask {
+					try? await alertActionTriggered.value
+				}
+				await group.next()
+				group.cancelAll()
+			}
+			extensionContext.completeRequest()
 		}
 		present(progressAlert, animated: true)
+	}
+
+	private func observeUploadProgress(of progressAlert: UploadProgressAlertController, itemIdentifier: NSFileProviderItemIdentifier, domainIdentifier: NSFileProviderDomainIdentifier) async throws {
+		let xpc: XPC<UploadRetrying> = try await fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
+		}
+		try await progressAlert.observeProgress(itemIdentifier: itemIdentifier, proxy: xpc.proxy)
 	}
 
 	func showEvictFileFromCacheAlert(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
@@ -142,23 +151,25 @@ class RootViewController: FPUIActionExtensionViewController {
 	}
 
 	func evictFilesFromCache(with itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domainIdentifier: domainIdentifier)
-		getXPCPromise.then { xpc in
-			xpc.proxy.evictFilesFromCache(with: itemIdentifiers)
-		}.catch { error in
-			let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"),
-			                                        message: error.localizedDescription,
-			                                        preferredStyle: .alert)
-			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
-				self.extensionContext.completeRequest()
+		Task {
+			do {
+				let xpc: XPC<CacheManaging> = try await fileProviderConnector.getXPC(serviceName: .cacheManaging, domainIdentifier: domainIdentifier)
+				defer {
+					fileProviderConnector.invalidateXPC(xpc)
+				}
+				try await xpc.proxy.evictFilesFromCache(with: itemIdentifiers)
+				extensionContext.completeRequest()
+			} catch {
+				let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"),
+				                                        message: error.localizedDescription,
+				                                        preferredStyle: .alert)
+				let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
+					self.extensionContext.completeRequest()
+				}
+				alertController.addAction(okAction)
+				alertController.preferredAction = okAction
+				present(alertController, animated: true)
 			}
-			alertController.addAction(okAction)
-			alertController.preferredAction = okAction
-			self.present(alertController, animated: true)
-		}.then {
-			self.extensionContext.completeRequest()
-		}.always { [fileProviderConnector] in
-			fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 

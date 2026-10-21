@@ -9,25 +9,43 @@
 import CryptomatorFileProvider
 import FileProvider
 import Foundation
+import os
 
 // swiftlint:disable all
+@dynamicMemberLookup
 final class SessionTaskRegistratorMock: SessionTaskRegistrator {
-	// MARK: - register
-
-	var registerForItemWithIdentifierCompletionHandlerCallsCount = 0
-	var registerForItemWithIdentifierCompletionHandlerCalled: Bool {
-		registerForItemWithIdentifierCompletionHandlerCallsCount > 0
+	struct State {
+		var registerForItemWithIdentifierThrowableError: Error?
+		var registerForItemWithIdentifierCallsCount = 0
+		var registerForItemWithIdentifierReceivedArguments: (task: URLSessionTask, identifier: NSFileProviderItemIdentifier)?
+		var registerForItemWithIdentifierReceivedInvocations: [(task: URLSessionTask, identifier: NSFileProviderItemIdentifier)] = []
+		var registerForItemWithIdentifierClosure: (@Sendable (URLSessionTask, NSFileProviderItemIdentifier) async throws -> Void)?
 	}
 
-	var registerForItemWithIdentifierCompletionHandlerReceivedArguments: (task: SessionTask, identifier: NSFileProviderItemIdentifier, completion: (Error?) -> Void)?
-	var registerForItemWithIdentifierCompletionHandlerReceivedInvocations: [(task: SessionTask, identifier: NSFileProviderItemIdentifier, completion: (Error?) -> Void)] = []
-	var registerForItemWithIdentifierCompletionHandlerClosure: ((SessionTask, NSFileProviderItemIdentifier, @escaping (Error?) -> Void) -> Void)?
+	private let state = OSAllocatedUnfairLock(initialState: State())
 
-	func register(_ task: SessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void) {
-		registerForItemWithIdentifierCompletionHandlerCallsCount += 1
-		registerForItemWithIdentifierCompletionHandlerReceivedArguments = (task: task, identifier: identifier, completion: completion)
-		registerForItemWithIdentifierCompletionHandlerReceivedInvocations.append((task: task, identifier: identifier, completion: completion))
-		registerForItemWithIdentifierCompletionHandlerClosure?(task, identifier, completion)
+	subscript<T>(dynamicMember keyPath: WritableKeyPath<State, T>) -> T {
+		get { state.withLockUnchecked { $0[keyPath: keyPath] } }
+		set { state.withLockUnchecked { $0[keyPath: keyPath] = newValue } }
+	}
+
+	// MARK: - register
+
+	var registerForItemWithIdentifierCalled: Bool {
+		self.registerForItemWithIdentifierCallsCount > 0
+	}
+
+	func register(_ task: URLSessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier) async throws {
+		let closure = try state.withLockUnchecked { state in
+			if let error = state.registerForItemWithIdentifierThrowableError {
+				throw error
+			}
+			state.registerForItemWithIdentifierCallsCount += 1
+			state.registerForItemWithIdentifierReceivedArguments = (task: task, identifier: identifier)
+			state.registerForItemWithIdentifierReceivedInvocations.append((task: task, identifier: identifier))
+			return state.registerForItemWithIdentifierClosure
+		}
+		try await closure?(task, identifier)
 	}
 }
 

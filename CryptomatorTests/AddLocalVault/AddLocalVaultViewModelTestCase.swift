@@ -12,21 +12,24 @@ import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCryptoLib
 
+@MainActor
 class AddLocalVaultViewModelTestCase: XCTestCase {
 	var tmpDirURL: URL!
 	var accountManagerMock: CloudProviderAccountManagerMock!
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: false)
 		accountManagerMock = CloudProviderAccountManagerMock()
 	}
 
-	override func tearDownWithError() throws {
+	override func tearDown() async throws {
 		try FileManager.default.removeItem(at: tmpDirURL)
+		try await super.tearDown()
 	}
 
 	func createVault(at url: URL) throws {
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 		let cryptor = Cryptor(masterkey: masterkey, scheme: .sivCtrMac)
 		let rootDirPath = try getRootDirectoryURL(for: cryptor, vaultURL: url)
@@ -40,7 +43,7 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 	}
 
 	func createLegacyVault(at url: URL) throws {
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 		let cryptor = Cryptor(masterkey: masterkey, scheme: .sivCtrMac)
 		let rootDirPath = try getRootDirectoryURL(for: cryptor, vaultURL: url)
 		try FileManager.default.createDirectory(at: rootDirPath, withIntermediateDirectories: true, attributes: nil)
@@ -76,7 +79,7 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 	}
 }
 
-extension LocalFileSystemCredential: Equatable {
+extension LocalFileSystemCredential: @MainActor Equatable {
 	public static func == (lhs: LocalFileSystemCredential, rhs: LocalFileSystemCredential) -> Bool {
 		lhs.identifier == rhs.identifier && lhs.rootURL == rhs.rootURL
 	}

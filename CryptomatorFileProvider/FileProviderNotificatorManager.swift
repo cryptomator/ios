@@ -17,7 +17,8 @@ enum FileProviderNotificatorManagerError: Error {
 	case fileProviderManagerInitError
 }
 
-public class FileProviderNotificatorManager: FileProviderNotificatorManagerType {
+/// @unchecked Sendable: `cache` confined to `queue`
+public final class FileProviderNotificatorManager: FileProviderNotificatorManagerType, @unchecked Sendable {
 	public static let shared = FileProviderNotificatorManager()
 	private let queue = DispatchQueue(label: "FileProviderNotificatorManager")
 	private var cache = [NSFileProviderDomainIdentifier: FileProviderNotificatorType]()

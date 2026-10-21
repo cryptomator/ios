@@ -29,7 +29,7 @@ struct HubXPCVaultUnlockHandler: HubVaultUnlockHandler {
 			defer {
 				fileProviderConnector.invalidateXPC(xpc)
 			}
-			try await xpc.proxy.unlockVault(rawKey: masterkey.rawKey).getValue()
+			try await xpc.proxy.unlockVault(rawKey: masterkey.rawKey)
 			let hubVault = HubVault(vaultUID: domain.identifier.rawValue, subscriptionState: response.subscriptionState)
 			try hubRepository.save(hubVault)
 			await delegate?.successfullyProcessedUnlockedVault()

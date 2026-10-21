@@ -13,7 +13,6 @@ import Dependencies
 import FileProvider
 import Foundation
 import GRDB
-import Promises
 
 protocol RenameVaultViewModelProtcol: SetVaultNameViewModelProtocol {
 	var trimmedVaultName: String { get }

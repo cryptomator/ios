@@ -8,7 +8,6 @@
 
 import FileProvider
 import Foundation
-import Promises
 
 @objc public protocol CacheManaging: NSFileProviderServiceSource {
 	/**
@@ -48,22 +47,21 @@ public extension CacheManaging {
 
 	 A file gets evicted from the cache only if there is no pending (or failed) upload for that file.
 	 */
-	func evictFileFromCache(with itemIdentifier: NSFileProviderItemIdentifier) -> Promise<Void> {
-		return wrap {
-			self.evictFileFromCache(with: itemIdentifier, reply: $0)
-		}.then { error -> Void in
-			if let error = error {
-				throw error
-			}
+	func evictFileFromCache(with itemIdentifier: NSFileProviderItemIdentifier) async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.evictFileFromCache(with: itemIdentifier, reply: { error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume()
+				}
+			})
 		}
 	}
 
-	func evictFilesFromCache(with itemIdentifiers: [NSFileProviderItemIdentifier]) -> Promise<Void> {
-		guard let itemIdentifier = itemIdentifiers.first else {
-			return Promise(())
-		}
-		return evictFileFromCache(with: itemIdentifier).then {
-			self.evictFilesFromCache(with: Array(itemIdentifiers.dropFirst()))
+	func evictFilesFromCache(with itemIdentifiers: [NSFileProviderItemIdentifier]) async throws {
+		for itemIdentifier in itemIdentifiers {
+			try await evictFileFromCache(with: itemIdentifier)
 		}
 	}
 
@@ -72,12 +70,14 @@ public extension CacheManaging {
 
 	 Only files that do not have a pending or failed upload are removed from the cache.
 	 */
-	func clearCache() -> Promise<Void> {
-		return wrap {
-			self.clearCache(reply: $0)
-		}.then { error -> Void in
-			if let error = error {
-				throw error
+	func clearCache() async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.clearCache { error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume()
+				}
 			}
 		}
 	}
@@ -87,9 +87,15 @@ public extension CacheManaging {
 
 	 - Note: Only files that do not have a pending or failed upload are counted towards the cache.
 	 */
-	func getLocalCacheSizeInBytes() -> Promise<NSNumber?> {
-		return wrap {
-			self.getLocalCacheSizeInBytes(reply: $0)
+	func getLocalCacheSizeInBytes() async throws -> NSNumber? {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<NSNumber?, Error>) in
+			self.getLocalCacheSizeInBytes { localCacheSize, error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume(returning: localCacheSize)
+				}
+			}
 		}
 	}
 }

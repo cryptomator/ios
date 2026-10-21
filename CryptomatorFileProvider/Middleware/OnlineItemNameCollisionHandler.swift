@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
-import Promises
 
 class OnlineItemNameCollisionHandler<T>: WorkflowMiddleware {
 	private let itemMetadataManager: ItemMetadataManager
@@ -29,19 +28,20 @@ class OnlineItemNameCollisionHandler<T>: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	func execute(task: CloudTask) -> Promise<T> {
-		let nextMiddleware: AnyWorkflowMiddleware<T>
+	func execute(task: CloudTask) async throws -> T {
+		let nextMiddleware = try getNext()
 		do {
-			nextMiddleware = try getNext()
+			return try await nextMiddleware.execute(task: task)
 		} catch {
-			return Promise(error)
-		}
-		return nextMiddleware.execute(task: task).recover { error -> Promise<T> in
 			guard case CloudProviderError.itemAlreadyExists = error else {
 				throw error
 			}
-			let refreshedTask = try self.cloudPathCollisionUpdate(for: task)
-			return nextMiddleware.execute(task: refreshedTask)
+			// Must precede `cloudPathCollisionUpdate`, which already writes the renamed path onto the row.
+			guard task.onlineCollisionDisposition == .renameAndRetry else {
+				throw error
+			}
+			let refreshedTask = try cloudPathCollisionUpdate(for: task)
+			return try await nextMiddleware.execute(task: refreshedTask)
 		}
 	}
 

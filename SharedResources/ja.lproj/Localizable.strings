@@ -133,6 +133,7 @@
 "hubAuthentication.trustHost.alert.title" = "このサーバーを信頼しますか?";
 "hubAuthentication.trustHost.alert.trustButton" = "信頼する";
 "hubAuthentication.vaultArchived" = "この金庫はアーカイブされています。金庫の所有者にアーカイブ解除を依頼してください。";
+"intents.clearCache.cacheCleared" = "キャッシュが消去されました。";
 
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
 "intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
@@ -229,12 +230,18 @@
 "settings.unlockFullVersion.trialExpirationDate" = "試用期限: %@";
 "settings.upgradeToLifetime" = "永久ライセンスにアップグレードする";
 
+"sharePoint.enterURL.title" = "SharePoint URL を入力";
+"sharePoint.enterURL.placeholder" = "SharePoint サイト URL";
+"sharePoint.urlValidation.error.emptyURL" = "URL欄は空にできません。";
+
 "shareVault.title" = "保管庫を共有する";
 "shareVault.normal.header.title" = "チームワークの安全な方法";
 "shareVault.normal.button.visitHub" = "Cryptomator Hubを訪問";
 "shareVault.hub.header.title" = "ハブ保管庫の共有方法";
 "shareVault.hub.header.subtitle" = "データ保管庫のコンテンツを他のチームメンバーと共有するには、2つの手順を実行する必要があります：";
+"shareVault.hub.step2" = "Cryptomator Hubでチームメンバーにアクセスを許可する。";
 "shareVault.hub.button.openHub" = "Cryptomator Hubを開く";
+"shareVault.error.hubURLExtraction.title" = "Hub情報を読み込めません";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";

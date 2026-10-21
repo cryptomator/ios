@@ -7,19 +7,20 @@
 //
 
 import Dependencies
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
+@MainActor
 class SettingsViewModelTests: XCTestCase {
 	private var cryptomatorSettingsMock: CryptomatorSettingsMock!
 	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	var settingsViewModel: SettingsViewModel!
 	private var cacheControllerMock: CacheControllerMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		cacheControllerMock = CacheControllerMock()
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
@@ -134,74 +135,62 @@ class SettingsViewModelTests: XCTestCase {
 		}
 	}
 
-	func testRefreshCacheSize() {
-		withDependencies {
+	func testRefreshCacheSize() async throws {
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			self.settingsViewModel = self.createSettingsViewModel()
-			let expectation = XCTestExpectation()
-			let cacheSizeInBytes = 1024 * 1024
-			self.setCacheControllerResponse(to: cacheSizeInBytes)
-			self.settingsViewModel.refreshCacheSize().always {
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation], timeout: 5.0)
-			guard let cacheSection = self.getSection(for: .cacheSection) else {
-				XCTFail("Missing cacheSection")
-				return
-			}
-			guard let cacheSizeCellViewModel = cacheSection.elements[0] as? LoadingWithLabelCellViewModel else {
-				XCTFail("Missing cacheSizeCellViewModel")
-				return
-			}
-			let cacheSizeDisplayText = ByteCountFormatter().string(fromByteCount: Int64(cacheSizeInBytes))
-			XCTAssertEqual(cacheSizeDisplayText, cacheSizeCellViewModel.detailTitle.value)
-
-			guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
-				XCTFail("Missing clearCacheButtonCellViewModel")
-				return
-			}
-			XCTAssertEqual(.clearCache, clearCacheButtonCellViewModel.action)
-			XCTAssertTrue(clearCacheButtonCellViewModel.isEnabled.value)
-			XCTAssertFalse(cacheSizeCellViewModel.isLoading.value)
+			createSettingsViewModel()
 		}
+		let cacheSizeInBytes = 1024 * 1024
+		setCacheControllerResponse(to: cacheSizeInBytes)
+		try await settingsViewModel.refreshCacheSize()
+		guard let cacheSection = getSection(for: .cacheSection) else {
+			XCTFail("Missing cacheSection")
+			return
+		}
+		guard let cacheSizeCellViewModel = cacheSection.elements[0] as? LoadingWithLabelCellViewModel else {
+			XCTFail("Missing cacheSizeCellViewModel")
+			return
+		}
+		let cacheSizeDisplayText = ByteCountFormatter().string(fromByteCount: Int64(cacheSizeInBytes))
+		XCTAssertEqual(cacheSizeDisplayText, cacheSizeCellViewModel.detailTitle.value)
+
+		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
+			XCTFail("Missing clearCacheButtonCellViewModel")
+			return
+		}
+		XCTAssertEqual(.clearCache, clearCacheButtonCellViewModel.action)
+		XCTAssertTrue(clearCacheButtonCellViewModel.isEnabled.value)
+		XCTAssertFalse(cacheSizeCellViewModel.isLoading.value)
 	}
 
-	func testRefreshCacheSizeForEmptyCache() {
-		withDependencies {
+	func testRefreshCacheSizeForEmptyCache() async throws {
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			self.settingsViewModel = self.createSettingsViewModel()
-			let expectation = XCTestExpectation()
-			self.setCacheControllerResponse(to: 0)
-			self.settingsViewModel.refreshCacheSize().always {
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation], timeout: 5.0)
-
-			self.checkEmptyCacheBehaviour()
+			createSettingsViewModel()
 		}
+		setCacheControllerResponse(to: 0)
+		try await settingsViewModel.refreshCacheSize()
+
+		checkEmptyCacheBehaviour()
 	}
 
-	func testClearCache() {
-		withDependencies {
+	func testClearCache() async throws {
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			self.settingsViewModel = self.createSettingsViewModel()
-			let expectation = XCTestExpectation()
-			let cacheSizeInBytes = 0
-			self.setCacheControllerResponse(to: cacheSizeInBytes)
-			self.settingsViewModel.clearCache().always {
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation], timeout: 5.0)
-
-			XCTAssertEqual(1, self.cacheControllerMock.clearCacheCallsCount)
-			self.checkEmptyCacheBehaviour()
+			createSettingsViewModel()
 		}
+		let cacheSizeInBytes = 0
+		setCacheControllerResponse(to: cacheSizeInBytes)
+		try await settingsViewModel.clearCache()
+
+		XCTAssertEqual(1, cacheControllerMock.clearCacheCallsCount)
+		checkEmptyCacheBehaviour()
 	}
 
 	func checkEmptyCacheBehaviour() {
@@ -257,102 +246,90 @@ class SettingsViewModelTests: XCTestCase {
 		}
 	}
 
-	func testEnabledDebugMode() {
-		withDependencies {
+	func testEnabledDebugMode() async {
+		let invalidationExpectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
+		cryptomatorSettingsMock.debugModeEnabled = true
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			let invalidationExpectation = XCTestExpectation()
-			let logLevelUpdatingMock = LogLevelUpdatingMock()
-			self.fileProviderConnectorMock.proxy = logLevelUpdatingMock
-			self.fileProviderConnectorMock.doneHandler = {
-				invalidationExpectation.fulfill()
-			}
-			self.cryptomatorSettingsMock.debugModeEnabled = true
-			self.settingsViewModel = self.createSettingsViewModel()
-			guard let debugSection = self.getSection(for: .debugSection) else {
-				XCTFail("Missing debugSection")
-				return
-			}
-			guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
-				XCTFail("Missing debugModeCellViewModel")
-				return
-			}
-			XCTAssertTrue(debugModeCellViewModel.isOn.value)
-			XCTAssertTrue(debugModeCellViewModel.isEnabled.value)
-
-			self.checkSendLogFilesCellViewModel()
-
-			let expectation = XCTestExpectation()
-			debugModeCellViewModel.isOnButtonPublisher.send(false)
-			logLevelUpdatingMock.updated.then {
-				XCTAssertFalse(self.cryptomatorSettingsMock.debugModeEnabled)
-				self.checkLogLevelUpdatingServiceSourceCall()
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation, invalidationExpectation], timeout: 5.0)
-			self.checkSendLogFilesCellViewModel()
-			XCTAssertEqual(1, self.fileProviderConnectorMock.xpcInvalidationCallCount)
+			createSettingsViewModel()
 		}
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+		XCTAssertTrue(debugModeCellViewModel.isOn.value)
+		XCTAssertTrue(debugModeCellViewModel.isEnabled.value)
+
+		checkSendLogFilesCellViewModel()
+
+		debugModeCellViewModel.isOnButtonPublisher.send(false)
+		await fulfillment(of: [logLevelUpdatingMock.updated, invalidationExpectation], timeout: 5.0)
+		XCTAssertFalse(cryptomatorSettingsMock.debugModeEnabled)
+		checkLogLevelUpdatingServiceSourceCall()
+		checkSendLogFilesCellViewModel()
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testEnableDebugMode() {
-		withDependencies {
+	func testEnableDebugMode() async {
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			self.settingsViewModel = self.createSettingsViewModel()
-			let invalidationExpectation = XCTestExpectation()
-			let expectation = XCTestExpectation()
-			let logLevelUpdatingMock = LogLevelUpdatingMock()
-			self.fileProviderConnectorMock.proxy = logLevelUpdatingMock
-			self.fileProviderConnectorMock.doneHandler = {
-				invalidationExpectation.fulfill()
-			}
-			self.settingsViewModel.enableDebugMode()
-			logLevelUpdatingMock.updated.then {
-				XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
-				self.checkLogLevelUpdatingServiceSourceCall()
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation, invalidationExpectation], timeout: 5.0)
-			XCTAssertEqual(1, self.fileProviderConnectorMock.xpcInvalidationCallCount)
+			createSettingsViewModel()
 		}
+		let invalidationExpectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
+		settingsViewModel.enableDebugMode()
+		await fulfillment(of: [logLevelUpdatingMock.updated, invalidationExpectation], timeout: 5.0)
+		XCTAssertTrue(cryptomatorSettingsMock.debugModeEnabled)
+		checkLogLevelUpdatingServiceSourceCall()
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testDisableDebugMode() {
-		withDependencies {
+	func testDisableDebugMode() async {
+		settingsViewModel = withDependencies {
 			$0.fileProviderConnector = fileProviderConnectorMock
 			$0.cacheController = cacheControllerMock
 		} operation: {
-			self.settingsViewModel = self.createSettingsViewModel()
-			let invalidationExpectation = XCTestExpectation()
-			let expectation = XCTestExpectation()
-			let logLevelUpdatingMock = LogLevelUpdatingMock()
-			self.fileProviderConnectorMock.proxy = logLevelUpdatingMock
-			self.fileProviderConnectorMock.doneHandler = {
-				invalidationExpectation.fulfill()
-			}
-			guard let debugSection = self.getSection(for: .debugSection) else {
-				XCTFail("Missing debugSection")
-				return
-			}
-			guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
-				XCTFail("Missing debugModeCellViewModel")
-				return
-			}
-
-			self.settingsViewModel.disableDebugMode()
-
-			XCTAssertFalse(debugModeCellViewModel.isOn.value)
-			logLevelUpdatingMock.updated.then {
-				XCTAssertFalse(self.cryptomatorSettingsMock.debugModeEnabled)
-				self.checkLogLevelUpdatingServiceSourceCall()
-				expectation.fulfill()
-			}
-			self.wait(for: [expectation, invalidationExpectation], timeout: 5.0)
-			XCTAssertEqual(1, self.fileProviderConnectorMock.xpcInvalidationCallCount)
+			createSettingsViewModel()
 		}
+		let invalidationExpectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+
+		settingsViewModel.disableDebugMode()
+
+		XCTAssertFalse(debugModeCellViewModel.isOn.value)
+		await fulfillment(of: [logLevelUpdatingMock.updated, invalidationExpectation], timeout: 5.0)
+		XCTAssertFalse(cryptomatorSettingsMock.debugModeEnabled)
+		checkLogLevelUpdatingServiceSourceCall()
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	private func checkSendLogFilesCellViewModel() {
@@ -380,7 +357,7 @@ class SettingsViewModelTests: XCTestCase {
 	}
 
 	private func setCacheControllerResponse(to totalCacheSizeInBytes: Int) {
-		cacheControllerMock.getLocalCacheSizeInBytesReturnValue = Promise(totalCacheSizeInBytes)
+		cacheControllerMock.getLocalCacheSizeInBytesReturnValue = totalCacheSizeInBytes
 	}
 
 	private func createSettingsViewModel() -> SettingsViewModel {
@@ -388,20 +365,19 @@ class SettingsViewModelTests: XCTestCase {
 	}
 }
 
-private final class CacheControllerMock: CacheControlling {
+/// @unchecked Sendable: test double, never touched concurrently
+private final class CacheControllerMock: CacheControlling, @unchecked Sendable {
 	var getLocalCacheSizeInBytesCallsCount = 0
-	var getLocalCacheSizeInBytesReturnValue = Promise(0)
+	var getLocalCacheSizeInBytesReturnValue = 0
 	var clearCacheCallsCount = 0
-	var clearCacheReturnValue = Promise(())
 
-	func getLocalCacheSizeInBytes() -> Promise<Int> {
+	func getLocalCacheSizeInBytes() async throws -> Int {
 		getLocalCacheSizeInBytesCallsCount += 1
 		return getLocalCacheSizeInBytesReturnValue
 	}
 
-	func clearCache() -> Promise<Void> {
+	func clearCache() async throws {
 		clearCacheCallsCount += 1
-		return clearCacheReturnValue
 	}
 }
 
@@ -410,10 +386,10 @@ private class LogLevelUpdatingMock: LogLevelUpdating {
 		fatalError("Not mocked")
 	}
 
-	let updated = Promise<Void>.pending()
+	let updated = XCTestExpectation(description: "Log level updated")
 
 	func logLevelUpdated() {
-		updated.fulfill(())
+		updated.fulfill()
 	}
 
 	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {

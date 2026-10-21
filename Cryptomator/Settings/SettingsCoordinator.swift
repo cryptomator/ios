@@ -132,10 +132,13 @@ extension SettingsCoordinator: CloudChoosing {
 extension SettingsCoordinator: AccountListing, DefaultShowEditAccountBehavior {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		authenticator.authenticate(cloudProviderType, from: viewController).catch { error in
-			guard case CocoaError.userCancelled = error else {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			do {
+				_ = try await authenticator.authenticate(cloudProviderType, from: viewController)
+			} catch CocoaError.userCancelled {
 				return
+			} catch {
+				handleError(error, for: navigationController)
 			}
 		}
 	}

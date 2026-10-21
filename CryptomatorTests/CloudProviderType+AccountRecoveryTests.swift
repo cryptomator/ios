@@ -10,6 +10,7 @@ import CryptomatorCommonCore
 import XCTest
 @testable import Cryptomator
 
+@MainActor
 class CloudProviderTypeAccountRecoveryTests: XCTestCase {
 	func testReauthenticateForProvidersThatKeepTheirAccount() {
 		let providers: [CloudProviderType] = [.box, .dropbox, .googleDrive, .microsoftGraph(type: .oneDrive), .microsoftGraph(type: .sharePoint), .pCloud]

@@ -42,5 +42,7 @@ struct VaultOptionsProvider {
 }
 
 extension VaultOptionsProvider {
-	static let shared = VaultOptionsProvider(vaultAccountManager: VaultAccountDBManager.shared, cloudProviderAccountManager: CloudProviderAccountDBManager.shared)
+	static var shared: VaultOptionsProvider {
+		VaultOptionsProvider(vaultAccountManager: VaultAccountDBManager.shared, cloudProviderAccountManager: CloudProviderAccountDBManager.shared)
+	}
 }

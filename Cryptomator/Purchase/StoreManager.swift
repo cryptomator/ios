@@ -7,8 +7,8 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 
 enum ProductIdentifier: String, CaseIterable {
@@ -20,48 +20,54 @@ enum ProductIdentifier: String, CaseIterable {
 }
 
 protocol IAPStore {
-	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<SKProductsResponse>
+	func fetchProducts(with identifiers: [ProductIdentifier]) async throws -> SKProductsResponse
 }
 
 class StoreManager: NSObject, IAPStore {
 	static let shared = StoreManager()
 
-	private var runningRequests = [SKProductsRequest: Promise<SKProductsResponse>]()
+	private var runningRequests = [ObjectIdentifier: (request: SKProductsRequest, response: OneShotSignal<SKProductsResponse>)]()
 
 	override private init() {}
 
-	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<SKProductsResponse> {
+	func fetchProducts(with identifiers: [ProductIdentifier]) async throws -> SKProductsResponse {
 		let productIdentifiers = Set(identifiers.map { $0.rawValue })
 		let productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
-		let pendingPromise = Promise<SKProductsResponse>.pending()
-		runningRequests[productRequest] = pendingPromise
+		let response = OneShotSignal<SKProductsResponse>()
+		runningRequests[ObjectIdentifier(productRequest)] = (productRequest, response)
 		productRequest.delegate = self
 		productRequest.start()
-		return pendingPromise
+		return try await response.value
 	}
 }
 
 // MARK: - SKProductsRequestDelegate
 
 extension StoreManager: SKProductsRequestDelegate {
-	func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-		guard let promise = runningRequests.removeValue(forKey: request) else {
-			DDLogError("Missing running request for fulfilling SKProductsRequest promise")
-			return
+	nonisolated func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+		let requestID = ObjectIdentifier(request)
+		DispatchQueue.main.async {
+			guard let runningRequest = self.runningRequests.removeValue(forKey: requestID) else {
+				DDLogError("Missing running request for fulfilling SKProductsRequest")
+				return
+			}
+			runningRequest.response.fulfill(response)
 		}
-		promise.fulfill(response)
 	}
 }
 
 // MARK: - SKRequestDelegate
 
 extension StoreManager: SKRequestDelegate {
-	func request(_ request: SKRequest, didFailWithError error: Error) {
+	nonisolated func request(_ request: SKRequest, didFailWithError error: Error) {
 		DDLogError("SKRequest failed with error: \(error)")
-		guard let productRequest = request as? SKProductsRequest, let promise = runningRequests.removeValue(forKey: productRequest) else {
-			DDLogError("Missing running request for rejecting SKProductsRequest promise")
-			return
+		let requestID = ObjectIdentifier(request)
+		DispatchQueue.main.async {
+			guard let runningRequest = self.runningRequests.removeValue(forKey: requestID) else {
+				DDLogError("Missing running request for rejecting SKProductsRequest")
+				return
+			}
+			runningRequest.response.reject(error)
 		}
-		promise.reject(error)
 	}
 }

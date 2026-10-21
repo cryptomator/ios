@@ -8,7 +8,6 @@
 
 import FileProvider
 import Foundation
-import Promises
 
 @objc public protocol FileImporting: NSFileProviderServiceSource {
 	/**
@@ -36,13 +35,15 @@ public extension FileImporting {
 	 - Parameter localURL: The URL of the file to be imported
 	 - Parameter parentItemIdentifier: The item identifier of the folder into which the file will be imported.
 	 */
-	func importFile(at localURL: URL, toParentItemIdentifier parentItemIdentifier: String) -> Promise<Void> {
-		return wrap {
-			self.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier, reply: $0)
-		}.then { error -> Void in
-			if let error = error {
-				throw error
-			}
+	func importFile(at localURL: URL, toParentItemIdentifier parentItemIdentifier: String) async throws {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+			self.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier, reply: { error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume()
+				}
+			})
 		}
 	}
 
@@ -51,11 +52,15 @@ public extension FileImporting {
 
 	 - Parameter path: The path of the item in the cloud
 	 */
-	func getIdentifierForItem(at path: String) -> Promise<NSString> {
-		return wrap {
-			self.getIdentifierForItem(at: path, reply: $0)
-		}.then {
-			return $0!
+	func getIdentifierForItem(at path: String) async throws -> String {
+		try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<String, Error>) in
+			self.getIdentifierForItem(at: path, reply: { identifier, error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume(returning: identifier! as String)
+				}
+			})
 		}
 	}
 }

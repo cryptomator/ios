@@ -8,9 +8,10 @@
 
 import Combine
 import CryptomatorCommonCore
+import SwiftUI
 import UIKit
 
-struct PurchaseCellViewModel: Hashable {
+nonisolated struct PurchaseCellViewModel: Hashable {
 	let productName: String
 	let productDetail: String?
 	let price: String
@@ -19,7 +20,7 @@ struct PurchaseCellViewModel: Hashable {
 	let productIdentifier: ProductIdentifier
 }
 
-struct PurchaseButtonViewModel: Hashable {
+nonisolated struct PurchaseButtonViewModel: Hashable {
 	let isEnabled: Bindable<Bool> = Bindable(true)
 	let isLoading: Bindable<Bool> = Bindable(false)
 }
@@ -175,8 +176,6 @@ private class PurchaseCellAccessory: UIStackView {
 		loadingIndicator.removeFromSuperview()
 	}
 }
-
-import SwiftUI
 
 struct PurchaseButton_Previews: PreviewProvider {
 	static var previews: some View {

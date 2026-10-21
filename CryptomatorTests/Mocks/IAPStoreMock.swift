@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Promises
 import StoreKit
 @testable import Cryptomator
 
@@ -24,17 +23,20 @@ final class IAPStoreMock: IAPStore {
 
 	var fetchProductsWithReceivedIdentifiers: [ProductIdentifier]?
 	var fetchProductsWithReceivedInvocations: [[ProductIdentifier]] = []
-	var fetchProductsWithReturnValue: Promise<SKProductsResponse>!
-	var fetchProductsWithClosure: (([ProductIdentifier]) -> Promise<SKProductsResponse>)?
+	var fetchProductsWithReturnValue: SKProductsResponse!
+	var fetchProductsWithClosure: (([ProductIdentifier]) async throws -> SKProductsResponse)?
 
-	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<SKProductsResponse> {
+	func fetchProducts(with identifiers: [ProductIdentifier]) async throws -> SKProductsResponse {
 		if let error = fetchProductsWithThrowableError {
-			return Promise(error)
+			throw error
 		}
 		fetchProductsWithCallsCount += 1
 		fetchProductsWithReceivedIdentifiers = identifiers
 		fetchProductsWithReceivedInvocations.append(identifiers)
-		return fetchProductsWithClosure.map({ $0(identifiers) }) ?? fetchProductsWithReturnValue
+		if let fetchProductsWithClosure = fetchProductsWithClosure {
+			return try await fetchProductsWithClosure(identifiers)
+		}
+		return fetchProductsWithReturnValue
 	}
 }
 

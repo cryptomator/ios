@@ -55,8 +55,12 @@ public protocol MicrosoftGraphAccountManager {
 	func saveNewAccount(_ account: MicrosoftGraphAccount) throws
 }
 
-public class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager {
-	@Dependency(\.database) var database
+public final class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager, Sendable {
+	private let databaseDependency = Dependency(\.database)
+	private var database: DatabaseWriter {
+		databaseDependency.wrappedValue
+	}
+
 	public static let shared = MicrosoftGraphAccountDBManager()
 
 	public func getAccount(for accountUID: String) throws -> MicrosoftGraphAccount {

@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 import GRDB
 
-protocol CachedFileManager {
+protocol CachedFileManager: Sendable {
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo?
 	func getLocalCachedFileInfo(forIds ids: [Int64]) throws -> [LocalCachedFileInfo?]
 	func cacheLocalFileInfo(for id: Int64, localURL: URL, lastModifiedDate: Date?) throws
@@ -49,11 +49,12 @@ enum CachedFileManagerError: Error {
 	case fileHasUnsyncedEdits
 }
 
-class CachedFileManagerHelper {
-	let fileCoordinator: NSFileCoordinator
+/// @unchecked Sendable: all stored properties are immutable and Sendable; the class is only subclassed by test doubles
+class CachedFileManagerHelper: @unchecked Sendable {
+	let fileCoordinatorPurposeIdentifier: String
 
-	init(fileCoordinator: NSFileCoordinator) {
-		self.fileCoordinator = fileCoordinator
+	init(fileCoordinatorPurposeIdentifier: String) {
+		self.fileCoordinatorPurposeIdentifier = fileCoordinatorPurposeIdentifier
 	}
 
 	/**
@@ -64,6 +65,8 @@ class CachedFileManagerHelper {
 	func removeItem(at url: URL) throws {
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = fileCoordinatorPurposeIdentifier
 		fileCoordinator.coordinate(writingItemAt: url, options: .forDeleting, error: &fileCoordinatorError) { url in
 			do {
 				try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
@@ -78,7 +81,7 @@ class CachedFileManagerHelper {
 	}
 }
 
-class CachedFileDBManager: CachedFileManager {
+final class CachedFileDBManager: CachedFileManager {
 	private let database: DatabaseWriter
 	private let fileManagerHelper: CachedFileManagerHelper
 
@@ -126,13 +129,7 @@ class CachedFileDBManager: CachedFileManager {
 
 	func clearCache() throws {
 		try database.write { db in
-			let entries = try LocalCachedFileInfo.fetchAll(db, sql: """
-				  SELECT \(LocalCachedFileInfo.databaseTableName).*
-				  FROM \(LocalCachedFileInfo.databaseTableName)
-				  LEFT JOIN \(UploadTaskRecord.databaseTableName)
-				  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
-				  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
-			""")
+			let entries = try fetchEvictableEntries(db)
 			for entry in entries {
 				try? db.inSavepoint({
 					try entry.delete(db)
@@ -150,13 +147,7 @@ class CachedFileDBManager: CachedFileManager {
 
 	func getLocalCacheSizeInBytes() throws -> Int {
 		try database.read({ db in
-			let entries = try LocalCachedFileInfo.fetchAll(db, sql: """
-				  SELECT \(LocalCachedFileInfo.databaseTableName).*
-				  FROM \(LocalCachedFileInfo.databaseTableName)
-				  LEFT JOIN \(UploadTaskRecord.databaseTableName)
-				  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
-				  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
-			""")
+			let entries = try fetchEvictableEntries(db)
 			return try entries.reduce(0) {
 				do {
 					let attributes = try $1.localURL.resourceValues(forKeys: [.fileSizeKey])
@@ -167,5 +158,21 @@ class CachedFileDBManager: CachedFileManager {
 				}
 			}
 		})
+	}
+
+	/// Skips items that never reached the cloud as well as pending uploads, because a package file gets no upload task until its folder exists in the cloud, and its cached bytes can be the only copy the user has left.
+	private func fetchEvictableEntries(_ db: Database) throws -> [LocalCachedFileInfo] {
+		return try LocalCachedFileInfo.fetchAll(db, sql: """
+			  SELECT \(LocalCachedFileInfo.databaseTableName).*
+			  FROM \(LocalCachedFileInfo.databaseTableName)
+			  LEFT JOIN \(UploadTaskRecord.databaseTableName)
+			  ON \(UploadTaskRecord.databaseTableName).correspondingItem = \(LocalCachedFileInfo.databaseTableName).correspondingItem
+			  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
+			  AND NOT EXISTS (
+			  	SELECT 1 FROM \(ItemMetadata.databaseTableName)
+			  	WHERE \(ItemMetadata.databaseTableName).id = \(LocalCachedFileInfo.databaseTableName).correspondingItem
+			  	AND \(ItemMetadata.databaseTableName).isPlaceholderItem
+			  )
+		""")
 	}
 }

@@ -14,13 +14,14 @@ import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
+@MainActor
 final class HubAuthenticationViewModelTests: XCTestCase {
 	private var unlockHandlerMock: HubVaultUnlockHandlerMock!
 	private var delegateMock: HubAuthenticationViewModelDelegateMock!
 	private var hubKeyServiceMock: HubKeyReceivingMock!
 	private var viewModel: HubAuthenticationViewModel!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
 		unlockHandlerMock = HubVaultUnlockHandlerMock()
 		delegateMock = HubAuthenticationViewModelDelegateMock()
 		hubKeyServiceMock = HubKeyReceivingMock()

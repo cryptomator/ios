@@ -10,10 +10,10 @@ import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import Dependencies
 import FileProvider
-import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 
+@MainActor
 class UnlockVaultViewModelTests: XCTestCase {
 	private let vaultUID = "UnlockTestVault"
 	private let passphrase = "testPassword"
@@ -28,11 +28,12 @@ class UnlockVaultViewModelTests: XCTestCase {
 	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	private var vaultUnlockingMock: VaultUnlockingMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		domain = NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: "Unlock Test Vault", pathRelativeToDocumentStorage: vaultUID)
 		vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: "delegate-\(vaultUID)", vaultPath: CloudPath("/Vault"), vaultName: "Unlock Test Vault")
 
-		let masterkey = Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 64))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 64))
 		masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 8, passphrase: passphrase, pepper: [UInt8](), scryptCostParam: 2)
 
 		vaultCacheMock = CryptomatorCommonCore.VaultCacheMock()
@@ -47,46 +48,46 @@ class UnlockVaultViewModelTests: XCTestCase {
 
 	// MARK: - Swallow-path (offline / cached-only signals)
 
-	func testUnlockSwallowsCloudProviderNoInternetConnection() throws {
-		try assertUnlockSucceeds(withRefreshError: CloudProviderError.noInternetConnection)
+	func testUnlockSwallowsCloudProviderNoInternetConnection() async throws {
+		try await assertUnlockSucceeds(withRefreshError: CloudProviderError.noInternetConnection)
 	}
 
-	func testUnlockSwallowsLocalizedCloudProviderNoInternetConnection() throws {
-		try assertUnlockSucceeds(withRefreshError: LocalizedCloudProviderError.noInternetConnection)
+	func testUnlockSwallowsLocalizedCloudProviderNoInternetConnection() async throws {
+		try await assertUnlockSucceeds(withRefreshError: LocalizedCloudProviderError.noInternetConnection)
 	}
 
-	func testUnlockSwallowsNSURLErrorTimedOut() throws {
-		try assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut))
+	func testUnlockSwallowsNSURLErrorTimedOut() async throws {
+		try await assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut))
 	}
 
-	func testUnlockSwallowsNSURLErrorNotConnectedToInternet() throws {
-		try assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet))
+	func testUnlockSwallowsNSURLErrorNotConnectedToInternet() async throws {
+		try await assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet))
 	}
 
-	func testUnlockSwallowsNSURLErrorNetworkConnectionLost() throws {
-		try assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost))
+	func testUnlockSwallowsNSURLErrorNetworkConnectionLost() async throws {
+		try await assertUnlockSucceeds(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost))
 	}
 
-	func testUnlockSwallowsLocalizedCloudProviderItemNotFound() throws {
-		try assertUnlockSucceeds(withRefreshError: LocalizedCloudProviderError.itemNotFound(cloudPath: CloudPath("/Vault/masterkey.cryptomator")))
+	func testUnlockSwallowsLocalizedCloudProviderItemNotFound() async throws {
+		try await assertUnlockSucceeds(withRefreshError: LocalizedCloudProviderError.itemNotFound(cloudPath: CloudPath("/Vault/masterkey.cryptomator")))
 	}
 
-	func testUnlockSwallowsCloudProviderItemNotFound() throws {
-		try assertUnlockSucceeds(withRefreshError: CloudProviderError.itemNotFound)
+	func testUnlockSwallowsCloudProviderItemNotFound() async throws {
+		try await assertUnlockSucceeds(withRefreshError: CloudProviderError.itemNotFound)
 	}
 
-	// MARK: - Reject-path (should still surface)
+	// MARK: - Failure path (should still surface)
 
-	func testUnlockRejectsLocalizedCloudProviderUnauthorized() throws {
-		try assertUnlockFails(withRefreshError: LocalizedCloudProviderError.unauthorized)
+	func testUnlockRejectsLocalizedCloudProviderUnauthorized() async throws {
+		try await assertUnlockFails(withRefreshError: LocalizedCloudProviderError.unauthorized)
 	}
 
-	func testUnlockRejectsNonTransientNSURLError() throws {
-		try assertUnlockFails(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorUserCancelledAuthentication))
+	func testUnlockRejectsNonTransientNSURLError() async throws {
+		try await assertUnlockFails(withRefreshError: NSError(domain: NSURLErrorDomain, code: NSURLErrorUserCancelledAuthentication))
 	}
 
-	func testUnlockRejectsUnrelatedError() throws {
-		try assertUnlockFails(withRefreshError: NSError(domain: "TestDomain", code: 42))
+	func testUnlockRejectsUnrelatedError() async throws {
+		try await assertUnlockFails(withRefreshError: NSError(domain: "TestDomain", code: 42))
 	}
 
 	// MARK: - Helpers
@@ -104,35 +105,23 @@ class UnlockVaultViewModelTests: XCTestCase {
 		})
 	}
 
-	private func assertUnlockSucceeds(withRefreshError refreshError: Error, file: StaticString = #filePath, line: UInt = #line) throws {
+	private func assertUnlockSucceeds(withRefreshError refreshError: Error, file: StaticString = #filePath, line: UInt = #line) async throws {
 		vaultCacheMock.refreshVaultCacheForWithThrowableError = refreshError
 		let viewModel = makeViewModel()
 
-		let expectation = XCTestExpectation()
-		viewModel.unlock(withPassword: passphrase, storePasswordInKeychain: false).then {
-			// Expected: swallow path resolved successfully.
-		}.catch { error in
+		do {
+			try await viewModel.unlock(withPassword: passphrase, storePasswordInKeychain: false)
+		} catch {
 			XCTFail("Expected unlock to succeed when refresh failed with swallowed error \(refreshError), but got \(error)", file: file, line: line)
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(1, vaultUnlockingMock.unlockVaultKekCallsCount, "XPC unlock should run after swallow", file: file, line: line)
 	}
 
-	private func assertUnlockFails(withRefreshError refreshError: Error, file: StaticString = #filePath, line: UInt = #line) throws {
+	private func assertUnlockFails(withRefreshError refreshError: Error, file: StaticString = #filePath, line: UInt = #line) async throws {
 		vaultCacheMock.refreshVaultCacheForWithThrowableError = refreshError
 		let viewModel = makeViewModel()
 
-		let expectation = XCTestExpectation()
-		viewModel.unlock(withPassword: passphrase, storePasswordInKeychain: false).then {
-			XCTFail("Expected unlock to reject with refresh error \(refreshError), but it resolved", file: file, line: line)
-		}.catch { _ in
-			// Expected: reject path surfaced the error.
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		await XCTAssertThrowsAsyncError(try await viewModel.unlock(withPassword: passphrase, storePasswordInKeychain: false), "Expected unlock to reject with refresh error \(refreshError), but it resolved", file: file, line: line)
 		XCTAssertEqual(0, vaultUnlockingMock.unlockVaultKekCallsCount, "XPC unlock must not run on reject path", file: file, line: line)
 	}
 }

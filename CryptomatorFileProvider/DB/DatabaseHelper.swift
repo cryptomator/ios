@@ -16,7 +16,7 @@ public protocol DatabaseHelping {
 	func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter
 }
 
-public struct DatabaseHelper: DatabaseHelping {
+public struct DatabaseHelper: DatabaseHelping, Sendable {
 	public static let `default` = DatabaseHelper()
 
 	public func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {

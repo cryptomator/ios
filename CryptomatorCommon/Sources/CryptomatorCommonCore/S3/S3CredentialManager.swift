@@ -28,7 +28,7 @@ public extension S3CredentialManagerType {
 	}
 }
 
-public struct S3DisplayName: Codable {
+public struct S3DisplayName: Codable, Equatable, Sendable {
 	public let id: String
 	public let displayName: String
 }
@@ -42,7 +42,7 @@ public extension CloudProviderAccount {
 	static let s3DisplayName = hasOne(S3DisplayName.self, using: S3DisplayName.accountForeignKey)
 }
 
-public struct S3CredentialManager: S3CredentialManagerType {
+public struct S3CredentialManager: S3CredentialManagerType, Sendable {
 	@Dependency(\.database) var database
 	public static let shared = S3CredentialManager(keychain: CryptomatorKeychain.s3)
 	let keychain: CryptomatorKeychainType

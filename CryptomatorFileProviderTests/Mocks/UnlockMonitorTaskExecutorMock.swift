@@ -26,11 +26,11 @@ final class UnlockMonitorTaskExecutorMock: UnlockMonitorTaskExecutorType {
 		executeCallsCount > 0
 	}
 
-	var executeReceivedWork: (() -> Void)?
-	var executeReceivedInvocations: [() -> Void] = []
-	var executeClosure: ((@escaping () -> Void) -> Void)?
+	var executeReceivedWork: (@Sendable () -> Void)?
+	var executeReceivedInvocations: [@Sendable () -> Void] = []
+	var executeClosure: ((@escaping @Sendable () -> Void) -> Void)?
 
-	func execute(_ work: @escaping () -> Void) {
+	func execute(_ work: @escaping @Sendable () -> Void) {
 		executeCallsCount += 1
 		executeReceivedWork = work
 		executeReceivedInvocations.append(work)

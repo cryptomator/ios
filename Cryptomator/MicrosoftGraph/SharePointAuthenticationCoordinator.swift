@@ -10,11 +10,10 @@ import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import GRDB
-import Promises
 import UIKit
 
 class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating {
-	let pendingAuthentication = Promise<SharePointCredential>.pending()
+	let pendingAuthentication = OneShotSignal<SharePointCredential>()
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
@@ -31,12 +30,14 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 	}
 
 	func setSiteURL(_ siteURL: URL, from viewController: UIViewController) {
-		MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential in
-			self.showDriveList(credential: credential, siteURL: siteURL)
-		}.catch { error in
-			guard case CocoaError.userCancelled = error else {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			do {
+				let credential = try await MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint)
+				showDriveList(credential: credential, siteURL: siteURL)
+			} catch CocoaError.userCancelled {
 				return
+			} catch {
+				handleError(error, for: navigationController)
 			}
 		}
 	}

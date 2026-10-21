@@ -6,7 +6,6 @@
 //
 
 import AppAuth
-import Base32
 import CryptoKit
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -20,8 +19,9 @@ enum HubAuthenticationError: Error {
 }
 
 extension CryptomatorHubAuthenticator: HubAuthenticating {
-	private static var currentAuthorizationFlow: OIDExternalUserAgentSession?
+	@MainActor private static var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
+	@MainActor
 	public func authenticate(with hubConfig: HubConfig, from viewController: UIViewController) async throws -> OIDAuthState {
 		guard let authorizationEndpoint = URL(string: hubConfig.authEndpoint) else {
 			throw HubAuthenticationError.invalidAuthEndpoint
@@ -37,23 +37,23 @@ extension CryptomatorHubAuthenticator: HubAuthenticating {
 
 		let request = OIDAuthorizationRequest(configuration: configuration, clientId: hubConfig.clientId, scopes: nil, redirectURL: redirectURL, responseType: OIDResponseTypeCode, additionalParameters: nil)
 		return try await withCheckedThrowingContinuation({ continuation in
-			DispatchQueue.main.async {
-				CryptomatorHubAuthenticator.currentAuthorizationFlow =
-					OIDAuthState.authState(byPresenting: request, presenting: viewController) { authState, error in
-						switch (authState, error) {
-						case let (.some(authState), nil):
-							continuation.resume(returning: authState)
-						case let (nil, .some(error)):
-							continuation.resume(throwing: error)
-						default:
-							continuation.resume(throwing: CryptomatorHubAuthenticatorError.unexpectedError)
-						}
+			CryptomatorHubAuthenticator.currentAuthorizationFlow =
+				OIDAuthState.authState(byPresenting: request, presenting: viewController) { authState, error in
+					switch (authState, error) {
+					case let (.some(authState), nil):
+						// nonisolated(unsafe): AppAuth calls back on the main thread, and the awaiting caller is main-actor isolated
+						nonisolated(unsafe) let authState = authState
+						continuation.resume(returning: authState)
+					case let (nil, .some(error)):
+						continuation.resume(throwing: error)
+					default:
+						continuation.resume(throwing: CryptomatorHubAuthenticatorError.unexpectedError)
 					}
-			}
+				}
 		})
 	}
 }
 
 extension HubAuthenticatingKey: DependencyKey {
-	public static var liveValue: HubAuthenticating = CryptomatorHubAuthenticator()
+	public static let liveValue: HubAuthenticating = CryptomatorHubAuthenticator()
 }

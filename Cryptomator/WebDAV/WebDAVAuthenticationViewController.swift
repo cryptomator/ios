@@ -9,7 +9,6 @@
 import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import Promises
 import SwiftUI
 import UIKit
 
@@ -57,8 +56,9 @@ class WebDAVAuthenticationViewController: UIViewController {
 		case let .error(error):
 			handleError(error)
 		case let .authenticated(credential):
-			hud?.transformToSelfDismissingSuccess().then {
-				self.coordinator?.authenticated(with: credential)
+			Task {
+				await hud?.transformToSelfDismissingSuccess()
+				coordinator?.authenticated(with: credential)
 			}
 		case .insecureConnectionNotAllowed:
 			showInsecureConnectionAlert()
@@ -70,15 +70,9 @@ class WebDAVAuthenticationViewController: UIViewController {
 	}
 
 	func handleError(_ error: Error) {
-		let precondition: Promise<Void>
-		if let hud = hud {
-			precondition = hud.dismiss(animated: true)
-		} else {
-			precondition = Promise(())
-		}
-		precondition.then { [weak self] in
-			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
+		Task {
+			await hud?.dismiss(animated: true)
+			coordinator?.handleError(error, for: self)
 		}
 	}
 
@@ -91,13 +85,8 @@ class WebDAVAuthenticationViewController: UIViewController {
 	}
 
 	private func showUntrustedCertificateAlert(certificate: TLSCertificate, url: URL) {
-		let precondition: Promise<Void>
-		if let hud = hud {
-			precondition = hud.dismiss(animated: true)
-		} else {
-			precondition = Promise(())
-		}
-		precondition.then { [weak self] in
+		Task { [weak self] in
+			await self?.hud?.dismiss(animated: true)
 			let message = String(format: LocalizedString.getValue("untrustedTLSCertificate.message"), url.absoluteString, certificate.fingerprint)
 			let alertController = UIAlertController(title: LocalizedString.getValue("untrustedTLSCertificate.title"),
 			                                        message: message,
@@ -112,13 +101,8 @@ class WebDAVAuthenticationViewController: UIViewController {
 	}
 
 	private func showInsecureConnectionAlert() {
-		let precondition: Promise<Void>
-		if let hud = hud {
-			precondition = hud.dismiss(animated: true)
-		} else {
-			precondition = Promise(())
-		}
-		precondition.then { [weak self] in
+		Task { [weak self] in
+			await self?.hud?.dismiss(animated: true)
 			let alertController = UIAlertController(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.title"),
 			                                        message: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.message"),
 			                                        preferredStyle: .alert)
@@ -151,7 +135,6 @@ class WebDAVAuthenticationViewController: UIViewController {
 
 #if DEBUG
 import CryptomatorCloudAccessCore
-import Promises
 import SwiftUI
 
 struct WebDAVAuthenticationVCPreview: PreviewProvider {

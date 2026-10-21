@@ -6,26 +6,26 @@
 //  Copyright © 2023 Skymatic GmbH. All rights reserved.
 
 import JOSESwift
-import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
+@MainActor
 final class AddHubVaultUnlockHandlerTests: XCTestCase {
 	private let vaultUID = "vault-123456789"
 	private let accountUID = "account-123456789"
 	private var vaultManagerMock: VaultManagerMock!
 	private var unlockHandlerDelegateMock: HubVaultUnlockHandlerDelegateMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
 		vaultManagerMock = VaultManagerMock()
 		unlockHandlerDelegateMock = HubVaultUnlockHandlerDelegateMock()
 	}
 
 	func testDidSuccessfullyRemoteUnlock() async throws {
 		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: token)
@@ -45,8 +45,6 @@ final class AddHubVaultUnlockHandlerTests: XCTestCase {
 		                                             accountUID: accountUID, vaultItem: VaultItemStub(), downloadedVaultConfig: downloadedVaultConfig,
 		                                             vaultManager: vaultManagerMock,
 		                                             delegate: unlockHandlerDelegateMock)
-		vaultManagerMock.addExistingHubVaultReturnValue = Promise(())
-
 		// WHEN
 		// calling didSuccessfullyRemoteUnlock
 		try await unlockHandler.didSuccessfullyRemoteUnlock(.init(jwe: jwe, privateKey: .init(pemRepresentation: privateKeyPemRepresentation), subscriptionState: .active))
@@ -66,7 +64,7 @@ final class AddHubVaultUnlockHandlerTests: XCTestCase {
 
 	func testDidSuccessfullyRemoteUnlock_fails_informsDelegateAboutFailure() async throws {
 		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
 
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: token)
@@ -88,7 +86,7 @@ final class AddHubVaultUnlockHandlerTests: XCTestCase {
 		                                             delegate: unlockHandlerDelegateMock)
 		// GIVEN
 		// the existing hub vault can't be added due to an error
-		vaultManagerMock.addExistingHubVaultReturnValue = Promise(TestError())
+		vaultManagerMock.addExistingHubVaultThrowableError = TestError()
 
 		// WHEN
 		// calling didSuccessfullyRemoteUnlock

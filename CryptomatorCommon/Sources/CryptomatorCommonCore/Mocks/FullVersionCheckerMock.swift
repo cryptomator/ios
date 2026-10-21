@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class FullVersionCheckerMock: FullVersionChecker {
+/// @unchecked Sendable: test double, never touched concurrently
+final class FullVersionCheckerMock: FullVersionChecker, @unchecked Sendable {
 	var isFullVersion: Bool = false
 	var hasExpiredTrial: Bool = false
 }

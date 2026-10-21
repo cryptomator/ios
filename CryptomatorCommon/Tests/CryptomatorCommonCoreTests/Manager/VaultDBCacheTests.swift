@@ -9,7 +9,6 @@
 import Dependencies
 import Foundation
 import GRDB
-import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
@@ -24,8 +23,8 @@ class VaultDBCacheTests: XCTestCase {
 	private let cloudProviderMock = CloudProviderMock()
 	private var masterkeyFileData: Data!
 	private var updatedMasterkeyFileData: Data!
-	private let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-	private let updatedMasterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x56, count: 32), macMasterKey: [UInt8](repeating: 0x78, count: 32))
+	private var masterkey: Masterkey!
+	private var updatedMasterkey: Masterkey!
 	private var vaultConfigData: Data!
 	private var updatedVaultConfigData: Data!
 	private let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
@@ -34,6 +33,8 @@ class VaultDBCacheTests: XCTestCase {
 	private let updatedVaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)
 
 	override func setUpWithError() throws {
+		masterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x55, count: 32) + [UInt8](repeating: 0x77, count: 32))
+		updatedMasterkey = try Masterkey.createFromRaw(rawKey: [UInt8](repeating: 0x56, count: 32) + [UInt8](repeating: 0x78, count: 32))
 		let password = "PW"
 		masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: password, scryptCostParam: 2)
 		updatedMasterkeyFileData = try MasterkeyFile.lock(masterkey: updatedMasterkey, vaultVersion: 999, passphrase: password, scryptCostParam: 2)
@@ -84,12 +85,11 @@ class VaultDBCacheTests: XCTestCase {
 
 	// MARK: Refresh Vault Cache
 
-	func testRefreshVaultCache() throws {
+	func testRefreshVaultCache() async throws {
 		try vaultCache.cache(defaultCachedVault)
-		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock
-		cloudProviderMock.downloadFileFromToClosure = downloadMock
-		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 5.0)
+		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock()
+		cloudProviderMock.downloadFileFromToClosure = downloadMock()
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -104,16 +104,18 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedVaultConfigAndMasterkey()
 	}
 
-	func testRefreshCacheUpdatedMasterkeyMissingVaultConfig() throws {
+	func testRefreshCacheUpdatedMasterkeyMissingVaultConfig() async throws {
 		try vaultCache.cache(defaultCachedVault)
+		let updatedMasterkeyFileLastModifiedDate = updatedMasterkeyFileLastModifiedDate
+		let updatedMasterkeyFileData: Data = updatedMasterkeyFileData
 		cloudProviderMock.fetchItemMetadataAtClosure = { cloudPath in
 			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-				return Promise(CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedMasterkeyFileLastModifiedDate, size: 100))
+				return CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedMasterkeyFileLastModifiedDate, size: 100)
 			} else {
-				return Promise(CloudProviderError.itemNotFound)
+				throw CloudProviderError.itemNotFound
 			}
 		}
-		cloudProviderMock.downloadFileFromToClosure = { [self] cloudPath, downloadDestination in
+		cloudProviderMock.downloadFileFromToClosure = { cloudPath, downloadDestination in
 			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
 				do {
 					try updatedMasterkeyFileData.write(to: downloadDestination)
@@ -121,10 +123,9 @@ class VaultDBCacheTests: XCTestCase {
 					XCTFail("Write to downloadDestination \(downloadDestination) failed with error: \(error)")
 				}
 			}
-			return Promise(())
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: nil)
 		}
-		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 5.0)
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 		let fetchedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -137,19 +138,21 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedOnlyMasterkey()
 	}
 
-	func testRefreshVaultCacheOnlyMasterkeyUpdated() throws {
+	func testRefreshVaultCacheOnlyMasterkeyUpdated() async throws {
 		try vaultCache.cache(defaultCachedVault)
+		let updatedMasterkeyFileLastModifiedDate = updatedMasterkeyFileLastModifiedDate
+		let vaultConfigLastModifiedDate = try XCTUnwrap(defaultCachedVault.vaultConfigLastModifiedDate)
 		cloudProviderMock.fetchItemMetadataAtClosure = { cloudPath in
 			let metadata: CloudItemMetadata
 			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-				metadata = CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedMasterkeyFileLastModifiedDate, size: 100)
+				metadata = CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedMasterkeyFileLastModifiedDate, size: 100)
 			} else {
-				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.defaultCachedVault.vaultConfigLastModifiedDate!, size: 50)
+				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: 50)
 			}
-			return Promise(metadata)
+			return metadata
 		}
-		cloudProviderMock.downloadFileFromToClosure = downloadMock
-		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 5.0)
+		cloudProviderMock.downloadFileFromToClosure = downloadMock()
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -162,28 +165,30 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedOnlyMasterkey()
 	}
 
-	func testRefreshVaultCacheOnlyVaultConfigUpdated() throws {
+	func testRefreshVaultCacheOnlyVaultConfigUpdated() async throws {
 		let masterkeyFileLastModifiedDate = Date(timeIntervalSince1970: 0)
 		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: masterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: defaultCachedVault.vaultConfigLastModifiedDate)
 		try vaultCache.cache(cachedVault)
+		let updatedVaultConfigLastModifiedDate = updatedVaultConfigLastModifiedDate
+		let updatedVaultConfigData: Data = updatedVaultConfigData
 		cloudProviderMock.fetchItemMetadataAtClosure = { cloudPath in
 			let metadata: CloudItemMetadata
 			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
 				metadata = CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: masterkeyFileLastModifiedDate, size: 100)
 			} else {
-				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedVaultConfigLastModifiedDate, size: 50)
+				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedVaultConfigLastModifiedDate, size: 50)
 			}
-			return Promise(metadata)
+			return metadata
 		}
-		cloudProviderMock.downloadFileFromToClosure = { [self] _, downloadDestination in
+		cloudProviderMock.downloadFileFromToClosure = { cloudPath, downloadDestination in
 			do {
 				try updatedVaultConfigData.write(to: downloadDestination)
 			} catch {
 				XCTFail("Write to downloadDestination \(downloadDestination) failed with error: \(error)")
 			}
-			return Promise(())
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: nil)
 		}
-		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 5.0)
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: masterkeyFileData,
@@ -196,33 +201,23 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedOnlyVaultConfig()
 	}
 
-	func testRefreshUpToDateCache() throws {
+	func testRefreshUpToDateCache() async throws {
 		let upToDateCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: updatedMasterkeyFileData, vaultConfigToken: updatedVaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: updatedMasterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: updatedVaultConfigLastModifiedDate)
 		try vaultCache.cache(upToDateCachedVault)
-		cloudProviderMock.fetchItemMetadataAtClosure = { cloudPath in
-			let metadata: CloudItemMetadata
-			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-				metadata = CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedMasterkeyFileLastModifiedDate, size: 100)
-			} else {
-				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedVaultConfigLastModifiedDate, size: 50)
-			}
-			return Promise(metadata)
-		}
-		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 5.0)
+		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock()
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 		let fetchedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		XCTAssertEqual(upToDateCachedVault, fetchedVault)
 		assertFetchItemMetadataCalledForVaultConfigAndMasterkey()
 		XCTAssertFalse(cloudProviderMock.downloadFileFromToCalled)
 	}
 
-	func testRefreshCacheLastModifiedDateNotSetInCache() throws {
+	func testRefreshCacheLastModifiedDateNotSetInCache() async throws {
 		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try vaultCache.cache(cachedVault)
-		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock
-		cloudProviderMock.downloadFileFromToClosure = downloadMock
-		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 5.0)
+		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock()
+		cloudProviderMock.downloadFileFromToClosure = downloadMock()
+		try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let upToDateCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: updatedMasterkeyFileData, vaultConfigToken: updatedVaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: updatedMasterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: updatedVaultConfigLastModifiedDate)
 		XCTAssertEqual(upToDateCachedVault, actualCachedVault)
@@ -230,29 +225,34 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedVaultConfigAndMasterkey()
 	}
 
-	func testRefreshCacheMissingVaultConfigAndMasterkey() throws {
+	func testRefreshCacheMissingVaultConfigAndMasterkey() async throws {
 		cloudProviderMock.fetchItemMetadataAtThrowableError = CloudProviderError.itemNotFound
 		try vaultCache.cache(defaultCachedVault)
-		XCTAssertRejects(vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), with: CloudProviderError.itemNotFound)
+		await XCTAssertThrowsAsyncError(try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)) { error in
+			XCTAssertEqual(.itemNotFound, error as? CloudProviderError)
+		}
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: defaultCachedVault.masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: defaultCachedVault.masterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: nil)
 		XCTAssertEqual(expectedCachedVault, actualCachedVault)
 		XCTAssertFalse(cloudProviderMock.downloadFileFromToCalled)
 	}
 
-	func testRefreshCacheMissingMasterkeyUpdatedVaultConfig() throws {
+	func testRefreshCacheMissingMasterkeyUpdatedVaultConfig() async throws {
+		let updatedVaultConfigLastModifiedDate = updatedVaultConfigLastModifiedDate
 		cloudProviderMock.fetchItemMetadataAtClosure = { cloudPath in
 			let metadata: CloudItemMetadata
 			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-				return Promise(CloudProviderError.itemNotFound)
+				throw CloudProviderError.itemNotFound
 			} else {
-				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.updatedVaultConfigLastModifiedDate, size: 50)
+				metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedVaultConfigLastModifiedDate, size: 50)
 			}
-			return Promise(metadata)
+			return metadata
 		}
-		cloudProviderMock.downloadFileFromToClosure = downloadMock
+		cloudProviderMock.downloadFileFromToClosure = downloadMock()
 		try vaultCache.cache(defaultCachedVault)
-		XCTAssertRejects(vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), with: CloudProviderError.itemNotFound)
+		await XCTAssertThrowsAsyncError(try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)) { error in
+			XCTAssertEqual(.itemNotFound, error as? CloudProviderError)
+		}
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: defaultCachedVault.masterkeyFileData, vaultConfigToken: updatedVaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: defaultCachedVault.masterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: updatedVaultConfigLastModifiedDate)
 		XCTAssertEqual(expectedCachedVault, actualCachedVault)
@@ -260,28 +260,40 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedOnlyVaultConfig()
 	}
 
-	func testRefreshForNonCachedVault() {
-		XCTAssertRejects(vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), with: VaultCacheError.vaultNotFound)
+	func testRefreshForNonCachedVault() async {
+		await XCTAssertThrowsAsyncError(try await vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)) { error in
+			guard case VaultCacheError.vaultNotFound = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
 	}
 
-	private func downloadMock(_ cloudPath: CloudPath, _ downloadDestination: URL) -> Promise<Void> {
-		let data: Data
-		if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-			data = updatedMasterkeyFileData
-		} else {
-			data = updatedVaultConfigData
+	private func downloadMock() -> @Sendable (CloudPath, URL) async throws -> CloudItemMetadata {
+		let updatedMasterkeyFileData: Data = updatedMasterkeyFileData
+		let updatedVaultConfigData: Data = updatedVaultConfigData
+		return { cloudPath, downloadDestination in
+			let data: Data
+			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
+				data = updatedMasterkeyFileData
+			} else {
+				data = updatedVaultConfigData
+			}
+			try data.write(to: downloadDestination)
+			return CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: data.count)
 		}
-		return try Promise(data.write(to: downloadDestination))
 	}
 
-	private func defaultFetchItemMetadataMock(_ cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-		let metadata: CloudItemMetadata
-		if cloudPath.lastPathComponent == "masterkey.cryptomator" {
-			metadata = CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedMasterkeyFileLastModifiedDate, size: 100)
-		} else {
-			metadata = CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedVaultConfigLastModifiedDate, size: 50)
+	private func defaultFetchItemMetadataMock() -> @Sendable (CloudPath) async throws -> CloudItemMetadata {
+		let updatedMasterkeyFileLastModifiedDate = updatedMasterkeyFileLastModifiedDate
+		let updatedVaultConfigLastModifiedDate = updatedVaultConfigLastModifiedDate
+		return { cloudPath in
+			if cloudPath.lastPathComponent == "masterkey.cryptomator" {
+				return CloudItemMetadata(name: "masterkey.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedMasterkeyFileLastModifiedDate, size: 100)
+			} else {
+				return CloudItemMetadata(name: "vault.cryptomator", cloudPath: cloudPath, itemType: .file, lastModifiedDate: updatedVaultConfigLastModifiedDate, size: 50)
+			}
 		}
-		return Promise(metadata)
 	}
 
 	private func assertFetchItemMetadataCalledForVaultConfigAndMasterkey() {

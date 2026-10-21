@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Promises
 import StoreKit
 @testable import Cryptomator
 
@@ -35,17 +34,20 @@ final class IAPManagerMock: IAPManager {
 
 	var buyReceivedProduct: SKProduct?
 	var buyReceivedInvocations: [SKProduct] = []
-	var buyReturnValue: Promise<PurchaseTransaction>!
-	var buyClosure: ((SKProduct) -> Promise<PurchaseTransaction>)?
+	var buyReturnValue: PurchaseTransaction!
+	var buyClosure: ((SKProduct) async throws -> PurchaseTransaction)?
 
-	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction> {
+	func buy(_ product: SKProduct) async throws -> PurchaseTransaction {
 		if let error = buyThrowableError {
-			return Promise(error)
+			throw error
 		}
 		buyCallsCount += 1
 		buyReceivedProduct = product
 		buyReceivedInvocations.append(product)
-		return buyClosure.map({ $0(product) }) ?? buyReturnValue
+		if let buyClosure = buyClosure {
+			return try await buyClosure(product)
+		}
+		return buyReturnValue
 	}
 
 	// MARK: - restore
@@ -56,15 +58,18 @@ final class IAPManagerMock: IAPManager {
 		restoreCallsCount > 0
 	}
 
-	var restoreReturnValue: Promise<RestoreTransactionsResult>!
-	var restoreClosure: (() -> Promise<RestoreTransactionsResult>)?
+	var restoreReturnValue: RestoreTransactionsResult!
+	var restoreClosure: (() async throws -> RestoreTransactionsResult)?
 
-	func restore() -> Promise<RestoreTransactionsResult> {
+	func restore() async throws -> RestoreTransactionsResult {
 		if let error = restoreThrowableError {
-			return Promise(error)
+			throw error
 		}
 		restoreCallsCount += 1
-		return restoreClosure.map({ $0() }) ?? restoreReturnValue
+		if let restoreClosure = restoreClosure {
+			return try await restoreClosure()
+		}
+		return restoreReturnValue
 	}
 }
 

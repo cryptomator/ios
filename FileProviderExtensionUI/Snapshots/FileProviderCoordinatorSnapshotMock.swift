@@ -12,7 +12,6 @@ import CryptomatorFileProvider
 import Dependencies
 import FileProviderUI
 import LocalAuthentication
-import Promises
 import UIKit
 
 class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
@@ -66,11 +65,10 @@ extension UnlockVaultViewController {
 
 	@objc func swizzled_unlock() {
 		@Dependency(\.fileProviderConnector) var fileProviderConnector
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: nil)
-		getXPCPromise.then { xpc in
-			xpc.proxy.unlockVault(kek: [UInt8](), reply: { [weak self] _ in
-				self?.coordinator?.done()
-			})
+		Task {
+			let xpc: XPC<VaultUnlocking> = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: nil)
+			try? await xpc.proxy.unlockVault(kek: [UInt8]())
+			coordinator?.done()
 		}
 	}
 

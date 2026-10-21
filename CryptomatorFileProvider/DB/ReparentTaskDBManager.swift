@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-protocol ReparentTaskManager {
+protocol ReparentTaskManager: Sendable {
 	func createTaskRecord(for itemMetadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord
 	func removeTaskRecord(_ task: ReparentTaskRecord) throws
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord]
@@ -18,7 +18,7 @@ protocol ReparentTaskManager {
 	func getTask(for taskRecord: ReparentTaskRecord) throws -> ReparentTask
 }
 
-class ReparentTaskDBManager: ReparentTaskManager {
+final class ReparentTaskDBManager: ReparentTaskManager {
 	private let database: DatabaseWriter
 
 	init(database: DatabaseWriter) throws {

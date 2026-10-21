@@ -9,10 +9,10 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
-import Promises
 import XCTest
 @testable import Cryptomator
 
+@MainActor
 class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: PasswordVaultManagerMock!
 	private var viewModel: CreateNewVaultPasswordViewModel!
@@ -20,51 +20,40 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 	private let vaultUID = "12345"
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		vaultManagerMock = PasswordVaultManagerMock()
-		viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
+		viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID, vaultManager: vaultManagerMock)
 	}
 
-	func testCreateNewVault() {
-		let expectation = XCTestExpectation()
+	func testCreateNewVault() async throws {
 		let password = "TestPassword"
 
 		setPassword(password)
 		setConfirmPassword(password)
-		viewModel.createNewVault().then {
-			XCTAssertEqual(1, self.vaultManagerMock.createdVaults.count)
-			let createdVault = self.vaultManagerMock.createdVaults[0]
-			XCTAssertEqual(self.vaultUID, createdVault.vaultUID)
-			XCTAssertEqual("1", createdVault.delegateAccountUID)
-			XCTAssertEqual(self.vaultPath, createdVault.vaultPath)
-			XCTAssertEqual(password, createdVault.password)
-			XCTAssert(createdVault.storePasswordInKeychain)
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		try await viewModel.createNewVault()
+		XCTAssertEqual(1, vaultManagerMock.createdVaults.count)
+		let createdVault = try XCTUnwrap(vaultManagerMock.createdVaults.first)
+		XCTAssertEqual(vaultUID, createdVault.vaultUID)
+		XCTAssertEqual("1", createdVault.delegateAccountUID)
+		XCTAssertEqual(vaultPath, createdVault.vaultPath)
+		XCTAssertEqual(password, createdVault.password)
+		XCTAssertFalse(createdVault.storePasswordInKeychain)
 	}
 
-	func testCreateNewVaultWithEmptyPassword() {
-		let expectation = XCTestExpectation()
-
+	func testCreateNewVaultWithEmptyPassword() async {
 		guard let passwordCellViewModel = viewModel.sections[0].elements.first as? TextFieldCellViewModel else {
 			XCTFail("No passwordCellViewModel")
 			return
 		}
 		XCTAssert(passwordCellViewModel.input.value.isEmpty)
-		viewModel.createNewVault().then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await viewModel.createNewVault()) { error in
 			guard case CreateNewVaultPasswordViewModelError.emptyPassword = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
+				XCTFail("Threw wrong error: \(error)")
 				return
 			}
-			XCTAssertEqual(0, self.vaultManagerMock.createdVaults.count)
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(0, vaultManagerMock.createdVaults.count)
 	}
 
 	// MARK: - validatePassword
@@ -142,57 +131,57 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	}
 }
 
-private class PasswordVaultManagerMock: VaultManager {
+/// @unchecked Sendable: test double, never touched concurrently
+private final class PasswordVaultManagerMock: VaultManager, @unchecked Sendable {
 	var createdVaults = [CreatedVault]()
 
-	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) async throws {
 		let vault = CreatedVault(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: storePasswordInKeychain)
 		createdVaults.append(vault)
-		return Promise(())
 	}
 
 	func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider {
 		throw MockError.notMocked
 	}
 
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
+		throw MockError.notMocked
 	}
 
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) async throws {
+		throw MockError.notMocked
 	}
 
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
 		throw MockError.notMocked
 	}
 
-	func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func removeVault(withUID vaultUID: String) throws -> Task<Void, Never> {
+		throw MockError.notMocked
 	}
 
-	func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func removeVaults(withUIDs vaultUIDs: [String]) async throws {
+		throw MockError.notMocked
 	}
 
-	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func removeAllUnusedFileProviderDomains() async throws {
+		throw MockError.notMocked
 	}
 
-	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws {
+		throw MockError.notMocked
 	}
 
-	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) async throws {
+		throw MockError.notMocked
 	}
 
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
 		throw MockError.notMocked
 	}
 
-	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
-		return Promise(MockError.notMocked)
+	func addExistingHubVault(_ vault: ExistingHubVault) async throws {
+		throw MockError.notMocked
 	}
 
 	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider {

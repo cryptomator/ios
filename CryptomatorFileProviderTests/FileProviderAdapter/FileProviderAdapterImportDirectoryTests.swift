@@ -9,176 +9,98 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Promises
 
 class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 	private lazy var localFileURL = tmpDirectory.appendingPathComponent("test.txt")
 
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		let fileContent = "Content"
 		try fileContent.write(to: localFileURL, atomically: true, encoding: .utf8)
 	}
 
-	func testImportDirectory() throws {
-		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierClosure = {
-			return self.tmpDirectory.appendingPathComponent($0.rawValue)
+	func testImportDirectory() async throws {
+		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierClosure = { [tmpDirectory] in
+			return tmpDirectory!.appendingPathComponent($0.rawValue)
 		}
 		metadataManagerMock.cachedMetadata[1] = ItemMetadata(item: .init(name: "/", cloudPath: CloudPath("/"), itemType: .folder, lastModifiedDate: nil, size: nil), withParentID: 1)
-		let provider = CloudProviderGraphMock()
-		let scheduler = WorkflowSchedulerMock(maxParallelUploads: 2, maxParallelDownloads: 2)
-		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: scheduler, provider: provider, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
+		let adapter = createPackageAdapter(provider: CloudProviderGraphMock(), scheduler: GraphWorkflowSchedulerMock())
+		let directoryCount = 5
 		var parentIdentifier: NSFileProviderItemIdentifier = .rootContainer
 
-		for _ in 0 ..< 5 {
-			parentIdentifier = try createDirectoryWithFiles(adapter: adapter, parentIdentifier: parentIdentifier).itemIdentifier
+		for _ in 0 ..< directoryCount {
+			parentIdentifier = try await createDirectoryWithFiles(adapter: adapter, parentIdentifier: parentIdentifier).itemIdentifier
 		}
-		let expectation = XCTestExpectation()
-		DispatchQueue.global().async {
-			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 30))
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 35)
+		// The completion handlers fire before the workflows run, so only the workflows settling marks their end.
+		await adapter.awaitWorkflows()
+		XCTAssertEqual(directoryCount * 2, fileProviderItemUpdateDelegateMock.signalUpdateForCallsCount)
 	}
 
-	private func createDirectoryWithFiles(adapter: FileProviderAdapter, parentIdentifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
-		let createDirectoryPromise = adapter.createDirectory(withName: "1", inParentItemIdentifier: parentIdentifier)
-		wait(for: createDirectoryPromise, timeout: 10.0)
-		let firstDirectoryItem = try XCTUnwrap(createDirectoryPromise.value ?? nil)
+	// MARK: Cancellation
 
-		let importDocumentPromise = adapter.importDocument(at: localFileURL, toParentItemIdentifier: firstDirectoryItem.itemIdentifier)
-		wait(for: importDocumentPromise, timeout: 10.0)
+	func testProviderCancellationMarksPackageFileAsFailed() async throws {
+		let provider = CloudProviderGraphMock()
+		provider.failureByCloudPath[CloudPath("/Design Notes.rtfd/TXT.rtf")] = CancellationError()
+		let adapter = createPackageAdapter(provider: provider, scheduler: GraphWorkflowSchedulerMock())
+		let rootNode = try importPackage(adapter: adapter)
+		let file = try XCTUnwrap(rootNode.children.first { $0.itemMetadata.name == "TXT.rtf" })
+
+		try await adapter.schedulePackageFolder(rootNode, isRoot: true)
+
+		try assertPersisted(file.itemMetadata, statusCode: .uploadError)
+		let fileID = try XCTUnwrap(file.itemMetadata.id)
+		let recordedError = uploadTaskManagerMock.updateTaskRecordWithLastFailedUploadDateUploadErrorCodeUploadErrorDomainReceivedInvocations.last { $0.id == fileID }
+		XCTAssertEqual((CancellationError() as NSError).domain, recordedError?.uploadErrorDomain, "Recorded the cancellation as a different error")
+		XCTAssertNotNil(try cachedFileManagerMock.cachedLocalFileInfo[XCTUnwrap(file.itemMetadata.id)], "Retry Upload needs the local copy")
+	}
+
+	func testProviderCancellationOnPackageFolderMarksWholeSubtree() async throws {
+		let provider = CloudProviderGraphMock()
+		provider.failureByCloudPath[CloudPath("/Design Notes.rtfd/Attachments")] = CancellationError()
+		let scheduler = GraphWorkflowSchedulerMock()
+		scheduler.failsTestOnRejection = false
+		let adapter = createPackageAdapter(provider: provider, scheduler: scheduler)
+		let rootNode = try importPackage(adapter: adapter)
+		let attachments = try XCTUnwrap(rootNode.children.first { $0.itemMetadata.name == "Attachments" })
+		let deep = try XCTUnwrap(attachments.children.first { $0.itemMetadata.name == "Deep" })
+		let logo = try XCTUnwrap(attachments.children.first { $0.itemMetadata.name == "logo.png" })
+		let note = try XCTUnwrap(deep.children.first)
+
+		try await adapter.schedulePackageFolder(rootNode, isRoot: true)
+
+		try assertPersisted(attachments.itemMetadata, statusCode: .uploadError)
+		try assertPersisted(deep.itemMetadata, statusCode: .uploadError)
+		try assertPersisted(logo.itemMetadata, statusCode: .uploadError)
+		try assertPersisted(note.itemMetadata, statusCode: .uploadError)
+		let markedFileIDs = uploadTaskManagerMock.updateTaskRecordWithLastFailedUploadDateUploadErrorCodeUploadErrorDomainReceivedInvocations.map { $0.id }
+		XCTAssertEqual(Set([logo.itemMetadata.id, note.itemMetadata.id].compactMap { $0 }), Set(markedFileIDs), "Did not record a failure for every file below the cancelled folder")
+		// The sibling subtree is independent and must be unaffected.
+		XCTAssertNotNil(provider.virtualCloudFileSystem.getItem(at: CloudPath("/Design Notes.rtfd/TXT.rtf")))
+	}
+
+	private func importPackage(adapter: FileProviderAdapter) throws -> FileProviderAdapter.ImportedPackageNode {
+		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierClosure = { [tmpDirectory] identifier in
+			guard let itemID = identifier.databaseValue else {
+				return nil
+			}
+			return tmpDirectory!.appendingPathComponent("\(itemID)", isDirectory: true)
+		}
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+		let packageURL = tmpDirectory.appendingPathComponent("Design Notes.rtfd", isDirectory: true)
+		let attachmentsURL = packageURL.appendingPathComponent("Attachments", isDirectory: true)
+		let deepURL = attachmentsURL.appendingPathComponent("Deep", isDirectory: true)
+		try FileManager.default.createDirectory(at: deepURL, withIntermediateDirectories: true)
+		try "TestContent".write(to: packageURL.appendingPathComponent("TXT.rtf"), atomically: true, encoding: .utf8)
+		try "Logo".write(to: attachmentsURL.appendingPathComponent("logo.png"), atomically: true, encoding: .utf8)
+		try "Note".write(to: deepURL.appendingPathComponent("note.txt"), atomically: true, encoding: .utf8)
+		return try adapter.localPackageImport(fileURL: packageURL, parentIdentifier: .rootContainer).rootNode
+	}
+
+	private func createDirectoryWithFiles(adapter: FileProviderAdapter, parentIdentifier: NSFileProviderItemIdentifier) async throws -> NSFileProviderItem {
+		let createdItem = try await adapter.createDirectory(withName: "1", inParentItemIdentifier: parentIdentifier)
+		let firstDirectoryItem = try XCTUnwrap(createdItem)
+		_ = try await adapter.importDocument(at: localFileURL, toParentItemIdentifier: firstDirectoryItem.itemIdentifier)
 		return firstDirectoryItem
-	}
-
-	class CloudProviderGraphMock: CloudProvider {
-		var virtualCloudFileSystem = CloudFileGraphHandler()
-		var currentFiles = [String: CloudItemMetadata]()
-
-		func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-			guard let metadata = virtualCloudFileSystem.getItem(at: cloudPath)?.metadata else {
-				return Promise(CloudProviderError.itemNotFound)
-			}
-			return Promise(metadata)
-		}
-
-		func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-			return Promise(MockError.notMocked)
-		}
-
-		func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
-			return Promise(MockError.notMocked)
-		}
-
-		func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
-			return Promise(()).delay(1.0).then { _ -> Promise<CloudItemMetadata> in
-				do {
-					let data = try Data(contentsOf: localURL)
-					let metadata = CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: data.count)
-					try self.virtualCloudFileSystem.createItem(at: cloudPath, metadata: metadata)
-					return Promise(metadata)
-				} catch {
-					return Promise(error)
-				}
-			}
-		}
-
-		func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
-			let metadata = CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: nil, size: nil)
-			return Promise(()).delay(0.5).then { _ -> Promise<Void> in
-				do {
-					try self.virtualCloudFileSystem.createItem(at: cloudPath, metadata: metadata)
-				} catch {
-					return Promise(error)
-				}
-				return Promise(())
-			}
-		}
-
-		func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
-			return Promise(MockError.notMocked)
-		}
-
-		func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
-			return Promise(MockError.notMocked)
-		}
-
-		func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-			return Promise(MockError.notMocked)
-		}
-
-		func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-			return Promise(MockError.notMocked)
-		}
-	}
-
-	class WorkflowSchedulerMock: WorkflowScheduler {
-		let dispatchGroup = DispatchGroup()
-
-		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
-			dispatchGroup.enter()
-			return super.schedule(workflow).then { value -> T in
-				self.dispatchGroup.leave()
-				return value
-			}.catch { error in
-				XCTFail("failed with error: \(error)")
-			}
-		}
-	}
-
-	class CloudFileGraphNode {
-		var children = [CloudFileGraphNode]()
-		let metadata: CloudItemMetadata
-
-		init(metadata: CloudItemMetadata) {
-			self.metadata = metadata
-		}
-	}
-
-	struct CloudFileGraphHandler {
-		let root = CloudFileGraphNode(metadata: .init(name: "/", cloudPath: CloudPath("/"), itemType: .folder, lastModifiedDate: nil, size: nil))
-
-		func createItem(at path: CloudPath, metadata: CloudItemMetadata) throws {
-			let partialPaths = path.getPartialCloudPaths().dropFirst().dropLast()
-			var currentParentNode = root
-
-			for partialPath in partialPaths {
-				guard let currentNode = currentParentNode.children.first(where: { $0.metadata.cloudPath == partialPath }) else {
-					throw CloudProviderError.parentFolderDoesNotExist
-				}
-				currentParentNode = currentNode
-			}
-			if currentParentNode.children.contains(where: { $0.metadata.cloudPath == path }) {
-				throw CloudProviderError.itemAlreadyExists
-			}
-			currentParentNode.children.append(.init(metadata: metadata))
-		}
-
-		func getItem(at path: CloudPath) -> CloudFileGraphNode? {
-			let partialPaths = path.getPartialCloudPaths().dropFirst()
-			var currentParentNode = root
-
-			for partialPath in partialPaths {
-				guard let currentNode = currentParentNode.children.first(where: { $0.metadata.cloudPath == partialPath }) else {
-					return nil
-				}
-				currentParentNode = currentNode
-			}
-			return currentParentNode
-		}
-	}
-}
-
-extension FileProviderAdapterType {
-	func createDirectory(withName name: String, inParentItemIdentifier parentIdentifier: NSFileProviderItemIdentifier) -> Promise<NSFileProviderItem?> {
-		return Promise<NSFileProviderItem?> { fulfill, reject in
-			self.createDirectory(withName: name, inParentItemIdentifier: parentIdentifier, completionHandler: { item, error in
-				if let error = error {
-					reject(error)
-				} else {
-					fulfill(item)
-				}
-			})
-		}
 	}
 }

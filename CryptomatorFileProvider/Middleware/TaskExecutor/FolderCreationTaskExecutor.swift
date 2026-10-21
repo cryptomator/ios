@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
-import Promises
 
 class FolderCreationTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItem>?
@@ -28,13 +27,16 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 	private let itemMetadataManager: ItemMetadataManager
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	private let limiter: ConcurrencyLimiter
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
 	     provider: CloudProvider,
-	     itemMetadataManager: ItemMetadataManager) {
+	     itemMetadataManager: ItemMetadataManager,
+	     limiter: ConcurrencyLimiter) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
+		self.limiter = limiter
 	}
 
 	/**
@@ -45,9 +47,9 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 	 - Postcondition: The folder was created in the cloud.
 	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode == .isUploaded` and `isPlaceholderItem == false` in the database.
 	 */
-	func execute(task: CloudTask) -> Promise<FileProviderItem> {
+	func execute(task: CloudTask) async throws -> FileProviderItem {
 		guard task is FolderCreationTask else {
-			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
+			throw WorkflowMiddlewareError.incompatibleCloudTask
 		}
 		let itemMetadata = task.itemMetadata
 
@@ -55,13 +57,17 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
 
-		return provider.createFolder(at: task.cloudPath).then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
-			itemMetadata.statusCode = .isUploaded
-			itemMetadata.isPlaceholderItem = false
-			try itemMetadataManager.updateMetadata(itemMetadata)
-			return FileProviderItem(metadata: itemMetadata,
-			                        domainIdentifier: domainIdentifier,
-			                        newestVersionLocallyCached: true)
+		let cloudPath = task.cloudPath
+		// The permit is held for the request alone, never while waiting on dependencies, so a folder can never wait for a permit
+		// its own descendants hold.
+		try await limiter.withPermit {
+			try await provider.createFolder(at: cloudPath)
 		}
+		itemMetadata.statusCode = .isUploaded
+		itemMetadata.isPlaceholderItem = false
+		try itemMetadataManager.updateMetadata(itemMetadata)
+		return FileProviderItem(metadata: itemMetadata,
+		                        domainIdentifier: domainIdentifier,
+		                        newestVersionLocallyCached: true)
 	}
 }

@@ -9,9 +9,10 @@
 import Foundation
 import XCTest
 
+@MainActor
 extension XCTest {
-	func XCTAssertThrowsAsyncError<T: Sendable>(
-		_ expression: @autoclosure () async throws -> T,
+	func XCTAssertThrowsAsyncError<T>(
+		_ expression: @autoclosure @MainActor () async throws -> T,
 		_ message: @autoclosure () -> String = "",
 		file: StaticString = #filePath,
 		line: UInt = #line,

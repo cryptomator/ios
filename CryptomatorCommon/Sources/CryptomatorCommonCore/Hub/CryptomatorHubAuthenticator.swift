@@ -43,14 +43,18 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case incompatibleHubVersion
 }
 
-public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
-	typealias DataLoader = (URLRequest) async throws -> (Data, URLResponse)
+public final class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
+	typealias DataLoader = @Sendable (URLRequest) async throws -> (Data, URLResponse)
 
 	private static let scheme = "hub+"
 	private static let minimumHubVersion = 2
 	private static let iosLicenseHeader = "Hub-iOS-License"
 	private static let legacySubscriptionStateHeader = "Hub-Subscription-State"
-	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
+	private let cryptomatorHubKeyProviderDependency = Dependency(\.cryptomatorHubKeyProvider)
+	private var cryptomatorHubKeyProvider: CryptomatorHubKeyProvider {
+		cryptomatorHubKeyProviderDependency.wrappedValue
+	}
+
 	private let load: DataLoader
 
 	public init() {
@@ -218,7 +222,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	private func getDeviceID() throws -> String {
 		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
 		let digest = SHA256.hash(data: publicKey.derRepresentation)
-		return digest.data.base16EncodedString
+		// Must stay uppercase hex, the format Hub has registered existing devices under.
+		return digest.map { String(format: "%02X", $0) }.joined()
 	}
 
 	/**
@@ -337,16 +342,6 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	private struct DeviceDto: Codable {
 		let userPrivateKey: String
-	}
-}
-
-extension Digest {
-	var bytes: [UInt8] {
-		Array(makeIterator())
-	}
-
-	var data: Data {
-		Data(bytes)
 	}
 }
 

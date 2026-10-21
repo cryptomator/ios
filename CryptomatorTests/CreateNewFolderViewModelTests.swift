@@ -7,48 +7,39 @@
 //
 
 import CryptomatorCloudAccessCore
-import Promises
+import os
 import XCTest
 @testable import Cryptomator
 
+@MainActor
 class CreateNewFolderViewModelTests: XCTestCase {
 	private var cloudProviderMock: CloudProviderMockOld!
 	var viewModel: CreateNewFolderViewModel!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		cloudProviderMock = CloudProviderMockOld()
 		viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
 	}
 
-	func testCreateNewFolder() {
-		let expectation = XCTestExpectation()
+	func testCreateNewFolder() async throws {
 		setFolderName("Foo")
-		viewModel.createFolder().then { folderPath in
-			let expectedFolderPath = CloudPath("/Foo")
-			XCTAssertEqual(expectedFolderPath, folderPath)
-			XCTAssertEqual(1, self.cloudProviderMock.createdFolders.count)
-			XCTAssertEqual(expectedFolderPath, self.cloudProviderMock.createdFolders[0])
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 5.0)
+		let folderPath = try await viewModel.createFolder()
+		let expectedFolderPath = CloudPath("/Foo")
+		XCTAssertEqual(expectedFolderPath, folderPath)
+		XCTAssertEqual(1, cloudProviderMock.createdFolders.count)
+		XCTAssertEqual(expectedFolderPath, cloudProviderMock.createdFolders[0])
 	}
 
-	func testCreateNewFolderForEmptyFolderName() {
-		let expectation = XCTestExpectation()
+	func testCreateNewFolderForEmptyFolderName() async {
 		XCTAssert(viewModel.folderName.isEmpty)
-		viewModel.createFolder().then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			XCTAssertEqual(0, self.cloudProviderMock.createdFolders.count)
+		await XCTAssertThrowsAsyncError(try await viewModel.createFolder()) { error in
 			guard case CreateNewFolderViewModelError.emptyFolderName = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
+				XCTFail("Threw wrong error: \(error)")
 				return
 			}
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 5.0)
+		XCTAssertEqual(0, cloudProviderMock.createdFolders.count)
 	}
 
 	func testReturnButtonSupport() {
@@ -64,45 +55,60 @@ class CreateNewFolderViewModelTests: XCTestCase {
 	}
 }
 
-private class CloudProviderMockOld: CloudProvider {
-	var createdFolders = [CloudPath]()
-	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-		return Promise(CloudProviderError.noInternetConnection)
+private final class CloudProviderMockOld: CloudProvider {
+	private let createdFoldersState = OSAllocatedUnfairLock(initialState: [CloudPath]())
+
+	var createdFolders: [CloudPath] {
+		createdFoldersState.withLock { $0 }
 	}
 
-	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func fetchItemMetadata(at cloudPath: CloudPath) async throws -> CloudItemMetadata {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) async throws -> CloudItemList {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, progress: Progress?, onTaskCreation: (@concurrent @Sendable (URLSessionDownloadTask) async -> Void)?) async throws -> CloudItemMetadata {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
-		if createdFolders.contains(cloudPath) {
-			return Promise(CloudProviderError.itemAlreadyExists)
+	@concurrent
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, progress: Progress?, onTaskCreation: (@concurrent @Sendable (URLSessionUploadTask) async -> Void)?) async throws -> CloudItemMetadata {
+		throw CloudProviderError.noInternetConnection
+	}
+
+	@concurrent
+	func createFolder(at cloudPath: CloudPath) async throws {
+		try createdFoldersState.withLock { createdFolders in
+			if createdFolders.contains(cloudPath) {
+				throw CloudProviderError.itemAlreadyExists
+			}
+			createdFolders.append(cloudPath)
 		}
-		createdFolders.append(cloudPath)
-		return Promise(())
 	}
 
-	func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func deleteFile(at cloudPath: CloudPath) async throws {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func deleteFolder(at cloudPath: CloudPath) async throws {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
+		throw CloudProviderError.noInternetConnection
 	}
 
-	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	@concurrent
+	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) async throws {
+		throw CloudProviderError.noInternetConnection
 	}
 }

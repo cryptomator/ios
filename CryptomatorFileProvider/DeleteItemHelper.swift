@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeleteItemHelper {
+final class DeleteItemHelper: Sendable {
 	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 

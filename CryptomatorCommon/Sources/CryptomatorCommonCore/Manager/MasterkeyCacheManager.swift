@@ -19,7 +19,7 @@ protocol MasterkeyCacheHelper {
 	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool
 }
 
-public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
+public final class MasterkeyCacheKeychainManager: MasterkeyCacheManager, Sendable {
 	public static let shared = MasterkeyCacheKeychainManager(keychain: CryptomatorKeychain(service: "masterkeyCache"))
 	private let keychain: CryptomatorKeychainType
 
@@ -39,7 +39,7 @@ public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
 		}
 		let jsonDecoder = JSONDecoder()
 		let cachedMasterkey = try jsonDecoder.decode(CachedMasterkey.self, from: data)
-		return Masterkey.createFromRaw(rawKey: cachedMasterkey.rawKey)
+		return try Masterkey.createFromRaw(rawKey: cachedMasterkey.rawKey)
 	}
 
 	public func removeCachedMasterkey(forVaultUID vaultUID: String) throws {

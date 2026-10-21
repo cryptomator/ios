@@ -8,7 +8,6 @@
 
 import FileProvider
 import Foundation
-import Promises
 @testable import CryptomatorFileProvider
 
 // swiftlint:disable all
@@ -22,15 +21,18 @@ final class NSFileProviderDomainProviderMock: NSFileProviderDomainProvider {
 		getDomainsCallsCount > 0
 	}
 
-	var getDomainsReturnValue: Promise<[NSFileProviderDomain]>!
-	var getDomainsClosure: (() -> Promise<[NSFileProviderDomain]>)?
+	var getDomainsReturnValue: [NSFileProviderDomain]!
+	var getDomainsClosure: (() async throws -> [NSFileProviderDomain])?
 
-	func getDomains() -> Promise<[NSFileProviderDomain]> {
+	func getDomains() async throws -> [NSFileProviderDomain] {
 		if let error = getDomainsThrowableError {
-			return Promise(error)
+			throw error
 		}
 		getDomainsCallsCount += 1
-		return getDomainsClosure.map({ $0() }) ?? getDomainsReturnValue
+		if let getDomainsClosure {
+			return try await getDomainsClosure()
+		}
+		return getDomainsReturnValue
 	}
 }
 

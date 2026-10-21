@@ -9,11 +9,10 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
-@testable import Promises
 
 class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
-	override func setUpWithError() throws {
-		try super.setUpWithError()
+	override func setUp() async throws {
+		try await super.setUp()
 		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
 			$0.map { _ in return nil }
 		}
@@ -27,15 +26,13 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		                                                                                                           isPlaceholderItem: false)
 	}
 
-	func testGetItemIdentifierForRoot() throws {
+	func testGetItemIdentifierForRoot() async throws {
 		let cloudPath = CloudPath("/")
-		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 5.0)
-		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
+		let itemIdentifier = try await adapter.getItemIdentifier(for: cloudPath)
 		XCTAssertEqual(.rootContainer, itemIdentifier)
 	}
 
-	func testGetItemIdentifierForSubFolder() throws {
+	func testGetItemIdentifierForSubFolder() async throws {
 		let cloudPath = CloudPath("/Directory 1/Directory 2")
 		let folderMetadata = ItemMetadata(id: 2,
 		                                  name: "Directory 1",
@@ -60,27 +57,24 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		let subFolderMetadataID = try XCTUnwrap(subFolderMetadata.id)
 		metadataManagerMock.cachedMetadata[subFolderMetadataID] = subFolderMetadata
 
-		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 5.0)
-		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
+		let itemIdentifier = try await adapter.getItemIdentifier(for: cloudPath)
 		let expectedItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: subFolderMetadataID)
 		XCTAssertEqual(expectedItemIdentifier, itemIdentifier)
 	}
 
-	func testGetItemIdentifierFallsBackToEnumerationForColdPath() throws {
+	func testGetItemIdentifierFallsBackToEnumerationForColdPath() async throws {
 		// Not cached, but exists in mock cloud; enumeration populates the cache, then lookup succeeds.
 		let cloudPath = CloudPath("/Directory 1/Directory 2")
-		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 5.0)
-		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
+		let itemIdentifier = try await adapter.getItemIdentifier(for: cloudPath)
 		let resolvedMetadata = try XCTUnwrap(metadataManagerMock.getCachedMetadata(for: cloudPath))
 		XCTAssertEqual(try NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: XCTUnwrap(resolvedMetadata.id)), itemIdentifier)
 	}
 
-	func testGetItemIdentifierForNonexistentItem() {
-		// Neither cached nor in mock cloud; enumeration finds nothing, lookup rejects.
+	func testGetItemIdentifierForNonexistentItem() async {
+		// Neither cached nor in mock cloud; enumeration finds nothing, lookup throws.
 		let cloudPath = CloudPath("/Directory 1/Does Not Exist")
-		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		XCTAssertRejects(getItemIdentifierPromise, with: NSFileProviderError(.noSuchItem)._nsError)
+		await XCTAssertThrowsAsyncError(try await adapter.getItemIdentifier(for: cloudPath)) { error in
+			XCTAssertEqual(NSFileProviderError(.noSuchItem)._nsError, error as NSError)
+		}
 	}
 }

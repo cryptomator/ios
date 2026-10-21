@@ -11,7 +11,8 @@ import CryptomatorCommonCore
 import FileProvider
 import Foundation
 
-public class CacheManagingServiceSource: ServiceSource, CacheManaging {
+/// @unchecked Sendable: `getItem` is assigned before the service source is handed to fileproviderd, and nothing else is mutated after init
+public class CacheManagingServiceSource: ServiceSource, CacheManaging, @unchecked Sendable {
 	let domainProvider: NSFileProviderDomainProvider
 	let cachedManagerFactory: CachedFileManagerFactory
 	let notificator: FileProviderNotificatorType?
@@ -49,20 +50,30 @@ public class CacheManagingServiceSource: ServiceSource, CacheManaging {
 	}
 
 	public func clearCache(reply: @escaping (NSError?) -> Void) {
-		domainProvider.getDomains().then { domains in
-			try self.clearCache(for: domains)
-			reply(nil)
-		}.catch {
-			reply($0 as NSError)
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
+		Task {
+			do {
+				let domains = try await domainProvider.getDomains()
+				try clearCache(for: domains)
+				reply(nil)
+			} catch {
+				reply(error as NSError)
+			}
 		}
 	}
 
 	public func getLocalCacheSizeInBytes(reply: @escaping (NSNumber?, NSError?) -> Void) {
-		domainProvider.getDomains().then { domains in
-			let totalCacheSize = try self.getLocalCacheSizeInBytes(for: domains)
-			reply(totalCacheSize as NSNumber, nil)
-		}.catch {
-			reply(nil, $0 as NSError)
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
+		Task {
+			do {
+				let domains = try await domainProvider.getDomains()
+				let totalCacheSize = try getLocalCacheSizeInBytes(for: domains)
+				reply(totalCacheSize as NSNumber, nil)
+			} catch {
+				reply(nil, error as NSError)
+			}
 		}
 	}
 

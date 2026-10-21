@@ -9,7 +9,6 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
-import Promises
 
 class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let vaultName: String
@@ -27,11 +26,10 @@ class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, Loca
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: CreateNewLocalVaultValidationLogic(vaultName: vaultName), accountManager: accountManager)
 	}
 
-	func addVault(for credential: LocalFileSystemCredential) -> Promise<LocalFileSystemAuthenticationResult> {
-		return validateAndSave(credential: credential).then { account -> LocalFileSystemAuthenticationResult in
-			let vault = Folder(path: CloudPath("/\(self.vaultName)"))
-			return LocalFileSystemAuthenticationResult(credential: credential, account: account, item: vault)
-		}
+	func addVault(for credential: LocalFileSystemCredential) async throws -> LocalFileSystemAuthenticationResult {
+		let account = try await validateAndSave(credential: credential)
+		let vault = Folder(path: CloudPath("/\(vaultName)"))
+		return LocalFileSystemAuthenticationResult(credential: credential, account: account, item: vault)
 	}
 }
 

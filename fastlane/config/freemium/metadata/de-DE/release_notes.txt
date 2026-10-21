@@ -1,3 +1,4 @@
-- Kommentarloses Schließen des Entsperrbildschirms in der Dateien-App bei Fehlern behoben.
-- Nur schreibgeschütztes Öffnen von Hub-Tresoren hinter einem HTTP/1.1-Proxy behoben (#466).
-- Veraltete Speicherorte von Dateien und Ordnern in verschobenen Ordnern behoben (#450, #459).
+- Unterstützung für das Kopieren von Paketen wie RTFD-Dokumenten oder Pages-, Numbers- und Keynote-Dateien in Tresore hinzugefügt, wo sie als Ordner gespeichert werden (#471).
+- Anzeige eines Tresors als entsperrt in der App behoben, obwohl die Dateien-App ihn bereits wieder gesperrt hatte (#475, #477).
+- Anzeige fehlgeschlagener Uploads als laufend in der Dateien-App behoben (#478).
+- Mindest-iOS-Version auf 17 angehoben (#480).

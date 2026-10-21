@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+import os
 import PCloudSDKSwift
 
 public protocol CloudProviderManager {
@@ -28,8 +29,9 @@ struct CachedProvider {
 	}
 }
 
-public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating {
-	static var cachedProvider = [CachedProvider]()
+/// @unchecked Sendable: all stored properties are immutable and Sendable; the class is only subclassed by test doubles
+public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating, @unchecked Sendable {
+	static let cachedProvider = OSAllocatedUnfairLock(initialState: [CachedProvider]())
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	let accountManager: CloudProviderAccountDBManager
 
@@ -40,18 +42,18 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	}
 
 	public func getProvider(with accountUID: String) throws -> CloudProvider {
-		if let entry = CloudProviderDBManager.cachedProvider.first(where: {
+		if let entry = CloudProviderDBManager.cachedProvider.withLock({ $0.first(where: {
 			$0.accountUID == accountUID && !$0.isBackgroundSession
-		}) {
+		}) }) {
 			return entry.provider
 		}
 		return try createProvider(for: accountUID)
 	}
 
 	public func getBackgroundSessionProvider(with accountUID: String, sessionIdentifier: String) throws -> any CloudProvider {
-		if let entry = CloudProviderDBManager.cachedProvider.first(where: {
+		if let entry = CloudProviderDBManager.cachedProvider.withLock({ $0.first(where: {
 			$0.accountUID == accountUID && $0.backgroundSessionIdentifier == sessionIdentifier
-		}) {
+		}) }) {
 			return entry.provider
 		}
 		return try createBackgroundSessionProvider(for: accountUID, sessionIdentifier: sessionIdentifier)
@@ -95,13 +97,13 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let client = WebDAVClient(credential: credential)
 			provider = try WebDAVProvider(with: client, maxPageSize: .max)
 		}
-		CloudProviderDBManager.cachedProvider.append(
+		CloudProviderDBManager.cachedProvider.withLock { $0.append(
 			.init(
 				accountUID: accountUID,
 				provider: provider,
 				backgroundSessionIdentifier: nil
 			)
-		)
+		) }
 		return provider
 	}
 
@@ -146,13 +148,13 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			provider = try WebDAVProvider(with: client, maxPageSize: maxPageSizeForFileProvider)
 		}
-		CloudProviderDBManager.cachedProvider.append(
+		CloudProviderDBManager.cachedProvider.withLock { $0.append(
 			.init(
 				accountUID: accountUID,
 				provider: provider,
 				backgroundSessionIdentifier: sessionIdentifier
 			)
-		)
+		) }
 		return provider
 	}
 
@@ -171,7 +173,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	}
 
 	public func providerShouldUpdate(with accountUID: String) {
-		CloudProviderDBManager.cachedProvider.removeAll(where: { $0.accountUID == accountUID })
+		CloudProviderDBManager.cachedProvider.withLock { $0.removeAll(where: { $0.accountUID == accountUID }) }
 		// call XPCService for FileProvider
 	}
 }

@@ -13,7 +13,8 @@ import FileProvider
 import Foundation
 import MobileCoreServices
 
-public class FileProviderItem: NSObject, NSFileProviderItem {
+/// @unchecked Sendable: not mutated after construction
+public class FileProviderItem: NSObject, NSFileProviderItem, @unchecked Sendable {
 	static let readOnlyCapabilities: NSFileProviderItemCapabilities = .allowsReading
 
 	// TODO: implement an initializer to create an item from your extension's backing model

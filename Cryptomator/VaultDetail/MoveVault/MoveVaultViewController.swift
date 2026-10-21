@@ -60,11 +60,10 @@ class MoveVaultViewController: ChooseFolderViewController {
 		hud.showLoadingIndicator()
 		do {
 			try await viewModel.moveVault()
-			hud.transformToSelfDismissingSuccess {
-				self.coordinator?.chooseItem(Folder(path: viewModel.cloudPath))
-			}
+			await hud.transformToSelfDismissingSuccess()
+			coordinator?.chooseItem(Folder(path: viewModel.cloudPath))
 		} catch {
-			handleError(error, coordinator: coordinator, progressHUD: hud)
+			await handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }

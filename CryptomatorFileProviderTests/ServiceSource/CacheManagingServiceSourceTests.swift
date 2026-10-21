@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import Dependencies
-import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
@@ -32,7 +31,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let cacheManagerMocks = [CachedFileManagerMock(),
 		                         CachedFileManagerMock()]
-		domainProviderMock.getDomainsReturnValue = Promise(domains)
+		domainProviderMock.getDomainsReturnValue = domains
 		cacheManagerFactoryMock.createCachedFileManagerForClosure = { domain in
 			guard let index = self.domains.firstIndex(of: domain) else {
 				throw NSError(domain: "TestError", code: -100, userInfo: nil)
@@ -100,7 +99,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 
 		let cacheManagerMocks = [firstCacheManagerMock,
 		                         secondCacheManagerMock]
-		domainProviderMock.getDomainsReturnValue = Promise(domains)
+		domainProviderMock.getDomainsReturnValue = domains
 		cacheManagerFactoryMock.createCachedFileManagerForClosure = { domain in
 			guard let index = self.domains.firstIndex(of: domain) else {
 				throw NSError(domain: "TestError", code: -100, userInfo: nil)

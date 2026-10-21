@@ -12,7 +12,6 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import UIKit
 
 class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, DefaultAccountSelectionBehavior, Coordinator {
@@ -45,13 +44,15 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
-			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			self.startFolderChooser(with: provider, account: account)
-		}.catch { error in
-			guard case CocoaError.userCancelled = error else {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			do {
+				let account = try await authenticator.authenticate(cloudProviderType, from: viewController)
+				let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+				startFolderChooser(with: provider, account: account)
+			} catch CocoaError.userCancelled {
 				return
+			} catch {
+				handleError(error, for: navigationController)
 			}
 		}
 	}
@@ -143,13 +144,14 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		let hud = ProgressHUD()
 		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
 		hud.show(presentingViewController: navigationController)
-		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedMasterkeyFile in
-			all(hud.dismiss(animated: true), Promise(downloadedMasterkeyFile))
-		}.then { _, downloadedMasterkeyFile in
-			self.processDownloadedMasterkeyFile(downloadedMasterkeyFile, vaultItem: vaultItem)
-		}.catch { error in
-			hud.dismiss(animated: true).then {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			do {
+				let downloadedMasterkeyFile = try await VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem)
+				await hud.dismiss(animated: true)
+				processDownloadedMasterkeyFile(downloadedMasterkeyFile, vaultItem: vaultItem)
+			} catch {
+				await hud.dismiss(animated: true)
+				handleError(error, for: navigationController)
 			}
 		}
 	}
@@ -169,13 +171,14 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		let hud = ProgressHUD()
 		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
 		hud.show(presentingViewController: navigationController)
-		VaultDBManager.shared.getUnverifiedVaultConfig(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedVaultConfig in
-			all(hud.dismiss(animated: true), Promise(downloadedVaultConfig))
-		}.then { _, downloadedVaultConfig in
-			self.processDownloadedVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
-		}.catch { error in
-			hud.dismiss(animated: true).then {
-				self.handleError(error, for: self.navigationController)
+		Task {
+			do {
+				let downloadedVaultConfig = try await VaultDBManager.shared.getUnverifiedVaultConfig(delegateAccountUID: account.accountUID, vaultItem: vaultItem)
+				await hud.dismiss(animated: true)
+				processDownloadedVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
+			} catch {
+				await hud.dismiss(animated: true)
+				handleError(error, for: navigationController)
 			}
 		}
 	}
@@ -192,11 +195,14 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 	}
 
 	private func handleMasterkeyFileVaultConfig(_ downloadedVaultConfig: DownloadedVaultConfig, vaultItem: VaultItem) {
-		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedMasterkeyFile in
-			let viewModel = OpenExistingVaultPasswordViewModel(provider: self.provider, account: self.account, vault: vaultItem, vaultUID: UUID().uuidString, downloadedVaultConfig: downloadedVaultConfig, downloadedMasterkeyFile: downloadedMasterkeyFile)
+		Task {
+			guard let downloadedMasterkeyFile = try? await VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem) else {
+				return
+			}
+			let viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString, downloadedVaultConfig: downloadedVaultConfig, downloadedMasterkeyFile: downloadedMasterkeyFile)
 			let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
 			passwordVC.coordinator = self
-			self.navigationController.pushViewController(passwordVC, animated: true)
+			navigationController.pushViewController(passwordVC, animated: true)
 		}
 	}
 

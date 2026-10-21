@@ -33,7 +33,7 @@ public enum JWEHelper {
 		guard let masterkeyData = Data(base64Encoded: payloadMasterkey.key) else {
 			throw JWEHelperError.invalidMasterkeyPayload
 		}
-		return Masterkey.createFromRaw(rawKey: [UInt8](masterkeyData))
+		return try Masterkey.createFromRaw(rawKey: [UInt8](masterkeyData))
 	}
 
 	public static func decryptUserKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey) throws -> P384.KeyAgreement.PrivateKey {

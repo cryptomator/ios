@@ -10,11 +10,11 @@ import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
 import Dependencies
 import GRDB
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class MoveVaultViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
 	private var fileProviderConnectorMock: CryptomatorCommonCore.FileProviderConnectorMock!
@@ -24,7 +24,8 @@ class MoveVaultViewModelTests: XCTestCase {
 	private var maintenanceHelperMock: MaintenanceModeHelperMock!
 	private var vaultLockingMock: VaultLockingMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 	}
@@ -44,7 +45,7 @@ class MoveVaultViewModelTests: XCTestCase {
 				return self.vaultLockingMock!
 			default:
 				XCTFail("Get XPC called for unexpected serviceName: \(serviceName)")
-				return Promise(MockError.notMocked)
+				return MockError.notMocked
 			}
 		}
 	}
@@ -65,8 +66,6 @@ class MoveVaultViewModelTests: XCTestCase {
 				maintenanceModeDisabled.fulfill()
 				$0(nil)
 			}
-
-			self.vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
 
 			try await self.viewModel.moveVault(to: targetCloudPath)
 			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
@@ -161,7 +160,9 @@ class MoveVaultViewModelTests: XCTestCase {
 				maintenanceModeDisabled.fulfill()
 				$0(nil)
 			}
-			self.vaultManagerMock.moveVaultAccountToReturnValue = Promise(CloudProviderError.itemAlreadyExists)
+			self.vaultManagerMock.moveVaultAccountToClosure = { _, _ in
+				throw CloudProviderError.itemAlreadyExists
+			}
 
 			await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: CloudPath("/Test")), "") { error in
 				XCTAssertEqual(.itemAlreadyExists, error as? CloudProviderError)

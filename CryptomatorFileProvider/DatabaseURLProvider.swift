@@ -9,12 +9,11 @@
 import FileProvider
 import Foundation
 
-public struct DatabaseURLProvider {
-	public static let shared = DatabaseURLProvider(documentStorageURLProvider: NSFileProviderManager.default)
-	let documentStorageURLProvider: DocumentStorageURLProvider
+public struct DatabaseURLProvider: Sendable {
+	public static let shared = DatabaseURLProvider(documentStorageURL: NSFileProviderManager.default.documentStorageURL)
+	let documentStorageURL: URL
 
 	public func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
-		let documentStorageURL = documentStorageURLProvider.documentStorageURL
 		let domainURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true)
 		return domainURL.appendingPathComponent("db.sqlite", isDirectory: false)
 	}

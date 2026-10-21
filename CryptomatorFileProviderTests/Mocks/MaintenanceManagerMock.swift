@@ -9,7 +9,8 @@
 import CryptomatorFileProvider
 import Foundation
 
-final class MaintenanceManagerMock: MaintenanceManager {
+/// @unchecked Sendable: test double, never touched concurrently
+final class MaintenanceManagerMock: MaintenanceManager, @unchecked Sendable {
 	// MARK: - enableMaintenanceMode
 
 	var enableMaintenanceModeThrowableError: Error?

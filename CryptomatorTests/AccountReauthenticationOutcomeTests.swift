@@ -9,6 +9,7 @@
 import XCTest
 @testable import Cryptomator
 
+@MainActor
 class AccountReauthenticationOutcomeTests: XCTestCase {
 	// MARK: - Matched
 

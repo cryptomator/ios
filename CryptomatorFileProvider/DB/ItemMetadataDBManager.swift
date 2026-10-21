@@ -11,7 +11,7 @@ import FileProvider
 import Foundation
 import GRDB
 
-protocol ItemMetadataManager {
+protocol ItemMetadataManager: Sendable {
 	func cacheMetadata(_ metadata: ItemMetadata) throws
 	func updateMetadata(_ metadata: ItemMetadata) throws
 	func cacheMetadata(_ metadataList: [ItemMetadata]) throws
@@ -44,7 +44,7 @@ protocol ItemMetadataManager {
 	func setLastEnumeratedAt(_ date: Date, forItemWithID id: Int64) throws
 }
 
-class ItemMetadataDBManager: ItemMetadataManager {
+final class ItemMetadataDBManager: ItemMetadataManager {
 	private let database: DatabaseWriter
 
 	init(database: DatabaseWriter) {

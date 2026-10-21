@@ -19,7 +19,8 @@ public protocol FileProviderNotificatorType: FileProviderItemUpdateDelegate {
 	func popUpdateContainerItems() -> [NSFileProviderItem]
 }
 
-public class FileProviderNotificator: FileProviderNotificatorType {
+/// @unchecked Sendable: state confined to `queue`
+public final class FileProviderNotificator: FileProviderNotificatorType, @unchecked Sendable {
 	private var signalDeleteContainerItemIdentifier = Set<NSFileProviderItemIdentifier>()
 	private var signalUpdateContainerItem = [NSFileProviderItemIdentifier: NSFileProviderItem]()
 	private var signalDeleteWorkingSetItemIdentifier = Set<NSFileProviderItemIdentifier>()
@@ -156,7 +157,7 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 	}
 }
 
-public protocol FileProviderItemUpdateDelegate: AnyObject {
+public protocol FileProviderItemUpdateDelegate: AnyObject, Sendable {
 	func signalUpdate(for item: NSFileProviderItem)
 	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier)
 	func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier])
@@ -165,7 +166,7 @@ public protocol FileProviderItemUpdateDelegate: AnyObject {
 }
 
 public protocol EnumerationSignaling {
-	func signalEnumerator(for containerItemIdentifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void)
+	func signalEnumerator(for containerItemIdentifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping @Sendable (Error?) -> Void)
 }
 
 extension NSFileProviderManager: EnumerationSignaling {}

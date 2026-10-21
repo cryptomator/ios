@@ -13,7 +13,6 @@ import Dependencies
 import FileProvider
 import Foundation
 import GRDB
-import Promises
 
 protocol MoveVaultViewModelProtocol: ChooseFolderViewModelProtocol {
 	func moveVault() async throws
@@ -55,7 +54,7 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 		defer {
 			fileProviderConnector.invalidateXPC(xpc)
 		}
-		try await xpc.proxy.executeExclusiveOperation {
+		try await xpc.proxy.executeExclusiveOperation { @MainActor in
 			try await self.lockVault()
 			try await self.moveVault(account: self.vaultInfo.vaultAccount, to: targetCloudPath)
 		}
@@ -92,12 +91,6 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 	}
 
 	private func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws {
-		try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) -> Void in
-			vaultManager.moveVault(account: account, to: targetVaultPath).then {
-				continuation.resume()
-			}.catch {
-				continuation.resume(throwing: $0)
-			}
-		})
+		try await vaultManager.moveVault(account: account, to: targetVaultPath)
 	}
 }

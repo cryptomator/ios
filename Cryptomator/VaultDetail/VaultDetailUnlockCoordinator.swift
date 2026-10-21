@@ -7,17 +7,16 @@
 //
 
 import CryptomatorCommonCore
-import Promises
 import UIKit
 
 class VaultDetailUnlockCoordinator: NSObject, Coordinator, VaultPasswordVerifying, UIAdaptivePresentationControllerDelegate {
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
 	var navigationController: UINavigationController
-	private let pendingAuthentication: Promise<Void>
+	private let pendingAuthentication: OneShotSignal<Void>
 	private let vault: VaultInfo
 	private let biometryTypeName: String
-	init(navigationController: UINavigationController, vault: VaultInfo, biometryTypeName: String, pendingAuthentication: Promise<Void>) {
+	init(navigationController: UINavigationController, vault: VaultInfo, biometryTypeName: String, pendingAuthentication: OneShotSignal<Void>) {
 		self.navigationController = navigationController
 		self.vault = vault
 		self.biometryTypeName = biometryTypeName

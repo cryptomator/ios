@@ -9,7 +9,8 @@
 import CocoaLumberjackSwift
 import FileProvider
 
-public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
+/// @unchecked Sendable: every stored property is an immutable `let`
+public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator, @unchecked Sendable {
 	private let enumeratedItemIdentifier: NSFileProviderItemIdentifier
 	private let notificator: FileProviderNotificatorType
 	private let domain: NSFileProviderDomain
@@ -70,7 +71,9 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			pageToken = String(data: page.rawValue, encoding: .utf8)
 		}
 		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier) - initialPage \(pageToken == nil)")
-		adapterProvider.unlockMonitor.execute {
+		// nonisolated(unsafe): fileproviderd observer, used sequentially by a single closure until it finishes enumerating
+		nonisolated(unsafe) let observer = observer
+		adapterProvider.unlockMonitor.execute { [pageToken] in
 			let adapter: FileProviderAdapterType
 			do {
 				adapter = try self.adapterProvider.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator, taskRegistrator: self.taskRegistrator)
@@ -78,13 +81,16 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 				self.handleEnumerateItemsError(error, for: observer)
 				return
 			}
-			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
-				DDLogDebug("enumerateItems returned \(itemList.items.count) items for identifier: \(self.enumeratedItemIdentifier)")
-				observer.didEnumerate(itemList.items)
-				observer.finishEnumerating(upTo: itemList.nextPageToken)
-			}.catch { error in
-				DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
-				observer.finishEnumeratingWithError(error)
+			Task { @MainActor in
+				do {
+					let itemList = try await adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
+					DDLogDebug("enumerateItems returned \(itemList.items.count) items for identifier: \(self.enumeratedItemIdentifier)")
+					observer.didEnumerate(itemList.items)
+					observer.finishEnumerating(upTo: itemList.nextPageToken)
+				} catch {
+					DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
+					observer.finishEnumeratingWithError(error)
+				}
 			}
 		}
 	}
@@ -168,6 +174,8 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			return
 		}
 		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
+		// nonisolated(unsafe): fileproviderd observer, called once from any thread
+		nonisolated(unsafe) let observer = observer
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
 			observer.finishEnumeratingWithError(wrappedError)

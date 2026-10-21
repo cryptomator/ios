@@ -69,11 +69,14 @@ class S3AuthenticationViewModel: ObservableObject {
 		                              region: region,
 		                              identifier: credentialIdentifier)
 		loginState = .verifyingCredentials
-		verifier.verifyCredential(credential).then {
-			try self.credentialManager.save(credential: credential, displayName: self.displayName)
-			self.loginState = .loggedIn(credential)
-		}.catch {
-			self.handleError($0)
+		Task {
+			do {
+				try await verifier.verifyCredential(credential)
+				try credentialManager.save(credential: credential, displayName: displayName)
+				loginState = .loggedIn(credential)
+			} catch {
+				handleError(error)
+			}
 		}
 	}
 

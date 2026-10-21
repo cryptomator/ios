@@ -68,7 +68,13 @@ class VaultCell: UITableViewCell, ConfigurableTableViewCell {
 	}
 
 	private func lockButtonAction() {
-		viewModel?.lockVault().then {
+		guard let viewModel else {
+			return
+		}
+		Task {
+			guard (try? await viewModel.lockVault()) != nil else {
+				return
+			}
 			let feedbackGenerator = UINotificationFeedbackGenerator()
 			feedbackGenerator.notificationOccurred(.success)
 		}

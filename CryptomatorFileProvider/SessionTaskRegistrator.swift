@@ -9,22 +9,19 @@
 import FileProvider
 import Foundation
 
-public protocol SessionTaskRegistrator {
-	func register(_ task: SessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void)
+public protocol SessionTaskRegistrator: Sendable {
+	func register(_ task: URLSessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier) async throws
 }
 
-public protocol SessionTask {}
+/// @unchecked Sendable: used only to call `register`
+public struct FileProviderManagerTaskRegistrator: SessionTaskRegistrator, @unchecked Sendable {
+	private let manager: NSFileProviderManager
 
-extension URLSessionTask: SessionTask {}
+	public init(manager: NSFileProviderManager) {
+		self.manager = manager
+	}
 
-extension NSFileProviderManager: SessionTaskRegistrator {
-	public func register(_ task: SessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void) {
-		guard let urlSessionTask = task as? URLSessionTask else {
-			completion(UnexpectedSessionTaskTypeError())
-			return
-		}
-		register(urlSessionTask, forItemWithIdentifier: identifier, completionHandler: completion)
+	public func register(_ task: URLSessionTask, forItemWithIdentifier identifier: NSFileProviderItemIdentifier) async throws {
+		try await manager.register(task, forItemWithIdentifier: identifier)
 	}
 }
-
-struct UnexpectedSessionTaskTypeError: Error {}

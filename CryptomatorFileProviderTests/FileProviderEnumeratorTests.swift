@@ -10,7 +10,6 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Dependencies
 import FileProvider
-import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
@@ -70,24 +69,24 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 
 	// MARK: Enumerate Items
 
-	func testEnumerateItemsFromScratch() {
+	func testEnumerateItemsFromScratch() async {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
-		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
+		adapterMock.enumerateItemsForWithPageTokenReturnValue = itemList
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 5.0)
+		await fulfillment(of: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
 	}
 
-	func testEnumerateItemsFromScratchWithNextPageToken() {
+	func testEnumerateItemsFromScratchWithNextPageToken() async {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
@@ -95,52 +94,52 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let nextFileProviderPage = NSFileProviderPage(Data(nextPageToken.utf8))
 		let itemList = FileProviderItemList(items: items, nextPageToken: nextFileProviderPage)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
-		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
+		adapterMock.enumerateItemsForWithPageTokenReturnValue = itemList
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 5.0)
+		await fulfillment(of: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
 	}
 
-	func testEnumerateItemsWithPageToken() {
+	func testEnumerateItemsWithPageToken() async {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let pageToken = "Foo"
 		let page = NSFileProviderPage(Data(pageToken.utf8))
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
-		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
+		adapterMock.enumerateItemsForWithPageTokenReturnValue = itemList
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 5.0)
+		await fulfillment(of: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: pageToken)
 	}
 
-	func testEnumerateItemsFailed() {
+	func testEnumerateItemsFailed() async {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
-		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(CloudProviderError.noInternetConnection)
+		adapterMock.enumerateItemsForWithPageTokenClosure = { _, _ in throw CloudProviderError.noInternetConnection }
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 5.0)
+		await fulfillment(of: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemsObserverFailed(with: .noInternetConnection)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
 	}
 
-	func testEnumerateItemsFailedAdapterNotFound() {
+	func testEnumerateItemsFailedAdapterNotFound() async {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
@@ -149,7 +148,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 5.0)
+		await fulfillment(of: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertErrorWrapped(.defaultLock)
 	}

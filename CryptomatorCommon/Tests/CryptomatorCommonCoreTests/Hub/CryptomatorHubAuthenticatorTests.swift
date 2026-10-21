@@ -125,7 +125,7 @@ final class CryptomatorHubAuthenticatorTests: XCTestCase {
 	}
 
 	func testReceiveKey_unexpectedAccessTokenStatusThrows() async throws {
-		await XCTAssertThrowsErrorAsync(try await receiveKey(from: StubbedHub(accessTokenStatusCode: 500))) { error in
+		await XCTAssertThrowsAsyncError(try await receiveKey(from: StubbedHub(accessTokenStatusCode: 500))) { error in
 			guard case CryptomatorHubAuthenticatorError.unexpectedResponse = error else {
 				return XCTFail("Unexpected error: \(error)")
 			}
@@ -145,22 +145,10 @@ final class CryptomatorHubAuthenticatorTests: XCTestCase {
 	}
 
 	private func assertThrowsIncompatibleHubVersion(_ hub: StubbedHub, file: StaticString = #filePath, line: UInt = #line) async {
-		await XCTAssertThrowsErrorAsync(try await receiveKey(from: hub), file: file, line: line) { error in
+		await XCTAssertThrowsAsyncError(try await receiveKey(from: hub), file: file, line: line) { error in
 			guard case CryptomatorHubAuthenticatorError.incompatibleHubVersion = error else {
 				return XCTFail("Unexpected error: \(error)", file: file, line: line)
 			}
-		}
-	}
-
-	private func XCTAssertThrowsErrorAsync<T>(_ expression: @autoclosure () async throws -> T,
-	                                          file: StaticString = #filePath,
-	                                          line: UInt = #line,
-	                                          _ errorHandler: (Error) -> Void) async {
-		do {
-			_ = try await expression()
-			XCTFail("Expected an error to be thrown", file: file, line: line)
-		} catch {
-			errorHandler(error)
 		}
 	}
 }

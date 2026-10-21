@@ -12,7 +12,8 @@ import Dependencies
 import FileProvider
 import Foundation
 
-public class FileImportingServiceSource: ServiceSource, FileImporting {
+/// @unchecked Sendable: nothing is mutated after init
+public class FileImportingServiceSource: ServiceSource, FileImporting, @unchecked Sendable {
 	private let domain: NSFileProviderDomain
 	private let notificator: FileProviderNotificatorType
 	private let dbPath: URL
@@ -41,6 +42,8 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 	}
 
 	public func getIdentifierForItem(at path: String, reply: @escaping (NSString?, NSError?) -> Void) {
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
 		Task {
 			do {
 				let identifier = try await getIdentifierForItem(at: path)
@@ -68,6 +71,8 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 	}
 
 	public func importFile(at localURL: URL, toParentItemIdentifier parentItemIdentifier: String, reply: @escaping (NSError?) -> Void) {
+		// nonisolated(unsafe): XPC reply block, invoked once from any thread
+		nonisolated(unsafe) let reply = reply
 		Task {
 			do {
 				try await importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier)

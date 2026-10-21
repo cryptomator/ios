@@ -9,7 +9,6 @@
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
-import Promises
 import StoreKit
 import TPInAppReceipt
 

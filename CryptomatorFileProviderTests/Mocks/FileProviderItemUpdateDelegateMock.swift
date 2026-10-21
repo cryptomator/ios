@@ -10,7 +10,8 @@ import FileProvider
 import Foundation
 @testable import CryptomatorFileProvider
 
-final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate {
+/// @unchecked Sendable: test double, never touched concurrently
+final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate, @unchecked Sendable {
 	// MARK: - signalUpdate
 
 	var signalUpdateForCallsCount = 0

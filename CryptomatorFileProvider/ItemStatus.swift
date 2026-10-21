@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ItemStatus: String, Codable {
+public enum ItemStatus: String, Codable, Sendable {
 	case isUploading
 	case isUploaded
 	case uploadError

@@ -20,7 +20,9 @@ extension FileProviderExtension {
 		} catch {
 			return completionHandler(nil, error)
 		}
-		adapter.importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier, completionHandler: { completionHandler($0, $1) })
 	}
 
 	override func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
@@ -31,7 +33,9 @@ extension FileProviderExtension {
 		} catch {
 			return completionHandler(nil, error)
 		}
-		adapter.createDirectory(withName: directoryName, inParentItemIdentifier: parentItemIdentifier, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.createDirectory(withName: directoryName, inParentItemIdentifier: parentItemIdentifier, completionHandler: { completionHandler($0, $1) })
 	}
 
 	override func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
@@ -42,7 +46,9 @@ extension FileProviderExtension {
 		} catch {
 			return completionHandler(nil, error)
 		}
-		adapter.renameItem(withIdentifier: itemIdentifier, toName: itemName, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.renameItem(withIdentifier: itemIdentifier, toName: itemName, completionHandler: { completionHandler($0, $1) })
 	}
 
 	override func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
@@ -53,7 +59,9 @@ extension FileProviderExtension {
 		} catch {
 			return completionHandler(nil, error)
 		}
-		adapter.reparentItem(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.reparentItem(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName, completionHandler: { completionHandler($0, $1) })
 	}
 
 	override func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
@@ -64,7 +72,9 @@ extension FileProviderExtension {
 		} catch {
 			return completionHandler(error)
 		}
-		adapter.deleteItem(withIdentifier: itemIdentifier, completionHandler: completionHandler)
+		// nonisolated(unsafe): fileproviderd reply block, invoked once from any thread
+		nonisolated(unsafe) let completionHandler = completionHandler
+		adapter.deleteItem(withIdentifier: itemIdentifier, completionHandler: { completionHandler($0) })
 	}
 
 	override func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {

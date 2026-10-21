@@ -11,7 +11,8 @@ import FileProvider
 import Foundation
 
 // swiftlint:disable all
-final class FileProviderNotificatorTypeMock: FileProviderNotificatorType {
+/// @unchecked Sendable: test double, never touched concurrently
+final class FileProviderNotificatorTypeMock: FileProviderNotificatorType, @unchecked Sendable {
 	// MARK: - currentSyncAnchor
 
 	var currentSyncAnchor: Data {

@@ -10,7 +10,6 @@ import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import FileProviderUI
 import LocalAuthentication
-import Promises
 import UIKit
 
 class UnlockVaultViewController: UITableViewController {
@@ -70,14 +69,17 @@ class UnlockVaultViewController: UITableViewController {
 	}
 
 	private func biometricalUnlock() {
-		viewModel.biometricalUnlock().then { [weak self] in
-			self?.coordinator?.completeUnlock()
-		}.catch { [weak self] error in
-			// This screen stays open, thus a canceled or unavailable biometric authentication needs no message.
-			guard QuickUnlockFailure(error: error) == .report else {
-				return
+		Task {
+			do {
+				try await viewModel.biometricalUnlock()
+				coordinator?.completeUnlock()
+			} catch {
+				// This screen stays open, thus a canceled or unavailable biometric authentication needs no message.
+				guard QuickUnlockFailure(error: error) == .report else {
+					return
+				}
+				handleError(error)
 			}
-			self?.handleError(error)
 		}
 	}
 
@@ -86,15 +88,17 @@ class UnlockVaultViewController: UITableViewController {
 		hud.text = LocalizedString.getValue("unlockVault.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			self?.coordinator?.completeUnlock()
-		}.catch { [weak self] error in
-			if case LAError.userFallback = error {
-				// Do not show the fallback action as an error
-			} else {
-				self?.handleError(error, hud: hud)
+		Task {
+			do {
+				try await viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn)
+				await hud.transformToSelfDismissingSuccess()
+				coordinator?.completeUnlock()
+			} catch {
+				if case LAError.userFallback = error {
+					// Do not show the fallback action as an error
+				} else {
+					await handleError(error, hud: hud)
+				}
 			}
 		}
 	}
@@ -103,10 +107,9 @@ class UnlockVaultViewController: UITableViewController {
 		coordinator?.userCancelled()
 	}
 
-	func handleError(_ error: Error, hud: ProgressHUD) {
-		hud.dismiss(animated: true).then { [weak self] in
-			self?.handleError(error)
-		}
+	func handleError(_ error: Error, hud: ProgressHUD) async {
+		await hud.dismiss(animated: true)
+		handleError(error)
 	}
 
 	func handleError(_ error: Error) {

@@ -63,7 +63,7 @@ enum TrialStatus: Hashable {
 	}
 }
 
-struct TrialCellViewModel: Hashable {
+struct TrialCellViewModel: nonisolated Hashable {
 	var status: TrialStatus {
 		if expirationDate > Date() {
 			return .active

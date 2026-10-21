@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import Dependencies
 import FileProvider
 import Foundation
@@ -16,7 +17,8 @@ protocol WorkingSetObserving {
 	func startObservation()
 }
 
-class WorkingSetObserver: WorkingSetObserving {
+/// @unchecked Sendable: `observer` is assigned once in `startObservation`. `currentWorkingSetItems` is only touched on the main queue.
+class WorkingSetObserver: WorkingSetObserving, @unchecked Sendable {
 	private var observer: DatabaseCancellable?
 	private let database: DatabaseReader
 	private let uploadTaskManager: UploadTaskManager
@@ -40,16 +42,17 @@ class WorkingSetObserver: WorkingSetObserving {
 
 	func startObservation() {
 		let observation = ValueObservation.tracking { db in
-			try ItemMetadata.filterWorkingSet().fetchAll(db)
+			try ItemMetadata.filterWorkingSet().fetchAll(db).map(WorkingSetItemSnapshot.init)
 		}.removeDuplicates()
 		observer = observation.start(in: database,
+		                             scheduling: .async(onQueue: .main),
 		                             onError: { error in
 		                             	DDLogError("Working set startObservation error: \(error)")
 		                             },
-		                             onChange: { [weak self] (metadataList: [ItemMetadata]) in
+		                             onChange: { [weak self] (snapshots: [WorkingSetItemSnapshot]) in
 		                             	let items: [FileProviderItem]
 		                             	do {
-		                             		items = try self?.createFileProviderItems(from: metadataList) ?? []
+		                             		items = try self?.createFileProviderItems(from: snapshots.map(\.itemMetadata)) ?? []
 		                             	} catch {
 		                             		DDLogError("Working set onChange error: \(error)")
 		                             		return
@@ -78,5 +81,40 @@ class WorkingSetObserver: WorkingSetObserving {
 
 	func createFileProviderItems(from metadataList: [ItemMetadata]) throws -> [FileProviderItem] {
 		return try FileProviderItem.items(from: metadataList, domainIdentifier: domainIdentifier, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+	}
+}
+
+/// GRDB observes only `Sendable` values, which `ItemMetadata` as a `Record` cannot be.
+private struct WorkingSetItemSnapshot: Sendable, Equatable {
+	let id: Int64?
+	let name: String
+	let type: CloudItemType
+	let size: Int?
+	let parentID: Int64
+	let lastModifiedDate: Date?
+	let statusCode: ItemStatus
+	let isPlaceholderItem: Bool
+	let isMaybeOutdated: Bool
+	let favoriteRank: Int64?
+	let tagData: Data?
+	let lastEnumeratedAt: Date?
+
+	init(_ itemMetadata: ItemMetadata) {
+		self.id = itemMetadata.id
+		self.name = itemMetadata.name
+		self.type = itemMetadata.type
+		self.size = itemMetadata.size
+		self.parentID = itemMetadata.parentID
+		self.lastModifiedDate = itemMetadata.lastModifiedDate
+		self.statusCode = itemMetadata.statusCode
+		self.isPlaceholderItem = itemMetadata.isPlaceholderItem
+		self.isMaybeOutdated = itemMetadata.isMaybeOutdated
+		self.favoriteRank = itemMetadata.favoriteRank
+		self.tagData = itemMetadata.tagData
+		self.lastEnumeratedAt = itemMetadata.lastEnumeratedAt
+	}
+
+	var itemMetadata: ItemMetadata {
+		ItemMetadata(id: id, name: name, type: type, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: statusCode, isPlaceholderItem: isPlaceholderItem, isCandidateForCacheCleanup: isMaybeOutdated, favoriteRank: favoriteRank, tagData: tagData, lastEnumeratedAt: lastEnumeratedAt)
 	}
 }

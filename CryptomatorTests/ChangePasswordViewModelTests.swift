@@ -11,11 +11,11 @@ import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import CryptomatorFileProvider
 import Dependencies
-import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
+@MainActor
 class ChangePasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
 	private var fileProviderConnectorMock: CryptomatorCommonCore.FileProviderConnectorMock!
@@ -24,7 +24,8 @@ class ChangePasswordViewModelTests: XCTestCase {
 	private var vaultAccount: VaultAccount!
 	private var maintenanceHelperMock: MaintenanceModeHelperMock!
 
-	override func setUpWithError() throws {
+	override func setUp() async throws {
+		try await super.setUp()
 		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 	}
@@ -43,7 +44,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 				return self.vaultLockingMock!
 			default:
 				XCTFail("Get XPC called for unexpected serviceName: \(serviceName)")
-				return Promise(MockError.notMocked)
+				return MockError.notMocked
 			}
 		}
 	}
@@ -69,7 +70,6 @@ class ChangePasswordViewModelTests: XCTestCase {
 				maintenanceModeDisabled.fulfill()
 				$0(nil)
 			}
-			self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue = Promise(())
 
 			try await self.viewModel.changePassword()
 
@@ -122,7 +122,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 				$0(nil)
 			}
 
-			self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue = Promise(MasterkeyFileError.invalidPassphrase)
+			self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDThrowableError = MasterkeyFileError.invalidPassphrase
 
 			let oldPassword = "OldPassword"
 			let newPassword = "Password"

@@ -6,17 +6,15 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import FileProvider
 import Foundation
-import Promises
 
 protocol NSFileProviderDomainProvider {
-	func getDomains() -> Promise<[NSFileProviderDomain]>
+	func getDomains() async throws -> [NSFileProviderDomain]
 }
 
 extension NSFileProviderManager: NSFileProviderDomainProvider {
-	func getDomains() -> Promise<[NSFileProviderDomain]> {
-		return NSFileProviderManager.getDomains()
+	func getDomains() async throws -> [NSFileProviderDomain] {
+		return try await NSFileProviderManager.domains()
 	}
 }

@@ -9,13 +9,12 @@
 import Combine
 import CryptomatorCommonCore
 import Dependencies
-import Promises
 import UIKit
 
 protocol VaultCellViewModelProtocol: TableViewCellViewModel, ViewModel {
 	var vault: VaultInfo { get }
 	var lockButtonIsHidden: AnyPublisher<Bool, Never> { get }
-	func lockVault() -> Promise<Void>
+	func lockVault() async throws
 }
 
 class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
@@ -39,25 +38,30 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 		self.vault = vault
 	}
 
-	func lockVault() -> Promise<Void> {
+	func lockVault() async throws {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vault.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc in
+		do {
+			let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+			defer {
+				fileProviderConnector.invalidateXPC(xpc)
+			}
 			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
-		}.then {
-			self.vault.vaultIsUnlocked.value = false
-		}.catch { error in
-			self.errorPublisher.send(error)
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+			vault.vaultIsUnlocked.value = false
+		} catch {
+			errorPublisher.send(error)
+			throw error
 		}
 	}
 
-	override func hash(into hasher: inout Hasher) {
-		hasher.combine(vault.vaultUID)
+	override nonisolated func hash(into hasher: inout Hasher) {
+		MainActor.assumeIsolated {
+			hasher.combine(vault.vaultUID)
+		}
 	}
 
-	static func == (lhs: VaultCellViewModel, rhs: VaultCellViewModel) -> Bool {
-		return lhs.vault == rhs.vault
+	nonisolated static func == (lhs: VaultCellViewModel, rhs: VaultCellViewModel) -> Bool {
+		MainActor.assumeIsolated {
+			lhs.vault == rhs.vault
+		}
 	}
 }

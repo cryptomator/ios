@@ -53,10 +53,13 @@ class PurchaseViewController: IAPViewController {
 	}
 
 	@objc private func restorePurchase() {
-		viewModel.restorePurchase().then { [weak self] result in
-			self?.coordinator?.handleRestoreResult(result)
-		}.catch { [weak self] error in
-			self?.handleError(error)
+		Task { [weak self, viewModel] in
+			do {
+				let result = try await viewModel.restorePurchase()
+				self?.coordinator?.handleRestoreResult(result)
+			} catch {
+				self?.handleError(error)
+			}
 		}
 	}
 }
