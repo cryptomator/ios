@@ -41,7 +41,7 @@ If you are building via a CI system, set these secret environment variables acco
 
 ## Contributing
 
-Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question or help us with coding.
+Please read our [contribution guide](https://github.com/cryptomator/.github/blob/main/CONTRIBUTING.md), if you would like to report a bug, ask a question or help us with coding.
 
 This project uses [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) and [SwiftLint](https://github.com/realm/SwiftLint) to enforce code style and conventions. Install these tools if you haven't already.
 
@@ -60,7 +60,7 @@ chmod +x .git/hooks/pre-commit
 
 ## Code of Conduct
 
-Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](https://github.com/cryptomator/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
