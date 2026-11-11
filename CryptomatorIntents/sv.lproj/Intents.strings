@@ -4,9 +4,9 @@
 "common.true" = "sant";
 "common.vault" = "Valv";
 
-"getFolderIntent.description" = "Returnerar ett mappobjekt för den angivna sökvägen i det givna valvet.";
+"getFolderIntent.description" = "Returnerar ett mappobjekt för den angivna sökvägen i det angivna valvet.";
 "getFolderIntent.path" = "Sökväg";
-"getFolderIntent.text" = "Hämta mapp som finns på ${path} i ${vault}";
+"getFolderIntent.text" = "Hämta mappen med sökvägen ${path} i ${vault}";
 "getFolderIntent.title" = "Hämta mapp";
 
 "isUnlockedIntent.description" = "Returnerar om det angivna valvet är upplåst.";
@@ -15,7 +15,7 @@
 "isVaultLockedIntent.title" = "Är valvet upplåst";
 "isVaultUnlockedIntent.text" = "Är ${vault} upplåst?";
 
-"lockVaultIntent.description" = "Låser det givna valvet.";
+"lockVaultIntent.description" = "Låser det angivna valvet.";
 "lockVaultIntent.text" = "Lås ${vault}";
 "lockVaultIntent.title" = "Lås valv";
 
@@ -23,11 +23,11 @@
 "openVaultIntent.text" = "Öppna ${vault} i appen Filer";
 "openVaultIntent.title" = "Öppna valv";
 
-"saveFileIntent.description" = "Sparar en fil till ett valv.";
+"saveFileIntent.description" = "Sparar en fil i ett valv.";
 "saveFileIntent.file" = "Fil";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorera befintlig fil med samma namn";
-"saveFileIntent.text" = "Spara ${file} till ${folder}";
+"saveFileIntent.text" = "Spara ${file} i ${folder}";
 "saveFileIntent.title" = "Spara fil";
 
 "vaultFolder.displayName" = "Valvmapp";
-"vaultFolder.vaultIdentifier" = "Valv Identifierare";
+"vaultFolder.vaultIdentifier" = "Valvidentifierare";
